@@ -4,8 +4,8 @@ module.exports = (sequelize, DataTypes) => {
     CourseId: DataTypes.INTEGER,
     UserId: DataTypes.INTEGER
   }, {});
-  Favorite.associate = function(models) {
-    // associations can be defined here
+  Favorite.associate = function (models) {
+    // 這邊不用定義
   };
   return Favorite;
 };

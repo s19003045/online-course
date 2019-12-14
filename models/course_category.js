@@ -4,8 +4,8 @@ module.exports = (sequelize, DataTypes) => {
     mainCategoName: DataTypes.STRING,
     subCategoName: DataTypes.STRING
   }, {});
-  Course_category.associate = function(models) {
-    // associations can be defined here
+  Course_category.associate = function (models) {
+    Course_category.hasMany(models.Course)
   };
   return Course_category;
 };

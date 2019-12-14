@@ -1,11 +1,15 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   const CartItem = sequelize.define('CartItem', {
-    quantity: DataTypes.INTEGER,
+    id: {
+      type: DataTypes.INTEGER,
+      autoIncrement: true,
+      primaryKey: true,
+    },
     CartId: DataTypes.INTEGER,
     CourseId: DataTypes.INTEGER
   }, {});
-  CartItem.associate = function(models) {
+  CartItem.associate = function (models) {
     // associations can be defined here
   };
   return CartItem;

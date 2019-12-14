@@ -5,8 +5,9 @@ module.exports = (sequelize, DataTypes) => {
     UserId: DataTypes.INTEGER,
     AssignmentId: DataTypes.INTEGER
   }, {});
-  AssignFeedback.associate = function(models) {
-    // associations can be defined here
+  AssignFeedback.associate = function (models) {
+    AssignFeedback.belongsTo(models.User)
+    AssignFeedback.belongsTo(models.Assignment)
   };
   return AssignFeedback;
 };

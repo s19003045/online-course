@@ -6,8 +6,8 @@ module.exports = (sequelize, DataTypes) => {
     setCourseNum: DataTypes.INTEGER,
     UserId: DataTypes.INTEGER
   }, {});
-  User_analysis.associate = function(models) {
-    // associations can be defined here
+  User_analysis.associate = function (models) {
+    User_analysis.belongsTo(models.User)
   };
   return User_analysis;
 };

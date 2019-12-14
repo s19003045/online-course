@@ -5,8 +5,8 @@ module.exports = (sequelize, DataTypes) => {
     body: DataTypes.STRING,
     UserId: DataTypes.INTEGER
   }, {});
-  Message_to_User.associate = function(models) {
-    // associations can be defined here
+  Message_to_User.associate = function (models) {
+    Message_to_User.belongsTo(models.User)
   };
   return Message_to_User;
 };

@@ -5,8 +5,9 @@ module.exports = (sequelize, DataTypes) => {
     PostId: DataTypes.INTEGER,
     UserId: DataTypes.INTEGER
   }, {});
-  Discuss_Reply.associate = function(models) {
-    // associations can be defined here
+  Discuss_Reply.associate = function (models) {
+    Discuss_Reply.belongsTo(models.User)
+    Discuss_Reply.belongsTo(models.Discuss_Post)
   };
   return Discuss_Reply;
 };

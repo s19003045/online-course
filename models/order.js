@@ -11,8 +11,16 @@ module.exports = (sequelize, DataTypes) => {
     payment_method: DataTypes.STRING,
     UserId: DataTypes.INTEGER
   }, {});
-  Order.associate = function(models) {
-    // associations can be defined here
+  Order.associate = function (models) {
+    Order.hasMany(models.Payment)
+    Order.belongsTo(models.User)
+    Order.belongsToMany(models.Course, {
+      as: 'items',
+      through: {
+        model: models.OrderItem, unique: false
+      },
+      foreignKey: 'OrderId'
+    });
   };
   return Order;
 };

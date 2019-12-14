@@ -6,8 +6,10 @@ module.exports = (sequelize, DataTypes) => {
     UserId: DataTypes.INTEGER,
     CourseId: DataTypes.INTEGER
   }, {});
-  Discuss_Post.associate = function(models) {
-    // associations can be defined here
+  Discuss_Post.associate = function (models) {
+    Discuss_Post.belongsTo(models.User)
+    Discuss_Post.belongsTo(models.Course)
+    Discuss_Post.hasMany(models.Discuss_Reply)
   };
   return Discuss_Post;
 };
