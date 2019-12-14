@@ -4,8 +4,8 @@ module.exports = (sequelize, DataTypes) => {
     content: DataTypes.TEXT,
     image: DataTypes.STRING,
     assignFile: DataTypes.STRING,
-    status: DataTypes.ENUM,
-    grade: DataTypes.ENUM,
+    status: DataTypes.ENUM('edited', 'submitted', 'passed'),
+    grade: DataTypes.ENUM('tryHard', 'good', 'excellent'),
     CourseId: DataTypes.INTEGER,
     UserId: DataTypes.INTEGER,
     LessonId: DataTypes.INTEGER

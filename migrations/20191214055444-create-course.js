@@ -36,7 +36,7 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       status: {
-        type: Sequelize.ENUM
+        type: Sequelize.ENUM('editted', 'submitted', 'approved', 'intoMarket', 'offMarket')
       },
       submittedDate: {
         type: Sequelize.DATE

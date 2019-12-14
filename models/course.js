@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
     totalTime: DataTypes.INTEGER,
     totalLessons: DataTypes.INTEGER,
     price: DataTypes.INTEGER,
-    status: DataTypes.ENUM,
+    status: DataTypes.ENUM('editted', 'submitted', 'approved', 'intoMarket', 'offMarket'),
     submittedDate: DataTypes.DATE,
     intoMarketDate: DataTypes.DATE,
     ratingAverage: DataTypes.INTEGER,

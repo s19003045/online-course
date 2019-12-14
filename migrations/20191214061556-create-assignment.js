@@ -18,10 +18,10 @@ module.exports = {
         type: Sequelize.STRING
       },
       status: {
-        type: Sequelize.ENUM
+        type: Sequelize.ENUM('edited', 'submitted', 'passed')
       },
       grade: {
-        type: Sequelize.ENUM
+        type: Sequelize.ENUM('tryHard', 'good', 'excellent')
       },
       CourseId: {
         type: Sequelize.INTEGER
