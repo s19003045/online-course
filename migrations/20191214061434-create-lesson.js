@@ -30,7 +30,7 @@ module.exports = {
         type: Sequelize.BOOLEAN
       },
       visible: {
-        type: Sequelize.BOOLEAN
+        type: Sequelize.BOOLEAN,
       },
       CourseId: {
         type: Sequelize.INTEGER

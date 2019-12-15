@@ -31,7 +31,7 @@ module.exports = (sequelize, DataTypes) => {
 
 
     // 這課程被哪些使用者收藏
-    Course.belongsToMany(User, {
+    Course.belongsToMany(models.User, {
       through: models.Favorite,
       foreignKey: 'CourseId',
       as: 'FavoriteUsers'

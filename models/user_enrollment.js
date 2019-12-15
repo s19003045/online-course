@@ -12,6 +12,7 @@ module.exports = (sequelize, DataTypes) => {
   User_enrollment.associate = function (models) {
     User_enrollment.belongsTo(models.User)
     User_enrollment.belongsTo(models.Course)
+    User_enrollment.belongsTo(models.Lesson)
   };
   return User_enrollment;
 };

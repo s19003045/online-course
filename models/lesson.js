@@ -15,6 +15,7 @@ module.exports = (sequelize, DataTypes) => {
     Lesson.belongsTo(models.Course)
     Lesson.hasMany(models.Lesson_user)
     Lesson.hasMany(models.Assignment)
+    Lesson.hasOne(models.User_enrollment)
   };
   return Lesson;
 };
