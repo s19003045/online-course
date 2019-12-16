@@ -36,4 +36,23 @@ module.exports = (app, passport) => {
 
   app.get("/courses", courseController.getCourses);
 
+
+
+
+
+
+
+
+
+  // 開課者建立課程
+  app.get('/courses/create/:courseId/intro', userController.createCourseIntro)
+  app.get('/courses/create/:courseId/step1', userController.createCourseStep1)
+  app.get('/courses/create/:courseId/step2', userController.createCourseStep2)
+  app.get('/courses/create/:courseId/step3', userController.createCourseStep3)
+  app.get('/courses/create/:courseId/step4', userController.createCourseStep4)
+
+  // 開課者可以查詢課程狀態、學生人數等
+  app.get('/users/:id/teachCourses', userController.getTeachCourses)
+
+
 };
