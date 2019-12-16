@@ -16,17 +16,17 @@ module.exports = (sequelize, DataTypes) => {
     ratingAverage: DataTypes.INTEGER,
     ratingCount: DataTypes.INTEGER,
     studentCount: DataTypes.INTEGER,
-    CourseCategoId: DataTypes.INTEGER,
-    TeacherId: DataTypes.INTEGER
+    CourseCategoryId: DataTypes.INTEGER,
+    UserId: DataTypes.INTEGER
   }, {});
   Course.associate = function (models) {
     Course.belongsTo(models.User)  //一個課程被一個老師開課
-    Course.belongsTo(models.Course_category)
-    Course.hasMany(models.User_enrollment)
-    Course.hasMany(models.Course_review_post)
+    Course.belongsTo(models.CourseCategory)
+    Course.hasMany(models.UserEnrollment)
+    Course.hasMany(models.CourseReviewPost)
     Course.hasMany(models.Lesson)
     Course.hasMany(models.Rating)
-    Course.hasMany(models.Discuss_Post)
+    Course.hasMany(models.DiscussPost)
     Course.hasMany(models.Assignment)
 
 

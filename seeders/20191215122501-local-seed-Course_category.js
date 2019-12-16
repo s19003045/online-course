@@ -6,7 +6,7 @@ module.exports = {
   up: (queryInterface, Sequelize) => {
     // 建立 24 個分類種子
     return queryInterface.bulkInsert(
-      "course_categories",
+      "courseCategories",
       [
         // 程式 7 個
         {
@@ -168,6 +168,6 @@ module.exports = {
   },
 
   down: (queryInterface, Sequelize) => {
-    return queryInterface.bulkDelete("course_categories", null, {});
+    return queryInterface.bulkDelete("courseCategories", null, {});
   }
 };

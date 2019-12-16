@@ -5,7 +5,7 @@ module.exports = {
   up: (queryInterface, Sequelize) => {
     // 建立50個假課程資料(未上架，包含'editted', 'submitted', 'offMarket')
     return queryInterface.bulkInsert(
-      "User_enrollments",
+      "UserEnrollments",
       Array.from({ length: 50 }).map(d => ({
         timeStart: faker.date.past(),
         // timeEnd: DataTypes.DATE,
@@ -22,6 +22,6 @@ module.exports = {
   },
 
   down: (queryInterface, Sequelize) => {
-    return queryInterface.bulkDelete("User_enrollments", null, {});
+    return queryInterface.bulkDelete("UserEnrollments", null, {});
   }
 };

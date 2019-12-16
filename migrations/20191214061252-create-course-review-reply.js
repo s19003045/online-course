@@ -1,7 +1,7 @@
 'use strict';
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('Course_review_replies', {
+    return queryInterface.createTable('CourseReviewReplies', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -11,7 +11,7 @@ module.exports = {
       message: {
         type: Sequelize.STRING
       },
-      CourRevPostId: {
+      CourseReviewPostId: {
         type: Sequelize.INTEGER
       },
       UserId: {
@@ -28,6 +28,6 @@ module.exports = {
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('Course_review_replies');
+    return queryInterface.dropTable('CourseReviewReplies');
   }
 };

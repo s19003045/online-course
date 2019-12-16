@@ -53,10 +53,10 @@ module.exports = {
       studentCount: {
         type: Sequelize.INTEGER
       },
-      CourseCategoId: {
+      CourseCategoryId: {
         type: Sequelize.INTEGER
       },
-      TeacherId: {
+      UserId: {
         type: Sequelize.INTEGER
       },
       createdAt: {

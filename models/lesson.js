@@ -13,9 +13,9 @@ module.exports = (sequelize, DataTypes) => {
   }, {});
   Lesson.associate = function (models) {
     Lesson.belongsTo(models.Course)
-    Lesson.hasMany(models.Lesson_user)
+    Lesson.hasMany(models.LessonUser)
     Lesson.hasMany(models.Assignment)
-    Lesson.hasOne(models.User_enrollment)
+    Lesson.hasOne(models.UserEnrollment)
   };
   return Lesson;
 };

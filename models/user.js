@@ -11,19 +11,19 @@ module.exports = (sequelize, DataTypes) => {
     timezone: DataTypes.STRING
   }, {});
   User.associate = function (models) {
-    User.hasMany(models.User_enrollment)
+    User.hasMany(models.UserEnrollment)
     User.hasMany(models.Course)
-    User.hasMany(models.Course_review_post)
-    User.hasMany(models.Course_review_reply)
-    User.hasMany(models.Lesson_user)
+    User.hasMany(models.CourseReviewPost)
+    User.hasMany(models.CourseReviewReply)
+    User.hasMany(models.LessonUser)
     User.hasMany(models.Rating)
-    User.hasMany(models.Discuss_Post)
-    User.hasMany(models.Discuss_Reply)
+    User.hasMany(models.DiscussPost)
+    User.hasMany(models.DiscussReply)
     User.hasMany(models.Assignment)
     User.hasMany(models.AssignFeedback)
     User.hasMany(models.Order)
-    User.hasMany(models.Message_to_User)
-    User.hasOne(models.User_analysis)
+    User.hasMany(models.MessageToUser)
+    User.hasOne(models.UserAnalysis)
     // 這個使用者有收藏哪些課程
     User.belongsToMany(models.Course, {
       through: models.Favorite,

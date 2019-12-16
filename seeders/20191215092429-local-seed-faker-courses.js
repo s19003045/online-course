@@ -34,8 +34,8 @@ module.exports = {
         ratingAverage: Math.random() * 5,
         ratingCount: Math.floor(Math.random() * 200),
         studentCount: Math.floor(Math.random() * 1000),
-        CourseCategoId: Math.floor(Math.random() * 20) + 1,  //1 ~ 20
-        TeacherId: Math.floor(Math.random() * 5) + 1,  //1 ~ 5
+        CourseCategoryId: Math.floor(Math.random() * 20) + 1,  //1 ~ 20
+        UserId: Math.floor(Math.random() * 5) + 1,  //1 ~ 5
         createdAt: new Date(),
         updatedAt: new Date()
       })),
@@ -60,8 +60,8 @@ module.exports = {
         // ratingAverage: Math.random() * 5,
         // ratingCount: Math.floor(Math.random() * 200),
         // studentCount: Math.floor(Math.random() * 1000),
-        CourseCategoId: Math.floor(Math.random() * 20) + 1,  //1 ~ 20
-        TeacherId: Math.floor(Math.random() * 5) + 1,  //1 ~ 5
+        CourseCategoryId: Math.floor(Math.random() * 20) + 1,  //1 ~ 20
+        UserId: Math.floor(Math.random() * 5) + 1,  //1 ~ 5
         createdAt: new Date(),
         updatedAt: new Date()
       })),
