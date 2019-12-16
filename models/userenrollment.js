@@ -12,7 +12,6 @@ module.exports = (sequelize, DataTypes) => {
   UserEnrollment.associate = function (models) {
     UserEnrollment.belongsTo(models.User)
     UserEnrollment.belongsTo(models.Course)
-    UserEnrollment.belongsTo(models.Lesson)
   };
   return UserEnrollment;
 };
