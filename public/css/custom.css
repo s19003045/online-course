@@ -28,6 +28,22 @@
   line-height: 1;
 }
 
+/*--------------------------
+  Sticky Header
+----------------------------*/
+.header__area.sticky__header.is-sticky .logo .logo-txt{
+	width: 120px;
+	border-radius:15px;
+	padding:3px 10px;
+	margin-top:5px;
+}
+
+.header__area.sticky__header.is-sticky .logo .logo-txt h2{
+	font-size: 20px;
+	font-weight: 500;
+  line-height: .9;
+}
+
 .header__area .logo .logo-txt .logo-txt-top{
 	text-align: left;
 }

@@ -847,9 +847,9 @@ a {
 
 /* Section padding */
 .section-padding--xlg {
-  padding: 80px 0; }
+  padding: 30px 0 80px; }
 .section-padding--lg {
-  padding: 80px 0; }
+  padding: 30px 0 80px; }
 .section-padding--md {
   padding: 120px 0; }
 .section-padding--sm {
@@ -859,9 +859,9 @@ a {
 
 @media only screen and (min-width: 768px) and (max-width: 991px) {
   .section-padding--xlg {
-    padding: 80px 0; }
+    padding: 30px 0 80px; }
   .section-padding--lg {
-    padding: 80px 0; }
+    padding: 30px 0 80px; }
 	.page-blog-details.section-padding--lg.bg--white {
   padding-bottom: 60px;
 }
@@ -884,7 +884,7 @@ a {
   .section-padding--xlg {
     padding: 80px 0; }
   .section-padding--lg {
-    padding: 80px 0; }
+    padding: 30px 0 80px; }
   .section-padding--md {
     padding: 60px 0; }
   .section-padding--sm {
@@ -5876,7 +5876,6 @@ a.checkout__title {
   margin-top: 7px; }
 .shop__list__wrapper {
   border-bottom: 1px solid #e1e1e1;
-  border-top: 1px solid #e1e1e1;
   margin: 0 0 30px;
   padding: 10px 0;
   width: 100%; }
