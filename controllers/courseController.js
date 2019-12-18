@@ -30,7 +30,6 @@ const courseController = {
     if (req.query.order === "價格由低到高") {
       order = ["price", "ASC"];
     }
-
     if (!req.query.mainCategoName || !req.query.subCategoName) {
       // 沒有選擇課程類別，撈出全部課程資料
       Course.findAll({
