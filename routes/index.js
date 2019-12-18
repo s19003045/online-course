@@ -45,17 +45,17 @@ module.exports = (app, passport) => {
 
 
   // 開課者建立課程
-  app.get('/courses/create/intro', userController.createCourseIntro)
-  app.get('/courses/create/:courseId/step1', userController.createCourseStep1)
-  app.put('/courses/create/:courseId/step1', userController.putCourseStep1)
-  app.get('/courses/create/:courseId/step2', userController.createCourseStep2)
-  app.post('/courses/create/:courseId/step2', userController.postCourseStep2)
-  app.get('/courses/create/:courseId/step2/:lessonId/edit', userController.editCourseStep2)
-  app.put('/courses/create/:courseId/step2/:lessonId', userController.putCourseStep2)
-  app.get('/courses/create/:courseId/step3', userController.createCourseStep3)
-  app.put('/courses/create/:courseId/step3', userController.putCourseStep3)
-  app.get('/courses/create/:courseId/step4', userController.createCourseStep4)
-  app.post('/courses/create/:courseId/step4', userController.postCourseStep4)
+  app.get('/courses/create/intro', courseController.createCourseIntro)
+  app.get('/courses/create/:courseId/step1', courseController.createCourseStep1)
+  app.put('/courses/create/:courseId/step1', courseController.putCourseStep1)
+  app.get('/courses/create/:courseId/step2', courseController.createCourseStep2)
+  app.post('/courses/create/:courseId/step2', courseController.postCourseStep2)
+  app.get('/courses/create/:courseId/step2/:lessonId/edit', courseController.editCourseStep2)
+  app.put('/courses/create/:courseId/step2/:lessonId', courseController.putCourseStep2)
+  app.get('/courses/create/:courseId/step3', courseController.createCourseStep3)
+  app.put('/courses/create/:courseId/step3', courseController.putCourseStep3)
+  app.get('/courses/create/:courseId/step4', courseController.createCourseStep4)
+  app.post('/courses/create/:courseId/step4', courseController.postCourseStep4)
 
   // 開課者可以查詢課程狀態、學生人數等
   app.get('/users/:id/teachCourses', userController.getTeachCourses)
