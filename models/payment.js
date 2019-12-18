@@ -8,8 +8,8 @@ module.exports = (sequelize, DataTypes) => {
     params: DataTypes.TEXT,
     OrderId: DataTypes.INTEGER
   }, {});
-  Payment.associate = function(models) {
-    // associations can be defined here
+  Payment.associate = function (models) {
+    Payment.belongsTo(models.Order)
   };
   return Payment;
 };
