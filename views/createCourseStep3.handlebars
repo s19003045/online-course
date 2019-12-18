@@ -1,0 +1,18 @@
+<h2 class="my-3">課程名稱：{{course.name}}</h2>
+
+<h3 class="my-3">Step 3</h3>
+<form action="/courses/create/{{course.id}}/step3?_method=PUT" method="POST">
+  <div class="form-group">
+    <label for="price">定價</label>
+    <input type="number" class="form-control" name="price" id="price" placeholder="" value="{{course.price}}">
+  </div>
+
+  <button type="submit" class="btn btn-primary mr-5">Save</button>
+</form>
+
+<div class="d-flex justify-content-start mt-3">
+  <a href="/courses/create/{{course.id}}/step2" class="btn btn-info my-3 mr-5">上一步
+  </a>
+  <a href="/courses/create/{{course.id}}/step4" class="btn btn-info my-3">下一步
+  </a>
+</div>
