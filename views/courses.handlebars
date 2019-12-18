@@ -1,0 +1,11 @@
+{{#each courses}}
+<div class="card" style="width: 18rem;">
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item">課程名稱：{{this.name}}</li>
+    <li class="list-group-item">評價：{{this.ratingAverage}}</li>
+    <li class="list-group-item">學生人數：{{this.studentCount}}</li>
+    <li class="list-group-item">課程總時數：{{this.totalTime}}</li>
+    <li class="list-group-item">價格：{{this.price}}</li>
+  </ul>
+</div>
+{{/each}}
