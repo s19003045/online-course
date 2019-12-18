@@ -1,8 +1,35 @@
+<div class="btn-group-vertical">
+  <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown"
+    aria-haspopup="true" aria-expanded="false">
+    程式
+  </button>
+  <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+    <a class="dropdown-item" href="?mainCategoName=程式&subCategoName=程式入門">程式入門</a>
+    <a class="dropdown-item" href="?mainCategoName=程式&subCategoName=網站架設">網站架設</a>
+  </div>
+</div>
+<div class="btn-group-vertical">
+  <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown"
+    aria-haspopup="true" aria-expanded="false">
+    職場技能
+  </button>
+  <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+    <a class="dropdown-item" href="?mainCategoName=職場技能&subCategoName=職場溝通">職場溝通</a>
+    <a class="dropdown-item" href="?mainCategoName=職場技能&subCategoName=文書處理">文書處理</a>
+  </div>
+</div>
+
+<br />
+<br />
+
+
+
 {{#each courses}}
 <div class="card" style="width: 18rem;">
   <ul class="list-group list-group-flush">
     <li class="list-group-item">課程名稱：{{this.name}}</li>
     <li class="list-group-item">評價：{{this.ratingAverage}}</li>
+    <li class="list-group-item">評價人數：{{this.ratingCount}}</li>
     <li class="list-group-item">學生人數：{{this.studentCount}}</li>
     <li class="list-group-item">課程總時數：{{this.totalTime}}</li>
     <li class="list-group-item">價格：{{this.price}}</li>

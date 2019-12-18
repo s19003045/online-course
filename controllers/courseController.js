@@ -1,9 +1,9 @@
 const db = require("../models");
 const Course = db.Course;
+const CourseCategory = db.CourseCategory;
 
 const courseController = {
   getCourses: (req, res) => {
-    console.log(req.query);
     // 取得sort功能要依據哪個變數排序所有課程
     let order = "intoMarketDate";
     if (req.query.order === "評價由高到低") {
@@ -28,20 +28,48 @@ const courseController = {
       order = ["price", "ASC"];
     }
 
-    Course.findAll({
-      attributes: [
-        "name",
-        "ratingAverage",
-        "studentCount",
-        "totalTime",
-        "price"
-      ],
-      where: { status: "intoMarket" },
-      order: [order]
-    }).then(courses => {
-      return res.render("courses", { courses });
-      // return res.json(courses);
-    });
+    if (!req.query.mainCategoName || !req.query.subCategoName) {
+      // 沒有選擇課程類別，撈出全部課程資料
+      Course.findAll({
+        attributes: [
+          "name",
+          "ratingAverage",
+          "ratingCount",
+          "studentCount",
+          "totalTime",
+          "price"
+        ],
+        where: [{ status: "intoMarket" }],
+        order: [order]
+      }).then(courses => {
+        return res.render("courses", { courses });
+        // return res.json(courses);
+      });
+    } else {
+      // 選擇某個類別的課程資料
+      CourseCategory.findOne({
+        where: {
+          mainCategoName: req.query.mainCategoName,
+          subCategoName: req.query.subCategoName
+        }
+      }).then(category => {
+        Course.findAll({
+          attributes: [
+            "name",
+            "ratingAverage",
+            "ratingCount",
+            "studentCount",
+            "totalTime",
+            "price"
+          ],
+          where: [{ status: "intoMarket" }, { CourseCategoryId: category.id }],
+          order: [order]
+        }).then(courses => {
+          return res.render("courses", { courses });
+          // return res.json(courses);
+        });
+      });
+    }
   }
 };
 
