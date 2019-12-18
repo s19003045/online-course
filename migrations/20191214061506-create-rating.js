@@ -11,6 +11,15 @@ module.exports = {
       rating: {
         type: Sequelize.INTEGER
       },
+      comment: {
+        type: Sequelize.STRING
+      },
+      UserId: {
+        type: Sequelize.INTEGER
+      },
+      CourseId: {
+        type: Sequelize.INTEGER
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
