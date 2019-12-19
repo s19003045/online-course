@@ -45,7 +45,12 @@ const courseController = {
         where: [{ status: "intoMarket" }],
         order: [order]
       }).then(courses => {
-        return res.render("courses", { courses });
+        return res.render("courses", {
+          courses,
+          order: req.query.order,
+          route: "all",
+          reqUrl: req.url
+        });
         // return res.json(courses);
       });
     } else {
@@ -85,7 +90,14 @@ const courseController = {
               let no_courses = true;
               return res.render("courses", { no_courses });
             }
-            return res.render("courses", { courses });
+            return res.render("courses", {
+              courses,
+              order: req.query.order,
+              route: "subCate",
+              mainCategoName: req.query.mainCategoName,
+              subCategoName: req.query.subCategoName,
+              reqUrl: req.url
+            });
             // return res.json(courses);
           });
         }
