@@ -1,0 +1,66 @@
+/*********************************************************************************
+
+	Template Name: Boighor Bookshop Responsive Bootstrap4 Template  
+	Description: Template description
+	Version: 1.0
+	Note: This is custom css. All custom styles (user styles) declare here.
+
+**********************************************************************************/
+
+/* main.handlebars-導覽列 */
+#wn__header{
+	background-color: #aaa;
+}
+
+.header__area .logo .logo-txt{
+	display: inline-block;
+	width: 150px;
+	color: #ce7852;
+	border:2px solid #ce7852;
+	border-radius:22px;
+	padding:5px 10px;
+	margin-top:10px;
+}
+
+.header__area .logo .logo-txt h2{
+	font-size: 28px;
+	font-weight: 500;
+  line-height: 1;
+}
+
+/*--------------------------
+  Sticky Header
+----------------------------*/
+.header__area.sticky__header.is-sticky .logo .logo-txt{
+	width: 120px;
+	border-radius:15px;
+	padding:3px 10px;
+	margin-top:5px;
+}
+
+.header__area.sticky__header.is-sticky .logo .logo-txt h2{
+	font-size: 20px;
+	font-weight: 500;
+  line-height: .9;
+}
+
+.header__area .logo .logo-txt .logo-txt-top{
+	text-align: left;
+}
+
+.header__area .logo .logo-txt .logo-txt-bottom{
+	text-align: right;
+}
+
+.oth-page .mainmenu__nav .meninmenu li a i{
+	padding:0 5px;
+	font-size: 20px;
+}
+
+/* main.handlebars-內容 */
+
+#wrapper .empty{
+	height: 100px;
+}
+
+
