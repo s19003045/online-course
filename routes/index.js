@@ -5,6 +5,8 @@ const assignController = require("../controllers/assignController");
 const questController = require("../controllers/questController");
 const orderController = require("../controllers/orderController");
 const cartController = require("../controllers/cartController");
+const instructController = require("../controllers/instructController");
+
 
 const multer = require('multer')
 const upload = multer({ dest: 'temp/' })
@@ -58,6 +60,10 @@ module.exports = (app, passport) => {
   app.post('/courses/create/:courseId/step4', courseController.postCourseStep4)
 
   // 開課者可以查詢課程狀態、學生人數等
-  app.get('/users/:id/teachCourses', userController.getTeachCourses)
+  app.get('/instructor/dashboard', instructController.getDashboard)
+  app.get('/instructor/courses', instructController.getCourses)
+  // app.get('/instructor/students', instructController.getStudents)
+  // app.get('/instructor/course/:courseId/', instructController.saleAnalysis)
+  // app.get('/instructor/course/:courseId', instructController.studentAnalysis)
 
 };

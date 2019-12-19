@@ -8,7 +8,11 @@ module.exports = {
     return options.inverse(this);
   },
   moment: function (a) {
-    moment.tz.setDefault("Asia/Taipei");
-    return moment(a).format("YYYY-MM-DD, HH:mm");
+    if (a === null) {
+      return ''
+    } else {
+      moment.tz.setDefault("Asia/Taipei");
+      return moment(a).format("YYYY-MM-DD, HH:mm");
+    }
   }
 };
