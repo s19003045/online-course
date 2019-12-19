@@ -1,0 +1,25 @@
+<h2>Step 1</h2>
+<form action="/courses/create/{{course.id}}/step1?_method=PUT" method="POST">
+  <div class="form-group">
+    <label for="name">課程名稱</label>
+    <input type="text" class="form-control" name="name" id="name" placeholder="為你的課程取個名字吧！" value="{{course.name}}">
+  </div>
+  <div class="form-group">
+    <label for="description">課程簡介</label>
+    <input type="text" class="form-control" name="description" id="description" placeholder="簡述一下課程"
+      value="{{course.description}}">
+  </div>
+  <div class="form-group">
+    <label for="teacherDescrip">講師姓名</label>
+    <input type="text" class="form-control" name="teacherName" id="teacherName" placeholder="取個響亮的名字吧~"
+      value="{{course.teacherName}}">
+  </div>
+  <div class="form-group">
+    <label for="teacherDescrip">講師介紹</label>
+    <input type="text" class="form-control" name="teacherDescrip" id="teacherDescrip" placeholder="介紹講師你自己..."
+      value="{{course.teacherDescrip}}">
+  </div>
+  <button type="submit" class="btn btn-primary mr-5">Save</button>
+</form>
+<a href="/courses/create/{{course.id}}/step2" class="btn btn-link my-3">下一步
+</a>
