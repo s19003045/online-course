@@ -56,21 +56,39 @@ const courseController = {
           subCategoName: req.query.subCategoName
         }
       }).then(category => {
-        Course.findAll({
-          attributes: [
-            "name",
-            "ratingAverage",
-            "ratingCount",
-            "studentCount",
-            "totalTime",
-            "price"
-          ],
-          where: [{ status: "intoMarket" }, { CourseCategoryId: category.id }],
-          order: [order]
-        }).then(courses => {
-          return res.render("courses", { courses });
-          // return res.json(courses);
-        });
+        // 找不到類別
+        if (!category) {
+          // 目前req.flash無法顯示，待解決
+          req.flash(
+            "error_messages",
+            "目前還沒有該類別的課程，本站將陸續新增，不好意思！"
+          );
+          return res.redirect("/");
+        } else {
+          Course.findAll({
+            attributes: [
+              "name",
+              "ratingAverage",
+              "ratingCount",
+              "studentCount",
+              "totalTime",
+              "price"
+            ],
+            where: [
+              { status: "intoMarket" },
+              { CourseCategoryId: category.id }
+            ],
+            order: [order]
+          }).then(courses => {
+            // 該類別沒有任何課程
+            if (courses.length === 0) {
+              let no_courses = true;
+              return res.render("courses", { no_courses });
+            }
+            return res.render("courses", { courses });
+            // return res.json(courses);
+          });
+        }
       });
     }
   },

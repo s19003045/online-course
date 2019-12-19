@@ -26,6 +26,11 @@
         <div class="tab__container">
           <div class="shop-grid tab-pane fade show active" id="nav-grid" role="tabpanel">
             <div class="row">
+              {{#if no_courses}}
+              <div class="mx-auto my-5">
+                <p class="no_courses_message">目前該類別沒有相關課程，想當第一個老師就趁現在！</p>
+              </div>
+              {{/if}}
               {{#each courses}}
               <!-- Start Single Product -->
               <div class="product product__style--3 col-lg-3 col-md-4 col-sm-6 col-12">
