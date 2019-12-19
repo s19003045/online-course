@@ -62,7 +62,7 @@ module.exports = (app, passport) => {
   // 開課者可以查詢課程狀態、學生人數等
   app.get('/instructor/dashboard', instructController.getDashboard)
   app.get('/instructor/courses', instructController.getCourses)
-  // app.get('/instructor/students', instructController.getStudents)
+  app.get('/instructor/students', instructController.getStudents)
   // app.get('/instructor/course/:courseId/', instructController.saleAnalysis)
   // app.get('/instructor/course/:courseId', instructController.studentAnalysis)
 

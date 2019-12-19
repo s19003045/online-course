@@ -10,6 +10,8 @@ module.exports = {
   moment: function (a) {
     if (a === null) {
       return ''
+    } else if (a === undefined) {
+      return ''
     } else {
       moment.tz.setDefault("Asia/Taipei");
       return moment(a).format("YYYY-MM-DD, HH:mm");
