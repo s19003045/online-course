@@ -63,7 +63,14 @@ module.exports = (app, passport) => {
   app.get('/instructor/dashboard', instructController.getDashboard)
   app.get('/instructor/courses', instructController.getCourses)
   app.get('/instructor/students', instructController.getStudents)
+  app.get('/instructor/course-review-discuss', instructController.courseReviwDiscuss)
   // app.get('/instructor/course/:courseId/', instructController.saleAnalysis)
   // app.get('/instructor/course/:courseId', instructController.studentAnalysis)
 
+  // 導向 intructor/dashboard
+  app.get('/instructor/*', (req, res) => res.redirect("/instructor/dashboard"))
+
+
+  // 導向首頁
+  app.get('/*', (req, res) => res.redirect("/"))
 };

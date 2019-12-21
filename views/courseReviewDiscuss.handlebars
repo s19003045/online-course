@@ -129,68 +129,87 @@
 
       <div
         class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h3 class="h3">Tools > 開課總覽</h3>
+        <h3 class="h3">Tools > 課程審核討論區</h3>
       </div>
 
-      <form action="/instructor/courses" method="GET" class="mt-5">
-        <div
-          class="d-flex justify-content-start flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-          <div class="orderby__wrapper">
-            <span>篩選</span>
-            <select class="shot__byselect mr-4" name="filter_status">
-              <option value="" {{#ifCond filter_status ''}}selected{{/ifCond}}>All</option>
-              <option value="editted" {{#ifCond filter_status 'editted'}}selected{{/ifCond}}>編輯中</option>
-              <option value="submitted" {{#ifCond filter_status 'submitted'}}selected{{/ifCond}}>已送出申請</option>
-              <option value="intoMarket" {{#ifCond filter_status 'intoMarket'}}selected{{/ifCond}}>已上架</option>
-              <option value="offMarket" {{#ifCond filter_status 'offMarket'}}selected{{/ifCond}}>已下架</option>
-            </select>
-          </div>
 
-          <div class="orderby__wrapper">
-            <span>排序</span>
-            <select class="shot__byselect mr-4" name="sortby">
-              <option value="status" {{#ifCond sortby 'status'}}selected{{/ifCond}}>狀態</option>
-              <option value="submittedDate" {{#ifCond sortby 'submittedDate'}}selected{{/ifCond}}>申請日期</option>
-              <option value="price" {{#ifCond sortby 'price'}}selected{{/ifCond}}>價錢</option>
-              <option value="intoMarketDate" {{#ifCond sortby 'intoMarketDate'}}selected{{/ifCond}}>上架日期</option>
-              <option value="ratingAverage" {{#ifCond sortby 'ratingAverage'}}selected{{/ifCond}}>評價</option>
-              <option value="studentCount" {{#ifCond sortby 'studentCount'}}selected{{/ifCond}}>學生人數</option>
-            </select>
-          </div>
-          <button type="submit" class="btn btn-primary mr-5 btn-sm ml-3">搜尋</button>
-        </div>
-      </form>
+      {{!-- 課程審核討論區 --}}
+      {{#each courses}}
+      <div class="activity--list">
+        <!-- Activity Items Start -->
+        <ul class="activity--items nav">
+          {{#each this.CourseReviewPosts}}
 
-      <table class="table table-hover">
-        <thead>
-          <tr>
-            <th scope="col">項次</th>
-            <th scope="col">課程名稱</th>
-            <th scope="col">狀態</th>
-            <th scope="col">申請日期</th>
-            <th scope="col">上架日期</th>
-            <th scope="col">價錢</th>
-            <th scope="col">課程時間</th>
-            <th scope="col">評價</th>
-            <th scope="col">學生人數</th>
-          </tr>
-        </thead>
-        <tbody>
-          {{#each courses}}
-          <tr>
-            <th scope="row">{{@key}}</th>
-            <td>{{this.name}}</td>
-            <td>{{this.status}}</td>
-            <td>{{moment this.submittedDate}}</td>
-            <td>{{moment this.intoMarketDate}}</td>
-            <td>{{this.price}}</td>
-            <td>{{this.totalTime}}</td>
-            <td>{{this.ratingAverage}}</td>
-            <td>{{this.studentCount}}</td>
-          </tr>
+          <li>
+            <!-- Activity Item Start -->
+            <div class="activity--item">
+              <div class="activity--avatar">
+                <a href="#">
+                  <img src="{{this.User.avatar}}" alt="">
+                </a>
+              </div>
+
+              <div class="activity--info fs--14">
+                <div class="activity--header">
+                  <p><a href="member-activity-personal.html"><span class="fs-18 mr-2">{{this.User.username}}</span> </a>
+                    posted an update
+                    in the course =>
+                    <span><a href="#">{{../this.name}}</a></span>
+                  </p>
+                </div>
+
+                <div class="activity--meta fs--12">
+                  <p><i class="fa mr--8 fa-clock-o"></i>{{moment this.updatedAt}}</p>
+                </div>
+
+                <div class="activity--content">
+                  <h5>{{this.subject}}</h5>
+                  <p>{{this.message}}</p>
+                </div>
+
+                <div class="activity--action fw--700">
+                  {{!-- <a href="#">See More...</a> --}}
+                </div>
+
+                <div class="activity--comments fs--12">
+                  <ul class="acomment--items nav">
+                    {{#each this.CourseReviewReplies}}
+                    <li>
+                      <div class="acomment--item clearfix">
+                        <div class="acomment--avatar">
+                          <a href="#">
+                            <img src="{{this.User.avatar}}" alt="">
+                          </a>
+                        </div>
+
+                        <div class="acomment--info">
+                          <div class="acomment--header">
+                            <p><a href="#">{{this.User.username}}</a> Replied</p>
+                          </div>
+
+                          <div class="acomment--meta">
+                            <p><i class="fa mr--8 fa-clock-o"></i>{{moment this.updatedAt}}</p>
+                          </div>
+
+                          <div class="acomment--content">
+                            <p>{{this.message}}</p>
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                    {{/each}}
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <!-- Activity Item End -->
+          </li>
+
           {{/each}}
-        </tbody>
-      </table>
+        </ul>
+        <!-- Activity Items End -->
+      </div>
+      {{/each}}
 
       <canvas class="my-4 w-100 chartjs-render-monitor" id="myChart" width="2238" height="944"
         style="display: block; height: 472px; width: 1119px;">
