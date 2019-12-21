@@ -1,17 +1,9 @@
-* {
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-}
-.nav {
-    padding-left: 0;
-    margin-bottom: 0;
-    list-style: none;
-}
+/* 共用 style */
 ul:last-child {
     margin-bottom: 0;
 }
 
+/* style for course review discussion in  instructor dashboard*/
 .activity--items > li + li {
     margin-top: 30px;
 }
@@ -58,12 +50,11 @@ a, .btn-link, a:link, .btn-link:link, a:visited, .btn-link:visited, a:hover, .bt
     text-decoration: none;
     outline: 0;
 }
-::selection {
-    background-color: #1da1f2;
-}
 .activity--avatar img {
-    display: block;
     margin: 5px;
+    display: block;
+    width: 50px;
+    height: 50px;
     border-radius: 50%;
 }
 img, .nav > li > a > img {
@@ -113,20 +104,12 @@ p:last-child {
 .fw--700 {
     font-weight: 700;
 }
-.nav li a {
-    color: inherit;
-}
-
-
-
 
 .fs--12 {
     font-size: 12px;
     line-height: 22px;
 }
-ul:last-child {
-    margin-bottom: 0;
-}
+
 .acomment--items > li {
     float: none;
 }
@@ -138,20 +121,33 @@ ul:last-child {
 .acomment--avatar {
     float: left;
     position: relative;
+    width: 50px;
+    height: 50px;
     margin-right: 18px;
+    border-radius: 50%;
+    overflow: hidden;
     padding: 2px;
     z-index: 0;
 }
-
-.nav li a {
-    color: inherit;
+.acomment--avatar::before {
+    content: " ";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #1da1f2;
+    opacity: 0.3;
+    z-index: -1;
 }
+
 .acomment--avatar img {
     display: block;
-    width: 40px;
-    height: 40px;
+    width: 46px;
+    height: 46px;
     border-radius: 50%;
 }
+
 .acomment--info {
     overflow: hidden;
 }
@@ -163,14 +159,6 @@ ul:last-child {
 }
 .mr--8 {
     margin-right: 8px;
-}
-.fa {
-    display: inline-block;
-    font: normal normal normal 14px/1 FontAwesome;
-    font-size: inherit;
-    text-rendering: auto;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
 }
 .acomment--content {
     margin-top: 8px;
