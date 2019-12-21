@@ -5,6 +5,8 @@ const assignController = require("../controllers/assignController");
 const questController = require("../controllers/questController");
 const orderController = require("../controllers/orderController");
 const cartController = require("../controllers/cartController");
+const instructController = require("../controllers/instructController");
+
 
 const multer = require("multer");
 const upload = multer({ dest: "temp/" });
@@ -49,6 +51,7 @@ module.exports = (app, passport) => {
 
     app.get("/courses", authenticated, courseController.getCourses);
 
+
     // 開課者建立課程
     app.get("/courses/create/intro", authenticated, courseController.createCourseIntro);
     app.get(
@@ -79,8 +82,16 @@ module.exports = (app, passport) => {
         courseController.createCourseStep4
     );
     app.post("/courses/create/:courseId/step4", authenticated, courseController.postCourseStep4);
+    
+    //開課者dashboard     
+    app.get('/instructor/dashboard', instructController.getDashboard)
+    app.get('/instructor/courses', instructController.getCourses)
+    app.get('/instructor/students', instructController.getStudents)
+    // app.get('/instructor/course/:courseId/', instructController.saleAnalysis)
+    // app.get('/instructor/course/:courseId', instructController.studentAnalysis)
 
     // 開課者可以查詢課程狀態、學生人數等
     app.get("/users/:id/teachCourses", authenticated, userController.getTeachCourses);
     app.post("/favorite/:courses_id", authenticated, userController.addFavoriteCourse);
 };
+

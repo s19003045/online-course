@@ -1,8 +1,8 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   const Rating = sequelize.define('Rating', {
-    rating: DataTypes.INTEGER,
-    comment: DataTypes.STRING,
+    rating: DataTypes.INTEGER, //評價分數
+    comment: DataTypes.STRING, //評價內容
     UserId: DataTypes.INTEGER,
     CourseId: DataTypes.INTEGER
   }, {});

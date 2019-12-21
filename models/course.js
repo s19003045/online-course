@@ -1,22 +1,22 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   const Course = sequelize.define('Course', {
-    name: DataTypes.STRING,
-    description: DataTypes.STRING,
-    image: DataTypes.STRING,
-    introVideo: DataTypes.STRING,
-    teacherName: DataTypes.STRING,
-    teacherDescrip: DataTypes.STRING,
-    totalTime: DataTypes.INTEGER,
-    totalLessons: DataTypes.INTEGER,
-    price: DataTypes.INTEGER,
-    status: DataTypes.ENUM('editted', 'submitted', 'approved', 'intoMarket', 'offMarket'),
-    submittedDate: DataTypes.DATE,
-    intoMarketDate: DataTypes.DATE,
-    ratingAverage: DataTypes.INTEGER,
-    ratingCount: DataTypes.INTEGER,
-    studentCount: DataTypes.INTEGER,
-    CourseCategoryId: DataTypes.INTEGER,
+    name: DataTypes.STRING, //課程名稱
+    description: DataTypes.STRING, //課程簡介
+    image: DataTypes.STRING, //課程圖片(類似 avatar)
+    introVideo: DataTypes.STRING, //預覽影片
+    teacherName: DataTypes.STRING, //教師姓名
+    teacherDescrip: DataTypes.STRING, //教師簡介
+    totalTime: DataTypes.INTEGER, //課程總時數
+    totalLessons: DataTypes.INTEGER, //lessons 總數
+    price: DataTypes.INTEGER, //價錢
+    status: DataTypes.ENUM('editted', 'submitted', 'approved', 'intoMarket', 'offMarket'), //課程狀態
+    submittedDate: DataTypes.DATE, //送審日期
+    intoMarketDate: DataTypes.DATE, //上架日期
+    ratingAverage: DataTypes.INTEGER, //平均評價分數
+    ratingCount: DataTypes.INTEGER, //評價比數
+    studentCount: DataTypes.INTEGER, //學生總數
+    CourseCategoryId: DataTypes.INTEGER, //FK：類別id
     UserId: DataTypes.INTEGER
   }, {});
   Course.associate = function (models) {
