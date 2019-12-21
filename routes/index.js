@@ -35,6 +35,11 @@ module.exports = (app, passport) => {
 
   app.get("/courses", courseController.getCourses);
 
+  //薔語測試
+  app.get("/course", courseController.getCourse);
+  app.get("/post", courseController.getPost);
+
+
   // 開課者建立課程
   app.get("/courses/create/intro", courseController.createCourseIntro);
   app.get(

@@ -6,6 +6,16 @@ const Lesson = db.Lesson;
 const CourseCategory = db.CourseCategory;
 
 const courseController = {
+  //薔語測試
+  getCourse: (req, res) => {
+    return res.render("course");
+  },
+
+  getPost: (req, res) => {
+    return res.render("post");
+  },
+
+
   getCourses: (req, res) => {
     // 取得sort功能要依據哪個變數排序所有課程
     let order = "intoMarketDate";
