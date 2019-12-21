@@ -51,9 +51,16 @@ module.exports = (app, passport) => {
 
   app.get("/courses", authenticated, courseController.getCourses);
 
-  //薔語測試
-  app.get("/course", courseController.getCourse);
-  app.get("/post", courseController.getPost);
+  //Ariel測試用--方便看view而暫時設置的路由
+  // Ariel測試用--課程介紹
+  // app.get("/courses/introduction", courseController.getIntroduction);
+
+  // Ariel測試用--課程內容
+  app.get("/courses/:courses_id/lessons", courseController.getCourse);
+
+  // Ariel測試用--問題討論區
+  app.get("/courses/:courses_id/post", courseController.getPost);
+
 
   // 開課者建立課程
   app.get("/courses/create/intro", authenticated, courseController.createCourseIntro);

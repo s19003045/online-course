@@ -6,11 +6,19 @@ const Lesson = db.Lesson;
 const CourseCategory = db.CourseCategory;
 
 const courseController = {
-  //薔語測試
+
+  //Ariel測試用--方便看view而暫時設置的Controller
+  // Ariel測試用--課程介紹
+  // getIntroduction: (req, res) => {
+  //   return res.render("introduction");
+  // },
+
+  // Ariel測試用--課程內容
   getCourse: (req, res) => {
     return res.render("course");
   },
 
+  // Ariel測試用--問題討論區
   getPost: (req, res) => {
     return res.render("post");
   },
