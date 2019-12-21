@@ -15,83 +15,93 @@ const upload = multer({ dest: "temp/" });
 const helpers = require("../_helpers");
 
 module.exports = (app, passport) => {
-    // 驗證使用者權限
-    const authenticated = (req, res, next) => {
-        if (helpers.ensureAuthenticated(req)) {
-            return next();
-        }
-        res.redirect("/signin");
-    };
-    const authenticatedAdmin = (req, res, next) => {
-        if (helpers.ensureAuthenticated(req)) {
-            if (helpers.getUser(req).role === "admin") {
-                return next();
-            }
-            return res.redirect("/");
-        }
-        res.redirect("/signin");
-    };
-    // 註冊/登入/登出
-    app.get("/signup", userController.signUpPage);
-    app.post("/signup", userController.signUp);
+  // 驗證使用者權限
+  const authenticated = (req, res, next) => {
+    if (helpers.ensureAuthenticated(req)) {
+      return next();
+    }
+    res.redirect("/signin");
+  };
+  const authenticatedAdmin = (req, res, next) => {
+    if (helpers.ensureAuthenticated(req)) {
+      if (helpers.getUser(req).role === "admin") {
+        return next();
+      }
+      return res.redirect("/");
+    }
+    res.redirect("/signin");
+  };
+  // 註冊/登入/登出
+  app.get("/signup", userController.signUpPage);
+  app.post("/signup", userController.signUp);
 
-    app.get("/signin", userController.signInPage);
-    app.post(
-        "/signin",
-        passport.authenticate("local", {
-            failureRedirect: "/signin",
-            failureFlash: true
-        }),
-        userController.signIn
-    );
-    app.get("/logout", userController.logout);
+  app.get("/signin", userController.signInPage);
+  app.post(
+    "/signin",
+    passport.authenticate("local", {
+      failureRedirect: "/signin",
+      failureFlash: true
+    }),
+    userController.signIn
+  );
+  app.get("/logout", userController.logout);
 
-    //如果使用者訪問首頁，就導向 /courses 的頁面
-    app.get("/", authenticated, (req, res) => res.redirect("/courses"));
+  //如果使用者訪問首頁，就導向 /courses 的頁面
+  app.get("/", authenticated, (req, res) => res.redirect("/courses"));
 
-    app.get("/courses", authenticated, courseController.getCourses);
+  app.get("/courses", authenticated, courseController.getCourses);
+
+  //Ariel測試用--方便看view而暫時設置的路由
+  // Ariel測試用--課程介紹
+  // app.get("/courses/introduction", courseController.getIntroduction);
+
+  // Ariel測試用--課程內容
+  app.get("/courses/:courses_id/lessons", courseController.getCourse);
+
+  // Ariel測試用--問題討論區
+  app.get("/courses/:courses_id/post", courseController.getPost);
 
 
-    // 開課者建立課程
-    app.get("/courses/create/intro", authenticated, courseController.createCourseIntro);
-    app.get(
-        "/courses/create/:courseId/step1", authenticated,
-        courseController.createCourseStep1
-    );
-    app.put("/courses/create/:courseId/step1", authenticated, courseController.putCourseStep1);
-    app.get(
-        "/courses/create/:courseId/step2", authenticated,
-        courseController.createCourseStep2
-    );
-    app.post("/courses/create/:courseId/step2", authenticated, courseController.postCourseStep2);
-    app.get(
-        "/courses/create/:courseId/step2/:lessonId/edit", authenticated,
-        courseController.editCourseStep2
-    );
-    app.put(
-        "/courses/create/:courseId/step2/:lessonId", authenticated,
-        courseController.putCourseStep2
-    );
-    app.get(
-        "/courses/create/:courseId/step3", authenticated,
-        courseController.createCourseStep3
-    );
-    app.put("/courses/create/:courseId/step3", authenticated, courseController.putCourseStep3);
-    app.get(
-        "/courses/create/:courseId/step4", authenticated,
-        courseController.createCourseStep4
-    );
-    app.post("/courses/create/:courseId/step4", authenticated, courseController.postCourseStep4);
-    
-    //開課者dashboard     
-    app.get('/instructor/dashboard', instructController.getDashboard)
-    app.get('/instructor/courses', instructController.getCourses)
-    app.get('/instructor/students', instructController.getStudents)
-    // app.get('/instructor/course/:courseId/', instructController.saleAnalysis)
-    // app.get('/instructor/course/:courseId', instructController.studentAnalysis)
+  // 開課者建立課程
+  app.get("/courses/create/intro", authenticated, courseController.createCourseIntro);
+  app.get(
+    "/courses/create/:courseId/step1", authenticated,
+    courseController.createCourseStep1
+  );
+  app.put("/courses/create/:courseId/step1", authenticated, courseController.putCourseStep1);
+  app.get(
+    "/courses/create/:courseId/step2", authenticated,
+    courseController.createCourseStep2
+  );
+  app.post("/courses/create/:courseId/step2", authenticated, courseController.postCourseStep2);
+  app.get(
+    "/courses/create/:courseId/step2/:lessonId/edit", authenticated,
+    courseController.editCourseStep2
+  );
+  app.put(
+    "/courses/create/:courseId/step2/:lessonId", authenticated,
+    courseController.putCourseStep2
+  );
+  app.get(
+    "/courses/create/:courseId/step3", authenticated,
+    courseController.createCourseStep3
+  );
+  app.put("/courses/create/:courseId/step3", authenticated, courseController.putCourseStep3);
+  app.get(
+    "/courses/create/:courseId/step4", authenticated,
+    courseController.createCourseStep4
+  );
+  app.post("/courses/create/:courseId/step4", authenticated, courseController.postCourseStep4);
 
-    // 開課者可以查詢課程狀態、學生人數等
-    app.get("/users/:id/teachCourses", authenticated, userController.getTeachCourses);
-    app.post("/favorite/:courses_id", authenticated, userController.addFavoriteCourse);
+  //開課者dashboard     
+  app.get('/instructor/dashboard', instructController.getDashboard)
+  app.get('/instructor/courses', instructController.getCourses)
+  app.get('/instructor/students', instructController.getStudents)
+  // app.get('/instructor/course/:courseId/', instructController.saleAnalysis)
+  // app.get('/instructor/course/:courseId', instructController.studentAnalysis)
+
+  // 開課者可以查詢課程狀態、學生人數等
+  app.get("/users/:id/teachCourses", authenticated, userController.getTeachCourses);
+  app.post("/favorite/:courses_id", authenticated, userController.addFavoriteCourse);
 };
 

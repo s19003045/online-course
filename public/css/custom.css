@@ -64,3 +64,24 @@
 }
 
 
+/* 單一課程頁面 */
+
+.course-tabs{
+	margin:0 0 30px;
+	/* border-bottom: 2px solid #e59285; */
+}
+
+.course-tabs a{
+	display: inline-block;
+	padding:5px 10px 5px;
+	border-top: 2px solid #e59285;
+	border-left: 2px solid #e59285;
+	border-right: 2px solid #e59285;
+	border-top-right-radius: 20px;
+}
+
+.lessons-list{
+	margin: 0 0 30px;
+    padding: 10px 0;
+    width: 100%;
+}
