@@ -13,60 +13,74 @@ const upload = multer({ dest: "temp/" });
 const helpers = require("../_helpers");
 
 module.exports = (app, passport) => {
-  // 驗證使用者權限
-  const authenticated = (req, res, next) => {
-    if (helpers.ensureAuthenticated(req)) {
-      return next();
-    }
-    res.redirect("/signin");
-  };
-  const authenticatedAdmin = (req, res, next) => {
-    if (helpers.ensureAuthenticated(req)) {
-      if (helpers.getUser(req).role === "admin") {
-        return next();
-      }
-      return res.redirect("/");
-    }
-    res.redirect("/signin");
-  };
+    // 驗證使用者權限
+    const authenticated = (req, res, next) => {
+        if (helpers.ensureAuthenticated(req)) {
+            return next();
+        }
+        res.redirect("/signin");
+    };
+    const authenticatedAdmin = (req, res, next) => {
+        if (helpers.ensureAuthenticated(req)) {
+            if (helpers.getUser(req).role === "admin") {
+                return next();
+            }
+            return res.redirect("/");
+        }
+        res.redirect("/signin");
+    };
+    // 註冊/登入/登出
+    app.get("/signup", userController.signUpPage);
+    app.post("/signup", userController.signUp);
 
-  //如果使用者訪問首頁，就導向 /courses 的頁面
-  app.get("/", (req, res) => res.redirect("/courses"));
+    app.get("/signin", userController.signInPage);
+    app.post(
+        "/signin",
+        passport.authenticate("local", {
+            failureRedirect: "/signin",
+            failureFlash: true
+        }),
+        userController.signIn
+    );
+    app.get("/logout", userController.logout);
 
-  app.get("/courses", courseController.getCourses);
+    //如果使用者訪問首頁，就導向 /courses 的頁面
+    app.get("/", authenticated, (req, res) => res.redirect("/courses"));
 
-  // 開課者建立課程
-  app.get("/courses/create/intro", courseController.createCourseIntro);
-  app.get(
-    "/courses/create/:courseId/step1",
-    courseController.createCourseStep1
-  );
-  app.put("/courses/create/:courseId/step1", courseController.putCourseStep1);
-  app.get(
-    "/courses/create/:courseId/step2",
-    courseController.createCourseStep2
-  );
-  app.post("/courses/create/:courseId/step2", courseController.postCourseStep2);
-  app.get(
-    "/courses/create/:courseId/step2/:lessonId/edit",
-    courseController.editCourseStep2
-  );
-  app.put(
-    "/courses/create/:courseId/step2/:lessonId",
-    courseController.putCourseStep2
-  );
-  app.get(
-    "/courses/create/:courseId/step3",
-    courseController.createCourseStep3
-  );
-  app.put("/courses/create/:courseId/step3", courseController.putCourseStep3);
-  app.get(
-    "/courses/create/:courseId/step4",
-    courseController.createCourseStep4
-  );
-  app.post("/courses/create/:courseId/step4", courseController.postCourseStep4);
+    app.get("/courses", authenticated, courseController.getCourses);
 
-  // 開課者可以查詢課程狀態、學生人數等
-  app.get("/users/:id/teachCourses", userController.getTeachCourses);
-  app.post("/favorite/:courses_id", userController.addFavoriteCourse);
+    // 開課者建立課程
+    app.get("/courses/create/intro", authenticated, courseController.createCourseIntro);
+    app.get(
+        "/courses/create/:courseId/step1", authenticated,
+        courseController.createCourseStep1
+    );
+    app.put("/courses/create/:courseId/step1", authenticated, courseController.putCourseStep1);
+    app.get(
+        "/courses/create/:courseId/step2", authenticated,
+        courseController.createCourseStep2
+    );
+    app.post("/courses/create/:courseId/step2", authenticated, courseController.postCourseStep2);
+    app.get(
+        "/courses/create/:courseId/step2/:lessonId/edit", authenticated,
+        courseController.editCourseStep2
+    );
+    app.put(
+        "/courses/create/:courseId/step2/:lessonId", authenticated,
+        courseController.putCourseStep2
+    );
+    app.get(
+        "/courses/create/:courseId/step3", authenticated,
+        courseController.createCourseStep3
+    );
+    app.put("/courses/create/:courseId/step3", authenticated, courseController.putCourseStep3);
+    app.get(
+        "/courses/create/:courseId/step4", authenticated,
+        courseController.createCourseStep4
+    );
+    app.post("/courses/create/:courseId/step4", authenticated, courseController.postCourseStep4);
+
+    // 開課者可以查詢課程狀態、學生人數等
+    app.get("/users/:id/teachCourses", authenticated, userController.getTeachCourses);
+    app.post("/favorite/:courses_id", authenticated, userController.addFavoriteCourse);
 };
