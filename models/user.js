@@ -6,9 +6,9 @@ module.exports = (sequelize, DataTypes) => {
     password: DataTypes.STRING,
     avatar: DataTypes.STRING,
     description: DataTypes.TEXT,
-    role: DataTypes.STRING,
-    country: DataTypes.STRING,
-    timezone: DataTypes.STRING
+    role: DataTypes.STRING, //角色有二種：user, admin
+    country: DataTypes.STRING, //user 的國家
+    timezone: DataTypes.STRING //user 的時區
   }, {});
   User.associate = function (models) {
     User.hasMany(models.UserEnrollment)

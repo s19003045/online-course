@@ -73,12 +73,13 @@ const courseController = {
       }).then(category => {
         // 找不到類別
         if (!category) {
+          console.log('nocat')
           // 目前req.flash無法顯示，待解決
           req.flash(
             "error_messages",
             "目前還沒有該類別的課程，本站將陸續新增，不好意思！"
           );
-          return res.redirect("/");
+          res.redirect("/");
         } else {
           Course.findAll({
             attributes: [
@@ -231,8 +232,7 @@ const courseController = {
       isPreview
     } = req.body;
     // 檢查必填欄位是否已填寫(若有提供暫存草稿機制，則不用檢查欄位。直到送出申請前再檢查)
-    if (
-      !lessonNumber ||
+    if (!lessonNumber ||
       !intro ||
       !title ||
       !contents ||
@@ -286,8 +286,7 @@ const courseController = {
       isPreview
     } = req.body;
     // 檢查必填欄位是否已填寫(若有提供暫存草稿機制，則不用檢查欄位。直到送出申請前再檢查)
-    if (
-      !lessonNumber ||
+    if (!lessonNumber ||
       !intro ||
       !title ||
       !contents ||

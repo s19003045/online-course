@@ -6,9 +6,9 @@ module.exports = (sequelize, DataTypes) => {
     title: DataTypes.STRING,
     contents: DataTypes.TEXT,
     image: DataTypes.STRING,
-    totalTime: DataTypes.INTEGER,
-    isPreview: DataTypes.BOOLEAN,
-    visible: DataTypes.BOOLEAN,
+    totalTime: DataTypes.INTEGER, //該lesson 上課時數
+    isPreview: DataTypes.BOOLEAN, //是否提供預覽
+    visible: DataTypes.BOOLEAN, //是否要顯示
     CourseId: DataTypes.INTEGER
   }, {});
   Lesson.associate = function (models) {
