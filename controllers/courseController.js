@@ -14,7 +14,7 @@ const courseController = {
   // },
 
   // Ariel測試用--課程內容
-  getCourse: (req, res) => {
+  getCourseLessons: (req, res) => {
     return res.render("course");
   },
 
@@ -53,6 +53,7 @@ const courseController = {
       // 沒有選擇課程類別，撈出全部課程資料
       Course.findAll({
         attributes: [
+          "id",
           "name",
           "ratingAverage",
           "ratingCount",
@@ -91,6 +92,7 @@ const courseController = {
         } else {
           Course.findAll({
             attributes: [
+              "id",
               "name",
               "ratingAverage",
               "ratingCount",
