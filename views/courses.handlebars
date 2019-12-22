@@ -50,7 +50,6 @@
                   <a class="second__img animation1" href="/"><img src="images/books/2.jpg" alt="product image"></a>
                 </div>
                 <div class="product__content content--center">
-                  <h4>{{this.id}}</h4>
                   <h4><a href="/">課程名稱：{{this.name}}</a></h4>
                   <h4><i class="fa fa-star-o"></i>：{{this.ratingAverage}}</h4>
                   <h4>評價人數：{{this.ratingCount}}</h4>
@@ -72,7 +71,7 @@
                               onclick="parentNode.parentNode.submit();"><i class="bi bi-heart-beat"></i></a></li>
                         </form>
                         <li><a title="查看更多" class="quickview modal-view detail-link"
-                            href="/courses/:course_id/introduction"><i class="bi bi-search"></i></a></li>
+                            href="/courses/{{this.id}}/introduction"><i class="bi bi-search"></i></a></li>
                       </ul>
                     </div>
                   </div>
