@@ -6,16 +6,40 @@ const Lesson = db.Lesson;
 const CourseCategory = db.CourseCategory;
 
 const courseController = {
-
   //Ariel測試用--方便看view而暫時設置的Controller
   // Ariel測試用--課程介紹
   // getIntroduction: (req, res) => {
   //   return res.render("introduction");
   // },
 
-  // Ariel測試用--課程內容
-  getCourseLessons: (req, res) => {
-    return res.render("course");
+  // 看單一課程內容
+  getCourseLesson: (req, res) => {
+    let lessonNumber = 1;
+    if (req.query.lessonNumber) {
+      lessonNumber = Number(req.query.lessonNumber);
+    }
+    Course.findByPk(req.params.courses_id).then(course => {
+      if (course) {
+        Lesson.findAll({
+          attributes: ["lessonNumber", "title"],
+          where: [{ visible: true }, { CourseId: course.id }]
+        }).then(lessons => {
+          Lesson.findOne({
+            where: [{ lessonNumber: lessonNumber }]
+          }).then(lesson => {
+            res.render("course", {
+              lesson,
+              lessons,
+              courseId: course.id,
+              lessonNumber
+            });
+          });
+        });
+      } else {
+        req.flash("error_messages", "該課程不存在！");
+        res.redirect("back");
+      }
+    });
   },
 
   // Ariel測試用--問題討論區
@@ -23,10 +47,9 @@ const courseController = {
     return res.render("post");
   },
 
-
   getCourses: (req, res) => {
     // 取得sort功能要依據哪個變數排序所有課程
-    let order = "intoMarketDate";
+    let order = ["intoMarketDate", "DESC"];
     if (req.query.order === "評價由高到低") {
       order = ["ratingAverage", "DESC"];
     }
@@ -82,7 +105,6 @@ const courseController = {
       }).then(category => {
         // 找不到類別
         if (!category) {
-          console.log('nocat')
           // 目前req.flash無法顯示，待解決
           req.flash(
             "error_messages",
@@ -242,7 +264,8 @@ const courseController = {
       isPreview
     } = req.body;
     // 檢查必填欄位是否已填寫(若有提供暫存草稿機制，則不用檢查欄位。直到送出申請前再檢查)
-    if (!lessonNumber ||
+    if (
+      !lessonNumber ||
       !intro ||
       !title ||
       !contents ||
@@ -296,7 +319,8 @@ const courseController = {
       isPreview
     } = req.body;
     // 檢查必填欄位是否已填寫(若有提供暫存草稿機制，則不用檢查欄位。直到送出申請前再檢查)
-    if (!lessonNumber ||
+    if (
+      !lessonNumber ||
       !intro ||
       !title ||
       !contents ||
