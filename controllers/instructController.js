@@ -12,17 +12,9 @@ const Op = Sequelize.Op
 
 const instructController = {
   getDashboard: (req, res) => {
-    //<<<<<<<測試階段，先建立假的 user(待建立登入路由後，即可移除下面程式碼) 
-    req.user = { id: 1 }
-    //>>>>>>>>
-
     return res.render('instructor')
   },
   getCourses: (req, res) => {
-    //<<<<<<<測試階段，先建立假的 user(待建立登入路由後，即可移除下面程式碼) 
-    req.user = { id: 1 }
-    //>>>>>>>>
-
     // 定義 Model query 中的 where option
     const whereOption = req.query.filter_status ? [{ status: req.query.filter_status }] : [{
       status: {
@@ -62,10 +54,6 @@ const instructController = {
       })
   },
   getStudents: (req, res) => {
-    //<<<<<<<測試階段，先建立假的 user(待建立登入路由後，即可移除下面程式碼) 
-    req.user = { id: 1 }
-    //>>>>>>>>
-
     // 定義 Model query 中的 where option
     const whereOption = req.query.filter_status ? [{ status: req.query.filter_status }] : [{
       status: {
@@ -114,10 +102,6 @@ const instructController = {
       })
   },
   courseReviwDiscuss: (req, res) => {
-    //<<<<<<<測試階段，先建立假的 user(待建立登入路由後，即可移除下面程式碼) 
-    req.user = { id: 1 }
-    //>>>>>>>>
-
     Course.findAll({
       where: { UserId: req.user.id },
       attributes: ['id', 'name', 'image', 'status', 'CourseCategoryId', 'UserId', 'createdAt', 'updatedAt'],
