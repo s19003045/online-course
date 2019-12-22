@@ -2,7 +2,7 @@ const userController = require("../controllers/userController");
 const courseController = require("../controllers/courseController");
 const adminController = require("../controllers/adminController");
 const assignController = require("../controllers/assignController");
-const questController = require("../controllers/questController");
+const postController = require("../controllers/postController");
 const orderController = require("../controllers/orderController");
 const cartController = require("../controllers/cartController");
 const instructController = require("../controllers/instructController");
@@ -52,17 +52,21 @@ module.exports = (app, passport) => {
 
   //Ariel測試用--方便看view而暫時設置的路由
   // Ariel測試用--課程介紹
-  // app.get("/courses/introduction", courseController.getIntroduction);
+  // app.get("/courses/:course_id/introduction", courseController.getCourseIntro);
 
-  // Ariel測試用--課程內容
+  // 使用者可以看單一課程的單元內容
   app.get(
     "/courses/:courses_id/lessons",
     authenticated,
     courseController.getCourseLesson
   );
 
-  // Ariel測試用--問題討論區
-  app.get("/courses/:courses_id/post", courseController.getPost);
+  // 使用者登入後可以看到問題討論區
+  app.get(
+    "/courses/:courses_id/post",
+    authenticated,
+    postController.getCoursePost
+  );
 
   // 開課者建立課程
   app.get(
