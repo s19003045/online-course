@@ -2,10 +2,17 @@
 ul:last-child {
     margin-bottom: 0;
 }
-
+.clearfix::after {
+    clear: both;
+}
 /* style for course review discussion in  instructor dashboard*/
+
+.activity--items {
+    display: block;
+}
 .activity--items > li + li {
     margin-top: 30px;
+    display: block;
 }
 .activity--items > li {
     float: none;
@@ -114,8 +121,8 @@ p:last-child {
     float: none;
 }
 .acomment--item {
-    margin-top: 22px;
-    padding-top: 30px;
+    margin-top: 10px;
+    padding-top: 10px;
     border-top: 1px solid #e5e5e5;
 }
 .acomment--avatar {

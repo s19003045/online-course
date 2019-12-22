@@ -133,83 +133,185 @@
       </div>
 
 
+
+
       {{!-- 課程審核討論區 --}}
-      {{#each courses}}
-      <div class="activity--list">
-        <!-- Activity Items Start -->
-        <ul class="activity--items nav">
-          {{#each this.CourseReviewPosts}}
-
+      <div class="activity--list mb-5">
+        <ul class="activity--items">
           <li>
-            <!-- Activity Item Start -->
-            <div class="activity--item">
-              <div class="activity--avatar">
-                <a href="#">
-                  <img src="{{this.User.avatar}}" alt="">
-                </a>
-              </div>
-
-              <div class="activity--info fs--14">
-                <div class="activity--header">
-                  <p><a href="member-activity-personal.html"><span class="fs-18 mr-2">{{this.User.username}}</span> </a>
-                    posted an update
-                    in the course =>
-                    <span><a href="#">{{../this.name}}</a></span>
-                  </p>
-                </div>
-
-                <div class="activity--meta fs--12">
-                  <p><i class="fa mr--8 fa-clock-o"></i>{{moment this.updatedAt}}</p>
-                </div>
-
-                <div class="activity--content">
-                  <h5>{{this.subject}}</h5>
-                  <p>{{this.message}}</p>
-                </div>
-
-                <div class="activity--action fw--700">
-                  {{!-- <a href="#">See More...</a> --}}
-                </div>
-
-                <div class="activity--comments fs--12">
-                  <ul class="acomment--items nav">
-                    {{#each this.CourseReviewReplies}}
-                    <li>
-                      <div class="acomment--item clearfix">
-                        <div class="acomment--avatar">
-                          <a href="#">
-                            <img src="{{this.User.avatar}}" alt="">
-                          </a>
-                        </div>
-
-                        <div class="acomment--info">
-                          <div class="acomment--header">
-                            <p><a href="#">{{this.User.username}}</a> Replied</p>
-                          </div>
-
-                          <div class="acomment--meta">
-                            <p><i class="fa mr--8 fa-clock-o"></i>{{moment this.updatedAt}}</p>
-                          </div>
-
-                          <div class="acomment--content">
-                            <p>{{this.message}}</p>
-                          </div>
-                        </div>
-                      </div>
-                    </li>
+            <h3 class="reply_title mb-2">Leave a Post</h3>
+            <form class="comment__form" method="POST" action="/instructor/course-review-discuss/post">
+              <div
+                class="d-flex justify-content-start flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-2 border-bottom">
+                <div class="orderby__wrapper">
+                  <span>選擇課程</span>
+                  <select class="shot__byselect mr-4" name="courseId">
+                    {{#each coursesForSelectOption}}
+                    <option value="{{this.id}}" selected>{{this.name}}</option>
                     {{/each}}
-                  </ul>
+                  </select>
                 </div>
               </div>
-            </div>
-            <!-- Activity Item End -->
+              <div class="form-group">
+                <label for="subject">Subject</label>
+                <input name="subject" class="form-control" id="subject"></input>
+              </div>
+              <div class="form-group">
+                <label for="message">Message</label>
+                <textarea name="message" class="form-control" id="message" rows="3"></textarea>
+              </div>
+              <div class="input__wrapper">
+              </div>
+              <div class="submite__btn">
+                <button class="btn btn-outline-primary">Leave a Post</button>
+              </div>
+            </form>
           </li>
-
-          {{/each}}
         </ul>
-        <!-- Activity Items End -->
       </div>
+      <hr>
+
+      <form action="/instructor/course-review-discuss" method="GET" class="mt-5 mb-3">
+        <div
+          class="d-flex justify-content-start flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+          <div class="orderby__wrapper">
+            <span class="font-weight-bold">篩選課程</span>
+            <select onchange="this.form.submit()" type="text" class="shot__byselect mr-4" name="courseId">
+              <option value="" selected></option>
+              <option value="all">所有課程</option>
+              {{#each coursesForSelectOption}}
+              <option value="{{this.id}}">{{this.name}}</option>
+              {{/each}}
+            </select>
+          </div>
+        </div>
+      </form>
+
+      {{#each courses}}
+      <h5 class="mb-2">你正在瀏灠
+        〈{{this.name}}〉 的審核討論
+      </h5>
+      <h6 class="mb-4">討論篇數：
+        {{#if this.CourseReviewPosts}}
+        {{this.CourseReviewPosts.length}}
+        {{else}}
+        目前沒有與這課程相關的審核討論
+        {{/if}}
+      </h6>
+
+      <a role="button" class="btn btn-link mb-2" data-toggle="collapse" href="#courseReviewPosts-list{{@key}}"
+        role="button" aria-expanded="false" aria-controls="courseReviewPosts-list"
+        style="display: flex;flex-direction: row;justify-content: space-between;">Read more...
+      </a>
+
+      <div class="collapse mb-2" id="courseReviewPosts-list{{@key}}">
+        <div class="activity--list mt-3">
+          <!-- Activity Items Start -->
+
+          <ul class="activity--items">
+            {{#each this.CourseReviewPosts}}
+            <li>
+              <!-- Activity Item Start -->
+              <div class="activity--item">
+                <div class="activity--avatar">
+                  <a href="#">
+                    <img src="{{this.User.avatar}}" alt="">
+                  </a>
+                </div>
+
+                <div class="activity--info fs--14">
+                  <div class="activity--header">
+                    <p><a href="member-activity-personal.html"><span class="fs-18 mr-2">{{this.User.username}}</span>
+                      </a>
+                      posted an update
+                      in the course 〈
+                      <span><a href="#">{{../this.name}}</a></span>〉
+                    </p>
+                  </div>
+
+                  <div class="activity--meta fs--12">
+                    <p><i class="fa mr--8 fa-clock-o"></i>{{moment this.updatedAt}}</p>
+                  </div>
+
+                  <div class="activity--content">
+                    <h5>{{this.subject}}</h5>
+                    <p>{{this.message}}</p>
+                  </div>
+
+                  <div class="activity--action fw--700">
+                    {{!-- <a href="#">See More...</a> --}}
+                  </div>
+
+                  <div class="activity--comments fs--12">
+                    <ul class="acomment--items">
+                      {{#each this.CourseReviewReplies}}
+                      <li class="d-block">
+                        <div class="acomment--item clearfix">
+                          <div class="acomment--avatar">
+                            <a href="#">
+                              <img src="{{this.User.avatar}}" alt="">
+                            </a>
+                          </div>
+
+                          <div class="acomment--info">
+                            <div class="acomment--header">
+                              <p><a href="#">{{this.User.username}}</a> Replied</p>
+                            </div>
+
+                            <div class="acomment--meta">
+                              <p><i class="fa mr--8 fa-clock-o"></i>{{moment this.updatedAt}}</p>
+                            </div>
+
+                            <div class="acomment--content">
+                              <p>{{this.message}}</p>
+                            </div>
+                          </div>
+                        </div>
+                      </li>
+                      {{/each}}
+                      <li>
+                        {{!-- Reply --}}
+                        <div class="acomment--item clearfix">
+                          <div class="acomment--avatar">
+                            <a href="#">
+                              <img src="{{this.User.avatar}}" alt="">
+                            </a>
+                          </div>
+                          <div class="acomment--info">
+                            <div class="comment_respond">
+                              <form class="comment__form" action="#">
+                                <div class="form-group">
+                                  {{!-- <label for="message">
+                                    <h4>Reply :</h4>
+                                  </label> --}}
+                                  <textarea name="message" class="form-control" id="message" rows="3"></textarea>
+                                </div>
+                                <div class="input__wrapper">
+
+                                </div>
+                                <div class="submite__btn">
+                                  <a href="#" class="btn btn-outline-primary">Reply</a>
+                                </div>
+                              </form>
+                            </div>
+                          </div>
+                        </div>
+                      </li>
+
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <!-- Activity Item End -->
+            </li>
+            {{/each}}
+          </ul>
+          <!-- Activity Items End -->
+        </div>
+      </div>
+      <hr class="my-3">
       {{/each}}
+
 
       <canvas class="my-4 w-100 chartjs-render-monitor" id="myChart" width="2238" height="944"
         style="display: block; height: 472px; width: 1119px;">

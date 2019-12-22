@@ -101,40 +101,111 @@ const instructController = {
         return res.render('instructStudents', { courses, filter_status, sortby })
       })
   },
-  courseReviwDiscuss: (req, res) => {
-    Course.findAll({
+  // dashboard 的課程審核討論區
+  courseReviwDiscuss: async (req, res) => {
+    console.log('courseId:', req.query.courseId)
+    // filter_status 用於 handlebars
+    req.query.courseId = req.query.courseId == undefined ? 'all' : req.query.courseId
+
+    // 篩選課程清單
+    const coursesForSelectOption = await Course.findAll({
       where: { UserId: req.user.id },
-      attributes: ['id', 'name', 'image', 'status', 'CourseCategoryId', 'UserId', 'createdAt', 'updatedAt'],
-      include: [
-        {
-          model: User,
-          attributes: ['username', 'avatar', 'role']
-        },
-        {
-          model: CourseReviewPost,
-          include: [
-            {
-              model: User,
-              attributes: ['username', 'avatar', 'role']
-            },
-            {
-              model: CourseReviewReply,
-              include: [
-                {
-                  model: User,
-                  attributes: ['username', 'avatar', 'role']
-                },
-              ],
-              order: ['createdAt', 'DESC']
-            }
-          ],
-          order: ['createdAt', 'DESC']
-        }]
+      attributes: ['id', 'name']
     })
-      .then(courses => {
-        return res.render('courseReviewDiscuss', { courses })
-        return res.json(courses)
+
+    // 篩選所有課程的所有審核課程討論
+    if (req.query.courseId === 'all') {
+      const coursesFiltered = await Course.findAll({
+        where: {
+          UserId: req.user.id
+        },
+        attributes: ['id', 'name', 'image', 'status', 'CourseCategoryId', 'UserId', 'createdAt', 'updatedAt'],
+        include: [
+          {
+            model: User,
+            attributes: ['username', 'avatar', 'role']
+          },
+          {
+            model: CourseReviewPost,
+            include: [
+              {
+                model: User,
+                attributes: ['username', 'avatar', 'role']
+              },
+              {
+                model: CourseReviewReply,
+                include: [
+                  {
+                    model: User,
+                    attributes: ['username', 'avatar', 'role']
+                  },
+                ],
+                order: ['createdAt', 'DESC']
+              }
+            ],
+            order: ['createdAt', 'DESC']
+          }]
       })
+      let courseNameFiltered = '所有課程'
+
+      return res.render('courseReviewDiscuss', { courses: coursesFiltered, user: req.user, courseId: req.query.courseId, coursesForSelectOption, courseNameFiltered: courseNameFiltered })
+    } else {
+      // 篩選單一課程的審核討論
+      const coursesFiltered = await Course.findAll({
+        where: {
+          UserId: req.user.id,
+          id: req.query.courseId
+        },
+        attributes: ['id', 'name', 'image', 'status', 'CourseCategoryId', 'UserId', 'createdAt', 'updatedAt'],
+        include: [
+          {
+            model: User,
+            attributes: ['username', 'avatar', 'role']
+          },
+          {
+            model: CourseReviewPost,
+            include: [
+              {
+                model: User,
+                attributes: ['username', 'avatar', 'role']
+              },
+              {
+                model: CourseReviewReply,
+                include: [
+                  {
+                    model: User,
+                    attributes: ['username', 'avatar', 'role']
+                  },
+                ],
+                order: ['createdAt', 'DESC']
+              }
+            ],
+            order: ['createdAt', 'DESC']
+          }]
+      })
+      // return res.json(coursesFiltered)
+      let courseNameFiltered = coursesFiltered[0].name
+      // return res.json(coursesFiltered)
+      return res.render('courseReviewDiscuss', { courses: coursesFiltered, user: req.user, courseId: req.query.courseId, coursesForSelectOption, courseNameFiltered: courseNameFiltered })
+    }
+
+  },
+  // 留言於課程審核討論區
+  leaveCourRevPost: (req, res) => {
+    // console.log(req.body.courseReviewPostId)
+    CourseReviewPost.create({
+      subject: req.body.subject,
+      message: req.body.message,
+      CourseId: req.body.courseId,
+      UserId: req.user.id
+    })
+      .then(courseReviewPost => {
+        return res.redirect(`/instructor/course-review-discuss?courseId=${req.body.courseId}`)
+      })
+  },
+  // 回應於課程審核討論區
+  leaveCourRevReply: (req, res) => {
+
   },
 }
 
