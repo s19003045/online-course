@@ -7,7 +7,6 @@ const orderController = require("../controllers/orderController");
 const cartController = require("../controllers/cartController");
 const instructController = require("../controllers/instructController");
 
-
 const multer = require("multer");
 const upload = multer({ dest: "temp/" });
 
@@ -52,55 +51,92 @@ module.exports = (app, passport) => {
 
   app.get("/courses", authenticated, courseController.getCourses);
 
+  //Ariel測試用--方便看view而暫時設置的路由
+  // Ariel測試用--課程介紹
+  // app.get("/courses/introduction", courseController.getIntroduction);
+
+  // Ariel測試用--課程內容
+  app.get("/courses/:courses_id/lessons", courseController.getCourseLessons);
+
+  // Ariel測試用--問題討論區
+  app.get("/courses/:courses_id/post", courseController.getPost);
 
   // 開課者建立課程
-  app.get("/courses/create/intro", authenticated, courseController.createCourseIntro);
   app.get(
-    "/courses/create/:courseId/step1", authenticated,
+    "/courses/create/intro",
+    authenticated,
+    courseController.createCourseIntro
+  );
+  app.get(
+    "/courses/create/:courseId/step1",
+    authenticated,
     courseController.createCourseStep1
   );
-  app.put("/courses/create/:courseId/step1", authenticated, courseController.putCourseStep1);
+  app.put(
+    "/courses/create/:courseId/step1",
+    authenticated,
+    courseController.putCourseStep1
+  );
   app.get(
-    "/courses/create/:courseId/step2", authenticated,
+    "/courses/create/:courseId/step2",
+    authenticated,
     courseController.createCourseStep2
   );
-  app.post("/courses/create/:courseId/step2", authenticated, courseController.postCourseStep2);
+  app.post(
+    "/courses/create/:courseId/step2",
+    authenticated,
+    courseController.postCourseStep2
+  );
   app.get(
-    "/courses/create/:courseId/step2/:lessonId/edit", authenticated,
+    "/courses/create/:courseId/step2/:lessonId/edit",
+    authenticated,
     courseController.editCourseStep2
   );
   app.put(
-    "/courses/create/:courseId/step2/:lessonId", authenticated,
+    "/courses/create/:courseId/step2/:lessonId",
+    authenticated,
     courseController.putCourseStep2
   );
   app.get(
-    "/courses/create/:courseId/step3", authenticated,
+    "/courses/create/:courseId/step3",
+    authenticated,
     courseController.createCourseStep3
   );
-  app.put("/courses/create/:courseId/step3", authenticated, courseController.putCourseStep3);
+  app.put(
+    "/courses/create/:courseId/step3",
+    authenticated,
+    courseController.putCourseStep3
+  );
   app.get(
-    "/courses/create/:courseId/step4", authenticated,
+    "/courses/create/:courseId/step4",
+    authenticated,
     courseController.createCourseStep4
   );
-  app.post("/courses/create/:courseId/step4", authenticated, courseController.postCourseStep4);
+  app.post(
+    "/courses/create/:courseId/step4",
+    authenticated,
+    courseController.postCourseStep4
+  );
 
   //開課者dashboard
-  app.get('/instructor/dashboard', authenticated, instructController.getDashboard)
-  app.get('/instructor/courses', authenticated, instructController.getCourses)
-  app.get('/instructor/students', authenticated, instructController.getStudents)
-  app.get('/instructor/course-review-discuss', authenticated, instructController.courseReviwDiscuss)
+  app.get("/instructor/dashboard", instructController.getDashboard);
+  app.get("/instructor/courses", instructController.getCourses);
+  app.get("/instructor/students", instructController.getStudents);
   // app.get('/instructor/course/:courseId/', instructController.saleAnalysis)
   // app.get('/instructor/course/:courseId', instructController.studentAnalysis)
 
-  // 導向 intructor/dashboard
-  app.get('/instructor/*', (req, res) => res.redirect("/instructor/dashboard"))
-
-
   // 開課者可以查詢課程狀態、學生人數等
-  app.get("/users/:id/teachCourses", authenticated, userController.getTeachCourses);
-  app.post("/favorite/:courses_id", authenticated, userController.addFavoriteCourse);
-
-  // 導向首頁
-  app.get('/*', (req, res) => res.redirect("/"))
+  app.get(
+    "/users/:id/teachCourses",
+    authenticated,
+    userController.getTeachCourses
+  );
+  // 使用者可以收藏課程
+  app.post(
+    "/favorite/:courses_id",
+    authenticated,
+    userController.addFavoriteCourse
+  );
+  // 使用可以購買課程
+  app.post("/order/:courses_id", authenticated, orderController.orderCourse);
 };
-
