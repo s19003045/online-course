@@ -61,10 +61,17 @@
                   <div class="action">
                     <div class="actions_inner">
                       <ul class="add_to_links">
-                        <li><a class="wishlist" href="/" title="購買"><i class="bi bi-shopping-cart-full"></i></a></li>
-                        <li><a class="compare" href="/" title="加入收藏"><i class="bi bi-heart-beat"></i></a></li>
-                        <li><a data-toggle="modal" title="查看更多" class="quickview modal-view detail-link" href="/"><i
-                              class="bi bi-search"></i></a></li>
+                        <form action="/order/{{this.id}}" method="POST" style="display: contents;">
+                          <li><a class="wishlist" title="購買" href="javascript:;"
+                              onclick="parentNode.parentNode.submit();"><i class="bi bi-shopping-cart-full"></i></a>
+                          </li>
+                        </form>
+                        <form action="/favorite/{{this.id}}" method="POST" style="display: contents;">
+                          <li><a class="compare" title="加入收藏" href="javascript:;"
+                              onclick="parentNode.parentNode.submit();"><i class="bi bi-heart-beat"></i></a></li>
+                        </form>
+                        <li><a title="查看更多" class="quickview modal-view detail-link"
+                            href="/courses/{{this.id}}/introduction"><i class="bi bi-search"></i></a></li>
                       </ul>
                     </div>
                   </div>
