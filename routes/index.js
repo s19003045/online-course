@@ -119,9 +119,9 @@ module.exports = (app, passport) => {
   );
 
   //開課者dashboard
-  app.get("/instructor/dashboard", instructController.getDashboard);
-  app.get("/instructor/courses", instructController.getCourses);
-  app.get("/instructor/students", instructController.getStudents);
+  app.get("/instructor/dashboard", authenticated, instructController.getDashboard);
+  app.get("/instructor/courses", authenticated, instructController.getCourses);
+  app.get("/instructor/students", authenticated, instructController.getStudents);
   // app.get('/instructor/course/:courseId/', instructController.saleAnalysis)
   // app.get('/instructor/course/:courseId', instructController.studentAnalysis)
 
