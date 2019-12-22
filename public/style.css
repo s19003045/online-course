@@ -4549,7 +4549,7 @@ h3.widget-title-modal {
           font-size: 12px; }
       .blog-details .comments_area .comment__list li .wn__comment .content p {
         color: #333;
-        margin: 0 0 10px;
+        margin: 0;
         font-size: 14px;
         font-weight: 300;
         line-height: 24px; }

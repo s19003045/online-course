@@ -104,3 +104,36 @@
 	padding: 10px 0;
 	border-bottom: 1px solid #e1e1e1;
 }
+
+.blog-details .comments_area .comment__list .post_question .wn__comment .content .comnt__author .post-title{
+	font-size: 20px;
+	font-weight: 900;
+}
+
+.blog-details .comments_area .comment__list .post_question .wn__comment .content p {
+	margin: 15px 0 0;
+}
+
+.blog-details .comments_area .comment__list li .wn__comment form{
+	margin-left: 10px;
+	width: 100%;
+	display: flex;
+}
+
+.blog-details .comments_area .comment__list li .wn__comment form textarea{
+	border: 1px solid #ececec;
+	border-radius: 3px;
+	padding: 10px;
+	margin-right: 10px;
+	width: 100%;
+	height: 50px;
+}
+
+.blog-details .comments_area .comment__list li .wn__comment form button{
+  background: #e59285 none repeat scroll 0 0;
+  color: #fff;
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 8px 15px;
+}
