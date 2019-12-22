@@ -3,81 +3,85 @@
     <div class="row">
       <div class="col-lg-12 col-12">
         <div class="course-tabs">
-          <a href="/courses/:courses_id/introduction" class="no-on-page">課程介紹</a>
-          <a href="/courses/:courses_id/lessons" class="on-page">課程內容</a>
-          <a href="/courses/:courses_id/post" class="no-on-page">問題討論</a>
+          <a href="/courses/{{courseId}}/introduction" class="no-on-page">課程介紹</a>
+          <a href="/courses/{{courseId}}/lessons" class="on-page">課程內容</a>
+          <a href="/courses/{{courseId}}/post" class="no-on-page">問題討論</a>
         </div>
         <div class="blog-details content">
           <div class="comment_respond">
-            <h3 class="reply_title">Leave a Reply <small><a href="#">Cancel reply</a></small></h3>
+            <h3 class="reply_title">Add New Question</h3>
             <form class="comment__form" action="#">
-              <p>Your email address will not be published.Required fields are marked </p>
-              <div class="input__box">
-                <textarea name="comment" placeholder="Your comment here"></textarea>
-              </div>
+
               <div class="input__wrapper clearfix">
                 <div class="input__box name one--third">
-                  <input type="text" placeholder="name">
-                </div>
-                <div class="input__box email one--third">
-                  <input type="email" placeholder="email">
-                </div>
-                <div class="input__box website one--third">
-                  <input type="text" placeholder="website">
+                  <input type="text" placeholder="Title">
                 </div>
               </div>
+
+              <div class="input__box">
+                <textarea name="comment" placeholder="Your question here"></textarea>
+              </div>
+
               <div class="submite__btn">
-                <a href="#">Post Comment</a>
+                <a href="#">Post</a>
+                <div class="clear-fix"></div>
               </div>
             </form>
           </div>
-          <article class="blog-post-details">
-            <div class="post_wrapper">
-              <ul class="blog_meta">
-                <li><a href="#">3 comments</a></li>
-                <li> / </li>
-                <li>Tags:<span>fashion</span> <span>t-shirt</span> <span>white</span></li>
-              </ul>
-            </div>
-          </article>
           <div class="comments_area">
-            <h3 class="comment__title">1 comment</h3>
+            <h3 class="comment__title">Question (1) </h3>
+            {{!-- 提問問題 Start --}}
+
+            {{!-- 問題內容 Start --}}
             <ul class="comment__list">
-              <li>
+              <li class="post_question">
                 <div class="wn__comment">
                   <div class="thumb">
-                    <img src="images/blog/comment/1.jpeg" alt="comment images">
+                    <img src="https://fakeimg.pl/500x500/" alt="comment images">
                   </div>
                   <div class="content">
                     <div class="comnt__author d-block d-sm-flex">
-                      <span><a href="#">admin</a> Post author</span>
-                      <span>October 6, 2014 at 9:26 am</span>
-                      <div class="reply__btn">
-                        <a href="#">Reply</a>
-                      </div>
+                      <span class="post-title">請問關於XXX該怎麼操作？</span>
                     </div>
-                    <p>Sed interdum at justo in efficitur. Vivamus gravida volutpat sodales. Fusce ornare sit</p>
+                    <p>請問關於XXX該怎麼操作？我是用XXX方法，得到的結果是XXXX？？？</p>
+
                   </div>
-                </div>
               </li>
+              {{!-- 問題內容 End --}}
+
+              {{!-- 該問題的Reply Start --}}
               <li class="comment_reply">
                 <div class="wn__comment">
                   <div class="thumb">
-                    <img src="images/blog/comment/1.jpeg" alt="comment images">
+                    <img src="https://fakeimg.pl/500x500/" alt="comment images">
                   </div>
                   <div class="content">
-                    <div class="comnt__author d-block d-sm-flex">
-                      <span><a href="#">admin</a> Post author</span>
-                      <span>October 6, 2014 at 9:26 am</span>
-                      <div class="reply__btn">
-                        <a href="#">Reply</a>
-                      </div>
-                    </div>
-                    <p>Sed interdum at justo in efficitur. Vivamus gravida volutpat sodales. Fusce ornare sit</p>
+                    <p>應該是因為XXX，所以才會XXX，可以試試XXX Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit vel,
+                      beatae impedit culpa quisquam adipisci porro ipsum. Error mollitia tempore cupiditate nulla
+                      voluptates, sunt illum, sint culpa, exercitationem modi quo.</p>
                   </div>
                 </div>
               </li>
+              {{!-- 該問題的Reply End --}}
+
+              {{!-- 留言給該問題 Start --}}
+              <li class="comment_reply">
+                <div class="wn__comment">
+                  <div class="thumb">
+                    <img src="https://fakeimg.pl/500x500/" alt="comment images">
+                  </div>
+                  <form action="/">
+
+                    <textarea name="comment" placeholder="Your reply here"></textarea>
+                    <button type="submit">Reply</button>
+
+                  </form>
+                </div>
+              </li>
+              {{!-- 留言給該問題 End --}}
+
             </ul>
+            {{!-- 提問問題 End --}}
           </div>
 
         </div>
