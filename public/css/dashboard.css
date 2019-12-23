@@ -1,0 +1,172 @@
+/* 共用 style */
+ul:last-child {
+    margin-bottom: 0;
+}
+.clearfix::after {
+    clear: both;
+}
+/* style for course review discussion in  instructor dashboard*/
+
+.activity--items {
+    display: block;
+}
+.activity--items > li + li {
+    margin-top: 30px;
+    display: block;
+}
+.activity--items > li {
+    float: none;
+}
+.nav > li {
+    float: left;
+}
+.nav>li {
+    position: relative;
+    display: block;
+}
+
+.activity--items > li + li .activity--avatar {
+    margin-top: 24px;
+}
+.activity--avatar {
+    float: left;
+    position: relative;
+    width: 60px;
+    height: 60px;
+    margin-right: 15px;
+    border-radius: 50%;
+    overflow: hidden;
+    z-index: 0;
+}
+.activity--avatar:before {
+    content: " ";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #1da1f2;
+    opacity: 0.3;
+    z-index: -1;
+}
+.nav li a {
+    color: inherit;
+}
+
+a, .btn-link, a:link, .btn-link:link, a:visited, .btn-link:visited, a:hover, .btn-link:hover, a:focus, .btn-link:focus, a:active, .btn-link:active {
+    text-decoration: none;
+    outline: 0;
+}
+.activity--avatar img {
+    margin: 5px;
+    display: block;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+img, .nav > li > a > img {
+    max-width: 100%;
+    height: auto;
+}
+img {
+    vertical-align: middle;
+}
+img {
+    border: 0;
+}
+.fs-18{
+  font-size: 18px;
+  line-height: 28px;
+}
+.activity--items > li + li .activity--info {
+    padding-top: 24px;
+    border-top: 1px solid #e5e5e5;
+}
+.activity--info {
+    overflow: hidden;
+}
+.fs--14 {
+    font-size: 14px;
+    line-height: 24px;
+}
+p:last-child {
+    margin-bottom: 0;
+}
+
+.activity--meta {
+    margin-top: 1px;
+}
+.fs--12 {
+    font-size: 12px;
+    line-height: 22px;
+}
+
+.activity--content {
+    margin-top: 14px;
+}
+
+.activity--action {
+    margin-top: 6px;
+}
+.fw--700 {
+    font-weight: 700;
+}
+
+.fs--12 {
+    font-size: 12px;
+    line-height: 22px;
+}
+
+.acomment--items > li {
+    float: none;
+}
+.acomment--item {
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid #e5e5e5;
+}
+.acomment--avatar {
+    float: left;
+    position: relative;
+    width: 50px;
+    height: 50px;
+    margin-right: 18px;
+    border-radius: 50%;
+    overflow: hidden;
+    padding: 2px;
+    z-index: 0;
+}
+.acomment--avatar::before {
+    content: " ";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #1da1f2;
+    opacity: 0.3;
+    z-index: -1;
+}
+
+.acomment--avatar img {
+    display: block;
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+}
+
+.acomment--info {
+    overflow: hidden;
+}
+.acomment--meta {
+    margin-top: 3px;
+}
+.acomment--meta .fa {
+    margin-left: 1px;
+}
+.mr--8 {
+    margin-right: 8px;
+}
+.acomment--content {
+    margin-top: 8px;
+}
