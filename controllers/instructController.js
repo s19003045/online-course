@@ -12,7 +12,7 @@ const Op = Sequelize.Op
 
 const instructController = {
   getDashboard: (req, res) => {
-    return res.render('instructor')
+    return res.render('instructor/dashboard')
   },
   getCourses: (req, res) => {
     // 定義 Model query 中的 where option
@@ -50,7 +50,7 @@ const instructController = {
       order: [orderOption]
     })
       .then(courses => {
-        return res.render('instructCourses', { courses, filter_status, sortby })
+        return res.render('instructor/instructCourses', { courses, filter_status, sortby })
       })
   },
   getStudents: (req, res) => {
@@ -98,7 +98,7 @@ const instructController = {
     })
       .then(courses => {
         // return res.json(courses)
-        return res.render('instructStudents', { courses, filter_status, sortby })
+        return res.render('instructor/instructStudents', { courses, filter_status, sortby })
       })
   },
   // dashboard 的課程審核討論區
@@ -148,7 +148,7 @@ const instructController = {
       })
       let courseNameFiltered = '所有課程'
 
-      return res.render('courseReviewDiscuss', { courses: coursesFiltered, user: req.user, courseId: req.query.courseId, coursesForSelectOption, courseNameFiltered: courseNameFiltered })
+      return res.render('instructor/courseReviewDiscuss', { courses: coursesFiltered, user: req.user, courseId: req.query.courseId, coursesForSelectOption, courseNameFiltered: courseNameFiltered })
     } else {
       // 篩選單一課程的審核討論
       const coursesFiltered = await Course.findAll({
@@ -186,13 +186,13 @@ const instructController = {
       // return res.json(coursesFiltered)
       let courseNameFiltered = coursesFiltered[0].name
       // return res.json(coursesFiltered)
-      return res.render('courseReviewDiscuss', { courses: coursesFiltered, user: req.user, courseId: req.query.courseId, coursesForSelectOption, courseNameFiltered: courseNameFiltered })
+      return res.render('instructor/courseReviewDiscuss', { courses: coursesFiltered, user: req.user, courseId: req.query.courseId, coursesForSelectOption, courseNameFiltered: courseNameFiltered })
     }
 
   },
   // 留言於課程審核討論區
   leaveCourRevPost: (req, res) => {
-    // console.log(req.body.courseReviewPostId)
+
     CourseReviewPost.create({
       subject: req.body.subject,
       message: req.body.message,
