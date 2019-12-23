@@ -10,20 +10,17 @@
         <div class="blog-details content">
           <div class="comment_respond">
             <h3 class="reply_title">Add New Question</h3>
-            <form class="comment__form" action="#">
-
+            <form class="comment__form" action="/courses/{{courseId}}/post" method="POST" style="display: contents;">
               <div class="input__wrapper clearfix">
                 <div class="input__box name one--third">
-                  <input type="text" placeholder="Title">
+                  <input type="text" placeholder="Title" name="subject">
                 </div>
               </div>
-
               <div class="input__box">
-                <textarea name="comment" placeholder="Your question here"></textarea>
+                <textarea placeholder="Your question here" name="message"></textarea>
               </div>
-
               <div class="submite__btn">
-                <a href="#">Post</a>
+                <a href="javascript:;" onclick="parentNode.parentNode.submit();">Post</a>
                 <div class="clear-fix"></div>
               </div>
             </form>
@@ -73,11 +70,10 @@
                   <div class="thumb">
                     <img src="https://fakeimg.pl/500x500/" alt="comment images">
                   </div>
-                  <form action="/">
-
-                    <textarea name="comment" placeholder="Your reply here"></textarea>
+                  <form action="/courses/{{../courseId}}/post/{{this.id}}/reply" method="POST"
+                    style="display: contents;">
+                    <textarea name="message" placeholder="Your reply here"></textarea>
                     <button type="submit">Reply</button>
-
                   </form>
                 </div>
               </li>

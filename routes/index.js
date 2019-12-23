@@ -68,6 +68,20 @@ module.exports = (app, passport) => {
     postController.getCoursePost
   );
 
+  // 使用者登入後可以針對課程發表問題
+  app.post(
+    "/courses/:course_id/post",
+    authenticated,
+    postController.postDiscussPost
+  );
+
+  // 使用者登入後可以回覆課程問題
+  app.post(
+    "/courses/:course_id/post/:post_id/reply",
+    authenticated,
+    postController.postDiscussReply
+  );
+
   // 開課者建立課程
   app.get(
     "/courses/create/intro",
