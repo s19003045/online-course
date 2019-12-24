@@ -260,19 +260,60 @@ const adminController = {
   },
   // 留言於課程審核討論區
   leaveCourRevPost: (req, res) => {
-
-    CourseReviewPost.create({
-      subject: req.body.subject,
-      message: req.body.message,
-      CourseId: req.body.courseId,
-      UserId: req.user.id
+    // 先找出該使用者所有開立的課程之 course id
+    Course.findAll({
+      where: { UserId: req.user.id },
+      attributes: ['id'],
+      limit: pageLimit,
+      offset: offset
     })
-      .then(courseReviewPost => {
-        return res.redirect(`/admin/dashboard/course-review-discuss?courseId=${req.body.courseId}`)
+      .then(courses => {
+        // 判斷該課程是否為 user 開立的課程
+        const isUsersCourse = courses.map(course => (course.id)).includes(parseInt(req.body.courseId))
+        // 是否為 admin
+        const isAdmin = req.user.role === 'admin'
+        // 若為 user 自己的課程或為 admin，則可以發文
+        if (isUsersCourse || isAdmin) {
+          CourseReviewPost.create({
+            subject: req.body.subject,
+            message: req.body.message,
+            CourseId: req.body.courseId,
+            UserId: req.user.id
+          })
+            .then(courseReviewPost => {
+              return res.redirect(`/admin/dashboard/course-review-discuss?courseId=${req.body.courseId}`)
+            })
+        } else {
+          return res.redirect('back')
+        }
       })
   },
   // 回應於課程審核討論區
   leaveCourRevReply: (req, res) => {
+    // 先找出該使用者所有開立的課程之 course id
+    Course.findAll({
+      where: { UserId: req.user.id },
+      attributes: ['id']
+    })
+      .then(courses => {
+        // 判斷該課程是否為 user 開立的課程
+        const isUsersCourse = courses.map(course => (course.id)).includes(parseInt(req.query.courseId))
+        // 是否為 admin
+        const isAdmin = req.user.role === 'admin'
+        // 若為 user 自己的課程或為 admin，則可以發文
+        if (isUsersCourse || isAdmin) {
+          CourseReviewReply.create({
+            message: req.body.message,
+            CourseReviewPostId: req.query.courseReviewPostId,
+            UserId: req.user.id
+          })
+            .then(courseReviewReply => {
+              return res.redirect('back')
+            })
+        } else {
+          return res.redirect('back')
+        }
+      })
 
   },
 }
