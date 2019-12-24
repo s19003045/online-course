@@ -1,9 +1,9 @@
 "use strict";
 const faker = require("faker");
 
-// 為每一門課程產生discussion posts
+// 為每一門課程產生discussion replies
 let replies = [];
-for (let i = 1; i < 251; i++) {
+for (let i = 1; i < 601; i++) {
   for (let j = 2; j < 4; j++) {
     replies.push({
       message: faker.lorem.sentence(),
