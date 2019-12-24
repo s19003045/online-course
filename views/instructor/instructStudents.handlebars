@@ -33,7 +33,7 @@
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/instructor/students">
+              <a class="nav-link" href="/instructor/courses">
                 <i class="fas fa-users fa-2x mr-1"></i>
                 學習狀況分析
               </a>
@@ -45,19 +45,25 @@
         <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
           <a data-toggle="collapse" href="#course-list" role="button" aria-expanded="false"
             aria-controls="course-list"><i class="fas fa-chevron-down fa-1x mr-1"></i>
-            <span>課程編輯</span>
+            <span>課程審核及編輯</span>
           </a>
         </h6>
         <div class="collapse" id="course-list">
           <ul class="nav flex-column mb-2 ml-3">
             <li class="nav-item">
-              <a class="nav-link" href="#">
+              <a class="nav-link" href="/instructor/course-review-discuss">
+                <i class="far fa-file-alt fa-2x mr-1"></i>
+                課程審核討論區
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/instructor/courses/review">
                 <i class="far fa-file-alt fa-2x mr-1"></i>
                 檢視課程
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">
+              <a class="nav-link" href="/instructor/courses/edit">
                 <i class="far fa-file-alt fa-2x mr-1"></i>
                 編輯課程
               </a>
@@ -123,10 +129,10 @@
 
       <div
         class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h3 class="h3">Tools > 開課總覽</h3>
+        <h3 class="h3">Tools > 學習狀況分析</h3>
       </div>
 
-      <form action="/instructor/courses" method="GET" class="mt-5">
+      <form action="/instructor/students" method="GET" class="mt-5">
         <div
           class="d-flex justify-content-start flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
           <div class="orderby__wrapper">
@@ -155,36 +161,45 @@
         </div>
       </form>
 
-      <table class="table table-hover">
-        <thead>
-          <tr>
-            <th scope="col">項次</th>
-            <th scope="col">課程名稱</th>
-            <th scope="col">狀態</th>
-            <th scope="col">申請日期</th>
-            <th scope="col">上架日期</th>
-            <th scope="col">價錢</th>
-            <th scope="col">課程時間</th>
-            <th scope="col">評價</th>
-            <th scope="col">學生人數</th>
-          </tr>
-        </thead>
-        <tbody>
-          {{#each courses}}
-          <tr>
-            <th scope="row">{{@key}}</th>
-            <td>{{this.name}}</td>
-            <td>{{this.status}}</td>
-            <td>{{moment this.submittedDate}}</td>
-            <td>{{moment this.intoMarketDate}}</td>
-            <td>{{this.price}}</td>
-            <td>{{this.totalTime}}</td>
-            <td>{{this.ratingAverage}}</td>
-            <td>{{this.studentCount}}</td>
-          </tr>
-          {{/each}}
-        </tbody>
-      </table>
+      {{#each courses}}
+      <button type="button" class="btn btn-light btn-md btn-block mb-2" data-toggle="collapse"
+        href="#student-list{{@key}}" role="button" aria-expanded="false" aria-controls="student-list"
+        style="display: flex;flex-direction: row;justify-content: space-between;">
+        <span class="mr-1"><i class="fas fa-chevron-down fa-1x mr-5"></i>課程名稱:{{this.name}}</span>
+        <span>學生人數:{{this.studentCount}}</span>
+      </button>
+
+      {{!-- <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+        <a data-toggle="collapse" href="#student-list{{@key}}" role="button" aria-expanded="false"
+          aria-controls="student-list"><i class="fas fa-chevron-down fa-1x mr-1"></i>
+          <span>課程名稱:{{this.name}}</span>
+          <span>學生人數:{{this.studentCount}}</span>
+        </a>
+      </h6> --}}
+      <div class="collapse mb-2" id="student-list{{@key}}">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th scope="col">項次</th>
+              <th scope="col">學生姓名</th>
+              <th scope="col">email</th>
+              <th scope="col">完課率</th>
+            </tr>
+          </thead>
+          <tbody>
+            {{#each this.UserEnrollments}}
+            <tr>
+              <th scope="row">{{@key}}</th>
+              <td>{{this.User.username}}</td>
+              <td>{{this.User.email}}</td>
+              <td>{{this.completeRate}}%</td>
+              <td>{{moment this.intoMarketDate}}</td>
+            </tr>
+            {{/each}}
+          </tbody>
+        </table>
+      </div>
+      {{/each}}
 
       <canvas class="my-4 w-100 chartjs-render-monitor" id="myChart" width="2238" height="944"
         style="display: block; height: 472px; width: 1119px;">

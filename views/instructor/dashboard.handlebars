@@ -45,19 +45,25 @@
         <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
           <a data-toggle="collapse" href="#course-list" role="button" aria-expanded="false"
             aria-controls="course-list"><i class="fas fa-chevron-down fa-1x mr-1"></i>
-            <span>課程編輯</span>
+            <span>課程審核及編輯</span>
           </a>
         </h6>
         <div class="collapse" id="course-list">
           <ul class="nav flex-column mb-2 ml-3">
             <li class="nav-item">
-              <a class="nav-link" href="#">
+              <a class="nav-link" href="/instructor/course-review-discuss">
+                <i class="far fa-file-alt fa-2x mr-1"></i>
+                課程審核討論區
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/instructor/courses/review">
                 <i class="far fa-file-alt fa-2x mr-1"></i>
                 檢視課程
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">
+              <a class="nav-link" href="/instructor/courses/edit">
                 <i class="far fa-file-alt fa-2x mr-1"></i>
                 編輯課程
               </a>
@@ -123,80 +129,32 @@
 
       <div
         class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h3 class="h3">Tools > 學習狀況分析</h3>
-      </div>
-
-      <form action="/instructor/students" method="GET" class="mt-5">
-        <div
-          class="d-flex justify-content-start flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-          <div class="orderby__wrapper">
-            <span>篩選</span>
-            <select class="shot__byselect mr-4" name="filter_status">
-              <option value="" {{#ifCond filter_status ''}}selected{{/ifCond}}>All</option>
-              <option value="editted" {{#ifCond filter_status 'editted'}}selected{{/ifCond}}>編輯中</option>
-              <option value="submitted" {{#ifCond filter_status 'submitted'}}selected{{/ifCond}}>已送出申請</option>
-              <option value="intoMarket" {{#ifCond filter_status 'intoMarket'}}selected{{/ifCond}}>已上架</option>
-              <option value="offMarket" {{#ifCond filter_status 'offMarket'}}selected{{/ifCond}}>已下架</option>
-            </select>
+        <h3 class="h3">Dashboard</h3>
+        <div class="btn-toolbar mb-2 mb-md-0">
+          <div class="btn-group mr-2">
+            <button type="button" class="btn btn-sm btn-outline-secondary">Share</button>
+            <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
           </div>
-
-          <div class="orderby__wrapper">
-            <span>排序</span>
-            <select class="shot__byselect mr-4" name="sortby">
-              <option value="status" {{#ifCond sortby 'status'}}selected{{/ifCond}}>狀態</option>
-              <option value="submittedDate" {{#ifCond sortby 'submittedDate'}}selected{{/ifCond}}>申請日期</option>
-              <option value="price" {{#ifCond sortby 'price'}}selected{{/ifCond}}>價錢</option>
-              <option value="intoMarketDate" {{#ifCond sortby 'intoMarketDate'}}selected{{/ifCond}}>上架日期</option>
-              <option value="ratingAverage" {{#ifCond sortby 'ratingAverage'}}selected{{/ifCond}}>評價</option>
-              <option value="studentCount" {{#ifCond sortby 'studentCount'}}selected{{/ifCond}}>學生人數</option>
-            </select>
-          </div>
-          <button type="submit" class="btn btn-primary mr-5 btn-sm ml-3">搜尋</button>
+          <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+              class="feather feather-calendar">
+              <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+              <line x1="16" y1="2" x2="16" y2="6"></line>
+              <line x1="8" y1="2" x2="8" y2="6"></line>
+              <line x1="3" y1="10" x2="21" y2="10"></line>
+            </svg>
+            This week
+          </button>
         </div>
-      </form>
-
-      {{#each courses}}
-      <button type="button" class="btn btn-light btn-md btn-block mb-2" data-toggle="collapse" href="#student-list{{@key}}"
-        role="button" aria-expanded="false" aria-controls="student-list" style="display: flex;flex-direction: row;justify-content: space-between;">
-                <span class="mr-1"><i class="fas fa-chevron-down fa-1x mr-5"></i>課程名稱:{{this.name}}</span>
-        <span>學生人數:{{this.studentCount}}</span>
-      </button>
-
-      {{!-- <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-        <a data-toggle="collapse" href="#student-list{{@key}}" role="button" aria-expanded="false"
-          aria-controls="student-list"><i class="fas fa-chevron-down fa-1x mr-1"></i>
-          <span>課程名稱:{{this.name}}</span>
-          <span>學生人數:{{this.studentCount}}</span>
-        </a>
-      </h6> --}}
-      <div class="collapse mb-2" id="student-list{{@key}}">
-        <table class="table table-hover">
-          <thead>
-            <tr>
-              <th scope="col">項次</th>
-              <th scope="col">學生姓名</th>
-              <th scope="col">email</th>
-              <th scope="col">完課率</th>
-            </tr>
-          </thead>
-          <tbody>
-            {{#each this.UserEnrollments}}
-            <tr>
-              <th scope="row">{{@key}}</th>
-              <td>{{this.User.username}}</td>
-              <td>{{this.User.email}}</td>
-              <td>{{this.completeRate}}%</td>
-              <td>{{moment this.intoMarketDate}}</td>
-            </tr>
-            {{/each}}
-          </tbody>
-        </table>
       </div>
-      {{/each}}
 
       <canvas class="my-4 w-100 chartjs-render-monitor" id="myChart" width="2238" height="944"
         style="display: block; height: 472px; width: 1119px;">
       </canvas>
+
+      <h2>Section title</h2>
+
     </main>
   </div>
 </div>

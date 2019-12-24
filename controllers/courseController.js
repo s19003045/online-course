@@ -172,7 +172,7 @@ const courseController = {
             status: "editted",
             UserId: req.user.id
           }).then(course => {
-            return res.render("createCourseIntro", { course });
+            return res.render("createCourse/createCourseIntro", { course });
           });
         }
       });
@@ -194,7 +194,7 @@ const courseController = {
         status: "editted"
       }
     }).then(course => {
-      return res.render("createCourseStep1", { course });
+      return res.render("createCourse/createCourseStep1", { course });
     });
   },
   // 送出建立課程 step 1 的資料
@@ -228,7 +228,7 @@ const courseController = {
       }
     }).then(lessons => {
       Course.findByPk(req.params.courseId).then(course => {
-        return res.render("createCourseStep2", { course, lessons });
+        return res.render("createCourse/createCourseStep2", { course, lessons });
       });
     });
   },
@@ -249,7 +249,7 @@ const courseController = {
             CourseId: req.params.courseId
           }
         }).then(lesson => {
-          return res.render("createCourseStep2", { course, lessons, lesson });
+          return res.render("createCourse/createCourseStep2", { course, lessons, lesson });
         });
       });
     });
@@ -361,7 +361,7 @@ const courseController = {
               });
 
               course.save().then(course => {
-                return res.render("createCourseStep2", {
+                return res.render("createCourse/createCourseStep2", {
                   lessons,
                   course,
                   lesson
@@ -374,7 +374,7 @@ const courseController = {
   },
   createCourseStep3: (req, res) => {
     Course.findByPk(req.params.courseId, { include: [Lesson] }).then(course => {
-      return res.render("createCourseStep3", { course });
+      return res.render("createCourse/createCourseStep3", { course });
     });
   },
   putCourseStep3: (req, res) => {
@@ -386,13 +386,13 @@ const courseController = {
       course.price = parseInt(req.body.price);
       course.save().then(course => {
         return res.redirect("back");
-        return res.render("createCourseStep3", { course });
+        return res.render("createCourse/createCourseStep3", { course });
       });
     });
   },
   createCourseStep4: (req, res) => {
     Course.findByPk(req.params.courseId).then(course => {
-      return res.render("createCourseStep4", { course });
+      return res.render("createCourse/createCourseStep4", { course });
     });
   },
   postCourseStep4: (req, res) => {
