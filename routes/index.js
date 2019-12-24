@@ -14,7 +14,6 @@ const upload = multer({ dest: "temp/" });
 const helpers = require("../_helpers");
 
 module.exports = (app, passport) => {
-
   // 驗證使用者權限
   const authenticated = (req, res, next) => {
     if (helpers.ensureAuthenticated(req)) {
@@ -48,8 +47,8 @@ module.exports = (app, passport) => {
 
   //如果使用者訪問首頁，就導向 /courses 的頁面
   app.get("/", authenticated, (req, res) => res.redirect("/courses"));
-
-  app.get("/courses", authenticated, courseController.getCourses);
+  // 看全部課程
+  app.get("/courses", courseController.getCourses);
 
   //Ariel測試用--方便看view而暫時設置的路由
   // Ariel測試用--課程介紹
@@ -141,17 +140,37 @@ module.exports = (app, passport) => {
   );
 
   //開課者dashboard
-  app.get("/instructor/dashboard", authenticated, instructController.getDashboard);
+  app.get(
+    "/instructor/dashboard",
+    authenticated,
+    instructController.getDashboard
+  );
   //於開課者dashboard 瀏灠所有課程
   app.get("/instructor/courses", authenticated, instructController.getCourses);
   //於開課者dashboard 瀏灠所有課程的學生
-  app.get("/instructor/students", authenticated, instructController.getStudents);
+  app.get(
+    "/instructor/students",
+    authenticated,
+    instructController.getStudents
+  );
   //於開課者dashboard 的課程審核討論區
-  app.get("/instructor/course-review-discuss", authenticated, instructController.courseReviwDiscuss);
+  app.get(
+    "/instructor/course-review-discuss",
+    authenticated,
+    instructController.courseReviwDiscuss
+  );
   // 留言於課程審核討論區
-  app.post("/instructor/course-review-discuss/post", authenticated, instructController.leaveCourRevPost);
+  app.post(
+    "/instructor/course-review-discuss/post",
+    authenticated,
+    instructController.leaveCourRevPost
+  );
   // 回應於課程審核討論區
-  app.post("/instructor/course-review-discuss/reply", authenticated, instructController.leaveCourRevReply);
+  app.post(
+    "/instructor/course-review-discuss/reply",
+    authenticated,
+    instructController.leaveCourRevReply
+  );
   // app.get('/instructor/course/:courseId/', instructController.saleAnalysis)
   // app.get('/instructor/course/:courseId', instructController.studentAnalysis)
 
@@ -169,4 +188,11 @@ module.exports = (app, passport) => {
   );
   // 使用可以購買課程
   app.post("/order/:courses_id", authenticated, orderController.orderCourse);
+  // 用主類別篩選課程
+  app.get("/courses/:mainCategoName", courseController.getMainCategoryCourse);
+  // 用次類別篩選課程
+  app.get(
+    "/courses/:mainCategoName/:subCategoName",
+    courseController.getSubCategoryCourse
+  );
 };

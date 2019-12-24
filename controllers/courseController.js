@@ -4,49 +4,10 @@ const User = db.User;
 const UserEnrollment = db.UserEnrollment;
 const Lesson = db.Lesson;
 const CourseCategory = db.CourseCategory;
+const CourseSubCategory = db.CourseSubCategory;
 
 const courseController = {
-  //Ariel測試用--方便看view而暫時設置的Controller
-  // Ariel測試用--課程介紹
-  // getIntroduction: (req, res) => {
-  //   return res.render("introduction");
-  // },
-
-  // 看單一課程內容
-  getCourseLesson: (req, res) => {
-    let lessonNumber = 1;
-    if (req.query.lessonNumber) {
-      lessonNumber = Number(req.query.lessonNumber);
-    }
-    Course.findByPk(req.params.courses_id).then(course => {
-      if (course) {
-        Lesson.findAll({
-          attributes: ["lessonNumber", "title"],
-          where: [{ visible: true }, { CourseId: course.id }]
-        }).then(lessons => {
-          Lesson.findOne({
-            where: [{ lessonNumber: lessonNumber }]
-          }).then(lesson => {
-            res.render("course", {
-              lesson,
-              lessons,
-              courseId: course.id,
-              lessonNumber
-            });
-          });
-        });
-      } else {
-        req.flash("error_messages", "該課程不存在！");
-        res.redirect("back");
-      }
-    });
-  },
-
-  // Ariel測試用--問題討論區
-  getPost: (req, res) => {
-    return res.render("post");
-  },
-
+  // (首頁)看所有課程
   getCourses: (req, res) => {
     // 取得sort功能要依據哪個變數排序所有課程
     let order = ["intoMarketDate", "DESC"];
@@ -147,6 +108,199 @@ const courseController = {
       });
     }
   },
+  // 依主類別篩選課程
+  getMainCategoryCourse: (req, res) => {
+    // 取得sort功能要依據哪個變數排序所有課程
+    let order = ["intoMarketDate", "DESC"];
+    if (req.query.order === "評價由高到低") {
+      order = ["ratingAverage", "DESC"];
+    }
+    if (req.query.order === "學生人數由多到少") {
+      order = ["studentCount", "DESC"];
+    }
+    if (req.query.order === "評價人數由多到少") {
+      order = ["ratingCount", "DESC"];
+    }
+    if (req.query.order === "課程時數由多到少") {
+      order = ["totalTime", "DESC"];
+    }
+    if (req.query.order === "課程時數由少到多") {
+      order = ["totalTime", "ASC"];
+    }
+    if (req.query.order === "價格由高到低") {
+      order = ["price", "DESC"];
+    }
+    if (req.query.order === "價格由低到高") {
+      order = ["price", "ASC"];
+    }
+
+    CourseCategory.findOne({
+      where: {
+        name: req.params.mainCategoName
+      }
+    }).then(category => {
+      // 找不到類別
+      if (!category) {
+        // 目前req.flash無法顯示，待解決
+        req.flash(
+          "error_messages",
+          "目前還沒有該類別的課程，本站將陸續新增，不好意思！"
+        );
+        res.redirect("/");
+      } else {
+        Course.findAll({
+          attributes: [
+            "id",
+            "name",
+            "ratingAverage",
+            "ratingCount",
+            "studentCount",
+            "totalTime",
+            "price",
+            "CourseCategoryId"
+          ],
+          where: [{ status: "intoMarket" }, { CourseCategoryId: category.id }],
+          order: [order]
+        }).then(courses => {
+          // 該類別沒有任何課程
+          if (courses.length === 0) {
+            let no_courses = true;
+            return res.render("courses", { no_courses });
+          }
+          return res.render("courses", {
+            courses,
+            order: req.query.order,
+            route: "mainCate",
+            mainCategoName: req.params.mainCategoName,
+            reqUrl: req.url
+          });
+          // return res.json(courses);
+        });
+      }
+    });
+  },
+  // 依次類別篩選課程
+  getSubCategoryCourse: (req, res) => {
+    // 取得sort功能要依據哪個變數排序所有課程
+    let order = ["intoMarketDate", "DESC"];
+    if (req.query.order === "評價由高到低") {
+      order = ["ratingAverage", "DESC"];
+    }
+    if (req.query.order === "學生人數由多到少") {
+      order = ["studentCount", "DESC"];
+    }
+    if (req.query.order === "評價人數由多到少") {
+      order = ["ratingCount", "DESC"];
+    }
+    if (req.query.order === "課程時數由多到少") {
+      order = ["totalTime", "DESC"];
+    }
+    if (req.query.order === "課程時數由少到多") {
+      order = ["totalTime", "ASC"];
+    }
+    if (req.query.order === "價格由高到低") {
+      order = ["price", "DESC"];
+    }
+    if (req.query.order === "價格由低到高") {
+      order = ["price", "ASC"];
+    }
+
+    CourseCategory.findOne({
+      where: {
+        name: req.params.mainCategoName
+      }
+    }).then(category => {
+      // 找不到類別
+      if (!category) {
+        // 目前req.flash無法顯示，待解決
+        req.flash(
+          "error_messages",
+          "目前還沒有該類別的課程，本站將陸續新增，不好意思！"
+        );
+        res.redirect("/");
+      } else {
+        CourseSubCategory.findOne({
+          where: { name: req.params.subCategoName }
+        }).then(subcategory => {
+          if (!subcategory) {
+            // 目前req.flash無法顯示，待解決
+            req.flash(
+              "error_messages",
+              "目前還沒有該類別的課程，本站將陸續新增，不好意思！"
+            );
+            res.redirect("/");
+          } else {
+            Course.findAll({
+              attributes: [
+                "id",
+                "name",
+                "ratingAverage",
+                "ratingCount",
+                "studentCount",
+                "totalTime",
+                "price",
+                "CourseCategoryId"
+              ],
+              where: [
+                { status: "intoMarket" },
+                { CourseCategoryId: category.id },
+                { CourseSubCategoryId: subcategory.id }
+              ],
+              order: [order]
+            }).then(courses => {
+              // 該類別沒有任何課程
+              if (courses.length === 0) {
+                let no_courses = true;
+                return res.render("courses", { no_courses });
+              }
+              return res.render("courses", {
+                courses,
+                order: req.query.order,
+                route: "subCate",
+                mainCategoName: req.params.mainCategoName,
+                subCategoName: req.params.subCategoName,
+                reqUrl: req.url
+              });
+              // return res.json(courses);
+            });
+          }
+        });
+      }
+    });
+  },
+  // 看課單一程內容介紹
+  // getIntroduction: (req, res) => {
+  //   return res.render("introduction");
+  // },
+  // 看單一課程內容
+  getCourseLesson: (req, res) => {
+    let lessonNumber = 1;
+    if (req.query.lessonNumber) {
+      lessonNumber = Number(req.query.lessonNumber);
+    }
+    Course.findByPk(req.params.courses_id).then(course => {
+      if (course) {
+        Lesson.findAll({
+          attributes: ["lessonNumber", "title"],
+          where: [{ visible: true }, { CourseId: course.id }]
+        }).then(lessons => {
+          Lesson.findOne({
+            where: [{ lessonNumber: lessonNumber }]
+          }).then(lesson => {
+            res.render("course", {
+              lesson,
+              lessons,
+              courseId: course.id,
+              lessonNumber
+            });
+          });
+        });
+      } else {
+        req.flash("error_messages", "該課程不存在！");
+        res.redirect("back");
+      }
+    });
+  },
   // 未登入者及已登入者都可連結 intro 頁面
   createCourseIntro: (req, res) => {
     //<<<<<<<測試階段，先建立假的 user(待建立登入路由後，即可移除下面程式碼)
@@ -228,7 +382,10 @@ const courseController = {
       }
     }).then(lessons => {
       Course.findByPk(req.params.courseId).then(course => {
-        return res.render("createCourse/createCourseStep2", { course, lessons });
+        return res.render("createCourse/createCourseStep2", {
+          course,
+          lessons
+        });
       });
     });
   },
@@ -249,7 +406,11 @@ const courseController = {
             CourseId: req.params.courseId
           }
         }).then(lesson => {
-          return res.render("createCourse/createCourseStep2", { course, lessons, lesson });
+          return res.render("createCourse/createCourseStep2", {
+            course,
+            lessons,
+            lesson
+          });
         });
       });
     });
