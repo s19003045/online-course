@@ -279,7 +279,9 @@
                           </div>
                           <div class="acomment--info">
                             <div class="comment_respond">
-                              <form class="comment__form" action="#">
+                              <form class="comment__form"
+                                action="/instructor/course-review-discuss/reply?courseReviewPostId={{this.id}}&courseId={{../this.id}}"
+                                method="POST">
                                 <div class="form-group">
                                   {{!-- <label for="message">
                                     <h4>Reply :</h4>
@@ -290,7 +292,7 @@
 
                                 </div>
                                 <div class="submite__btn">
-                                  <a href="#" class="btn btn-outline-primary">Reply</a>
+                                  <button type="submit" class="btn btn-outline-primary">Reply</button>
                                 </div>
                               </form>
                             </div>
