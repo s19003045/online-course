@@ -9,73 +9,95 @@
               {{#ifCond route 'all'}}
               <p>全部課程</p>
               {{/ifCond}}
+              {{#ifCond route 'mainCate'}}
+              <a href="/courses/{{mainCategoName}}">
+                <p>{{mainCategoName}}</p>
+              </a>
+              {{/ifCond}}
               {{#ifCond route 'subCate'}}
-              <p>{{mainCategoName}} > {{subCategoName}}</p>
+              <div class="d-flex flex-row bd-highlight mb-3">
+                <a href="/courses/{{mainCategoName}}">
+                  <p>{{mainCategoName}}</p>
+                </a>
+                <p class="mx-2">></p>
+                <a href="/courses/{{mainCategoName}}/{{subCategoName}}">
+                  <p>{{subCategoName}}</p>
+                </a>
+              </div>
               {{/ifCond}}
             </div>
             <div class="shop__list__wrapper d-flex flex-wrap flex-md-nowrap justify-content-between">
               <div class="shop__list nav justify-content-center" role="tablist">
               </div>
+              {{#ifCond route 'all'}}
               <form action="/courses" method="GET" class="mt-5">
-                <div class="orderby__wrapper">
-                  <span>Sort By</span>
-                  <select onchange="this.form.submit()" type="text" class="shot__byselect" name="order">
-                    <option value="" {{#ifCond order ''}}selected{{/ifCond}}>選擇排序方式</option>
-                    <option value="評價由高到低" {{#ifCond order '評價由高到低'}}selected{{/ifCond}}>評價由高到低</option>
-                    <option value="學生人數由多到少" {{#ifCond order '學生人數由多到少'}}selected{{/ifCond}}>學生人數由多到少</option>
-                    <option value="評價人數由多到少" {{#ifCond order '評價人數由多到少'}}selected{{/ifCond}}>評價人數由多到少</option>
-                    <option value="課程時數由多到少" {{#ifCond order '課程時數由多到少'}}selected{{/ifCond}}>課程時數由多到少</option>
-                    <option value="課程時數由少到多" {{#ifCond order '課程時數由少到多'}}selected{{/ifCond}}>課程時數由少到多</option>
-                    <option value="價格由高到低" {{#ifCond order '價格由高到低'}}selected{{/ifCond}}>價格由高到低</option>
-                    <option value="價格由低到高" {{#ifCond order '價格由低到高'}}selected{{/ifCond}}>價格由低到高</option>
-                  </select>
-                </div>
-              </form>
+                {{/ifCond}}
+                {{#ifCond route 'mainCate'}}
+                <form action="/courses/{{mainCategoName}}" method="GET" class="mt-5">
+                  {{/ifCond}}
+                  {{#ifCond route 'subCate'}}
+                  <form action="/courses/{{mainCategoName}}/{{subCategoName}}" method="GET" class="mt-5">
+                    {{/ifCond}}
+                    <div class="orderby__wrapper">
+                      <span>Sort By</span>
+                      <select onchange="this.form.submit()" type="text" class="shot__byselect" name="order">
+                        <option value="" {{#ifCond order ''}}selected{{/ifCond}}>選擇排序方式</option>
+                        <option value="評價由高到低" {{#ifCond order '評價由高到低'}}selected{{/ifCond}}>評價由高到低</option>
+                        <option value="學生人數由多到少" {{#ifCond order '學生人數由多到少'}}selected{{/ifCond}}>學生人數由多到少</option>
+                        <option value="評價人數由多到少" {{#ifCond order '評價人數由多到少'}}selected{{/ifCond}}>評價人數由多到少</option>
+                        <option value="課程時數由多到少" {{#ifCond order '課程時數由多到少'}}selected{{/ifCond}}>課程時數由多到少</option>
+                        <option value="課程時數由少到多" {{#ifCond order '課程時數由少到多'}}selected{{/ifCond}}>課程時數由少到多</option>
+                        <option value="價格由高到低" {{#ifCond order '價格由高到低'}}selected{{/ifCond}}>價格由高到低</option>
+                        <option value="價格由低到高" {{#ifCond order '價格由低到高'}}selected{{/ifCond}}>價格由低到高</option>
+                      </select>
+                  </form>
             </div>
+            </form>
           </div>
         </div>
-        <div class="tab__container">
-          <div class="shop-grid tab-pane fade show active" id="nav-grid" role="tabpanel">
-            <div class="row">
-              {{#if no_courses}}
-              <div class="mx-auto my-5">
-                <p class="no_courses_message">目前該類別沒有相關課程，想當第一個老師就趁現在！</p>
+      </div>
+      <div class="tab__container">
+        <div class="shop-grid tab-pane fade show active" id="nav-grid" role="tabpanel">
+          <div class="row">
+            {{#if no_courses}}
+            <div class="mx-auto my-5">
+              <p class="no_courses_message">目前該類別沒有相關課程，想當第一個老師就趁現在！</p>
+            </div>
+            {{/if}}
+            {{#each courses}}
+            <!-- Start Single Product -->
+            <div class="product product__style--3 col-lg-3 col-md-4 col-sm-6 col-12">
+              <div class="product__thumb">
+                <a class="first__img" href="/"><img src="images/books/1.jpg" alt="product image"></a>
+                <a class="second__img animation1" href="/"><img src="images/books/2.jpg" alt="product image"></a>
               </div>
-              {{/if}}
-              {{#each courses}}
-              <!-- Start Single Product -->
-              <div class="product product__style--3 col-lg-3 col-md-4 col-sm-6 col-12">
-                <div class="product__thumb">
-                  <a class="first__img" href="/"><img src="images/books/1.jpg" alt="product image"></a>
-                  <a class="second__img animation1" href="/"><img src="images/books/2.jpg" alt="product image"></a>
-                </div>
-                <div class="product__content content--center">
-                  <h4>{{this.name}}</h4>
-                  <h4><i class="fas fa-star"></i>：{{this.ratingAverage}}</h4>
-                  <h4><i class="far fa-comment-dots"></i>：{{this.ratingCount}}</h4>
-                  <h4><i class="fas fa-users"></i>：{{this.studentCount}}</h4>
-                  <h4><i class="far fa-clock"></i>：{{this.totalTime}}</h4>
-                  <ul class="prize d-flex">
-                    <li>價格：{{this.price}}</li>
-                  </ul>
-                  <div class="action">
-                    <div class="actions_inner">
-                      <ul class="add_to_links">
-                        <form action="/order/{{this.id}}" method="POST" style="display: contents;">
-                          <li><a class="wishlist" title="購買" href="javascript:;"
-                              onclick="parentNode.parentNode.submit();"><i class="bi bi-shopping-cart-full"></i></a>
-                          </li>
-                        </form>
-                        <form action="/favorite/{{this.id}}" method="POST" style="display: contents;">
-                          <li><a class="compare" title="加入收藏" href="javascript:;"
-                              onclick="parentNode.parentNode.submit();"><i class="bi bi-heart-beat"></i></a></li>
-                        </form>
-                        <li><a title="查看更多" class="quickview modal-view detail-link"
-                            href="/courses/{{this.id}}/introduction"><i class="bi bi-search"></i></a></li>
-                      </ul>
-                    </div>
+              <div class="product__content content--center">
+                <h4>{{this.name}}</h4>
+                <h4><i class="fas fa-star"></i>：{{this.ratingAverage}}</h4>
+                <h4><i class="far fa-comment-dots"></i>：{{this.ratingCount}}</h4>
+                <h4><i class="fas fa-users"></i>：{{this.studentCount}}</h4>
+                <h4><i class="far fa-clock"></i>：{{this.totalTime}}</h4>
+                <ul class="prize d-flex">
+                  <li>價格：{{this.price}}</li>
+                </ul>
+                <div class="action">
+                  <div class="actions_inner">
+                    <ul class="add_to_links">
+                      <form action="/order/{{this.id}}" method="POST" style="display: contents;">
+                        <li><a class="wishlist" title="購買" href="javascript:;"
+                            onclick="parentNode.parentNode.submit();"><i class="bi bi-shopping-cart-full"></i></a>
+                        </li>
+                      </form>
+                      <form action="/favorite/{{this.id}}" method="POST" style="display: contents;">
+                        <li><a class="compare" title="加入收藏" href="javascript:;"
+                            onclick="parentNode.parentNode.submit();"><i class="bi bi-heart-beat"></i></a></li>
+                      </form>
+                      <li><a title="查看更多" class="quickview modal-view detail-link"
+                          href="/courses/{{this.id}}/introduction"><i class="bi bi-search"></i></a></li>
+                    </ul>
                   </div>
-                  {{!-- <div class="product__hover--content">
+                </div>
+                {{!-- <div class="product__hover--content">
                     <ul class="rating d-flex">
                       <li class="on"><i class="fa fa-star-o"></i></li>
                       <li class="on"><i class="fa fa-star-o"></i></li>
@@ -84,25 +106,25 @@
                       <li><i class="fa fa-star-o"></i></li>
                     </ul>
                   </div> --}}
-                </div>
               </div>
-              <!-- End Single Product -->
-              {{/each}}
-
             </div>
-
-            <ul class="wn__pagination">
-              <li class="active"><a href="#">1</a></li>
-              <li><a href="#">2</a></li>
-              <li><a href="#">3</a></li>
-              <li><a href="#">4</a></li>
-              <li><a href="#"><i class="zmdi zmdi-chevron-right"></i></a></li>
-            </ul>
+            <!-- End Single Product -->
+            {{/each}}
 
           </div>
+
+          <ul class="wn__pagination">
+            <li class="active"><a href="#">1</a></li>
+            <li><a href="#">2</a></li>
+            <li><a href="#">3</a></li>
+            <li><a href="#">4</a></li>
+            <li><a href="#"><i class="zmdi zmdi-chevron-right"></i></a></li>
+          </ul>
+
         </div>
       </div>
     </div>
   </div>
+</div>
 </div>
 <!-- End Shop Page -->
