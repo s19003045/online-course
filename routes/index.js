@@ -14,6 +14,7 @@ const upload = multer({ dest: "temp/" });
 const helpers = require("../_helpers");
 
 module.exports = (app, passport) => {
+
   // 驗證使用者權限
   const authenticated = (req, res, next) => {
     if (helpers.ensureAuthenticated(req)) {
@@ -122,9 +123,17 @@ module.exports = (app, passport) => {
   );
 
   //開課者dashboard
-  app.get("/instructor/dashboard", instructController.getDashboard);
-  app.get("/instructor/courses", instructController.getCourses);
-  app.get("/instructor/students", instructController.getStudents);
+  app.get("/instructor/dashboard", authenticated, instructController.getDashboard);
+  //於開課者dashboard 瀏灠所有課程
+  app.get("/instructor/courses", authenticated, instructController.getCourses);
+  //於開課者dashboard 瀏灠所有課程的學生
+  app.get("/instructor/students", authenticated, instructController.getStudents);
+  //於開課者dashboard 的課程審核討論區
+  app.get("/instructor/course-review-discuss", authenticated, instructController.courseReviwDiscuss);
+  // 留言於課程審核討論區
+  app.post("/instructor/course-review-discuss/post", authenticated, instructController.leaveCourRevPost);
+  // 回應於課程審核討論區
+  app.post("/instructor/course-review-discuss/reply", authenticated, instructController.leaveCourRevReply);
   // app.get('/instructor/course/:courseId/', instructController.saleAnalysis)
   // app.get('/instructor/course/:courseId', instructController.studentAnalysis)
 
@@ -142,4 +151,19 @@ module.exports = (app, passport) => {
   );
   // 使用可以購買課程
   app.post("/order/:courses_id", authenticated, orderController.orderCourse);
+
+  //admin dashboard
+  app.get("/admin/dashboard", authenticated, authenticatedAdmin, adminController.getDashboard);
+  //於admin dashboard 瀏灠所有課程
+  app.get("/admin/dashboard/courses", authenticated, authenticatedAdmin, adminController.getCourses);
+  //於admin dashboard 瀏灠所有課程的學生
+  app.get("/admin/dashboard/students", authenticated, authenticatedAdmin, adminController.getStudents);
+  //於admin dashboard 的課程審核討論區
+  app.get("/admin/dashboard/course-review-discuss", authenticated, authenticatedAdmin, adminController.courseReviwDiscuss);
+  // 留言於課程審核討論區
+  app.post("/admin/dashboard/course-review-discuss/post", authenticated, authenticatedAdmin, adminController.leaveCourRevPost);
+  // 回應於課程審核討論區
+  app.post("/admin/dashboard/course-review-discuss/reply", authenticated, authenticatedAdmin, adminController.leaveCourRevReply);
+
+
 };

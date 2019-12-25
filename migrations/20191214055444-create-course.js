@@ -56,6 +56,9 @@ module.exports = {
       CourseCategoryId: {
         type: Sequelize.INTEGER
       },
+      CourseSubCategoryId: {
+        type: Sequelize.INTEGER
+      },
       UserId: {
         type: Sequelize.INTEGER
       },
