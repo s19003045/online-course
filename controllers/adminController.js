@@ -107,7 +107,7 @@ const adminController = {
     // 設定 model query 的 offset
     let offset = req.query.page ? (req.query.page - 1) * pageLimit : 0
 
-    Course.findAll({
+    Course.findAndCountAll({
       where: {
         [Op.or]: whereOption
       },
@@ -124,16 +124,16 @@ const adminController = {
         }]
       }]
     })
-      .then(courses => {
+      .then(result => {
         // data for pagination
         let page = Number(req.query.page) || 1
-        let pages = Math.ceil(courses.length / pageLimit)
+        let pages = Math.ceil(result.count / pageLimit)
         let totalPage = Array.from({ length: pages }).map((item, index) => index + 1)
         let prev = page - 1 < 1 ? 1 : page - 1
         let next = page + 1 > pages ? pages : page + 1
 
         return res.render('admin/instructStudents', {
-          courses: courses,
+          courses: result.rows,
           filter_status,
           sortby,
           page: page,
