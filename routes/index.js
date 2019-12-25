@@ -151,4 +151,19 @@ module.exports = (app, passport) => {
   );
   // 使用可以購買課程
   app.post("/order/:courses_id", authenticated, orderController.orderCourse);
+
+  //admin dashboard
+  app.get("/admin/dashboard", authenticated, authenticatedAdmin, adminController.getDashboard);
+  //於admin dashboard 瀏灠所有課程
+  app.get("/admin/dashboard/courses", authenticated, authenticatedAdmin, adminController.getCourses);
+  //於admin dashboard 瀏灠所有課程的學生
+  app.get("/admin/dashboard/students", authenticated, authenticatedAdmin, adminController.getStudents);
+  //於admin dashboard 的課程審核討論區
+  app.get("/admin/dashboard/course-review-discuss", authenticated, authenticatedAdmin, adminController.courseReviwDiscuss);
+  // 留言於課程審核討論區
+  app.post("/admin/dashboard/course-review-discuss/post", authenticated, authenticatedAdmin, adminController.leaveCourRevPost);
+  // 回應於課程審核討論區
+  app.post("/admin/dashboard/course-review-discuss/reply", authenticated, authenticatedAdmin, adminController.leaveCourRevReply);
+
+
 };

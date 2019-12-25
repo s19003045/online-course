@@ -1,0 +1,233 @@
+<div class="container-fluid">
+  <div class="row">
+    {{!-- 左邊欄位 --}}
+    <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+      <div class="sidebar-sticky">
+        <ul class="nav flex-column">
+          <li class="nav-item">
+            <a class="nav-link active" href="/admin/dashboard">
+              <i class="fas fa-home fa-2x mr-1"></i>
+              Dashboard <span class="sr-only">(current)</span>
+            </a>
+          </li>
+        </ul>
+
+        <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+          <a data-toggle="collapse" href="#tool-list" role="button" aria-expanded="false" aria-controls="tool-list"><i
+              class="fas fa-chevron-down fa-1x mr-1"></i>
+            <span>Tools</span>
+          </a>
+        </h6>
+        <div class="collapse" id="tool-list">
+          <ul class="nav flex-column ml-3">
+            <li class=" nav-item">
+              <a class="nav-link" href="#">
+                <i class="fas fa-chart-line fa-2x mr-1"></i>
+                銷售分析
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/admin/dashboard/courses">
+                <i class="fas fa-chalkboard-teacher fa-2x mr-1"></i>
+                開課總覽
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/admin/dashboard/courses">
+                <i class="fas fa-users fa-2x mr-1"></i>
+                學習狀況分析
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        {{!-- 課程專區 --}}
+        <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+          <a data-toggle="collapse" href="#course-list" role="button" aria-expanded="false"
+            aria-controls="course-list"><i class="fas fa-chevron-down fa-1x mr-1"></i>
+            <span>課程審核及編輯</span>
+          </a>
+        </h6>
+        <div class="collapse" id="course-list">
+          <ul class="nav flex-column mb-2 ml-3">
+            <li class="nav-item">
+              <a class="nav-link" href="/admin/dashboard/course-review-discuss">
+                <i class="far fa-file-alt fa-2x mr-1"></i>
+                課程審核討論區
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/admin/dashboard/courses/review">
+                <i class="far fa-file-alt fa-2x mr-1"></i>
+                檢視課程
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/admin/dashboard/courses/edit">
+                <i class="far fa-file-alt fa-2x mr-1"></i>
+                編輯課程
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        {{!-- 作業專區 --}}
+        <h6 class="sidebar-heading d-flex justify-content-start align-items-center px-3 mt-4 mb-1 text-muted">
+          <a href="#assign-list" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="course-list">
+            <i class="fas fa-chevron-down fa-1x mr-1"></i>
+            <span>作業</span>
+          </a>
+        </h6>
+        <div class="collapse" id="assign-list">
+          <ul class="nav flex-column mb-2 ml-3">
+            <li class="nav-item">
+              <a class="nav-link" href="#">
+                <i class="fas fa-user-edit ml-2 fa-2x mr-1"></i>
+                瀏灠作業
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">
+                <i class="fas fa-user-edit ml-2 fa-2x mr-1"></i>
+                批改作業 (4)
+              </a>
+            </li>
+          </ul>
+        </div>
+
+
+        {{!-- 討論專區 --}}
+        <h6 class="sidebar-heading d-flex justify-content-start align-items-center px-3 mt-4 mb-1 text-muted">
+          <a href="#discuss-list" data-toggle="collapse" role="button" aria-expanded="false"
+            aria-controls="course-list">
+            <i class="fas fa-chevron-down fa-1x mr-1"></i>
+            <span>討論</span>
+          </a>
+        </h6>
+        <div class="collapse" id="discuss-list">
+          <ul class="nav flex-column mb-2 ml-3">
+            <li class="nav-item">
+              <a class="nav-link" href="#">
+                <i class="fas fa-comments ml-2 fa-2x mr-1"></i>
+                瀏灠所有討論
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">
+                <i class="fas fa-comments ml-2 fa-2x mr-1"></i>
+                待回覆討論 (5)
+              </a>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+    </nav>
+
+    {{!-- 右邊欄位 --}}
+    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+
+      <div
+        class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h3 class="h3">Tools > 學習狀況分析</h3>
+      </div>
+
+      <form action="/admin/dashboard/students" method="GET" class="mt-5">
+        <div
+          class="d-flex justify-content-start flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+          <div class="orderby__wrapper">
+            <span>篩選</span>
+            <select class="shot__byselect mr-4" name="filter_status">
+              <option value="" {{#ifCond filter_status ''}}selected{{/ifCond}}>All</option>
+              <option value="editted" {{#ifCond filter_status 'editted'}}selected{{/ifCond}}>編輯中</option>
+              <option value="submitted" {{#ifCond filter_status 'submitted'}}selected{{/ifCond}}>已送出申請</option>
+              <option value="intoMarket" {{#ifCond filter_status 'intoMarket'}}selected{{/ifCond}}>已上架</option>
+              <option value="offMarket" {{#ifCond filter_status 'offMarket'}}selected{{/ifCond}}>已下架</option>
+            </select>
+          </div>
+
+          <div class="orderby__wrapper">
+            <span>排序</span>
+            <select class="shot__byselect mr-4" name="sortby">
+              <option value="status" {{#ifCond sortby 'status'}}selected{{/ifCond}}>狀態</option>
+              <option value="submittedDate" {{#ifCond sortby 'submittedDate'}}selected{{/ifCond}}>申請日期</option>
+              <option value="price" {{#ifCond sortby 'price'}}selected{{/ifCond}}>價錢</option>
+              <option value="intoMarketDate" {{#ifCond sortby 'intoMarketDate'}}selected{{/ifCond}}>上架日期</option>
+              <option value="ratingAverage" {{#ifCond sortby 'ratingAverage'}}selected{{/ifCond}}>評價</option>
+              <option value="studentCount" {{#ifCond sortby 'studentCount'}}selected{{/ifCond}}>學生人數</option>
+            </select>
+          </div>
+          <button type="submit" class="btn btn-primary mr-5 btn-sm ml-3">搜尋</button>
+        </div>
+      </form>
+
+      {{#each courses}}
+      <button type="button" class="btn btn-light btn-md btn-block mb-2" data-toggle="collapse"
+        href="#student-list{{@key}}" role="button" aria-expanded="false" aria-controls="student-list"
+        style="display: flex;flex-direction: row;justify-content: space-between;">
+        <span class="mr-1"><i class="fas fa-chevron-down fa-1x mr-5"></i>課程名稱:{{this.name}}</span>
+        <span>學生人數:{{this.studentCount}}</span>
+      </button>
+
+      {{!-- <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+        <a data-toggle="collapse" href="#student-list{{@key}}" role="button" aria-expanded="false"
+          aria-controls="student-list"><i class="fas fa-chevron-down fa-1x mr-1"></i>
+          <span>課程名稱:{{this.name}}</span>
+          <span>學生人數:{{this.studentCount}}</span>
+        </a>
+      </h6> --}}
+      <div class="collapse mb-2" id="student-list{{@key}}">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th scope="col">項次</th>
+              <th scope="col">學生姓名</th>
+              <th scope="col">email</th>
+              <th scope="col">完課率</th>
+            </tr>
+          </thead>
+          <tbody>
+            {{#each this.UserEnrollments}}
+            <tr>
+              <th scope="row">{{@key}}</th>
+              <td>{{this.User.username}}</td>
+              <td>{{this.User.email}}</td>
+              <td>{{this.completeRate}}%</td>
+              <td>{{moment this.intoMarketDate}}</td>
+            </tr>
+            {{/each}}
+          </tbody>
+        </table>
+      </div>
+      {{/each}}
+
+      <canvas class="my-4 w-100 chartjs-render-monitor" id="myChart" width="2238" height="944"
+        style="display: block; height: 60px; width: 1119px;">
+      </canvas>
+
+      <div class="my-4">
+        <nav aria-label="Page navigation example">
+          <ul class="pagination justify-content-center">
+            <li class="page-item">
+              <a class="page-link" href="/admin/dashboard/students?page={{prev}}" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+              </a>
+            </li>
+            {{#each totalPage}}
+            {{#ifCond this ../page}}
+            <li class="page-item active"><a class="page-link" href="#">{{this}}</a></li>
+            {{else}}
+            <li class="page-item"><a class="page-link" href="/admin/dashboard/students?page={{this}}">{{this}}</a></li>
+            {{/ifCond}}
+            {{/each}}
+            <a class="page-link" href="/admin/dashboard/students?page={{next}}" aria-label="Next">
+              <span aria-hidden="true">&raquo;</span>
+            </a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+
+    </main>
+  </div>
+</div>
