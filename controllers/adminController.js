@@ -264,8 +264,8 @@ const adminController = {
     Course.findAll({
       where: { UserId: req.user.id },
       attributes: ['id'],
-      limit: pageLimit,
-      offset: offset
+      // limit: pageLimit,
+      // offset: offset
     })
       .then(courses => {
         // 判斷該課程是否為 user 開立的課程
