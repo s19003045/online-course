@@ -56,7 +56,11 @@ module.exports = (app, passport) => {
   // app.get("/courses/introduction", courseController.getIntroduction);
 
   // Ariel測試用--課程內容
-  app.get("/courses/:courses_id/lessons", courseController.getCourseLessons);
+  app.get(
+    "/courses/:courses_id/lessons",
+    authenticated,
+    courseController.getCourseLesson
+  );
 
   // Ariel測試用--問題討論區
   app.get("/courses/:courses_id/post", courseController.getPost);

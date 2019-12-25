@@ -4508,7 +4508,7 @@ h3.widget-title-modal {
 .blog-details .comments_area .comment__list li {
   margin: 0 0 30px; }
   .blog-details .comments_area .comment__list li.comment_reply {
-    margin-left: 23px; }
+    margin-left: 50px; }
   .blog-details .comments_area .comment__list li .wn__comment {
     display: flex; }
     .blog-details .comments_area .comment__list li .wn__comment .thumb {
@@ -4549,7 +4549,7 @@ h3.widget-title-modal {
           font-size: 12px; }
       .blog-details .comments_area .comment__list li .wn__comment .content p {
         color: #333;
-        margin: 0 0 10px;
+        margin: 0;
         font-size: 14px;
         font-weight: 300;
         line-height: 24px; }
@@ -4557,7 +4557,7 @@ h3.widget-title-modal {
   color: #3e3e3e;
   font-size: 20px;
   font-weight: 600;
-  margin: 0 0 30px;
+  margin: 0 0 20px;
   padding-bottom: 5px;
   position: relative;
 }
@@ -4587,7 +4587,7 @@ h3.widget-title-modal {
   width: 100%;
 }
 .blog-details .comment_respond .comment__form .input__box.one--third {
-  width: 33.33%;
+  width: 100%;
   float: left;
   padding: 0 10px; }
 .blog-details .comment_respond .comment__form .input__box.one--third input {
@@ -4599,7 +4599,7 @@ h3.widget-title-modal {
   width: 100%;
 }
 .blog-details .comment_respond .comment__form .submite__btn {
-  margin-top: 30px;
+  margin-top: 20px;
 }
 .blog-details .comment_respond .comment__form .submite__btn a {
   background: #e59285 none repeat scroll 0 0;
