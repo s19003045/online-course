@@ -2,7 +2,7 @@ const userController = require("../controllers/userController");
 const courseController = require("../controllers/courseController");
 const adminController = require("../controllers/adminController");
 const assignController = require("../controllers/assignController");
-const questController = require("../controllers/questController");
+const postController = require("../controllers/postController");
 const orderController = require("../controllers/orderController");
 const cartController = require("../controllers/cartController");
 const instructController = require("../controllers/instructController");
@@ -14,7 +14,6 @@ const upload = multer({ dest: "temp/" });
 const helpers = require("../_helpers");
 
 module.exports = (app, passport) => {
-
   // 驗證使用者權限
   const authenticated = (req, res, next) => {
     if (helpers.ensureAuthenticated(req)) {
@@ -48,22 +47,40 @@ module.exports = (app, passport) => {
 
   //如果使用者訪問首頁，就導向 /courses 的頁面
   app.get("/", authenticated, (req, res) => res.redirect("/courses"));
-
-  app.get("/courses", authenticated, courseController.getCourses);
+  // 看全部課程
+  app.get("/courses", courseController.getCourses);
 
   //Ariel測試用--方便看view而暫時設置的路由
   // Ariel測試用--課程介紹
   app.get("/courses/:courses_id/introduction", courseController.getCourseIntro);
 
-  // Ariel測試用--課程內容
+  // 使用者可以看單一課程的單元內容
   app.get(
     "/courses/:courses_id/lessons",
     authenticated,
     courseController.getCourseLesson
   );
 
-  // Ariel測試用--問題討論區
-  app.get("/courses/:courses_id/post", courseController.getPost);
+  // 使用者登入後可以看到問題討論區
+  app.get(
+    "/courses/:courses_id/post",
+    authenticated,
+    postController.getCoursePost
+  );
+
+  // 使用者登入後可以針對課程發表問題
+  app.post(
+    "/courses/:course_id/post",
+    authenticated,
+    postController.postDiscussPost
+  );
+
+  // 使用者登入後可以回覆課程問題
+  app.post(
+    "/courses/:course_id/post/:post_id/reply",
+    authenticated,
+    postController.postDiscussReply
+  );
 
   // 開課者建立課程
   app.get(
@@ -123,17 +140,37 @@ module.exports = (app, passport) => {
   );
 
   //開課者dashboard
-  app.get("/instructor/dashboard", authenticated, instructController.getDashboard);
+  app.get(
+    "/instructor/dashboard",
+    authenticated,
+    instructController.getDashboard
+  );
   //於開課者dashboard 瀏灠所有課程
   app.get("/instructor/courses", authenticated, instructController.getCourses);
   //於開課者dashboard 瀏灠所有課程的學生
-  app.get("/instructor/students", authenticated, instructController.getStudents);
+  app.get(
+    "/instructor/students",
+    authenticated,
+    instructController.getStudents
+  );
   //於開課者dashboard 的課程審核討論區
-  app.get("/instructor/course-review-discuss", authenticated, instructController.courseReviwDiscuss);
+  app.get(
+    "/instructor/course-review-discuss",
+    authenticated,
+    instructController.courseReviwDiscuss
+  );
   // 留言於課程審核討論區
-  app.post("/instructor/course-review-discuss/post", authenticated, instructController.leaveCourRevPost);
+  app.post(
+    "/instructor/course-review-discuss/post",
+    authenticated,
+    instructController.leaveCourRevPost
+  );
   // 回應於課程審核討論區
-  app.post("/instructor/course-review-discuss/reply", authenticated, instructController.leaveCourRevReply);
+  app.post(
+    "/instructor/course-review-discuss/reply",
+    authenticated,
+    instructController.leaveCourRevReply
+  );
   // app.get('/instructor/course/:courseId/', instructController.saleAnalysis)
   // app.get('/instructor/course/:courseId', instructController.studentAnalysis)
 
@@ -152,6 +189,14 @@ module.exports = (app, passport) => {
   // 使用可以購買課程
   app.post("/order/:courses_id", authenticated, orderController.orderCourse);
 
+  // 用主類別篩選課程
+  app.get("/courses/:mainCategoName", courseController.getMainCategoryCourse);
+  // 用次類別篩選課程
+  app.get(
+    "/courses/:mainCategoName/:subCategoName",
+    courseController.getSubCategoryCourse
+  );
+
   //admin dashboard
   app.get("/admin/dashboard", authenticated, authenticatedAdmin, adminController.getDashboard);
   //於admin dashboard 瀏灠所有課程
@@ -164,6 +209,5 @@ module.exports = (app, passport) => {
   app.post("/admin/dashboard/course-review-discuss/post", authenticated, authenticatedAdmin, adminController.leaveCourRevPost);
   // 回應於課程審核討論區
   app.post("/admin/dashboard/course-review-discuss/reply", authenticated, authenticatedAdmin, adminController.leaveCourRevReply);
-
 
 };
