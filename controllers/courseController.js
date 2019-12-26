@@ -8,9 +8,16 @@ const CourseSubCategory = db.CourseSubCategory;
 
 const courseController = {
   //Ariel測試用--方便看view而暫時設置的Controller
-  // Ariel測試用--課程介紹
+  // 看單一課程介紹
   getCourseIntro: (req, res) => {
-    return res.render("course-intro");
+    Course.findByPk(req.params.courses_id).then(course => {
+      if (course) {
+        console.log(course);
+      } else {
+        req.flash("error_messages", "該課程不存在！");
+        res.redirect("back");
+      }
+    });
   },
 
   // 看單一課程內容
@@ -112,7 +119,7 @@ const courseController = {
             "error_messages",
             "目前還沒有該類別的課程，本站將陸續新增，不好意思！"
           );
-          res.redirect("/");
+          res.redirect("/courses");
         } else {
           Course.findAll({
             attributes: [
@@ -187,7 +194,7 @@ const courseController = {
           "error_messages",
           "目前還沒有該類別的課程，本站將陸續新增，不好意思！"
         );
-        res.redirect("/");
+        res.redirect("/courses");
       } else {
         Course.findAll({
           attributes: [
@@ -258,7 +265,7 @@ const courseController = {
           "error_messages",
           "目前還沒有該類別的課程，本站將陸續新增，不好意思！"
         );
-        res.redirect("/");
+        res.redirect("/courses");
       } else {
         CourseSubCategory.findOne({
           where: { name: req.params.subCategoName }

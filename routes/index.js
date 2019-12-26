@@ -46,12 +46,12 @@ module.exports = (app, passport) => {
   app.get("/logout", userController.logout);
 
   //如果使用者訪問首頁，就導向 /courses 的頁面
-  app.get("/", courseController.getCourses);
+  app.get("/", (req, res) => {
+    res.redirect("/courses");
+  });
   // 看全部課程
   app.get("/courses", courseController.getCourses);
-
-  //Ariel測試用--方便看view而暫時設置的路由
-  // Ariel測試用--課程介紹
+  // 看單一課程介紹
   app.get("/courses/:courses_id/introduction", courseController.getCourseIntro);
 
   // 使用者可以看單一課程的單元內容
