@@ -57,11 +57,18 @@
 	font-size: 20px;
 }
 
+
+
+
+
 /* main.handlebars-內容 */
 
 #wrapper .empty{
 	height: 100px;
 }
+
+
+
 
 /* 全部課程頁面--課程資訊卡 */
 
@@ -87,27 +94,32 @@
 
 
 
-/* 單一課程頁面 */
+/* 單一課程頁面-課程介紹 */
 
-.course-tabs{
-	margin:0 0 30px;
-	/* border-bottom: 2px solid #e59285; */
+.product__info__main .box-tocart span {
+    display: inline-block;
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 40px;
+    margin: 0 ;
+		text-transform: capitalize; 
+	}
+		
+.product__info__main .box-tocart .addtocart__actions .tocart {
+	margin-left: 10px;
+	padding: 10px 15px;
 }
 
-.course-tabs a{
-	display: inline-block;
-	padding:5px 10px 5px;
-	border-top: 2px solid #e59285;
-	border-left: 2px solid #e59285;
-	border-right: 2px solid #e59285;
-	border-top-right-radius: 20px;
-}
+
+
+
+/* 單一課程頁面-課程內容 */
 
 .lessons-list{
 	margin: 0 0 30px;
-	padding: 10px 0;
 	width: 100%;
 }
+
 
 
 

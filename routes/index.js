@@ -53,7 +53,7 @@ module.exports = (app, passport) => {
 
   //Ariel測試用--方便看view而暫時設置的路由
   // Ariel測試用--課程介紹
-  // app.get("/courses/introduction", courseController.getIntroduction);
+  app.get("/courses/:courses_id/introduction", courseController.getCourseIntro);
 
   // Ariel測試用--課程內容
   app.get(

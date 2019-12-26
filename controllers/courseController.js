@@ -8,9 +8,9 @@ const CourseCategory = db.CourseCategory;
 const courseController = {
   //Ariel測試用--方便看view而暫時設置的Controller
   // Ariel測試用--課程介紹
-  // getIntroduction: (req, res) => {
-  //   return res.render("introduction");
-  // },
+  getCourseIntro: (req, res) => {
+    return res.render("course-intro");
+  },
 
   // 看單一課程內容
   getCourseLesson: (req, res) => {
