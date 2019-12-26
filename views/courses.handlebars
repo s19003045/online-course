@@ -68,15 +68,16 @@
             <!-- Start Single Product -->
             <div class="product product__style--3 col-lg-3 col-md-4 col-sm-6 col-12">
               <div class="product__thumb">
-                <a class="first__img" href="/"><img src="images/books/1.jpg" alt="product image"></a>
-                <a class="second__img animation1" href="/"><img src="images/books/2.jpg" alt="product image"></a>
+                <a class="first__img" href="/"><img src="https://fakeimg.pl/270x340/" alt="product image"></a>
               </div>
               <div class="product__content content--center">
                 <h4>{{this.name}}</h4>
-                <h4><i class="fas fa-star"></i>：{{this.ratingAverage}}</h4>
-                <h4><i class="far fa-comment-dots"></i>：{{this.ratingCount}}</h4>
-                <h4><i class="fas fa-users"></i>：{{this.studentCount}}</h4>
-                <h4><i class="far fa-clock"></i>：{{this.totalTime}}</h4>
+                <div class="info">
+                  <h4><i class="fas fa-star"></i>：{{this.ratingAverage}}</h4>
+                  <h4><i class="far fa-comment-dots"></i>：{{this.ratingCount}}</h4>
+                  <h4><i class="fas fa-users"></i>：{{this.studentCount}}</h4>
+                  <h4><i class="far fa-clock"></i>：{{this.totalTime}}</h4>
+                </div>
                 <ul class="prize d-flex">
                   <li>價格：{{this.price}}</li>
                 </ul>
