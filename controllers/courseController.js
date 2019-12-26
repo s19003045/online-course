@@ -7,6 +7,7 @@ const CourseCategory = db.CourseCategory;
 const CourseSubCategory = db.CourseSubCategory;
 
 const courseController = {
+
   // (首頁)看所有課程
   getCourses: (req, res) => {
     // 取得sort功能要依據哪個變數排序所有課程

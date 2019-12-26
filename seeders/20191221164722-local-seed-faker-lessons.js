@@ -3,6 +3,7 @@ const faker = require("faker");
 
 // array for bulkinsert
 let lessons = [];
+
 for (let i = 0; i < 241; i++) {
   for (let j = 1; j < 11; j++) {
     lessons.push({

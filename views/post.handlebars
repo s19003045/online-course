@@ -26,6 +26,7 @@
             </form>
           </div>
           <div class="comments_area">
+
             <h3 class="comment__title">Question ({{postsLength}}) </h3>
             {{!-- 提問問題 Start --}}
             {{#each posts}}
@@ -43,7 +44,6 @@
                     <span>{{this.User.username}}</span>
                     <span>{{moment this.createdAt}}</span>
                     <p>{{this.message}}</p>
-
                   </div>
               </li>
               {{!-- 問題內容 End --}}
@@ -59,6 +59,12 @@
                     <span>{{moment this.createdAt}}</span>
                     <p>{{this.message}}</p>
                   </div>
+                  <form action="/">
+
+                    <textarea name="comment" placeholder="Your reply here"></textarea>
+                    <button type="submit">Reply</button>
+
+                  </form>
                 </div>
               </li>
               {{!-- 該問題的Reply End --}}
