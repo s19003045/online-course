@@ -46,12 +46,12 @@ module.exports = (app, passport) => {
   app.get("/logout", userController.logout);
 
   //如果使用者訪問首頁，就導向 /courses 的頁面
-  app.get("/", authenticated, (req, res) => res.redirect("/courses"));
+  app.get("/", (req, res) => {
+    res.redirect("/courses");
+  });
   // 看全部課程
   app.get("/courses", courseController.getCourses);
-
-  //Ariel測試用--方便看view而暫時設置的路由
-  // Ariel測試用--課程介紹
+  // 看單一課程介紹
   app.get("/courses/:courses_id/introduction", courseController.getCourseIntro);
 
   // 使用者可以看單一課程的單元內容
@@ -198,16 +198,45 @@ module.exports = (app, passport) => {
   );
 
   //admin dashboard
-  app.get("/admin/dashboard", authenticated, authenticatedAdmin, adminController.getDashboard);
+  app.get(
+    "/admin/dashboard",
+    authenticated,
+    authenticatedAdmin,
+    adminController.getDashboard
+  );
   //於admin dashboard 瀏灠所有課程
-  app.get("/admin/dashboard/courses", authenticated, authenticatedAdmin, adminController.getCourses);
+  app.get(
+    "/admin/dashboard/courses",
+    authenticated,
+    authenticatedAdmin,
+    adminController.getCourses
+  );
   //於admin dashboard 瀏灠所有課程的學生
-  app.get("/admin/dashboard/students", authenticated, authenticatedAdmin, adminController.getStudents);
+  app.get(
+    "/admin/dashboard/students",
+    authenticated,
+    authenticatedAdmin,
+    adminController.getStudents
+  );
   //於admin dashboard 的課程審核討論區
-  app.get("/admin/dashboard/course-review-discuss", authenticated, authenticatedAdmin, adminController.courseReviwDiscuss);
+  app.get(
+    "/admin/dashboard/course-review-discuss",
+    authenticated,
+    authenticatedAdmin,
+    adminController.courseReviwDiscuss
+  );
   // 留言於課程審核討論區
-  app.post("/admin/dashboard/course-review-discuss/post", authenticated, authenticatedAdmin, adminController.leaveCourRevPost);
+  app.post(
+    "/admin/dashboard/course-review-discuss/post",
+    authenticated,
+    authenticatedAdmin,
+    adminController.leaveCourRevPost
+  );
   // 回應於課程審核討論區
-  app.post("/admin/dashboard/course-review-discuss/reply", authenticated, authenticatedAdmin, adminController.leaveCourRevReply);
-
+  app.post(
+    "/admin/dashboard/course-review-discuss/reply",
+    authenticated,
+    authenticatedAdmin,
+    adminController.leaveCourRevReply
+  );
 };
