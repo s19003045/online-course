@@ -35,11 +35,20 @@
             </div>
             <div class="post_wrapper">
               <div class="post_header">
-                <h2>第{{lesson.lessonNumber}}單元-{{lesson.title}}</h2>
+                <div class="d-flex justify-content-between">
+                  <h2>第{{lesson.lessonNumber}}單元-{{lesson.title}}</h2>
+                  <div class="checkbox">
+                    <label>
+                      <input type="checkbox" name="completed" id="completed" value="/courses/25/units/4611/complete"
+                        class="completed-checkbok">
+                      <span class="fake-checkbox"></span>
+                      Completed
+                    </label>
+                  </div>
+                </div>
                 <div class="blog-date-categori">
                   <ul>
                     <li><strong>Updated At </strong> {{moment lesson.updatedAt}}</li>
-                    <li><a href="#" title="Posts by boighor" rel="author">boighor</a></li>
                   </ul>
                 </div>
               </div>

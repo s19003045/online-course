@@ -84,7 +84,7 @@ module.exports = (app, passport) => {
 
   // 使用者登入後可以看到已購買的課程
   app.get(
-    "/users/:id/boughtCourses",
+    "/users/boughtCourses",
     authenticated,
     userController.getBoughtCourses
   );
