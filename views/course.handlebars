@@ -1,15 +1,21 @@
-<div class="page-blog-details section-padding--lg bg--white">
+<div class="page-blog-details pt--80 pb--55 bg--white">
   <div class="container">
     <div class="row">
       <div class="col-lg-12 col-12">
-        <div class="course-tabs">
-          <a href="/courses/{{courseId}}/introduction" class="no-on-page">課程介紹</a>
-          <a href="/courses/{{courseId}}/lessons" class="on-page">課程內容</a>
-          <a href="/courses/{{courseId}}/post" class="no-on-page">問題討論</a>
+
+        <h1 class="course-name">課程名稱</h1>
+
+        <div class="product__info__detailed">
+          <div class="pro_details_nav nav justify-content-start" role="tablist">
+            <a class="nav-item nav-link" href="/courses/{{courseId}}/introduction">課程介紹</a>
+            <a class="nav-item nav-link active" href="/courses/{{courseId}}/lessons">課程內容</a>
+            <a class="nav-item nav-link" href="/courses/{{courseId}}/post">問題與討論</a>
+          </div>
         </div>
 
+
         <div class="orderby__wrapper lessons-list">
-          <form action="/courses/{{courseId}}/lessons" method="GET" class="mt-5">
+          <form action="/courses/{{courseId}}/lessons" method="GET">
             <span>選擇章節</span>
             <select class="shot__byselect" onchange="this.form.submit()" type="text" name="lessonNumber">
               {{#each lessons}}
