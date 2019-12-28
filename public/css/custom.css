@@ -205,3 +205,33 @@
 .user-info .user-info-item .user-info-data{
 	font-size: 14px;
 }
+
+
+
+
+/* 個人收藏課程頁面 */
+.favorite-item th,
+.favorite-item td{
+	height: 40px;
+  line-height: 40px;
+}
+
+.favorite-item td .remove-favorite{
+	font-size: 14px;
+	font-weight: 600;
+	background-color:transparent;
+	border: none;
+}
+
+.favorite-item td .buy-now{
+	background: #e59285;
+  border: 0 none;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  height: 40px;
+  line-height: 40px;
+  padding: 0 15px;
+
+}
+
