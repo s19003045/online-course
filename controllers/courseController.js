@@ -7,19 +7,17 @@ const CourseCategory = db.CourseCategory;
 const CourseSubCategory = db.CourseSubCategory;
 
 const courseController = {
-  //Ariel測試用--方便看view而暫時設置的Controller
   // 看單一課程介紹
   getCourseIntro: (req, res) => {
     Course.findByPk(req.params.courses_id).then(course => {
       if (course) {
-        console.log(course);
+        res.render("course-intro", { course });
       } else {
         req.flash("error_messages", "該課程不存在！");
         res.redirect("back");
       }
     });
   },
-
   // 看單一課程內容
   getCourseLesson: (req, res) => {
     let lessonNumber = 1;
@@ -49,12 +47,6 @@ const courseController = {
       }
     });
   },
-
-  // Ariel測試用--問題討論區
-  getPost: (req, res) => {
-    return res.render("post");
-  },
-
   // (首頁)看所有課程
   getCourses: (req, res) => {
     // 取得sort功能要依據哪個變數排序所有課程
@@ -276,7 +268,7 @@ const courseController = {
               "error_messages",
               "目前還沒有該類別的課程，本站將陸續新增，不好意思！"
             );
-            res.redirect("/");
+            res.redirect("/courses");
           } else {
             Course.findAll({
               attributes: [
@@ -316,10 +308,6 @@ const courseController = {
       }
     });
   },
-  // 看課單一程內容介紹
-  // getIntroduction: (req, res) => {
-  //   return res.render("introduction");
-  // },
   // 看單一課程內容
   getCourseLesson: (req, res) => {
     let lessonNumber = 1;
