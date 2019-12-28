@@ -82,6 +82,13 @@ module.exports = (app, passport) => {
     postController.postDiscussReply
   );
 
+  // 使用者登入後可以看到已購買的課程
+  app.get(
+    "/users/:id/boughtCourses",
+    authenticated,
+    userController.getBoughtCourses
+  );
+
   // 開課者建立課程
   app.get(
     "/courses/create/intro",

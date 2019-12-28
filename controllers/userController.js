@@ -104,6 +104,16 @@ const userController = {
         res.redirect("back");
       }
     });
+  },
+  getBoughtCourses: (req, res) => {
+    UserEnrollment.findAll({
+      where: {
+        UserId: req.user.id
+      },
+      include: [Course]
+    }).then(courses => {
+      return res.render("boughtCourses", { courses });
+    });
   }
 };
 
