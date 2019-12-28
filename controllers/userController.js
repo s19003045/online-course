@@ -78,11 +78,26 @@ const userController = {
   addFavoriteCourse: (req, res) => {
     Course.findByPk(req.params.courses_id).then(course => {
       if (course) {
-        Favorite.create({
-          CourseId: course.id,
-          UserId: req.user.id
-        }).then(user => {
-          res.redirect("back");
+        // 判別使用者是否已收藏該課程
+        Favorite.findOne({
+          where: {
+            CourseId: course.id,
+            UserId: req.user.id
+          }
+        }).then(favorite => {
+          if (favorite) {
+            req.flash("error_messages", "該課程已在您的收藏清單");
+            res.redirect("back");
+          } else {
+            // 新增資料至favorite model
+            Favorite.create({
+              CourseId: course.id,
+              UserId: req.user.id
+            }).then(user => {
+              req.flash("success_messages", `成功新增${course.name}至收藏清單`);
+              res.redirect("back");
+            });
+          }
         });
       } else {
         req.flash("error_messages", "該課程不存在！");
