@@ -7,12 +7,19 @@ const CourseCategory = db.CourseCategory;
 const CourseSubCategory = db.CourseSubCategory;
 
 const courseController = {
-  //Ariel測試用--方便看view而暫時設置的Controller
-  // Ariel測試用--課程介紹
+  // 看單一課程介紹
   getCourseIntro: (req, res) => {
-    return res.render("course-intro");
+    Course.findByPk(req.params.courses_id, {
+      include: User
+    }).then(course => {
+      if (course) {
+        res.render("course-intro", { course });
+      } else {
+        req.flash("error_messages", "該課程不存在！");
+        res.redirect("back");
+      }
+    });
   },
-
   // 看單一課程內容
   getCourseLesson: (req, res) => {
     let lessonNumber = 1;
@@ -32,6 +39,7 @@ const courseController = {
               lesson,
               lessons,
               courseId: course.id,
+              courseName: course.name,
               lessonNumber
             });
           });
@@ -42,12 +50,6 @@ const courseController = {
       }
     });
   },
-
-  // Ariel測試用--問題討論區
-  getPost: (req, res) => {
-    return res.render("post");
-  },
-
   // (首頁)看所有課程
   getCourses: (req, res) => {
     // 取得sort功能要依據哪個變數排序所有課程
@@ -112,7 +114,7 @@ const courseController = {
             "error_messages",
             "目前還沒有該類別的課程，本站將陸續新增，不好意思！"
           );
-          res.redirect("/");
+          res.redirect("/courses");
         } else {
           Course.findAll({
             attributes: [
@@ -187,7 +189,7 @@ const courseController = {
           "error_messages",
           "目前還沒有該類別的課程，本站將陸續新增，不好意思！"
         );
-        res.redirect("/");
+        res.redirect("/courses");
       } else {
         Course.findAll({
           attributes: [
@@ -258,7 +260,7 @@ const courseController = {
           "error_messages",
           "目前還沒有該類別的課程，本站將陸續新增，不好意思！"
         );
-        res.redirect("/");
+        res.redirect("/courses");
       } else {
         CourseSubCategory.findOne({
           where: { name: req.params.subCategoName }
@@ -269,7 +271,7 @@ const courseController = {
               "error_messages",
               "目前還沒有該類別的課程，本站將陸續新增，不好意思！"
             );
-            res.redirect("/");
+            res.redirect("/courses");
           } else {
             Course.findAll({
               attributes: [
@@ -306,39 +308,6 @@ const courseController = {
             });
           }
         });
-      }
-    });
-  },
-  // 看課單一程內容介紹
-  // getIntroduction: (req, res) => {
-  //   return res.render("introduction");
-  // },
-  // 看單一課程內容
-  getCourseLesson: (req, res) => {
-    let lessonNumber = 1;
-    if (req.query.lessonNumber) {
-      lessonNumber = Number(req.query.lessonNumber);
-    }
-    Course.findByPk(req.params.courses_id).then(course => {
-      if (course) {
-        Lesson.findAll({
-          attributes: ["lessonNumber", "title"],
-          where: [{ visible: true }, { CourseId: course.id }]
-        }).then(lessons => {
-          Lesson.findOne({
-            where: [{ lessonNumber: lessonNumber }]
-          }).then(lesson => {
-            res.render("course", {
-              lesson,
-              lessons,
-              courseId: course.id,
-              lessonNumber
-            });
-          });
-        });
-      } else {
-        req.flash("error_messages", "該課程不存在！");
-        res.redirect("back");
       }
     });
   },
