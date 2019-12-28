@@ -43,38 +43,31 @@ $(document).ready(function () {
   var Clipboard = Quill.import('modules/clipboard');
   var Delta = Quill.import('delta');
 
-  console.log('editor.root:', editor.root.innerHTML)
-
   // 將 editor 中編輯的內容放入 textarea 再 submit
   $("#identifier").on("submit", function (event) {
-    console.log('editor.root:', editor.root.innerHTML)
     $("#hiddenArea").val(editor.root.innerHTML);
   })
 
   // ========jQuery 的 draggable=======
-
-  console.log('hello')
   $(".droppable-area1").sortable({
     connectWith: ".connected-sortable",
     stack: '.connected-sortable ul',
     stop: function (event, ui) {
       // 取得 courses-tbody 的子代長度
-      console.log('sortable stop')
+
       trLength = $('.courses-tbody').children().length
       for (let x = 1; x <= trLength; x++) {
-        console.log($(`.courses-tbody li:nth-child(${x})`).find("span").text())
+
         // 變更 li 的章節(依排序)
         $(`.courses-tbody li:nth-child(${x})`).find("span").text(`章節  ${x}`)
 
-        console.log(`x=${x} =>`, $(`.courses-tbody li:nth-child(${x})`).find("input").val())
         // 變更 li 的 input value(同章節編號)
         $(`.courses-tbody li:nth-child(${x})`).find("input").val(`${x}`)
         // $(`#form - ${ x + 1 } `).submit()
-        console.log('submit:', x)
 
         // 取得 li 的 input 之 data-pk 值
         var pk = $(`.courses-tbody li:nth-child(${x})`).find("input").data('pk')
-        console.log(pk)
+
         // 取得 li 的 input value
         var lessonNumber = $(`.courses-tbody li:nth-child(${x})`).find("input").val()
         // 取得 li 的 input 之 data-courseId 值
@@ -85,10 +78,10 @@ $(document).ready(function () {
           lessonNumber: lessonNumber
         })
           .then(function (response) {
-            console.log('留言成功');
+            console.log('排序成功');
           })
           .catch(function (error) {
-            console.log('留言失敗');
+            console.log('排序失敗');
           })
       }
     }
@@ -98,19 +91,16 @@ $(document).ready(function () {
   // 修改列的 index
   var modifyRowNumber = function (trLength) {
     for (let x = 1; x <= trLength; x++) {
-      console.log($(`.courses-tbody li:nth-child(${x})`).find("span").text())
+
       // 變更 li 的章節(依排序)
       $(`.courses-tbody li:nth-child(${x})`).find("span").text(`章節  ${x}`)
 
-      console.log(`x=${x} =>`, $(`.courses-tbody li:nth-child(${x})`).find("input").val())
       // 變更 li 的 input value(同章節編號)
       $(`.courses-tbody li:nth-child(${x})`).find("input").val(`${x}`)
-      // $(`#form - ${ x + 1 } `).submit()
-      console.log('submit:', x)
 
       // 取得 li 的 input 之 data-pk 值
       var pk = $(`.courses-tbody li:nth-child(${x})`).find("input").data('pk')
-      console.log(pk)
+
       // 取得 li 的 input value
       var lessonNumber = $(`.courses-tbody li:nth-child(${x})`).find("input").val()
       // 取得 li 的 input 之 data-courseId 值
@@ -121,10 +111,10 @@ $(document).ready(function () {
         lessonNumber: lessonNumber
       })
         .then(function (response) {
-          console.log('留言成功');
+          console.log('排序成功');
         })
         .catch(function (error) {
-          console.log('留言失敗');
+          console.log('排序失敗');
         })
     }
   }
@@ -157,7 +147,6 @@ $(document).ready(function () {
   // 點擊新增 button 時，執行的動作
   $(".btn-add-lesson").click(function () {
     // 取得 tbody 的子代長度
-    console.log('btn-add-row')
     var trLength = $('.courses-tbody').children().length
 
     if (trLength === 0) {
@@ -174,16 +163,15 @@ $(document).ready(function () {
       var courseId = $('.courses-tbody').data('courseId')
       // 取得 li 的 input 之 data-pk 值
       var pk = $('.courses-tbody').children().find('button.btn-remove-lesson').data('id')
-      console.log('pk:', pk)
       // 取得 li 的 input value
       var lessonNumber = $('.courses-tbody').children().find('button.btn-remove-lesson').data('lessonnumber')
-      console.log('lesson number:', lessonNumber)
+
       var trLength
       $(this).parents('li.draggable-item').remove()
 
       // 取得 courses-tbody 的子代長度
       trLength = $('.courses-tbody').children().length
-      console.log(trLength)
+
       modifyRowNumber(trLength)
       axios.post(`/courses/create/${courseId}/step2/${pk}?_method=DELETE`, {
         lessonId: pk,
