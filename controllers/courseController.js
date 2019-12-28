@@ -6,6 +6,7 @@ const Lesson = db.Lesson;
 const CourseCategory = db.CourseCategory;
 const CourseSubCategory = db.CourseSubCategory;
 
+
 const courseController = {
 
   // (首頁)看所有課程
@@ -304,10 +305,6 @@ const courseController = {
   },
   // 未登入者及已登入者都可連結 intro 頁面
   createCourseIntro: (req, res) => {
-    //<<<<<<<測試階段，先建立假的 user(待建立登入路由後，即可移除下面程式碼)
-    req.user = {};
-    //>>>>>>>>
-
     // 先判斷使用者是否登入，再判斷使用者之前是否曾編輯過課程(status:editted)
     if (req.user) {
       Course.findOne({
@@ -317,12 +314,8 @@ const courseController = {
         }
       }).then(course => {
         if (course) {
-          return res.redirect("/users/:id/teachCourses");
+          return res.redirect("/instructor/dashboard");
         } else {
-          //<<<<<<<測試階段，先建立假的 user(待建立登入路由後，即可移除下面程式碼)
-          req.user = { id: 1 };
-          //>>>>>>>>
-
           Course.create({
             status: "editted",
             UserId: req.user.id
@@ -337,10 +330,6 @@ const courseController = {
   },
   // 建立課程 Sep1 頁面(登入者才可以連結至此頁面)
   createCourseStep1: (req, res) => {
-    //<<<<<<<測試階段，先建立假的 user(待建立登入路由後，即可移除下面程式碼)
-    req.user = { id: 1 };
-    //>>>>>>>>
-
     // 找出該 user 未編輯完成的course
     Course.findOne({
       where: {
@@ -354,10 +343,6 @@ const courseController = {
   },
   // 送出建立課程 step 1 的資料
   putCourseStep1: (req, res) => {
-    //<<<<<<<測試階段，先建立假的 user(待建立登入路由後，即可移除下面程式碼)
-    req.user = { id: 1 };
-    //>>>>>>>>
-
     Course.findByPk(req.params.courseId).then(course => {
       course
         .update({
@@ -373,15 +358,15 @@ const courseController = {
   },
   // 建立課程 Sep2 頁面(登入者才可以連結至此頁面)
   createCourseStep2: (req, res) => {
-    //<<<<<<<測試階段，先建立假的 user(待建立登入路由後，即可移除下面程式碼)
-    req.user = { id: 1 };
-    //>>>>>>>>
-
     Lesson.findAll({
       where: {
         CourseId: req.params.courseId
       }
     }).then(lessons => {
+      // 排序：依 lessonNumber，由小到大
+      lessons.sort((a, b) =>
+        a.lessonNumber - b.lessonNumber
+      );
       Course.findByPk(req.params.courseId).then(course => {
         return res.render("createCourse/createCourseStep2", {
           course,
