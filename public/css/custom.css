@@ -172,3 +172,36 @@
   font-weight: 700;
   padding: 8px 15px;
 }
+
+
+
+
+/* 個人帳號資訊頁面 */
+
+.user-info-page{
+	max-width: 800px;
+}
+
+.user-image img{
+	border-radius: 15%;
+}
+
+.user-info h3{
+	font-size: 26px;
+	margin-bottom: 5px;
+}
+
+.user-info .user-info-item{
+	display: flex;
+}
+
+.user-info .title{
+	width: 100px;
+	font-size: 16px;
+	font-weight: 400;
+	color: #ce7852;
+}
+
+.user-info .user-info-item .user-info-data{
+	font-size: 14px;
+}
