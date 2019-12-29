@@ -58,7 +58,6 @@ const userController = {
   getUser: (req, res) => {
     User.findByPk(req.user.id)
       .then(user => {
-        console.log(user)
         return res.render('user', { user })
       })
   },
