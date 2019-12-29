@@ -1,6 +1,8 @@
 const db = require("../models");
 const Course = db.Course;
 const UserEnrollment = db.UserEnrollment;
+const Lesson = db.Lesson;
+const LessonUser = db.LessonUser;
 
 const orderController = {
   orderCourse: (req, res) => {
@@ -30,8 +32,23 @@ const orderController = {
               CourseId: course.id,
               UserId: req.user.id
             }).then(user => {
-              req.flash("success_messages", `感謝您購買${course.name}課程`);
-              res.redirect("back");
+              // 建立LessonUser資料
+              Lesson.findAll({
+                where: {
+                  CourseId: course.id
+                },
+                attribute: ["id"]
+              }).then(lessons => {
+                lessons.forEach(lesson => {
+                  LessonUser.create({
+                    isfinished: false,
+                    LessonId: lesson.id,
+                    UserId: req.user.id
+                  });
+                });
+                req.flash("success_messages", `感謝您購買${course.name}課程`);
+                res.redirect("back");
+              });
             });
           }
         });

@@ -61,6 +61,13 @@ module.exports = (app, passport) => {
     courseController.getCourseLesson
   );
 
+  // 使用者可以在課程內容頁面勾選complete checkbox標註已完成的單元
+  app.post(
+    "/courses/:courses_id/lessons/:lesson_id",
+    authenticated,
+    userController.postFinishLesson
+  );
+
   // 使用者登入後可以看到問題討論區
   app.get(
     "/courses/:courses_id/post",

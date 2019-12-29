@@ -37,14 +37,21 @@
               <div class="post_header">
                 <div class="d-flex justify-content-between">
                   <h2>第{{lesson.lessonNumber}}單元-{{lesson.title}}</h2>
-                  <div class="checkbox">
-                    <label>
-                      <input type="checkbox" name="completed" id="completed" value="/courses/25/units/4611/complete"
-                        class="completed-checkbok">
-                      <span class="fake-checkbox"></span>
-                      Completed
-                    </label>
-                  </div>
+                  <form action="/courses/{{courseId}}/lessons/{{lesson.id}}" method="POST">
+                    <div class="checkbox">
+                      <label>
+                        {{#if isfinished}}
+                        <input type="checkbox" name="completed" class="completed-checkbok" onchange="this.form.submit()"
+                          checked>
+                        {{else}}
+                        <input type="checkbox" name="completed" class="completed-checkbok"
+                          onchange="this.form.submit()">
+                        {{/if}}
+                        <span class="fake-checkbox"></span>
+                        Completed
+                      </label>
+                    </div>
+                  </form>
                 </div>
                 <div class="blog-date-categori">
                   <ul>

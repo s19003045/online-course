@@ -3,6 +3,7 @@ const Course = db.Course;
 const User = db.User;
 const UserEnrollment = db.UserEnrollment;
 const Lesson = db.Lesson;
+const LessonUser = db.LessonUser;
 const CourseCategory = db.CourseCategory;
 const CourseSubCategory = db.CourseSubCategory;
 
@@ -33,14 +34,23 @@ const courseController = {
           where: [{ visible: true }, { CourseId: course.id }]
         }).then(lessons => {
           Lesson.findOne({
-            where: [{ lessonNumber: lessonNumber }]
+            where: {
+              lessonNumber: lessonNumber,
+              CourseId: course.id
+            },
+            include: [{ model: LessonUser, where: { UserId: req.user.id } }]
           }).then(lesson => {
+            let isfinished = false;
+            if (lesson.LessonUsers) {
+              isfinished = lesson.LessonUsers[0].isfinished;
+            }
             res.render("course", {
               lesson,
               lessons,
               courseId: course.id,
               courseName: course.name,
-              lessonNumber
+              lessonNumber,
+              isfinished: isfinished
             });
           });
         });
