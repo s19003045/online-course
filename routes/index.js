@@ -182,11 +182,7 @@ module.exports = (app, passport) => {
   // app.get('/instructor/course/:courseId', instructController.studentAnalysis)
 
   //使用者可以看個人帳號資訊
-  app.get(
-    "/users/:id",
-    authenticated,
-    userController.getUser
-  );
+  app.get("/users/account", authenticated, userController.getUser);
 
   //使用者可以看到收藏的課程清單
   app.get(
