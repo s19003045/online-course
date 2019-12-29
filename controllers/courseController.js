@@ -6,6 +6,7 @@ const Lesson = db.Lesson;
 const CourseCategory = db.CourseCategory;
 const CourseSubCategory = db.CourseSubCategory;
 
+
 const courseController = {
   // 看單一課程介紹
   getCourseIntro: (req, res) => {
@@ -313,10 +314,6 @@ const courseController = {
   },
   // 未登入者及已登入者都可連結 intro 頁面
   createCourseIntro: (req, res) => {
-    //<<<<<<<測試階段，先建立假的 user(待建立登入路由後，即可移除下面程式碼)
-    req.user = {};
-    //>>>>>>>>
-
     // 先判斷使用者是否登入，再判斷使用者之前是否曾編輯過課程(status:editted)
     if (req.user) {
       Course.findOne({
@@ -326,12 +323,8 @@ const courseController = {
         }
       }).then(course => {
         if (course) {
-          return res.redirect("/users/:id/teachCourses");
+          return res.redirect("/instructor/dashboard");
         } else {
-          //<<<<<<<測試階段，先建立假的 user(待建立登入路由後，即可移除下面程式碼)
-          req.user = { id: 1 };
-          //>>>>>>>>
-
           Course.create({
             status: "editted",
             UserId: req.user.id
@@ -346,10 +339,6 @@ const courseController = {
   },
   // 建立課程 Sep1 頁面(登入者才可以連結至此頁面)
   createCourseStep1: (req, res) => {
-    //<<<<<<<測試階段，先建立假的 user(待建立登入路由後，即可移除下面程式碼)
-    req.user = { id: 1 };
-    //>>>>>>>>
-
     // 找出該 user 未編輯完成的course
     Course.findOne({
       where: {
@@ -363,10 +352,6 @@ const courseController = {
   },
   // 送出建立課程 step 1 的資料
   putCourseStep1: (req, res) => {
-    //<<<<<<<測試階段，先建立假的 user(待建立登入路由後，即可移除下面程式碼)
-    req.user = { id: 1 };
-    //>>>>>>>>
-
     Course.findByPk(req.params.courseId).then(course => {
       course
         .update({
@@ -382,15 +367,15 @@ const courseController = {
   },
   // 建立課程 Sep2 頁面(登入者才可以連結至此頁面)
   createCourseStep2: (req, res) => {
-    //<<<<<<<測試階段，先建立假的 user(待建立登入路由後，即可移除下面程式碼)
-    req.user = { id: 1 };
-    //>>>>>>>>
-
     Lesson.findAll({
       where: {
         CourseId: req.params.courseId
       }
     }).then(lessons => {
+      // 排序：依 lessonNumber，由小到大
+      lessons.sort((a, b) =>
+        a.lessonNumber - b.lessonNumber
+      );
       Course.findByPk(req.params.courseId).then(course => {
         return res.render("createCourse/createCourseStep2", {
           course,
@@ -400,15 +385,16 @@ const courseController = {
     });
   },
   editCourseStep2: (req, res) => {
-    //<<<<<<<測試階段，先建立假的 user(待建立登入路由後，即可移除下面程式碼)
-    req.user = { id: 1 };
-    //>>>>>>>>
-
     Lesson.findAll({
       where: {
         CourseId: req.params.courseId
       }
     }).then(lessons => {
+      // 排序：依 lessonNumber，由小到大
+      lessons.sort((a, b) =>
+        a.lessonNumber - b.lessonNumber
+      );
+
       Course.findByPk(req.params.courseId).then(course => {
         Lesson.findOne({
           where: {
@@ -416,6 +402,7 @@ const courseController = {
             CourseId: req.params.courseId
           }
         }).then(lesson => {
+          console.log(lesson.contents)
           return res.render("createCourse/createCourseStep2", {
             course,
             lessons,
@@ -424,6 +411,51 @@ const courseController = {
         });
       });
     });
+  },
+  editLessonNumber: (req, res) => {
+    console.log('============courseId:', req.params.courseId)
+    console.log('===============pk:', req.body.lessonNumber)
+    console.log('===============pk:', req.body.pk)
+    if (!req.body.lessonNumber) {
+      console.log('lessonNumber undefined')
+    } else {
+      Lesson.findOne({
+        where: {
+          id: parseInt(req.body.pk),
+        }
+      })
+        .then(lesson => {
+          lesson.update({
+            lessonNumber: parseInt(req.body.lessonNumber)
+          })
+            .then(lesson => {
+              console.log(lesson)
+              return res.status(200)
+            })
+        })
+    }
+
+  },
+  deleteCourseStep2: (req, res) => {
+    console.log('====================this delete course step2')
+    Lesson.findOne({ where: { id: req.params.lessonId } })
+      .then(lesson => {
+        console.log(lesson)
+        lesson.destroy()
+        return res.status(200)
+      })
+  },
+  createLessonTitle: (req, res) => {
+    console.log(req.params.courseId)
+    Lesson.create({
+      lessonNumber: parseInt(req.body.lessonNumber),
+      title: req.body.title,
+      CourseId: parseInt(req.params.courseId)
+    })
+      .then(lesson => {
+        console.log(lesson)
+        return res.redirect(`/courses/create/${req.params.courseId}/step2`)
+      })
   },
   postCourseStep2: (req, res) => {
     const {

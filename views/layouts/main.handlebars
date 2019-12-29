@@ -24,11 +24,24 @@
   {{!-- Instructor Dashboard css --}}
   <link rel="stylesheet" href="/css/dashboard.css">
 
+  {{!-- createCourse css --}}
+  <link rel="stylesheet" href="/css/createCourse.css">
+
   <!-- Modernizer js -->
   <script src="/js/vendor/modernizr-3.5.0.min.js"></script>
 
   {{!-- Font-awesome --}}
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-1/css/all.css">
+
+  {{!-- jQuery CSS --}}
+  {{!-- <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"> --}}
+
+  <!-- Include your favorite highlight.js stylesheet -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/styles/monokai-sublime.min.css"
+    rel="stylesheet">
+
+  {{!-- quill rich text editor --}}
+  <link href="https://cdn.quilljs.com/1.0.0/quill.snow.css" rel="stylesheet">
 </head>
 
 <body>
@@ -228,10 +241,21 @@
   <!-- JS Files -->
   <script src="https://player.vimeo.com/api/player.js"></script>
   <script src="/js/vendor/jquery-3.2.1.min.js"></script>
+  {{!-- jquery for UI --}}
+  <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
   <script src="/js/popper.min.js"></script>
   <script src="/js/bootstrap.min.js"></script>
   <script src="/js/plugins.js"></script>
   <script src="/js/active.js"></script>
+
+  {{!-- include axios --}}
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.js"></script>
+  {{!-- include highlight.js for Quill code syntax --}}
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js"></script>
+  {{!-- rich text editor --}}
+  <!-- Include the Quill library -->
+  <script src="https://cdn.quilljs.com/1.0.0/quill.js"></script>
+  <script src="/js/richTextEditor.js"></script>
 </body>
 
 

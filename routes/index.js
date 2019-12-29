@@ -108,16 +108,36 @@ module.exports = (app, passport) => {
     authenticated,
     courseController.postCourseStep2
   );
+  app.post(
+    "/courses/create/:courseId/step2/createLessonTitle",
+    authenticated,
+    courseController.createLessonTitle
+  );
   app.get(
     "/courses/create/:courseId/step2/:lessonId/edit",
     authenticated,
     courseController.editCourseStep2
   );
+  // 刪除該lesson(disable 該lesson)
+  app.delete(
+    "/courses/create/:courseId/step2/:lessonId",
+    authenticated,
+    courseController.deleteCourseStep2
+  );
+  // 異動 lesson 的 lessonNumber
+  app.put(
+    "/courses/create/:courseId/step2/editLessonNumber",
+    authenticated,
+    courseController.editLessonNumber
+  );
+  // 修改 lesson 內容
   app.put(
     "/courses/create/:courseId/step2/:lessonId",
     authenticated,
     courseController.putCourseStep2
   );
+
+
   app.get(
     "/courses/create/:courseId/step3",
     authenticated,
