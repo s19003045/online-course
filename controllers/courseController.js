@@ -338,22 +338,34 @@ const courseController = {
         status: "editted"
       }
     }).then(course => {
-      return res.render("createCourse/createCourseStep1", { course });
+      CourseSubCategory.findAll({
+        include: [CourseCategory]
+      })
+        .then(courseSubCategories => {
+          return res.render("createCourse/createCourseStep1", { course, courseSubCategories });
+        })
     });
   },
   // 送出建立課程 step 1 的資料
   putCourseStep1: (req, res) => {
+
     Course.findByPk(req.params.courseId).then(course => {
-      course
-        .update({
-          name: req.body.name,
-          description: req.body.description,
-          teacherDescrip: req.body.teacherDescrip,
-          teacherName: req.body.teacherName
+      CourseSubCategory.findByPk(req.body.CourseSubCategoryId)
+        .then(subCategory => {
+          console.log(subCategory)
+          course
+            .update({
+              name: req.body.name,
+              description: req.body.description,
+              teacherDescrip: req.body.teacherDescrip,
+              teacherName: req.body.teacherName,
+              CourseCategoryId: subCategory.CourseCategoryId,
+              CourseSubCategoryId: parseInt(req.body.CourseSubCategoryId),
+            })
+            .then(course => {
+              return res.redirect("/courses/create/248/step1", { course });
+            });
         })
-        .then(courseSaved => {
-          return res.redirect("back");
-        });
     });
   },
   // 建立課程 Sep2 頁面(登入者才可以連結至此頁面)

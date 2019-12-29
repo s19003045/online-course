@@ -12,6 +12,15 @@
           value="{{course.description}}">
       </div>
       <div class="form-group">
+        <label for="description">課程類別(<span>主類別/次類別</span>)</label>
+        <select class="custom-select custom-select-lg mb-3 ml-3" name="CourseSubCategoryId">
+          {{#each courseSubCategories}}
+          <option value="{{this.id}}" {{#ifCond this.id ../course.CourseSubCategoryId}}selected{{/ifCond}}>
+            {{this.CourseCategory.name}}/{{this.name}}</option>
+          {{/each}}
+        </select>
+      </div>
+      <div class="form-group">
         <label for="teacherDescrip">講師姓名</label>
         <input type="text" class="form-control" name="teacherName" id="teacherName" placeholder="取個響亮的名字吧~"
           value="{{course.teacherName}}">
