@@ -181,6 +181,13 @@ module.exports = (app, passport) => {
     userController.getUser
   );
 
+  //使用者可以看到收藏的課程清單
+  app.get(
+    "/users/:id/favoriteCourses",
+    authenticated,
+    userController.getFavoriteCourse
+  );
+
   // 開課者可以查詢課程狀態、學生人數等
   app.get(
     "/users/:id/teachCourses",
