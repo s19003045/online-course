@@ -600,19 +600,32 @@ const courseController = {
         teacherDescrip,
         totalTime,
         totalLessons,
-        price
+        price,
+        CourseCategoryId,
+        CourseSubCategoryId
       } = course;
 
+      // 若課程名稱、課程簡介、講師姓名、講師介紹為填寫完，則導回 step1
       if (
-        course.Lessons.length == 0 ||
         name == null ||
         description == null ||
         teacherDescrip == null ||
-        totalTime == null ||
-        totalLessons == null ||
-        price == null
+        teacherName == null ||
+        CourseCategoryId == null ||
+        CourseSubCategoryId == null
       ) {
         return res.redirect(`/courses/create/${req.params.courseId}/step1`);
+      } else if (
+        // 若簡介影片、未編輯 lesson，則導回 step2
+        introVideo == null ||
+        course.Lessons.length == 0
+      ) {
+        return res.redirect(`/courses/create/${req.params.courseId}/step2`);
+      } else if (
+        // 若未設定售價，則導回 step3
+        price == null
+      ) {
+        return res.redirect(`/courses/create/${req.params.courseId}/step3`);
       } else {
         // 若所有 step 皆已完成，則送出申請
         Course.findByPk(req.params.courseId).then(course => {
@@ -622,7 +635,7 @@ const courseController = {
               submittedDate: new Date()
             })
             .then(course => {
-              return res.redirect(`/users/${req.user.id}/teachCourses`);
+              return res.redirect(`/instructor/courses`);
             });
         });
       }
