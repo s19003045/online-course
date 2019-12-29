@@ -53,6 +53,20 @@ const userController = {
     req.logout();
     res.redirect("/signin");
   },
+
+  //使用者可以看個人帳號資訊
+  getUser: (req, res) => {
+    User.findByPk(req.params.id)
+      .then(user => {
+        return res.render('user', { user })
+      })
+  },
+
+  //使用者可以看到收藏的課程清單
+  getFavoriteCourse: (req, res) => {
+    return res.render('wishlist')
+  },
+
   // 開課者可以瀏灠自己開的課及相關資訊
   getTeachCourses: (req, res) => {
     Course.findAll({
