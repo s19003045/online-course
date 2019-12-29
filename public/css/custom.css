@@ -179,7 +179,7 @@
 /* 個人帳號資訊頁面 */
 
 .user-info-page{
-	max-width: 800px;
+	max-width: 850px;
 }
 
 .user-image img{
@@ -193,10 +193,11 @@
 
 .user-info .user-info-item{
 	display: flex;
+	padding: 5px 0;
 }
 
 .user-info .title{
-	width: 100px;
+	width: 110px;
 	font-size: 16px;
 	font-weight: 400;
 	color: #ce7852;

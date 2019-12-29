@@ -56,8 +56,9 @@ const userController = {
 
   //使用者可以看個人帳號資訊
   getUser: (req, res) => {
-    User.findByPk(req.params.id)
+    User.findByPk(req.user.id)
       .then(user => {
+        console.log(user)
         return res.render('user', { user })
       })
   },

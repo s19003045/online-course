@@ -196,14 +196,14 @@ module.exports = (app, passport) => {
 
   //使用者可以看個人帳號資訊
   app.get(
-    "/users/:id",
+    "/users/account",
     authenticated,
     userController.getUser
   );
 
   //使用者可以看到收藏的課程清單
   app.get(
-    "/users/:id/favoriteCourses",
+    "/users/favoriteCourses",
     authenticated,
     userController.getFavoriteCourse
   );
