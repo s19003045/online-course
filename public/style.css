@@ -71,7 +71,10 @@ Basic Styles
 Reset Styles
 */
 * {
-  box-sizing: border-box; }
+  box-sizing: border-box;
+  font-family: Microsoft JhengHei; 
+  /* 微軟正黑體 */
+}
 
 article,
 aside,
