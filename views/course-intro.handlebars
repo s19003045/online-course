@@ -36,17 +36,21 @@
                   <p class="mr-2">Created by <strong>{{course.User.username}}</strong></p>
                 </div>
 
+                <h2 class="course-prize">NT$ {{course.price}}</h2>
+
                 <div class="box-tocart d-flex">
-                  <span>NT$ {{course.price}}</span>
                   <div class="addtocart__actions">
-                    <a href="#" class="tocart" title="Add to Cart">Add to wishlist</a>
-                  </div>
-                  <div class="addtocart__actions">
-                    <a href="#" class="tocart" title="Add to Cart">Buy now</a>
-                    {{!-- <button class="tocart" type="submit" title="Add to Cart">立即購買</button> --}}
+                    <form action="/favorite/{{course.id}}" method="POST"><button type="submit" class="tocart">ADD TO
+                        WISHLIST</button></form>
                   </div>
 
+                  <div class="addtocart__actions">
+                    <form action="/order/{{course.id}}" method="POST"><button type="submit" class="tocart">BUY
+                        NOW</button>
+                    </form>
+                  </div>
                 </div>
+
                 <div class="product-share">
                   <ul>
                     <li class="categories-title">Share :</li>

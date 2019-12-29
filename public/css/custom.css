@@ -191,18 +191,15 @@
 
 /* 單一課程頁面-課程介紹 */
 
-.product__info__main .box-tocart span {
-    display: inline-block;
-    font-size: 24px;
-    font-weight: 600;
-    line-height: 40px;
-    margin: 0 ;
-		text-transform: capitalize; 
-	}
+.product__info__main h2 {
+  font-size: 24px;
+	font-weight: 600;
+	line-height: 40px;
+	margin-bottom: 10px;
+}
 		
-.product__info__main .box-tocart .addtocart__actions .tocart {
-	margin-left: 10px;
-	padding: 10px 15px;
+.product__info__main .box-tocart .addtocart__actions{
+	margin-right: 10px;
 }
 
 
