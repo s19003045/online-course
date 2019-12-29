@@ -174,6 +174,13 @@ module.exports = (app, passport) => {
   // app.get('/instructor/course/:courseId/', instructController.saleAnalysis)
   // app.get('/instructor/course/:courseId', instructController.studentAnalysis)
 
+  //使用者可以看個人帳號資訊
+  app.get(
+    "/users/:id",
+    authenticated,
+    userController.getUser
+  );
+
   // 開課者可以查詢課程狀態、學生人數等
   app.get(
     "/users/:id/teachCourses",
