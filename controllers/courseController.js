@@ -395,7 +395,6 @@ const courseController = {
             CourseId: req.params.courseId
           }
         }).then(lesson => {
-          console.log(lesson.contents)
           return res.render("createCourse/createCourseStep2", {
             course,
             lessons,
@@ -406,9 +405,6 @@ const courseController = {
     });
   },
   editLessonNumber: (req, res) => {
-    console.log('============courseId:', req.params.courseId)
-    console.log('===============pk:', req.body.lessonNumber)
-    console.log('===============pk:', req.body.pk)
     if (!req.body.lessonNumber) {
       console.log('lessonNumber undefined')
     } else {
@@ -422,31 +418,27 @@ const courseController = {
             lessonNumber: parseInt(req.body.lessonNumber)
           })
             .then(lesson => {
-              console.log(lesson)
-              return res.status(200)
+              console.log('change lesson id:', lesson.id)
+              return res.status(200).send('OK')
             })
         })
     }
 
   },
   deleteCourseStep2: (req, res) => {
-    console.log('====================this delete course step2')
     Lesson.findOne({ where: { id: req.params.lessonId } })
       .then(lesson => {
-        console.log(lesson)
         lesson.destroy()
         return res.status(200)
       })
   },
   createLessonTitle: (req, res) => {
-    console.log(req.params.courseId)
     Lesson.create({
       lessonNumber: parseInt(req.body.lessonNumber),
       title: req.body.title,
       CourseId: parseInt(req.params.courseId)
     })
       .then(lesson => {
-        console.log(lesson)
         return res.redirect(`/courses/create/${req.params.courseId}/step2`)
       })
   },
