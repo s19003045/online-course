@@ -72,24 +72,119 @@
 
 /* 全部課程頁面--課程資訊卡 */
 
-.product.product__style--3 .product__content {
+.shop-grid .product {
+	padding: 0 20px;
+
+}
+
+.product__thumb{
+	position: relative;
+}
+
+.product__thumb .favorite-btn{
+	position: absolute;
+	bottom: 5px;
+	right: 10px;
+}
+
+.product__thumb .favorite-btn i{
+	font-size: 25px;
+}
+
+.product.product__style--3 .course-content {
 	padding: 15px;
 }
 
-/* .product.product__style--3 .product__content.content--center {
+.product .course-content .course-name{
 	text-align: left; 
-} */
+	font-size: 20px;
+	font-weight: 600;
+	margin-bottom: 10px;
+} 
 
-.product.product__style--3 .product__content.content--center .info{
+.product.product__style--3 .course-content .info{
 	text-align: left;
 	padding-left: 10px;
 	display: flex;
 	flex-wrap: wrap;
 }
 	
-.product.product__style--3 .product__content.content--center .info h4{
+.product.product__style--3 .course-content .info h4{
 	width: 50%;
+	font-size: 16px;
+	font-weight: 500;
 }
+
+.product .course-content .course-prize{
+	margin-top: 15px;
+	text-align: right; 
+	font-size: 28px;
+	font-weight: 600;
+	color:#ce7852;
+} 
+
+.favorite-btn button{
+	border:none;
+	color:#333;
+	background-color:transparent;
+}
+
+.favorite-btn button:hover{
+	color: #ce7852;
+}
+
+.couse-btns{
+	display: flex;
+}
+
+.couse-btns .couse-btn{
+	width: 50%;
+	display: flex;
+	justify-content: center;
+	background-color: #f5f5f5;
+	border:none;
+	padding: 0px 6px;
+	text-align: center;
+	transition: .3s ease-in;
+}
+
+.couse-btns .couse-btn form{
+	display: flex;
+	justify-content: center;
+}
+
+.couse-btns .couse-btn button,
+.couse-btns .couse-btn a{
+	display: inline-block;
+	background-color:transparent;
+	border: none;
+	color: #333;
+	font-size: 16px;
+	font-weight: 400;
+	padding: 5px 6px;
+	text-align: center;
+}
+
+.couse-btns .couse-btn:hover{
+	background-color: #ce7852;
+}
+
+.couse-btns .couse-btn:hover button{
+	color: #fff;
+}
+
+.couse-btns .couse-btn:hover a{
+	color: #fff;
+}
+
+.couse-btns .couse-btn.buy{
+	margin-right: 3px;
+}
+
+.couse-btns .couse-btn.see-more{
+	margin-left: 3px;
+}
+
 
 
 
