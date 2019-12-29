@@ -305,25 +305,15 @@ const courseController = {
   },
   // 未登入者及已登入者都可連結 intro 頁面
   createCourseIntro: (req, res) => {
-    // 先判斷使用者是否登入，再判斷使用者之前是否曾編輯過課程(status:editted)
+    // 先判斷使用者是否登入，若已登入則建立新的課程 id
     if (req.user) {
-      Course.findOne({
-        where: {
-          UserId: req.user.id,
-          status: "editted"
-        }
+      Course.create({
+        status: "editted",
+        UserId: req.user.id
       }).then(course => {
-        if (course) {
-          return res.redirect("/instructor/dashboard");
-        } else {
-          Course.create({
-            status: "editted",
-            UserId: req.user.id
-          }).then(course => {
-            return res.render("createCourse/createCourseIntro", { course });
-          });
-        }
+        return res.render("createCourse/createCourseIntro", { course });
       });
+
     } else {
       return res.redirect("/signin");
     }
