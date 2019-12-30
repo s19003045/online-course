@@ -1,146 +1,209 @@
-<h2 class="my-3">課程名稱：{{course.name}}</h2>
+<div class="row">
+  <div class="col-8 mx-auto">
+    <h2 class="my-3">課程名稱：{{course.name}}</h2>
 
-<h3 class="my-3">Step 2</h3>
-<h4 class="my-3">已建立的章節</h4 class="my-3">
-<table class="table table-hover table-sm">
-  <thead class="thead-dark">
-    <tr>
-      <th scope="col">LessonNumber</th>
-      <th scope="col">Title</th>
-      <th scope="col">Time(mins)</th>
-      <th scope="col">isPreview</th>
-      <th scope="col">Action</th>
-    </tr>
-  </thead>
-  <tbody>
-    {{#each lessons}}
-    <tr>
-      <th scope="row">{{this.lessonNumber}}</th>
-      <td>{{this.title}}</td>
-      <td>{{this.totalTime}}</td>
-      <td>
-        {{this.isPreview}}
-      </td>
-      <td>
-        <a href="/courses/create/{{../course.id}}/step2/{{this.id}}/edit" class="btn btn-link btn-sm my-0">Edit
-        </a>
-      </td>
-    </tr>
-    {{/each}}
-    <tr class="table-primary">
-      <th scope="row"></th>
-      <td></td>
-      <td>{{course.totalTime}}</td>
-      <td></td>
-      <td></td>
-    </tr>
-  </tbody>
-</table>
-{{#if lesson}}
-<div class="d-flex justify-content-start mt-3">
-  <a href="/courses/create/{{course.id}}/step2" class="btn btn-primary my-3 mr-5">建立新的章節<i class="fas fa-plus ml-3"></i>
-  </a>
-</div>
-{{/if}}
+    <h3 class="my-3">Step 2</h3>
+    <h4 class="my-3">已建立的章節</h4 class="my-3">
+    {{!-- <table class="table table-hover table-sm d-none">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">LessonNumber</th>
+          <th scope="col">type</th>
+          <th scope="col">Title</th>
+          <th scope="col">Time(mins)</th>
+          <th scope="col">isPreview</th>
+          <th scope="col">Action</th>
+        </tr>
+      </thead>
+      <tbody class="courses-tbody">
+        {{#each lessons}}
+        <tr>
+          <th scope="row">{{this.lessonNumber}}</th>
+          <td></td>
+          <td>{{this.title}}</td>
+          <td>{{this.totalTime}}</td>
+          <td>
+            {{this.isPreview}}
+          </td>
+          <td>
+            <a href="/courses/create/{{../course.id}}/step2/{{this.id}}/edit"
+              class="btn btn-link btn-sm my-0 text-primary">Edit
+            </a>
+            <form action="/courses/create/{{../course.id}}/step2/{{this.id}}_method=DELETE" method="post">
+              <button class="btn btn-link btn-sm my-0 text-danger" role="">Remove
+              </button>
+            </form>
 
-{{#if lesson}}
-<h3 class="mt-3">編輯章節內容</h3>
-<form action="/courses/create/{{course.id}}/step2/{{lesson.id}}?_method=PUT" method="POST" class="mt-5">
-  <div class="form-group">
-    <label for="name">課程章節</label>
-    <input type="number" class="form-control" name="lessonNumber" id="lessonNumber" placeholder=""
-      value="{{lesson.lessonNumber}}">
-  </div>
-  <div class="form-group">
-    <label for="title">章節名稱</label>
-    <input type="text" class="form-control" name="title" id="title" placeholder="" value="{{lesson.title}}">
-  </div>
-  <div class="form-group">
-    <label for="intro">課程簡介</label>
-    <input type="text" class="form-control" name="intro" id="intro" placeholder="" value="{{lesson.intro}}">
-  </div>
-  <div class="form-group">
-    <label for="totalTime">章節上課時數 ( 分鐘 )</label>
-    <input type="number" class="form-control" name="totalTime" id="totalTime" placeholder=""
-      value="{{lesson.totalTime}}">
-  </div>
-  <div class="form-group">
-    <label for="totalTime">是否提供未購買者預覽</label>
-  </div>
-  <div class="form-group mt-3">
-    <div class="form-check">
-      <input class="form-check-input" type="radio" name="isPreview" id="isPreview" value="true" checked>
-      <label class="form-check-label" for="isPreview">
-        提供未購買者預覽
-      </label>
+          </td>
+        </tr>
+        {{/each}}
+        <tr class="table-primary">
+          <th scope="row"></th>
+          <td></td>
+          <td></td>
+          <td>{{course.totalTime}}</td>
+          <td></td>
+          <td></td>
+        </tr>
+      </tbody>
+    </table> --}}
+
+    {{!-- 建立可拖曳的 ul li --}}
+    {{!-- <button class="btn-add-row mb-3">Create</button> --}}
+    <div class="row">
+      <div class="col mx-auto">
+        {{!-- <form action="/SOMEWHERE" method="GET"> --}}
+        <ul class="connected-sortable droppable-area1 courses-tbody w-100" data-courseid="{{course.id}}">
+          {{#each lessons}}
+          <li class="draggable-item mb-2 py-2 d-flex justify-content-between">
+            <span class="w-25">章節 {{this.lessonNumber}}</span>
+            <input class="d-none" type="text" data-pk="{{this.id}}" data-courseId="{{this.CourseId}}"
+              name="lessonNumber" value="{{this.lessonNumber}}">
+            {{this.title}}
+            <div class="list-btn-group">
+              {{!-- <form action="/courses/create/{{../course.id}}/step2/{{this.id}}_method=DELETE" method="post"> --}}
+              <a href="/courses/create/{{../course.id}}/step2/{{this.id}}/edit"
+                class="btn btn-link btn-sm my-0 text-primary mr-2">Edit
+              </a>
+              <button class="btn btn-link btn-sm my-0 text-danger btn-remove-lesson" role="" data-id="{{this.id}}"
+                data-lessonnumber="{{this.lessonNumber}}">Remove
+              </button>
+              {{!-- </form> --}}
+            </div>
+          </li>
+          {{/each}}
+        </ul>
+        <button class="btn btn-outline-primary btn-add-lesson" type="submit">Add lesson</button>
+        {{!-- </form> --}}
+      </div>
     </div>
-    <div class="form-check">
-      <input class="form-check-input" type="radio" name="isPreview" id="isPreview" value="false">
-      <label class="form-check-label" for="isPreview">
-        不提供給未購買者預覽
-      </label>
+
+
+    {{#if lesson}}
+    <div class="d-flex justify-content-start mt-5">
+      <a href="/courses/create/{{course.id}}/step2" class="btn btn-primary my-3 mr-5 text-white">建立新的章節<i
+          class="fas fa-plus ml-3"></i>
+      </a>
+    </div>
+    {{/if}}
+
+
+    {{#if lesson}}
+    <h3 class="mt-3">編輯章節內容</h3>
+    <form action="/courses/create/{{course.id}}/step2/{{lesson.id}}?_method=PUT" method="POST" class="mt-5"
+      id="identifier">
+      <div class="form-group">
+        <label for="name">課程章節</label>
+        <input type="number" class="form-control " name="lessonNumber" id="lessonNumber" placeholder=""
+          value="{{lesson.lessonNumber}}" readonly>
+      </div>
+      <div class="form-group">
+        <label for="title">章節名稱</label>
+        <input type="text" class="form-control" name="title" id="title" placeholder="" value="{{lesson.title}}">
+      </div>
+      <div class="form-group">
+        <label for="intro">章節簡介</label>
+        <input type="text" class="form-control" name="intro" id="intro" placeholder="" value="{{lesson.intro}}">
+      </div>
+      <div class="form-group">
+        <label for="totalTime">章節上課時數 ( 分鐘 )</label>
+        <input type="number" class="form-control" name="totalTime" id="totalTime" placeholder=""
+          value="{{lesson.totalTime}}">
+      </div>
+      <div class="form-group">
+        <label for="totalTime">是否提供未購買者預覽</label>
+      </div>
+      <div class="form-group mt-3">
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="isPreview" id="isPreview" value="true" checked>
+          <label class="form-check-label" for="isPreview">
+            提供未購買者預覽
+          </label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="isPreview" id="isPreview" value="false">
+          <label class="form-check-label" for="isPreview">
+            不提供給未購買者預覽
+          </label>
+        </div>
+      </div>
+
+      <div class="form-group purple-border">
+        <label for="contents">編輯課程內容</label>
+        {{!-- <textarea class="form-control" name="contents" id="contents" rows="15">{{lesson.contents}}</textarea> --}}
+
+        {{!-- rich text editor --}}
+        <!-- Create toolbar container -->
+        <div id="toolbar"></div>
+        <div id="editor" style="height: 300px;">{{{lesson.contents}}}</div>
+
+        <textarea name="contents" class="form-control" style="display:none" id="hiddenArea"></textarea>
+
+      </div>
+      <button type="submit" class="btn btn-primary mr-5 text-white">暫存草稿</button>
+    </form>
+
+    {{else}}
+    <h3 class="mt-5">建立新的章節</h3>
+    <form action="/courses/create/{{course.id}}/step2" method="POST" class="mt-4" id="identifier">
+      <div class="form-group">
+        <label for="name">課程章節</label>
+        <input type="number" class="form-control" name="lessonNumber" id="lessonNumber" placeholder=""
+          value="{{lesson.lessonNumber}}" readonly>
+      </div>
+      <div class="form-group">
+        <label for="title">章節名稱</label>
+        <input type="text" class="form-control" name="title" id="title" placeholder="" value="{{lesson.title}}">
+      </div>
+      <div class="form-group">
+        <label for="intro">章節簡介</label>
+        <input type="text" class="form-control" name="intro" id="intro" placeholder="" value="{{lesson.intro}}">
+      </div>
+      <div class="form-group">
+        <label for="totalTime">章節上課時數 ( 分鐘 )</label>
+        <input type="number" class="form-control" name="totalTime" id="totalTime" placeholder=""
+          value="{{lesson.totalTime}}">
+      </div>
+      <div class="form-group">
+        <label for="totalTime">是否提供未購買者預覽</label>
+      </div>
+      <div class="form-group mt-3">
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="isPreview" id="isPreview" value="true" checked>
+          <label class="form-check-label" for="isPreview">
+            提供未購買者預覽
+          </label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="isPreview" id="isPreview" value="false">
+          <label class="form-check-label" for="isPreview">
+            不提供給未購買者預覽
+          </label>
+        </div>
+      </div>
+
+      <div class="form-group purple-border">
+        <label for="contents">編輯課程內容</label>
+        {{!-- rich text editor --}}
+        <!-- Create toolbar container -->
+        <div id="toolbar"></div>
+        <div id="editor" style="height: 300px;">
+          {{{lesson.contents}}}
+        </div>
+
+        <textarea name="contents" class="form-control" style="display:none" id="hiddenArea"></textarea>
+
+      </div>
+      <button type="submit" class="btn btn-secondary mr-5 text-white">暫存草稿</button>
+    </form>
+    {{/if}}
+
+    <div class="d-flex justify-content-start mt-3">
+      <a href="/courses/create/{{course.id}}/step1" class="btn btn-outline-info my-3 mr-5">上一步
+      </a>
+
+      <a href="/courses/create/{{course.id}}/step3" class="btn btn-outline-info my-3">下一步
+      </a>
     </div>
   </div>
-
-  <div class="form-group purple-border">
-    <label for="contents">編輯課程內容</label>
-    <textarea class="form-control" name="contents" id="contents" rows="15">{{lesson.contents}}</textarea>
-  </div>
-  <button type="submit" class="btn btn-primary mr-5">暫存草稿</button>
-</form>
-{{else}}
-<h3 class="mt-3">建立新的章節</h3>
-<form action="/courses/create/{{course.id}}/step2" method="POST" class="mt-4">
-  <div class="form-group">
-    <label for="name">課程章節</label>
-    <input type="number" class="form-control" name="lessonNumber" id="lessonNumber" placeholder=""
-      value="{{lesson.lessonNumber}}">
-  </div>
-  <div class="form-group">
-    <label for="title">章節名稱</label>
-    <input type="text" class="form-control" name="title" id="title" placeholder="" value="{{lesson.title}}">
-  </div>
-  <div class="form-group">
-    <label for="intro">課程簡介</label>
-    <input type="text" class="form-control" name="intro" id="intro" placeholder="" value="{{lesson.intro}}">
-  </div>
-  <div class="form-group">
-    <label for="totalTime">章節上課時數 ( 分鐘 )</label>
-    <input type="number" class="form-control" name="totalTime" id="totalTime" placeholder=""
-      value="{{lesson.totalTime}}">
-  </div>
-  <div class="form-group">
-    <label for="totalTime">是否提供未購買者預覽</label>
-  </div>
-  <div class="form-group mt-3">
-    <div class="form-check">
-      <input class="form-check-input" type="radio" name="isPreview" id="isPreview" value="true" checked>
-      <label class="form-check-label" for="isPreview">
-        提供未購買者預覽
-      </label>
-    </div>
-    <div class="form-check">
-      <input class="form-check-input" type="radio" name="isPreview" id="isPreview" value="false">
-      <label class="form-check-label" for="isPreview">
-        不提供給未購買者預覽
-      </label>
-    </div>
-  </div>
-
-  <div class="form-group purple-border">
-    <label for="contents">編輯課程內容</label>
-    <textarea class="form-control" name="contents" id="contents" rows="15">{{lesson.contents}}</textarea>
-  </div>
-  <button type="submit" class="btn btn-secondary mr-5">暫存草稿</button>
-</form>
-{{/if}}
-
-
-
-<div class="d-flex justify-content-start mt-3">
-  <a href="/courses/create/{{course.id}}/step1" class="btn btn-info my-3 mr-5">上一步
-  </a>
-
-  <a href="/courses/create/{{course.id}}/step3" class="btn btn-info my-3">下一步
-  </a>
 </div>
