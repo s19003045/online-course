@@ -61,6 +61,13 @@ module.exports = (app, passport) => {
     courseController.getCourseLesson
   );
 
+  // 使用者可以在課程內容頁面勾選complete checkbox標註已完成的單元
+  app.post(
+    "/courses/:courses_id/lessons/:lesson_id",
+    authenticated,
+    userController.postFinishLesson
+  );
+
   // 使用者登入後可以看到問題討論區
   app.get(
     "/courses/:courses_id/post",
@@ -80,6 +87,13 @@ module.exports = (app, passport) => {
     "/courses/:course_id/post/:post_id/reply",
     authenticated,
     postController.postDiscussReply
+  );
+
+  // 使用者登入後可以看到已購買的課程
+  app.get(
+    "/users/boughtCourses",
+    authenticated,
+    userController.getBoughtCourses
   );
 
   // 開課者建立課程
@@ -195,11 +209,7 @@ module.exports = (app, passport) => {
   // app.get('/instructor/course/:courseId', instructController.studentAnalysis)
 
   //使用者可以看個人帳號資訊
-  app.get(
-    "/users/account",
-    authenticated,
-    userController.getUser
-  );
+  app.get("/users/account", authenticated, userController.getUser);
 
   //使用者可以看到收藏的課程清單
   app.get(
