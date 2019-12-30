@@ -4,60 +4,15 @@
 
     <h3 class="my-3">Step 2</h3>
     <h4 class="my-3">已建立的章節</h4 class="my-3">
-    {{!-- <table class="table table-hover table-sm d-none">
-      <thead class="thead-dark">
-        <tr>
-          <th scope="col">LessonNumber</th>
-          <th scope="col">type</th>
-          <th scope="col">Title</th>
-          <th scope="col">Time(mins)</th>
-          <th scope="col">isPreview</th>
-          <th scope="col">Action</th>
-        </tr>
-      </thead>
-      <tbody class="courses-tbody">
-        {{#each lessons}}
-        <tr>
-          <th scope="row">{{this.lessonNumber}}</th>
-          <td></td>
-          <td>{{this.title}}</td>
-          <td>{{this.totalTime}}</td>
-          <td>
-            {{this.isPreview}}
-          </td>
-          <td>
-            <a href="/courses/create/{{../course.id}}/step2/{{this.id}}/edit"
-              class="btn btn-link btn-sm my-0 text-primary">Edit
-            </a>
-            <form action="/courses/create/{{../course.id}}/step2/{{this.id}}_method=DELETE" method="post">
-              <button class="btn btn-link btn-sm my-0 text-danger" role="">Remove
-              </button>
-            </form>
 
-          </td>
-        </tr>
-        {{/each}}
-        <tr class="table-primary">
-          <th scope="row"></th>
-          <td></td>
-          <td></td>
-          <td>{{course.totalTime}}</td>
-          <td></td>
-          <td></td>
-        </tr>
-      </tbody>
-    </table> --}}
-
-    {{!-- 建立可拖曳的 ul li --}}
-    {{!-- <button class="btn-add-row mb-3">Create</button> --}}
+    {{!-- 建立可拖曳的 ul > li --}}
     <div class="row">
       <div class="col mx-auto">
-        {{!-- <form action="/SOMEWHERE" method="GET"> --}}
         <ul class="connected-sortable droppable-area1 courses-tbody w-100" data-courseid="{{course.id}}">
           {{#each lessons}}
           <li class="draggable-item mb-2 py-2 d-flex justify-content-between">
             <span class="w-25">章節 {{this.lessonNumber}}</span>
-            <input class="d-none" type="text" data-pk="{{this.id}}" data-courseId="{{this.CourseId}}"
+            <input class="d-none input-lessonnumber" type="text" data-pk="{{this.id}}" data-courseid="{{this.CourseId}}"
               name="lessonNumber" value="{{this.lessonNumber}}">
             {{this.title}}
             <div class="list-btn-group">
@@ -65,6 +20,7 @@
               <a href="/courses/create/{{../course.id}}/step2/{{this.id}}/edit"
                 class="btn btn-link btn-sm my-0 text-primary mr-2">Edit
               </a>
+              {{!-- 刪除鈕動作改以 jquery 執行 --}}
               <button class="btn btn-link btn-sm my-0 text-danger btn-remove-lesson" role="" data-id="{{this.id}}"
                 data-lessonnumber="{{this.lessonNumber}}">Remove
               </button>
@@ -74,7 +30,6 @@
           {{/each}}
         </ul>
         <button class="btn btn-outline-primary btn-add-lesson" type="submit">Add lesson</button>
-        {{!-- </form> --}}
       </div>
     </div>
 
@@ -113,30 +68,29 @@
       <div class="form-group">
         <label for="totalTime">是否提供未購買者預覽</label>
       </div>
+      <div class="form-check">
+        <input class="form-check-input" type="radio" name="isPreview" id="isPreview1" value="false" checked>
+        <label class="form-check-label" for="isPreview1">
+          不提供給未購買者預覽
+        </label>
+      </div>
       <div class="form-group mt-3">
         <div class="form-check">
-          <input class="form-check-input" type="radio" name="isPreview" id="isPreview" value="true" checked>
-          <label class="form-check-label" for="isPreview">
+          <input class="form-check-input" type="radio" name="isPreview" id="isPreview2" value="true">
+          <label class="form-check-label" for="isPreview2">
             提供未購買者預覽
-          </label>
-        </div>
-        <div class="form-check">
-          <input class="form-check-input" type="radio" name="isPreview" id="isPreview" value="false">
-          <label class="form-check-label" for="isPreview">
-            不提供給未購買者預覽
           </label>
         </div>
       </div>
 
       <div class="form-group purple-border">
         <label for="contents">編輯課程內容</label>
-        {{!-- <textarea class="form-control" name="contents" id="contents" rows="15">{{lesson.contents}}</textarea> --}}
-
         {{!-- rich text editor --}}
         <!-- Create toolbar container -->
         <div id="toolbar"></div>
         <div id="editor" style="height: 300px;">{{{lesson.contents}}}</div>
 
+        {{!-- 編輯在 #editor 中的內容，於送出 request 後會先把編輯內容存進 textarea，再 submit--}}
         <textarea name="contents" class="form-control" style="display:none" id="hiddenArea"></textarea>
 
       </div>
@@ -149,7 +103,7 @@
       <div class="form-group">
         <label for="name">課程章節</label>
         <input type="number" class="form-control" name="lessonNumber" id="lessonNumber" placeholder=""
-          value="{{lesson.lessonNumber}}" readonly>
+          value="{{lesson.lessonNumber}}">
       </div>
       <div class="form-group">
         <label for="title">章節名稱</label>
@@ -167,17 +121,17 @@
       <div class="form-group">
         <label for="totalTime">是否提供未購買者預覽</label>
       </div>
+      <div class="form-check">
+        <input class="form-check-input" type="radio" name="isPreview" id="isPreview1" value="false" checked>
+        <label class="form-check-label" for="isPreview1">
+          不提供給未購買者預覽
+        </label>
+      </div>
       <div class="form-group mt-3">
         <div class="form-check">
-          <input class="form-check-input" type="radio" name="isPreview" id="isPreview" value="true" checked>
-          <label class="form-check-label" for="isPreview">
+          <input class="form-check-input" type="radio" name="isPreview" id="isPreview2" value="true">
+          <label class="form-check-label" for="isPreview2">
             提供未購買者預覽
-          </label>
-        </div>
-        <div class="form-check">
-          <input class="form-check-input" type="radio" name="isPreview" id="isPreview" value="false">
-          <label class="form-check-label" for="isPreview">
-            不提供給未購買者預覽
           </label>
         </div>
       </div>
