@@ -24,8 +24,6 @@ const postController = {
             postsLength: posts.length,
             courseId: course.id
           });
-
-          // return res.json(posts);
         });
       } else {
         req.flash("error_messages", "該課程不存在！");

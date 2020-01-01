@@ -57,6 +57,10 @@
 	font-size: 20px;
 }
 
+
+
+
+
 /* main.handlebars-內容 */
 
 #wrapper .empty{
@@ -64,27 +68,150 @@
 }
 
 
-/* 單一課程頁面 */
 
-.course-tabs{
-	margin:0 0 30px;
-	/* border-bottom: 2px solid #e59285; */
+
+/* 全部課程頁面--課程資訊卡 */
+
+.shop-grid .product {
+	padding: 0 20px;
+
 }
 
-.course-tabs a{
+.product__thumb{
+	position: relative;
+}
+
+.product__thumb .favorite-btn{
+	position: absolute;
+	bottom: 5px;
+	right: 10px;
+}
+
+.product__thumb .favorite-btn i{
+	font-size: 25px;
+}
+
+.product.product__style--3 .course-content {
+	padding: 15px;
+}
+
+.product .course-content .course-name{
+	text-align: left; 
+	font-size: 20px;
+	font-weight: 600;
+	margin-bottom: 10px;
+} 
+
+.product.product__style--3 .course-content .info{
+	text-align: left;
+	padding-left: 10px;
+	display: flex;
+	flex-wrap: wrap;
+}
+	
+.product.product__style--3 .course-content .info h4{
+	width: 50%;
+	font-size: 16px;
+	font-weight: 500;
+}
+
+.product .course-content .course-prize{
+	margin-top: 15px;
+	text-align: right; 
+	font-size: 28px;
+	font-weight: 600;
+	color:#ce7852;
+} 
+
+.favorite-btn button{
+	border:none;
+	color:#333;
+	background-color:transparent;
+}
+
+.favorite-btn button:hover{
+	color: #ce7852;
+}
+
+.couse-btns{
+	display: flex;
+}
+
+.couse-btns .couse-btn{
+	width: 50%;
+	display: flex;
+	justify-content: center;
+	background-color: #f5f5f5;
+	border:none;
+	padding: 0px 6px;
+	text-align: center;
+	transition: .3s ease-in;
+}
+
+.couse-btns .couse-btn form{
+	display: flex;
+	justify-content: center;
+}
+
+.couse-btns .couse-btn button,
+.couse-btns .couse-btn a{
 	display: inline-block;
-	padding:5px 10px 5px;
-	border-top: 2px solid #e59285;
-	border-left: 2px solid #e59285;
-	border-right: 2px solid #e59285;
-	border-top-right-radius: 20px;
+	background-color:transparent;
+	border: none;
+	color: #333;
+	font-size: 16px;
+	font-weight: 400;
+	padding: 5px 6px;
+	text-align: center;
 }
+
+.couse-btns .couse-btn:hover{
+	background-color: #ce7852;
+}
+
+.couse-btns .couse-btn:hover button{
+	color: #fff;
+}
+
+.couse-btns .couse-btn:hover a{
+	color: #fff;
+}
+
+.couse-btns .couse-btn.buy{
+	margin-right: 3px;
+}
+
+.couse-btns .couse-btn.see-more{
+	margin-left: 3px;
+}
+
+
+
+
+
+/* 單一課程頁面-課程介紹 */
+
+.product__info__main h2 {
+  font-size: 24px;
+	font-weight: 600;
+	line-height: 40px;
+	margin-bottom: 10px;
+}
+		
+.product__info__main .box-tocart .addtocart__actions{
+	margin-right: 10px;
+}
+
+
+
+
+/* 單一課程頁面-課程內容 */
 
 .lessons-list{
 	margin: 0 0 30px;
-	padding: 10px 0;
 	width: 100%;
 }
+
 
 
 
@@ -137,3 +264,67 @@
   font-weight: 700;
   padding: 8px 15px;
 }
+
+
+
+
+/* 個人帳號資訊頁面 */
+
+.user-info-page{
+	max-width: 850px;
+}
+
+.user-image img{
+	border-radius: 15%;
+}
+
+.user-info h3{
+	font-size: 26px;
+	margin-bottom: 5px;
+}
+
+.user-info .user-info-item{
+	display: flex;
+	padding: 5px 0;
+}
+
+.user-info .title{
+	width: 110px;
+	font-size: 16px;
+	font-weight: 400;
+	color: #ce7852;
+}
+
+.user-info .user-info-item .user-info-data{
+	font-size: 14px;
+}
+
+
+
+
+/* 個人收藏課程頁面 */
+.favorite-item th,
+.favorite-item td{
+	height: 40px;
+  line-height: 40px;
+}
+
+.favorite-item td .remove-favorite{
+	font-size: 14px;
+	font-weight: 600;
+	background-color:transparent;
+	border: none;
+}
+
+.favorite-item td .buy-now{
+	background: #e59285;
+  border: 0 none;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  height: 40px;
+  line-height: 40px;
+  padding: 0 15px;
+
+}
+

@@ -3,12 +3,64 @@ const Course = db.Course;
 const User = db.User;
 const UserEnrollment = db.UserEnrollment;
 const Lesson = db.Lesson;
+const LessonUser = db.LessonUser;
 const CourseCategory = db.CourseCategory;
 const CourseSubCategory = db.CourseSubCategory;
 
 
 const courseController = {
-
+  // 看單一課程介紹
+  getCourseIntro: (req, res) => {
+    Course.findByPk(req.params.courses_id, {
+      include: User
+    }).then(course => {
+      if (course) {
+        res.render("course-intro", { course });
+      } else {
+        req.flash("error_messages", "該課程不存在！");
+        res.redirect("back");
+      }
+    });
+  },
+  // 看單一課程內容
+  getCourseLesson: (req, res) => {
+    let lessonNumber = 1;
+    if (req.query.lessonNumber) {
+      lessonNumber = Number(req.query.lessonNumber);
+    }
+    Course.findByPk(req.params.courses_id).then(course => {
+      if (course) {
+        Lesson.findAll({
+          attributes: ["lessonNumber", "title"],
+          where: [{ visible: true }, { CourseId: course.id }]
+        }).then(lessons => {
+          Lesson.findOne({
+            where: {
+              lessonNumber: lessonNumber,
+              CourseId: course.id
+            },
+            include: [{ model: LessonUser, where: { UserId: req.user.id } }]
+          }).then(lesson => {
+            let isfinished = false;
+            if (lesson.LessonUsers) {
+              isfinished = lesson.LessonUsers[0].isfinished;
+            }
+            res.render("course", {
+              lesson,
+              lessons,
+              courseId: course.id,
+              courseName: course.name,
+              lessonNumber,
+              isfinished: isfinished
+            });
+          });
+        });
+      } else {
+        req.flash("error_messages", "該課程不存在！");
+        res.redirect("back");
+      }
+    });
+  },
   // (首頁)看所有課程
   getCourses: (req, res) => {
     // 取得sort功能要依據哪個變數排序所有課程
@@ -73,7 +125,7 @@ const courseController = {
             "error_messages",
             "目前還沒有該類別的課程，本站將陸續新增，不好意思！"
           );
-          res.redirect("/");
+          res.redirect("/courses");
         } else {
           Course.findAll({
             attributes: [
@@ -148,7 +200,7 @@ const courseController = {
           "error_messages",
           "目前還沒有該類別的課程，本站將陸續新增，不好意思！"
         );
-        res.redirect("/");
+        res.redirect("/courses");
       } else {
         Course.findAll({
           attributes: [
@@ -219,7 +271,7 @@ const courseController = {
           "error_messages",
           "目前還沒有該類別的課程，本站將陸續新增，不好意思！"
         );
-        res.redirect("/");
+        res.redirect("/courses");
       } else {
         CourseSubCategory.findOne({
           where: { name: req.params.subCategoName }
@@ -230,7 +282,7 @@ const courseController = {
               "error_messages",
               "目前還沒有該類別的課程，本站將陸續新增，不好意思！"
             );
-            res.redirect("/");
+            res.redirect("/courses");
           } else {
             Course.findAll({
               attributes: [
@@ -267,39 +319,6 @@ const courseController = {
             });
           }
         });
-      }
-    });
-  },
-  // 看課單一程內容介紹
-  // getIntroduction: (req, res) => {
-  //   return res.render("introduction");
-  // },
-  // 看單一課程內容
-  getCourseLesson: (req, res) => {
-    let lessonNumber = 1;
-    if (req.query.lessonNumber) {
-      lessonNumber = Number(req.query.lessonNumber);
-    }
-    Course.findByPk(req.params.courses_id).then(course => {
-      if (course) {
-        Lesson.findAll({
-          attributes: ["lessonNumber", "title"],
-          where: [{ visible: true }, { CourseId: course.id }]
-        }).then(lessons => {
-          Lesson.findOne({
-            where: [{ lessonNumber: lessonNumber }]
-          }).then(lesson => {
-            res.render("course", {
-              lesson,
-              lessons,
-              courseId: course.id,
-              lessonNumber
-            });
-          });
-        });
-      } else {
-        req.flash("error_messages", "該課程不存在！");
-        res.redirect("back");
       }
     });
   },
@@ -353,7 +372,7 @@ const courseController = {
               CourseSubCategoryId: parseInt(req.body.CourseSubCategoryId),
             })
             .then(course => {
-              return res.redirect("/courses/create/248/step1", { course });
+              return res.redirect(`/courses/create/${course.id}/step1`);
             });
         })
     });

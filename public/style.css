@@ -2344,7 +2344,7 @@ nav.menu {
   position: relative;
   overflow: hidden; }
 .shop-grid .product {
-  margin-bottom: 15px;
+  margin-bottom: 30px;
 }
   .product .product__thumb {
     overflow: hidden;
@@ -4067,7 +4067,7 @@ h3.widget-title-modal {
   font-weight: 600;
   height: 40px;
   line-height: 40px;
-  padding: 0 25px;
+  padding: 0 15px;
   text-transform: uppercase;
 }
 .product__info__main span.posted_in {

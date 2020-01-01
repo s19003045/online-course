@@ -46,20 +46,26 @@ module.exports = (app, passport) => {
   app.get("/logout", userController.logout);
 
   //如果使用者訪問首頁，就導向 /courses 的頁面
-  app.get("/", authenticated, (req, res) => res.redirect("/courses"));
+  app.get("/", (req, res) => {
+    res.redirect("/courses");
+  });
   // 看全部課程
   app.get("/courses", courseController.getCourses);
-
-  //Ariel測試用--方便看view而暫時設置的路由
-  // Ariel測試用--課程介紹
-  // app.get("/courses/:course_id/introduction", courseController.getCourseIntro);
-
+  // 看單一課程介紹
+  app.get("/courses/:courses_id/introduction", courseController.getCourseIntro);
 
   // 使用者可以看單一課程的單元內容
   app.get(
     "/courses/:courses_id/lessons",
     authenticated,
     courseController.getCourseLesson
+  );
+
+  // 使用者可以在課程內容頁面勾選complete checkbox標註已完成的單元
+  app.post(
+    "/courses/:courses_id/lessons/:lesson_id",
+    authenticated,
+    userController.postFinishLesson
   );
 
   // 使用者登入後可以看到問題討論區
@@ -81,6 +87,13 @@ module.exports = (app, passport) => {
     "/courses/:course_id/post/:post_id/reply",
     authenticated,
     postController.postDiscussReply
+  );
+
+  // 使用者登入後可以看到已購買的課程
+  app.get(
+    "/users/boughtCourses",
+    authenticated,
+    userController.getBoughtCourses
   );
 
   // 開課者建立課程
@@ -195,6 +208,16 @@ module.exports = (app, passport) => {
   // app.get('/instructor/course/:courseId/', instructController.saleAnalysis)
   // app.get('/instructor/course/:courseId', instructController.studentAnalysis)
 
+  //使用者可以看個人帳號資訊
+  app.get("/users/account", authenticated, userController.getUser);
+
+  //使用者可以看到收藏的課程清單
+  app.get(
+    "/users/favoriteCourses",
+    authenticated,
+    userController.getFavoriteCourse
+  );
+
   // 開課者可以查詢課程狀態、學生人數等
   app.get(
     "/users/:id/teachCourses",
@@ -219,16 +242,45 @@ module.exports = (app, passport) => {
   );
 
   //admin dashboard
-  app.get("/admin/dashboard", authenticated, authenticatedAdmin, adminController.getDashboard);
+  app.get(
+    "/admin/dashboard",
+    authenticated,
+    authenticatedAdmin,
+    adminController.getDashboard
+  );
   //於admin dashboard 瀏灠所有課程
-  app.get("/admin/dashboard/courses", authenticated, authenticatedAdmin, adminController.getCourses);
+  app.get(
+    "/admin/dashboard/courses",
+    authenticated,
+    authenticatedAdmin,
+    adminController.getCourses
+  );
   //於admin dashboard 瀏灠所有課程的學生
-  app.get("/admin/dashboard/students", authenticated, authenticatedAdmin, adminController.getStudents);
+  app.get(
+    "/admin/dashboard/students",
+    authenticated,
+    authenticatedAdmin,
+    adminController.getStudents
+  );
   //於admin dashboard 的課程審核討論區
-  app.get("/admin/dashboard/course-review-discuss", authenticated, authenticatedAdmin, adminController.courseReviwDiscuss);
+  app.get(
+    "/admin/dashboard/course-review-discuss",
+    authenticated,
+    authenticatedAdmin,
+    adminController.courseReviwDiscuss
+  );
   // 留言於課程審核討論區
-  app.post("/admin/dashboard/course-review-discuss/post", authenticated, authenticatedAdmin, adminController.leaveCourRevPost);
+  app.post(
+    "/admin/dashboard/course-review-discuss/post",
+    authenticated,
+    authenticatedAdmin,
+    adminController.leaveCourRevPost
+  );
   // 回應於課程審核討論區
-  app.post("/admin/dashboard/course-review-discuss/reply", authenticated, authenticatedAdmin, adminController.leaveCourRevReply);
-
+  app.post(
+    "/admin/dashboard/course-review-discuss/reply",
+    authenticated,
+    authenticatedAdmin,
+    adminController.leaveCourRevReply
+  );
 };
