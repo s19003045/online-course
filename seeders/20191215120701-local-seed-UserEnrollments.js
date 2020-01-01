@@ -1,15 +1,15 @@
 "use strict";
 const faker = require("faker");
 
-let userenrollments = [];
-for (let i = 121; i < 201; i++) {
-  for (let j = 1; j < 3; j++) {
-    userenrollments.push({
+let data = [];
+for (let userid = 1; userid < 3; userid += 1) {
+  for (let courseid = 121; courseid < 241; courseid += 1) {
+    data.push({
       timeStart: faker.date.past(),
       finishLessonCount: 0,
       completeRate: 0,
-      CourseId: i,
-      UserId: j,
+      CourseId: courseid,
+      UserId: userid,
       createdAt: new Date(),
       updatedAt: new Date()
     });
@@ -18,7 +18,8 @@ for (let i = 121; i < 201; i++) {
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.bulkInsert("UserEnrollments", userenrollments, {});
+    // 建立50個假課程資料(未上架，包含'editted', 'submitted', 'offMarket')
+    return queryInterface.bulkInsert("UserEnrollments", data, {});
   },
 
   down: (queryInterface, Sequelize) => {

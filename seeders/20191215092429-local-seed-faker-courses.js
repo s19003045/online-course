@@ -16,12 +16,20 @@ for (i = 0; i < 50; i++) {
 
 //courseId 為各主類別建置在資料庫的 id
 //courseNum 為各主類別的次類別數
-const courses = [
-  { name: "程式", courseId: 1 + autoIncrementNum * 0, courseNum: 7 },
-  { name: "職場技能", courseId: 1 + autoIncrementNum * 1, courseNum: 5 },
-  { name: "設計", courseId: 1 + autoIncrementNum * 2, courseNum: 4 },
-  { name: "投資理財", courseId: 1 + autoIncrementNum * 3, courseNum: 4 },
-  { name: "生活品味", courseId: 1 + autoIncrementNum * 4, courseNum: 4 }
+const category = [
+  { name: "程式", CourseCategoryId: 1 + autoIncrementNum * 0, courseNum: 7 },
+  {
+    name: "職場技能",
+    CourseCategoryId: 1 + autoIncrementNum * 1,
+    courseNum: 5
+  },
+  { name: "設計", CourseCategoryId: 1 + autoIncrementNum * 2, courseNum: 4 },
+  {
+    name: "投資理財",
+    CourseCategoryId: 1 + autoIncrementNum * 3,
+    courseNum: 4
+  },
+  { name: "生活品味", CourseCategoryId: 1 + autoIncrementNum * 4, courseNum: 4 }
 ];
 
 // 已上架的課程
@@ -30,18 +38,18 @@ const coursesIntoMarket = [];
 // 初始化 subCategoryId
 let subCategoryIdStart = 0;
 
-for (i = 0; i < courses.length; i++) {
-  for (j = 0; j < courses[i].courseNum; j++) {
+for (i = 0; i < category.length; i++) {
+  for (j = 0; j < category[i].courseNum; j++) {
     // 每個次類別的課程各有5堂課
     for (k = 0; k < 5; k++) {
       coursesIntoMarket.push({
         name: faker.lorem.sentence(),
         description: faker.lorem.sentence(),
         image: faker.image.imageUrl(),
-        introVideo: "https://youtu.be/PkZNo7MFNFg",
+        introVideo: "https://player.vimeo.com/video/230332993",
         teacherName: faker.name.findName(),
         teacherDescrip: faker.lorem.sentence(),
-        totalTime: Math.floor(Math.random() * 20) * 40, //單位(minutes)
+        totalTime: 100, //單位(minutes)
         totalLessons: 10,
         price: Math.floor(Math.random() * 5000),
         status: "intoMarket",
@@ -51,8 +59,8 @@ for (i = 0; i < courses.length; i++) {
           intoMarketDate[Math.floor(Math.random() * intoMarketDate.length)],
         ratingAverage: Math.random() * 5,
         ratingCount: Math.floor(Math.random() * 200),
-        studentCount: Math.floor(Math.random() * 1000),
-        CourseCategoryId: i + 1,
+        studentCount: 2,
+        CourseCategoryId: category[i].CourseCategoryId,
         CourseSubCategoryId: 1 + subCategoryIdStart * autoIncrementNum,
         UserId: Math.floor(Math.random() * 5) + 1, //1 ~ 5
         createdAt: new Date(),
@@ -68,8 +76,8 @@ const coursesNotIntoMarket = [];
 // 初始化 subCategoryId
 subCategoryIdStart = 0;
 
-for (i = 0; i < courses.length; i++) {
-  for (j = 0; j < courses[i].courseNum; j++) {
+for (i = 0; i < category.length; i++) {
+  for (j = 0; j < category[i].courseNum; j++) {
     // 每個次類別的課程各有5堂課
     for (k = 0; k < 5; k++) {
       coursesNotIntoMarket.push({
@@ -79,7 +87,7 @@ for (i = 0; i < courses.length; i++) {
         introVideo: "https://youtu.be/PkZNo7MFNFg",
         teacherName: faker.name.findName(),
         teacherDescrip: faker.lorem.sentence(),
-        totalTime: Math.floor(Math.random() * 20) * 40, //單位(minutes)
+        totalTime: 100, //單位(minutes)
         // totalLessons: Math.floor(Math.random() * 20),
         price: Math.floor(Math.random() * 5000),
         status: courseStatus[Math.floor(Math.random() * courseStatus.length)],
@@ -88,7 +96,7 @@ for (i = 0; i < courses.length; i++) {
         // ratingAverage: Math.random() * 5,
         // ratingCount: Math.floor(Math.random() * 200),
         // studentCount: Math.floor(Math.random() * 1000),
-        CourseCategoryId: i + 1,
+        CourseCategoryId: category[i].CourseCategoryId,
         CourseSubCategoryId: 1 + subCategoryIdStart * autoIncrementNum,
         UserId: Math.floor(Math.random() * 5) + 1, //1 ~ 5
         createdAt: new Date(),
@@ -100,11 +108,11 @@ for (i = 0; i < courses.length; i++) {
 }
 
 module.exports = {
-  up: (queryInterface, Sequelize) => {
+  up: async (queryInterface, Sequelize) => {
     // 建立 N 個假課程資料(已上架)
-    queryInterface.bulkInsert("Courses", coursesIntoMarket, {});
+    await queryInterface.bulkInsert("Courses", coursesNotIntoMarket, {});
     // 建立 N 個假課程資料(未上架，包含'editted', 'submitted', 'offMarket')
-    return queryInterface.bulkInsert("Courses", coursesNotIntoMarket, {});
+    return queryInterface.bulkInsert("Courses", coursesIntoMarket, {});
   },
 
   down: (queryInterface, Sequelize) => {

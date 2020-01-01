@@ -1,7 +1,7 @@
 "use strict";
 
 let lessonusers = [];
-for (let i = 1201; i < 2001; i++) {
+for (let i = 1; i < 2401; i++) {
   for (let j = 1; j < 3; j++) {
     lessonusers.push({
       isfinished: false,
