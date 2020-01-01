@@ -353,7 +353,7 @@ const courseController = {
               CourseSubCategoryId: parseInt(req.body.CourseSubCategoryId),
             })
             .then(course => {
-              return res.redirect("/courses/create/248/step1", { course });
+              return res.redirect(`/courses/create/${course.id}/step1`);
             });
         })
     });
