@@ -151,7 +151,6 @@ module.exports = (app, passport) => {
     courseController.putCourseStep2
   );
 
-
   app.get(
     "/courses/create/:courseId/step3",
     authenticated,
@@ -215,7 +214,7 @@ module.exports = (app, passport) => {
   app.get(
     "/users/favoriteCourses",
     authenticated,
-    userController.getFavoriteCourse
+    userController.getFavoriteCourses
   );
 
   // 開課者可以查詢課程狀態、學生人數等

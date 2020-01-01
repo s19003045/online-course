@@ -4,7 +4,7 @@ const faker = require("faker");
 // array for bulkinsert
 let lessons = [];
 
-for (let i = 0; i < 241; i++) {
+for (let i = 1; i < 241; i += 1) {
   for (let j = 1; j < 11; j++) {
     lessons.push({
       lessonNumber: j,
@@ -12,7 +12,7 @@ for (let i = 0; i < 241; i++) {
       title: faker.lorem.words(),
       contents: faker.lorem.paragraphs(),
       image: faker.image.imageUrl(),
-      totalTime: Math.round(faker.random.number() / 10),
+      totalTime: 10,
       isPreview: true,
       visible: true,
       CourseId: i,
