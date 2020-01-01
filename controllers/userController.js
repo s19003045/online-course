@@ -62,11 +62,6 @@ const userController = {
     });
   },
 
-  //使用者可以看到收藏的課程清單
-  getFavoriteCourse: (req, res) => {
-    return res.render("wishlist");
-  },
-
   // 開課者可以瀏灠自己開的課及相關資訊
   getTeachCourses: (req, res) => {
     Course.findAll({
@@ -200,6 +195,15 @@ const userController = {
           res.redirect("back");
         });
       }
+    });
+  },
+  // 使用者可以看到收藏的課程
+  getFavoriteCourses: (req, res) => {
+    Favorite.findAll({
+      where: { UserId: req.user.id },
+      include: [Course]
+    }).then(favorites => {
+      return res.render("favoriteCourses", { favorites });
     });
   }
 };
