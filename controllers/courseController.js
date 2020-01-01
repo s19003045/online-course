@@ -372,7 +372,7 @@ const courseController = {
               CourseSubCategoryId: parseInt(req.body.CourseSubCategoryId),
             })
             .then(course => {
-              return res.redirect("/courses/create/248/step1", { course });
+              return res.redirect(`/courses/create/${course.id}/step1`);
             });
         })
     });
@@ -467,6 +467,7 @@ const courseController = {
       intro,
       title,
       contents,
+      videoURL,
       totalTime,
       isPreview
     } = req.body;
@@ -476,6 +477,7 @@ const courseController = {
       !intro ||
       !title ||
       !contents ||
+      !videoURL ||
       !totalTime ||
       !isPreview
     ) {
@@ -488,6 +490,7 @@ const courseController = {
       intro: req.body.intro || null,
       title: req.body.title || null,
       contents: req.body.contents || null,
+      videoURL: req.body.videoURL || null,
       image: req.body.image || null,
       totalTime: parseInt(req.body.totalTime) || null,
       isPreview: req.body.isPreview == "true" ? true : false,
