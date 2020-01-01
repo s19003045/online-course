@@ -12,7 +12,19 @@ const Op = Sequelize.Op
 
 const instructController = {
   getDashboard: (req, res) => {
-    return res.render('instructor/dashboard')
+    if (req.user) {
+      Course.findAndCountAll()
+        .then(courses => {
+
+          return res.render('instructor/dashboard', {
+            courseNumber: courses.count,
+            courses: courses.rows
+          })
+        })
+    } else {
+      req.flash('error_messages', '請先登入你的帳號，才可進入授課專區')
+      return res.redirect('/signin')
+    }
   },
   getCourses: (req, res) => {
     // 定義 Model query 中的 where option

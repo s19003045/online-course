@@ -7,6 +7,7 @@ const LessonUser = db.LessonUser;
 const CourseCategory = db.CourseCategory;
 const CourseSubCategory = db.CourseSubCategory;
 
+
 const courseController = {
   // 看單一課程介紹
   getCourseIntro: (req, res) => {
@@ -323,43 +324,21 @@ const courseController = {
   },
   // 未登入者及已登入者都可連結 intro 頁面
   createCourseIntro: (req, res) => {
-    //<<<<<<<測試階段，先建立假的 user(待建立登入路由後，即可移除下面程式碼)
-    req.user = {};
-    //>>>>>>>>
-
-    // 先判斷使用者是否登入，再判斷使用者之前是否曾編輯過課程(status:editted)
+    // 先判斷使用者是否登入，若已登入則建立新的課程 id
     if (req.user) {
-      Course.findOne({
-        where: {
-          UserId: req.user.id,
-          status: "editted"
-        }
+      Course.create({
+        status: "editted",
+        UserId: req.user.id
       }).then(course => {
-        if (course) {
-          return res.redirect("/users/:id/teachCourses");
-        } else {
-          //<<<<<<<測試階段，先建立假的 user(待建立登入路由後，即可移除下面程式碼)
-          req.user = { id: 1 };
-          //>>>>>>>>
-
-          Course.create({
-            status: "editted",
-            UserId: req.user.id
-          }).then(course => {
-            return res.render("createCourse/createCourseIntro", { course });
-          });
-        }
+        return res.render("createCourse/createCourseIntro", { course });
       });
+
     } else {
       return res.redirect("/signin");
     }
   },
   // 建立課程 Sep1 頁面(登入者才可以連結至此頁面)
   createCourseStep1: (req, res) => {
-    //<<<<<<<測試階段，先建立假的 user(待建立登入路由後，即可移除下面程式碼)
-    req.user = { id: 1 };
-    //>>>>>>>>
-
     // 找出該 user 未編輯完成的course
     Course.findOne({
       where: {
@@ -368,39 +347,47 @@ const courseController = {
         status: "editted"
       }
     }).then(course => {
-      return res.render("createCourse/createCourseStep1", { course });
+      CourseSubCategory.findAll({
+        include: [CourseCategory]
+      })
+        .then(courseSubCategories => {
+          return res.render("createCourse/createCourseStep1", { course, courseSubCategories });
+        })
     });
   },
   // 送出建立課程 step 1 的資料
   putCourseStep1: (req, res) => {
-    //<<<<<<<測試階段，先建立假的 user(待建立登入路由後，即可移除下面程式碼)
-    req.user = { id: 1 };
-    //>>>>>>>>
 
     Course.findByPk(req.params.courseId).then(course => {
-      course
-        .update({
-          name: req.body.name,
-          description: req.body.description,
-          teacherDescrip: req.body.teacherDescrip,
-          teacherName: req.body.teacherName
+      CourseSubCategory.findByPk(req.body.CourseSubCategoryId)
+        .then(subCategory => {
+          console.log(subCategory)
+          course
+            .update({
+              name: req.body.name,
+              description: req.body.description,
+              teacherDescrip: req.body.teacherDescrip,
+              teacherName: req.body.teacherName,
+              CourseCategoryId: subCategory.CourseCategoryId,
+              CourseSubCategoryId: parseInt(req.body.CourseSubCategoryId),
+            })
+            .then(course => {
+              return res.redirect(`/courses/create/${course.id}/step1`);
+            });
         })
-        .then(courseSaved => {
-          return res.redirect("back");
-        });
     });
   },
   // 建立課程 Sep2 頁面(登入者才可以連結至此頁面)
   createCourseStep2: (req, res) => {
-    //<<<<<<<測試階段，先建立假的 user(待建立登入路由後，即可移除下面程式碼)
-    req.user = { id: 1 };
-    //>>>>>>>>
-
     Lesson.findAll({
       where: {
         CourseId: req.params.courseId
       }
     }).then(lessons => {
+      // 排序：依 lessonNumber，由小到大
+      lessons.sort((a, b) =>
+        a.lessonNumber - b.lessonNumber
+      );
       Course.findByPk(req.params.courseId).then(course => {
         return res.render("createCourse/createCourseStep2", {
           course,
@@ -410,15 +397,16 @@ const courseController = {
     });
   },
   editCourseStep2: (req, res) => {
-    //<<<<<<<測試階段，先建立假的 user(待建立登入路由後，即可移除下面程式碼)
-    req.user = { id: 1 };
-    //>>>>>>>>
-
     Lesson.findAll({
       where: {
         CourseId: req.params.courseId
       }
     }).then(lessons => {
+      // 排序：依 lessonNumber，由小到大
+      lessons.sort((a, b) =>
+        a.lessonNumber - b.lessonNumber
+      );
+
       Course.findByPk(req.params.courseId).then(course => {
         Lesson.findOne({
           where: {
@@ -435,12 +423,51 @@ const courseController = {
       });
     });
   },
+  editLessonNumber: (req, res) => {
+    if (!req.body.lessonNumber) {
+      console.log('lessonNumber undefined')
+    } else {
+      Lesson.findOne({
+        where: {
+          id: parseInt(req.body.pk),
+        }
+      })
+        .then(lesson => {
+          lesson.update({
+            lessonNumber: parseInt(req.body.lessonNumber)
+          })
+            .then(lesson => {
+              console.log('change lesson id:', lesson.id)
+              return res.status(200).send('OK')
+            })
+        })
+    }
+
+  },
+  deleteCourseStep2: (req, res) => {
+    Lesson.findOne({ where: { id: req.params.lessonId } })
+      .then(lesson => {
+        lesson.destroy()
+        return res.status(200)
+      })
+  },
+  createLessonTitle: (req, res) => {
+    Lesson.create({
+      lessonNumber: parseInt(req.body.lessonNumber),
+      title: req.body.title,
+      CourseId: parseInt(req.params.courseId)
+    })
+      .then(lesson => {
+        return res.redirect(`/courses/create/${req.params.courseId}/step2`)
+      })
+  },
   postCourseStep2: (req, res) => {
     const {
       lessonNumber,
       intro,
       title,
       contents,
+      videoURL,
       totalTime,
       isPreview
     } = req.body;
@@ -450,6 +477,7 @@ const courseController = {
       !intro ||
       !title ||
       !contents ||
+      !videoURL ||
       !totalTime ||
       !isPreview
     ) {
@@ -462,6 +490,7 @@ const courseController = {
       intro: req.body.intro || null,
       title: req.body.title || null,
       contents: req.body.contents || null,
+      videoURL: req.body.videoURL || null,
       image: req.body.image || null,
       totalTime: parseInt(req.body.totalTime) || null,
       isPreview: req.body.isPreview == "true" ? true : false,
@@ -593,19 +622,32 @@ const courseController = {
         teacherDescrip,
         totalTime,
         totalLessons,
-        price
+        price,
+        CourseCategoryId,
+        CourseSubCategoryId
       } = course;
 
+      // 若課程名稱、課程簡介、講師姓名、講師介紹為填寫完，則導回 step1
       if (
-        course.Lessons.length == 0 ||
         name == null ||
         description == null ||
         teacherDescrip == null ||
-        totalTime == null ||
-        totalLessons == null ||
-        price == null
+        teacherName == null ||
+        CourseCategoryId == null ||
+        CourseSubCategoryId == null
       ) {
         return res.redirect(`/courses/create/${req.params.courseId}/step1`);
+      } else if (
+        // 若簡介影片、未編輯 lesson，則導回 step2
+        introVideo == null ||
+        course.Lessons.length == 0
+      ) {
+        return res.redirect(`/courses/create/${req.params.courseId}/step2`);
+      } else if (
+        // 若未設定售價，則導回 step3
+        price == null
+      ) {
+        return res.redirect(`/courses/create/${req.params.courseId}/step3`);
       } else {
         // 若所有 step 皆已完成，則送出申請
         Course.findByPk(req.params.courseId).then(course => {
@@ -615,7 +657,7 @@ const courseController = {
               submittedDate: new Date()
             })
             .then(course => {
-              return res.redirect(`/users/${req.user.id}/teachCourses`);
+              return res.redirect(`/instructor/courses`);
             });
         });
       }

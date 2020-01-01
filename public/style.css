@@ -71,7 +71,10 @@ Basic Styles
 Reset Styles
 */
 * {
-  box-sizing: border-box; }
+  box-sizing: border-box;
+  font-family: Microsoft JhengHei; 
+  /* 微軟正黑體 */
+}
 
 article,
 aside,
@@ -2341,7 +2344,7 @@ nav.menu {
   position: relative;
   overflow: hidden; }
 .shop-grid .product {
-  margin-bottom: 15px;
+  margin-bottom: 30px;
 }
   .product .product__thumb {
     overflow: hidden;
