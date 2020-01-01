@@ -3,8 +3,8 @@ const faker = require("faker");
 
 // 為每一門into market的課程產生discussion posts
 let posts = [];
-for (let i = 121; i < 241; i++) {
-  for (let j = 2; j < 7; j++) {
+for (let i = 121; i < 241; i += 1) {
+  for (let j = 1; j < 3; j += 1) {
     posts.push({
       subject: faker.lorem.sentence(),
       message: faker.lorem.sentence(),

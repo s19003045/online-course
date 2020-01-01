@@ -3,9 +3,9 @@ const faker = require("faker");
 const bcrypt = require("bcrypt-nodejs");
 
 module.exports = {
-  up: (queryInterface, Sequelize) => {
+  up: async (queryInterface, Sequelize) => {
     // 建立 root(role:admin), user1(role:user), user2(role:user) 三個 user 種子
-    queryInterface.bulkInsert(
+    await queryInterface.bulkInsert(
       "Users",
       [
         {
@@ -15,8 +15,8 @@ module.exports = {
           avatar: faker.image.imageUrl(),
           description: faker.lorem.text().substring(0, 200),
           role: "admin",
-          country: 'Taiwan',
-          timezone: 'Asia/Taipei',
+          country: "Taiwan",
+          timezone: "Asia/Taipei",
           createdAt: new Date(),
           updatedAt: new Date()
         },
@@ -27,8 +27,8 @@ module.exports = {
           avatar: faker.image.imageUrl(),
           description: faker.lorem.text().substring(0, 200),
           role: "user",
-          country: 'Taiwan',
-          timezone: 'Asia/Taipei',
+          country: "Taiwan",
+          timezone: "Asia/Taipei",
           createdAt: new Date(),
           updatedAt: new Date()
         },
@@ -39,16 +39,14 @@ module.exports = {
           avatar: faker.image.imageUrl(),
           description: faker.lorem.text().substring(0, 200),
           role: "user",
-          country: 'Taiwan',
-          timezone: 'Asia/Taipei',
+          country: "Taiwan",
+          timezone: "Asia/Taipei",
           createdAt: new Date(),
           updatedAt: new Date()
-        },
+        }
       ],
       {}
     );
-
-    // 建立 5 個 faker user(role:user) 種子
     return queryInterface.bulkInsert(
       "Users",
       Array.from({ length: 5 }).map(d => ({
@@ -58,8 +56,8 @@ module.exports = {
         avatar: faker.image.imageUrl(),
         description: faker.lorem.text().substring(0, 200),
         role: "user",
-        country: 'Taiwan',
-        timezone: 'Asia/Taipei',
+        country: "Taiwan",
+        timezone: "Asia/Taipei",
         createdAt: new Date(),
         updatedAt: new Date()
       })),
