@@ -289,6 +289,60 @@
   padding: 8px 15px;
 }
 
+.wn_accordion .card {
+  border: none;
+}
+
+.wn_accordion .acc-header{
+	border: 1px solid #e1e1e1;
+}
+
+.wn_accordion .acc-header .title{
+  background-color: #eee;
+  color: #333;
+  padding: 18px 40px 18px 26px;
+}
+
+.acc-header h5 a {
+  padding: 0;
+ }
+ 
+.wn_accordion .collapse{
+	margin-top: 20px;
+	margin-left: 50px;
+	
+}
+
+.wn_accordion .collapse .reply{
+	margin-bottom: 20px;
+	border: 1px solid #e1e1e1;
+}
+
+.wn_accordion .collapse .reply-user{
+	background-color: #eee;
+  color: #333;
+  padding: 18px 40px 18px 26px;
+}
+
+.wn_accordion .card .reply-input form{
+	display: flex;
+	width: 100%;
+}
+
+.wn_accordion .card .reply-input form textarea{
+	width: 100%;
+}
+
+.wn_accordion .card .reply-input form button{
+  background: #e59285 none repeat scroll 0 0;
+  color: #fff;
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 700;
+	padding: 8px 15px;
+	border: none;
+}
+
 
 
 
