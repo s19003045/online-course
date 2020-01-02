@@ -62,11 +62,6 @@ const userController = {
     });
   },
 
-  //使用者可以看到收藏的課程清單
-  getFavoriteCourse: (req, res) => {
-    return res.render("wishlist");
-  },
-
   // 開課者可以瀏灠自己開的課及相關資訊
   getTeachCourses: (req, res) => {
     Course.findAll({
@@ -98,11 +93,18 @@ const userController = {
           where: {
             CourseId: course.id,
             UserId: req.user.id
-          }
+          },
+          include: [Course]
         }).then(favorite => {
           if (favorite) {
-            req.flash("error_messages", "該課程已在您的收藏清單");
-            res.redirect("back");
+            let course_deleted = favorite.Course.name;
+            favorite.destroy().then(user => {
+              req.flash(
+                "success_messages",
+                `成功從收藏清單移除${course_deleted}課程`
+              );
+              res.redirect("back");
+            });
           } else {
             // 新增資料至favorite model
             Favorite.create({
@@ -200,6 +202,15 @@ const userController = {
           res.redirect("back");
         });
       }
+    });
+  },
+  // 使用者可以看到收藏的課程
+  getFavoriteCourses: (req, res) => {
+    Favorite.findAll({
+      where: { UserId: req.user.id },
+      include: [Course]
+    }).then(favorites => {
+      return res.render("favoriteCourses", { favorites });
     });
   }
 };

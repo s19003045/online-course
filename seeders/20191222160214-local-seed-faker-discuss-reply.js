@@ -3,8 +3,8 @@ const faker = require("faker");
 
 // 為每一門課程產生discussion replies
 let replies = [];
-for (let i = 1; i < 601; i++) {
-  for (let j = 2; j < 4; j++) {
+for (let i = 1; i < 241; i++) {
+  for (let j = 1; j < 3; j += 1) {
     replies.push({
       message: faker.lorem.sentence(),
       DiscussPostId: i,

@@ -22,7 +22,8 @@ const postController = {
           return res.render("post", {
             posts,
             postsLength: posts.length,
-            courseId: course.id
+            courseId: course.id,
+            courseName: course.name
           });
         });
       } else {
