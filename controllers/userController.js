@@ -175,14 +175,10 @@ const userController = {
                 completeRate += Math.round(
                   (completeLesson / course.Lessons.length) * 100
                 );
-                enrollment
-                  .update({
-                    finishLessonCount: completeLesson,
-                    completeRate: completeRate
-                  })
-                  .then(user => {
-                    res.redirect("back");
-                  });
+                enrollment.update({
+                  finishLessonCount: completeLesson,
+                  completeRate: completeRate
+                });
               });
             });
           });
