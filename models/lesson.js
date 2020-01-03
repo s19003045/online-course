@@ -4,7 +4,7 @@ module.exports = (sequelize, DataTypes) => {
     lessonNumber: DataTypes.INTEGER, //單元編號
     intro: DataTypes.STRING, //單元簡介
     title: DataTypes.STRING, //單元名稱
-    contents: DataTypes.TEXT, //單元內容
+    contents: DataTypes.TEXT('long'), //單元內容
     videoURL: DataTypes.TEXT, //影片連結
     image: DataTypes.STRING,
     totalTime: DataTypes.INTEGER, //該lesson 上課時數
