@@ -202,11 +202,22 @@ const userController = {
   },
   // 使用者可以看到收藏的課程
   getFavoriteCourses: (req, res) => {
+    let userEnrolledId = [];
+    if (req.user) {
+      req.user.UserEnrollments.forEach(enroll => {
+        userEnrolledId.push(enroll.CourseId);
+      });
+    }
     Favorite.findAll({
       where: { UserId: req.user.id },
       include: [Course]
     }).then(favorites => {
-      return res.render("favoriteCourses", { favorites });
+      // 辨認課程是否被登入的使用者購買
+      const data = favorites.map(c => ({
+        ...c.dataValues,
+        enrolled: userEnrolledId.includes(c.dataValues.CourseId)
+      }));
+      return res.render("favoriteCourses", { favorites: data });
     });
   }
 };

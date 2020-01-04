@@ -63,6 +63,13 @@ const courseController = {
   },
   // (首頁)看所有課程
   getCourses: (req, res) => {
+    // 登入使用者已購買的課程Id
+    let userEnrolledId = [];
+    if (req.user) {
+      req.user.UserEnrollments.forEach(enroll => {
+        userEnrolledId.push(enroll.CourseId);
+      });
+    }
     // 取得sort功能要依據哪個變數排序所有課程
     order = SortCourses(req.query.order);
     Course.findAll({
@@ -78,8 +85,13 @@ const courseController = {
       where: [{ status: "intoMarket" }],
       order: [order]
     }).then(courses => {
+      // 辨認課程是否被登入的使用者購買
+      const data = courses.map(c => ({
+        ...c.dataValues,
+        enrolled: userEnrolledId.includes(c.dataValues.id)
+      }));
       return res.render("courses", {
-        courses,
+        courses: data,
         order: req.query.order,
         route: "all",
         reqUrl: req.url
@@ -88,6 +100,13 @@ const courseController = {
   },
   // 依主類別篩選課程
   getMainCategoryCourse: (req, res) => {
+    // 登入使用者已購買的課程Id
+    let userEnrolledId = [];
+    if (req.user) {
+      req.user.UserEnrollments.forEach(enroll => {
+        userEnrolledId.push(enroll.CourseId);
+      });
+    }
     // 取得sort功能要依據哪個變數排序所有課程
     order = SortCourses(req.query.order);
     CourseCategory.findOne({
@@ -97,7 +116,6 @@ const courseController = {
     }).then(category => {
       // 找不到類別
       if (!category) {
-        // 目前req.flash無法顯示，待解決
         req.flash(
           "error_messages",
           "目前還沒有該類別的課程，本站將陸續新增，不好意思！"
@@ -123,8 +141,13 @@ const courseController = {
             let no_courses = true;
             return res.render("courses", { no_courses });
           }
+          // 辨認課程是否被登入的使用者購買
+          const data = courses.map(c => ({
+            ...c.dataValues,
+            enrolled: userEnrolledId.includes(c.dataValues.id)
+          }));
           return res.render("courses", {
-            courses,
+            courses: data,
             order: req.query.order,
             route: "mainCate",
             mainCategoName: req.params.mainCategoName,
@@ -136,6 +159,13 @@ const courseController = {
   },
   // 依次類別篩選課程
   getSubCategoryCourse: (req, res) => {
+    // 登入使用者已購買的課程Id
+    let userEnrolledId = [];
+    if (req.user) {
+      req.user.UserEnrollments.forEach(enroll => {
+        userEnrolledId.push(enroll.CourseId);
+      });
+    }
     // 取得sort功能要依據哪個變數排序所有課程
     order = SortCourses(req.query.order);
     CourseCategory.findOne({
@@ -145,7 +175,6 @@ const courseController = {
     }).then(category => {
       // 找不到類別
       if (!category) {
-        // 目前req.flash無法顯示，待解決
         req.flash(
           "error_messages",
           "目前還沒有該類別的課程，本站將陸續新增，不好意思！"
@@ -156,13 +185,13 @@ const courseController = {
           where: { name: req.params.subCategoName }
         }).then(subcategory => {
           if (!subcategory) {
-            // 目前req.flash無法顯示，待解決
             req.flash(
               "error_messages",
               "目前還沒有該類別的課程，本站將陸續新增，不好意思！"
             );
             res.redirect("/courses");
           } else {
+            // 依子類別撈取課程資料
             Course.findAll({
               attributes: [
                 "id",
@@ -186,8 +215,13 @@ const courseController = {
                 let no_courses = true;
                 return res.render("courses", { no_courses });
               }
+              // 辨認課程是否被登入的使用者購買
+              const data = courses.map(c => ({
+                ...c.dataValues,
+                enrolled: userEnrolledId.includes(c.dataValues.id)
+              }));
               return res.render("courses", {
-                courses,
+                courses: data,
                 order: req.query.order,
                 route: "subCate",
                 mainCategoName: req.params.mainCategoName,
