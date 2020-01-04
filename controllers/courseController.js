@@ -24,42 +24,56 @@ const courseController = {
   },
   // 看單一課程內容
   getCourseLesson: (req, res) => {
-    let lessonNumber = 1;
-    if (req.query.lessonNumber) {
-      lessonNumber = Number(req.query.lessonNumber);
+    // 登入使用者已購買的課程Id
+    let userEnrolledId = [];
+    if (req.user) {
+      req.user.UserEnrollments.forEach(enroll => {
+        userEnrolledId.push(enroll.CourseId);
+      });
     }
-    Course.findByPk(req.params.courses_id).then(course => {
-      if (course) {
-        Lesson.findAll({
-          attributes: ["lessonNumber", "title"],
-          where: [{ visible: true }, { CourseId: course.id }]
-        }).then(lessons => {
-          Lesson.findOne({
-            where: {
-              lessonNumber: lessonNumber,
-              CourseId: course.id
-            },
-            include: [{ model: LessonUser, where: { UserId: req.user.id } }]
-          }).then(lesson => {
-            let isfinished = false;
-            if (lesson.LessonUsers) {
-              isfinished = lesson.LessonUsers[0].isfinished;
-            }
-            res.render("course", {
-              lesson,
-              lessons,
-              courseId: course.id,
-              courseName: course.name,
-              lessonNumber,
-              isfinished: isfinished
+    // 使用者未購買該課程
+    if (userEnrolledId.indexOf(parseInt(req.params.courses_id)) === -1) {
+      req.flash("error_messages", "您尚未購買此課程");
+      res.redirect("back");
+    } else {
+      // 使用者已購買該課程
+      let lessonNumber = 1;
+      if (req.query.lessonNumber) {
+        lessonNumber = Number(req.query.lessonNumber);
+      }
+      Course.findByPk(req.params.courses_id).then(course => {
+        if (course) {
+          Lesson.findAll({
+            attributes: ["lessonNumber", "title"],
+            where: [{ visible: true }, { CourseId: course.id }]
+          }).then(lessons => {
+            Lesson.findOne({
+              where: {
+                lessonNumber: lessonNumber,
+                CourseId: course.id
+              },
+              include: [{ model: LessonUser, where: { UserId: req.user.id } }]
+            }).then(lesson => {
+              let isfinished = false;
+              if (lesson.LessonUsers) {
+                isfinished = lesson.LessonUsers[0].isfinished;
+              }
+              res.render("course", {
+                lesson,
+                lessons,
+                courseId: course.id,
+                courseName: course.name,
+                lessonNumber,
+                isfinished: isfinished
+              });
             });
           });
-        });
-      } else {
-        req.flash("error_messages", "該課程不存在！");
-        res.redirect("back");
-      }
-    });
+        } else {
+          req.flash("error_messages", "該課程不存在！");
+          res.redirect("back");
+        }
+      });
+    }
   },
   // (首頁)看所有課程
   getCourses: (req, res) => {
