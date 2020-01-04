@@ -130,7 +130,7 @@ const userController = {
       },
       include: [Course]
     }).then(userenrollments => {
-      return res.render("boughtCourses", { userenrollments });
+      return res.render("myCourses", { userenrollments });
     });
   },
   // 使用者可以勾選complete checkbox標註已完成的單元
