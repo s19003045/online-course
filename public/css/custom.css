@@ -9,14 +9,14 @@
 
 /* main.handlebars-導覽列 */
 #wn__header{
-	background-color: #aaa;
+	background-color: #e60012;
 }
 
 .header__area .logo .logo-txt{
 	display: inline-block;
 	width: 150px;
-	color: #ce7852;
-	border:2px solid #ce7852;
+	color: #fff;
+	border:2px solid #fff;
 	border-radius:22px;
 	padding:5px 10px;
 	margin-top:10px;
@@ -125,12 +125,13 @@
 
 .favorite-btn button{
 	border:none;
-	color:#333;
+	color:#fff;
 	background-color:transparent;
+	transition: .7s;
 }
 
 .favorite-btn button:hover{
-	color: #ce7852;
+	color: #e60012;
 }
 
 .couse-btns{
@@ -166,7 +167,8 @@
 }
 
 .couse-btns .couse-btn:hover{
-	background-color: #ce7852;
+	background-color: #e60012;
+	color:#fff;
 }
 
 .couse-btns .couse-btn:hover button{
@@ -233,20 +235,20 @@
 }
 
 .blog-details .comment_respond .comment__form .submite__btn button {
-  background: #e59285 none repeat scroll 0 0;
-  color: #fff;
+  background: #fff none repeat scroll 0 0;
+  color: #e60012;
   display: inline-block;
   font-size: 14px;
   font-weight: 700;
 	padding: 12px 28px;
-	border: none;
+	border: 1px solid #e60012;
   text-shadow: none;
   text-transform: uppercase;
   transition: all 0.4s ease 0s;
 }
 
 .blog-details .comment_respond .comment__form .submite__btn button:hover {
-  background: #000 none repeat scroll 0 0;
+  background: #e60012 none repeat scroll 0 0;
   color: #fff;
 }
 
@@ -334,13 +336,13 @@
 }
 
 .wn_accordion .card .reply-input form button{
-  background: #e59285 none repeat scroll 0 0;
-  color: #fff;
+  background: #fff none repeat scroll 0 0;
+  color: #e60012;
   display: inline-block;
   font-size: 12px;
   font-weight: 700;
 	padding: 8px 15px;
-	border: none;
+  border: 1px solid #e60012;
 }
 
 
@@ -370,7 +372,7 @@
 	width: 110px;
 	font-size: 16px;
 	font-weight: 400;
-	color: #ce7852;
+	color: #e60012;
 }
 
 .user-info .user-info-item .user-info-data{

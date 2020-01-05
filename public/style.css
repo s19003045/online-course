@@ -555,7 +555,7 @@ ul {
   list-style: none; }
 
 a#scrollUp {
-  background: #e59285;
+  background: #e60012;
   color: #fff;
   bottom: 40px;
   right: 40px;
@@ -569,7 +569,7 @@ a#scrollUp {
   transition: 0.3s; }
   a#scrollUp:hover {
     background: #fff;
-    color: #e59285; }
+    color: #e60012; }
 
 img {
   max-width: 100%; }
@@ -4078,9 +4078,9 @@ h3.widget-title-modal {
     width: 100px;
     margin: 0 15px 15px 0; }
 .product__info__main .box-tocart .addtocart__actions .tocart {
-  background: #e59285 none repeat scroll 0 0;
-  border: 0 none;
-  color: #fff;
+  background: #fff none repeat scroll 0 0;
+  border: 1px solid #e60012;
+  color: #e60012;
   font-size: 14px;
   font-weight: 600;
   height: 40px;
@@ -4116,9 +4116,11 @@ h3.widget-title-modal {
 .product__info__detailed {
   margin-top: 25px;
 }
-    .product__info__main .box-tocart .addtocart__actions .tocart:hover {
-      background-color: #e59285;
-      border-color: #e59285; }
+.product__info__main .box-tocart .addtocart__actions .tocart:hover {
+  background-color: #e60012;
+  border-color: #e60012; 
+  color:#fff;
+}
 .product__info__main .product-addto-links a {
   border: 2px solid #ebebeb;
   border-radius: 100%;
@@ -4185,7 +4187,7 @@ h3.widget-title-modal {
     .product__info__detailed .pro_details_nav a.nav-item + .nav-item {
       margin-left: 38px; }
     .product__info__detailed .pro_details_nav a.nav-item::after {
-      background: #2e2e2e none repeat scroll 0 0;
+      background: #e60012 none repeat scroll 0 0;
       bottom: -2px;
       content: "";
       height: 2px;
@@ -4196,7 +4198,7 @@ h3.widget-title-modal {
     .product__info__detailed .pro_details_nav a.nav-item.active::after, .product__info__detailed .pro_details_nav a.nav-item:hover::after {
       width: 100%; }
     .product__info__detailed .pro_details_nav a.nav-item.active, .product__info__detailed .pro_details_nav a.nav-item:hover {
-      color: #333; }
+      color: #e60012; }
 .product__info__detailed .description__attribute p {
   color: #333;
   font-size: 14px;
