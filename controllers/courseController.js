@@ -6,7 +6,9 @@ const Lesson = db.Lesson;
 const LessonUser = db.LessonUser;
 const CourseCategory = db.CourseCategory;
 const CourseSubCategory = db.CourseSubCategory;
-
+const imgur = require("imgur-node-api");
+const IMGUR_CLIENT_ID = process.env.IMGUR_CLIENT_ID;
+const helpers = require("../_helpers");
 
 const courseController = {
   // 看單一課程介紹
@@ -356,26 +358,80 @@ const courseController = {
     });
   },
   // 送出建立課程 step 1 的資料
-  putCourseStep1: (req, res) => {
+  postCourseStep1: (req, res) => {
+    console.log(IMGUR_CLIENT_ID)
+    console.log(req.body.name)
+    console.log(req.body.description)
+    console.log(req.body.CourseSubCategoryId)
+    console.log(req.body.teacherDescrip)
+    console.log(req.body.teacherName)
+    console.log('file:', req.file)
+    if (!req.body.name || !req.body.description || !req.body.CourseSubCategoryId || !req.body.teacherDescrip || !req.body.teacherName) {
+      req.flash("error_messages", "所有欄位都是必填");
+      return res.redirect("back");
+    }
 
-    Course.findByPk(req.params.courseId).then(course => {
-      CourseSubCategory.findByPk(req.body.CourseSubCategoryId)
-        .then(subCategory => {
-          console.log(subCategory)
-          course
-            .update({
-              name: req.body.name,
-              description: req.body.description,
-              teacherDescrip: req.body.teacherDescrip,
-              teacherName: req.body.teacherName,
-              CourseCategoryId: subCategory.CourseCategoryId,
-              CourseSubCategoryId: parseInt(req.body.CourseSubCategoryId),
-            })
-            .then(course => {
-              return res.redirect(`/courses/create/${course.id}/step1`);
-            });
-        })
-    });
+    const { file } = req;
+
+    if (file) {
+      imgur.setClientID(IMGUR_CLIENT_ID);
+
+      return imgur.upload(file.path, (err, img) => {
+        if (err) {
+          console.log(err);
+        } else {
+          console.log('link:', img.data.link)
+          return Course.findByPk(req.params.courseId).then(course => {
+            CourseSubCategory.findByPk(req.body.CourseSubCategoryId)
+              .then(subCategory => {
+                console.log(subCategory)
+                course
+                  .update({
+                    name: req.body.name || course.name,
+                    description: req.body.description || course.description,
+                    teacherDescrip: req.body.teacherDescrip || course.teacherDescrip,
+                    teacherName: req.body.teacherName || course.teacherName,
+                    CourseCategoryId: subCategory.CourseCategoryId,
+                    CourseSubCategoryId: parseInt(req.body.CourseSubCategoryId),
+                    image: img.data.link
+                  })
+                  .then(course => {
+                    CourseSubCategory.findAll({
+                      include: [CourseCategory]
+                    })
+                      .then(courseSubCategories => {
+                        return res.render("createCourse/createCourseStep1", { course, courseSubCategories });
+                      })
+                  });
+              })
+          });
+        }
+      });
+    } else {
+      return Course.findByPk(req.params.courseId).then(course => {
+        CourseSubCategory.findByPk(req.body.CourseSubCategoryId)
+          .then(subCategory => {
+            console.log(subCategory)
+            course
+              .update({
+                name: req.body.name || course.name,
+                description: req.body.description || course.description,
+                teacherDescrip: req.body.teacherDescrip || course.teacherDescrip,
+                teacherName: req.body.teacherName || course.teacherName,
+                CourseCategoryId: subCategory.CourseCategoryId,
+                CourseSubCategoryId: parseInt(req.body.CourseSubCategoryId)
+              })
+              .then(course => {
+                CourseSubCategory.findAll({
+                  include: [CourseCategory]
+                })
+                  .then(courseSubCategories => {
+                    return res.render("createCourse/createCourseStep1", { course, courseSubCategories });
+                  })
+              });
+          })
+      });
+    }
   },
   // 建立課程 Sep2 頁面(登入者才可以連結至此頁面)
   createCourseStep2: (req, res) => {

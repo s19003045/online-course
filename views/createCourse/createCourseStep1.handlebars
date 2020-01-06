@@ -1,7 +1,7 @@
 <div class="row">
-  <div class="col col-md-8 mx-auto">
+  <div class="col col-md-8 mx-auto mb-5">
     <h2>Step 1</h2>
-    <form action="/courses/create/{{course.id}}/step1?_method=PUT" method="POST">
+    <form action="/courses/create/{{course.id}}/step1" method="POST" enctype="multipart/form-data">
       <div class="form-group">
         <label for="name">課程名稱</label>
         <input type="text" class="form-control" name="name" id="name" placeholder="為你的課程取個名字吧！" value="{{course.name}}">
@@ -12,8 +12,8 @@
           value="{{course.description}}">
       </div>
       <div class="form-group">
-        <label for="description">課程類別(<span>主類別/次類別</span>)</label>
-        <select class="custom-select custom-select-lg mb-3 ml-3" name="CourseSubCategoryId">
+        <label for="CourseSubCategoryId">課程類別(<span>主類別/次類別</span>)</label>
+        <select class="form-control" name="CourseSubCategoryId">
           {{#each courseSubCategories}}
           <option value="{{this.id}}" {{#ifCond this.id ../course.CourseSubCategoryId}}selected{{/ifCond}}>
             {{this.CourseCategory.name}}/{{this.name}}</option>
@@ -21,7 +21,7 @@
         </select>
       </div>
       <div class="form-group">
-        <label for="teacherDescrip">講師姓名</label>
+        <label for="teacherName">講師姓名</label>
         <input type="text" class="form-control" name="teacherName" id="teacherName" placeholder="取個響亮的名字吧~"
           value="{{course.teacherName}}">
       </div>
@@ -30,10 +30,15 @@
         <input type="text" class="form-control" name="teacherDescrip" id="teacherDescrip" placeholder="介紹講師你自己..."
           value="{{course.teacherDescrip}}">
       </div>
+      <div class="form-group">
+        <img src="{{course.image}}" width="300" id="course-image" alt="">
+        <label for="image">課程圖片</label>
+        <input type="file" class="form-control-file" id="image" name="image" accept="image/gif, image/jpeg, image/png">
+        <small class="text-muted">接受gif, jpeg, png格式</small>
+      </div>
       <button type="submit" class="btn btn-primary mr-5">Save</button>
     </form>
-    <a href="/courses/create/{{course.id}}/step2" class="btn btn-link my-3">下一步
+    <a href="/courses/create/{{course.id}}/step2" class="btn btn-outline-info my-3">下一步
     </a>
-
   </div>
 </div>

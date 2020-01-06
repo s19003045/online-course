@@ -107,10 +107,10 @@ module.exports = (app, passport) => {
     authenticated,
     courseController.createCourseStep1
   );
-  app.put(
+  app.post(
     "/courses/create/:courseId/step1",
-    authenticated,
-    courseController.putCourseStep1
+    authenticated, upload.single('image'),
+    courseController.postCourseStep1
   );
   app.get(
     "/courses/create/:courseId/step2",
