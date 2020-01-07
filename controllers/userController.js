@@ -135,70 +135,84 @@ const userController = {
   },
   // 使用者可以勾選complete checkbox標註已完成的單元
   postFinishLesson: (req, res) => {
-    LessonUser.findOne({
-      where: {
-        LessonId: parseInt(req.params.lesson_id),
-        UserId: req.user.id
-      }
-    }).then(lessonuser => {
-      if (lessonuser) {
-        lessonuser
-          .update({
-            isfinished: !lessonuser.isfinished
-          })
-          .then(user => {
-            // 更新completeRate
-            Course.findByPk(req.params.courses_id, {
-              include: [
-                {
-                  model: Lesson,
-                  attribute: ["id"],
-                  include: [
-                    { model: LessonUser, where: { UserId: req.user.id } }
-                  ]
-                }
-              ]
-            }).then(course => {
-              let completeLesson = 0;
-              course.Lessons.forEach(lesson => {
-                if (lesson.LessonUsers[0].isfinished) {
-                  completeLesson += 1;
-                }
-              });
-              UserEnrollment.findOne({
-                where: {
-                  CourseId: course.id,
-                  UserId: req.user.id
-                }
-              }).then(enrollment => {
-                let completeRate = 0;
-                completeRate += Math.round(
-                  (completeLesson / course.Lessons.length) * 100
-                );
-                enrollment.update({
-                  finishLessonCount: completeLesson,
-                  completeRate: completeRate
+    // 登入使用者已購買的課程Id
+    let userEnrolledId = [];
+    if (req.user) {
+      req.user.UserEnrollments.forEach(enroll => {
+        userEnrolledId.push(enroll.CourseId);
+      });
+    }
+    // 使用者未購買該課程
+    if (userEnrolledId.indexOf(parseInt(req.params.courses_id)) === -1) {
+      req.flash("error_messages", "您尚未購買此課程");
+      res.redirect("/courses");
+    } else {
+      // 使用者已購買該課程
+      LessonUser.findOne({
+        where: {
+          LessonId: parseInt(req.params.lesson_id),
+          UserId: req.user.id
+        }
+      }).then(lessonuser => {
+        if (lessonuser) {
+          lessonuser
+            .update({
+              isfinished: !lessonuser.isfinished
+            })
+            .then(user => {
+              // 更新completeRate
+              Course.findByPk(req.params.courses_id, {
+                include: [
+                  {
+                    model: Lesson,
+                    attribute: ["id"],
+                    include: [
+                      { model: LessonUser, where: { UserId: req.user.id } }
+                    ]
+                  }
+                ]
+              }).then(course => {
+                let completeLesson = 0;
+                course.Lessons.forEach(lesson => {
+                  if (lesson.LessonUsers[0].isfinished) {
+                    completeLesson += 1;
+                  }
+                });
+                UserEnrollment.findOne({
+                  where: {
+                    CourseId: course.id,
+                    UserId: req.user.id
+                  }
+                }).then(enrollment => {
+                  let completeRate = 0;
+                  completeRate += Math.round(
+                    (completeLesson / course.Lessons.length) * 100
+                  );
+                  enrollment.update({
+                    finishLessonCount: completeLesson,
+                    completeRate: completeRate
+                  });
                 });
               });
             });
+        } else {
+          LessonUser.create({
+            isfinished: true,
+            finishedDate: new Date(),
+            LessonId: parseInt(req.params.lesson_id),
+            UserId: req.user.id
+          }).then(user => {
+            // 更新completeRate
+            Course.findByPk(req.params.course_id, {
+              include: [{ model: Lesson, attribute: ["id"] }]
+            }).then(course => {
+              console.log(course.Lessons);
+            });
+            res.redirect("back");
           });
-      } else {
-        LessonUser.create({
-          isfinished: true,
-          finishedDate: new Date(),
-          LessonId: parseInt(req.params.lesson_id),
-          UserId: req.user.id
-        }).then(user => {
-          // 更新completeRate
-          Course.findByPk(req.params.course_id, {
-            include: [{ model: Lesson, attribute: ["id"] }]
-          }).then(course => {
-            console.log(course.Lessons);
-          });
-          res.redirect("back");
-        });
-      }
-    });
+        }
+      });
+    }
   },
   // 使用者可以看到收藏的課程
   getFavoriteCourses: (req, res) => {
