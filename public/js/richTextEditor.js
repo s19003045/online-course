@@ -59,31 +59,35 @@ $(document).ready(function() {
   };
   var toolbar = editor.getModule("toolbar");
   toolbar.addHandler("link", showLinkUI);
-
+  let noUpdateInProgress = true;
   // 將image上傳至IMGUR
   function quillFormImgListener(formSelector) {
     // eslint-disable-line no-unused-vars
     var $form = $(formSelector);
-    $form.on("blur change keyup paste input", "[contenteditable]", function() {
-      if (noUpdateInProgress) {
-        var $images = $("#editor img");
-        $images.each(function() {
-          var imageSrc = $(this).attr("src");
-          if (imageSrc && imageSrc[0] === "d") {
-            console.log("Starting image upload...");
-            noUpdateInProgress = false;
-            disableSubmit($form);
-            uploadImageToImgurAndReplaceSrc($(this), enableSubmit);
-          }
-        });
+    $form.onchange(
+      "blur change keyup paste input",
+      "[contenteditable]",
+      function() {
+        if (noUpdateInProgress) {
+          var $images = $("#editor img");
+          $images.each(function() {
+            var imageSrc = $(this).attr("src");
+            if (imageSrc && imageSrc[0] === "d") {
+              console.log("Starting image upload...");
+              noUpdateInProgress = false;
+              disableSubmit($form);
+              uploadImageToImgurAndReplaceSrc($(this), enableSubmit);
+            }
+          });
+        }
       }
-    });
+    );
   }
   function uploadImageToImgurAndReplaceSrc($image) {
     var imageBase64 = $image.attr("src").split(",")[1];
     $("#progressbar").show();
     $.ajax({
-      url: "https://api.imgur.com/3/image",
+      url: IMGUR_API_URL,
       type: "post",
       data: {
         image: imageBase64
@@ -100,7 +104,7 @@ $(document).ready(function() {
             $("#progressbar").attr({ value: e.loaded, max: e.total });
             // Upload finished
             if (e.loaded == e.total) {
-              $("#progressbar").attr("value", "0.0");
+              $("#progressbar").attr("value", e.total);
             }
           }
         };
@@ -109,6 +113,7 @@ $(document).ready(function() {
       success: response => {
         $image.attr("src", response.data.link);
         $("#progressbar").hide();
+        $("#progressbar").attr("value", 0);
       },
       error: (xhr, type, err) => {
         console.error(err);
@@ -117,15 +122,12 @@ $(document).ready(function() {
       }
     });
   }
-  let updateInProgress = false;
-  editor.on("editor-change", () => {
-    if (updateInProgress) return;
 
+  editor.on("editor-change", () => {
     var $images = $("#editor img");
     $images.each(function() {
       var imageSrc = $(this).attr("src");
       if (imageSrc && imageSrc[0] === "d") {
-        updateInProgress = true;
         uploadImageToImgurAndReplaceSrc($(this));
       }
     });
