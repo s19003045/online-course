@@ -575,7 +575,7 @@ img {
   max-width: 100%; }
 
 a:hover {
-  color: #e59285; }
+  color: #e60012; }
 
 a {
   transition: 0.3s; }
@@ -1905,7 +1905,7 @@ Header Styles
 	  text-transform: uppercase;
 	  transition: all 0.4s ease 0s;
 	}
-		.mainmenu__nav .meninmenu li a:hover{color: #e59285;}
+		.mainmenu__nav .meninmenu li a:hover{color: #e60012;}
 		.is-sticky .mainmenu__nav .meninmenu li a {
 		  color: #fff;
 		}
@@ -2008,7 +2008,7 @@ Header Styles
 	  transition: all 0.3s ease 0s;
 	}
       .meninmenu li.drop .megamenu .item li a:hover {
-        color: #e59285;
+        color: #e60012;
         padding-left: 5px; }
   .meninmenu li.drop:hover .megamenu {
     opacity: 1;
@@ -5106,7 +5106,8 @@ h3.widget-title-modal {
   font-size: 16px;
   font-weight: 600;
   padding: 18px 40px 18px 26px;
-  position: relative; }
+  /* position: relative;  */
+}
 .wn_accordion .card {
   border: 1px solid #e1e1e1;
   border-radius: 0; }
@@ -5122,7 +5123,7 @@ h3.widget-title-modal {
   height: 20px;
   padding: 0 10px;
   position: absolute;
-  right: 8px;
+  right: 20px;
   top: 50%;
   -webkit-transform: translateY(-50%);
           transform: translateY(-50%);

@@ -44,53 +44,57 @@
 
               {{!-- 提問問題 Start --}}
               {{#each posts}}
-              <div class="card">
-                {{!-- 問題內容 Start --}}
-                <div class="acc-header" role="tab" id="post-heading">
-                  <div class="title">
-                    <div class="post-user-pic">
-                    </div>
-                    <div class="post-user-txt">
-                      <h5>
-                        <a class="collapsed" data-toggle="collapse" href="#collapse-list{{@key}}" role="button"
-                          aria-expanded="false" aria-controls="collapse-list">
-                          {{this.subject}}</a>
-                      </h5>
-                      <span>{{this.User.username}}</span>
-                      <span>{{moment this.createdAt}}</span>
-                    </div>
-                  </div>
-
-                  <div class="card-body">{{this.message}}
-                  </div>
+              <div class="post-question">
+                <div class="post-user-pic">
+                  <a href="#">
+                    <img src="{{this.User.avatar}}" alt="">
+                  </a>
                 </div>
-                {{!-- 問題內容 End --}}
+                <div class="card">
+                  {{!-- 問題內容 Start --}}
+                  <div class="acc-header" role="tab" id="post-heading">
+                    <div class="title">
+                      <div class="post-user-txt">
+                        <h5>
+                          <a class="collapsed" data-toggle="collapse" href="#collapse-list{{@key}}" role="button"
+                            aria-expanded="false" aria-controls="collapse-list">
+                            {{this.subject}}</a>
+                        </h5>
+                        <span>{{this.User.username}} at {{moment this.createdAt}}</span>
+                      </div>
+                    </div>
 
-
-                <div id="collapse-list{{@key}}" class="collapse">
-                  {{#each this.DiscussReplies}}
-                  {{!-- 該問題的Reply Start --}}
-                  <div class="reply">
-                    <div class="reply-user">{{this.User.username}} at {{moment this.createdAt}}</div>
-                    <div class="reply-centent card-body">
-                      {{this.message}}
+                    <div class="card-body">{{this.message}}
                     </div>
                   </div>
-                  {{!-- 該問題的Reply End --}}
-                  {{/each}}
+                  {{!-- 問題內容 End --}}
 
-                  {{!-- 留言給該問題 Start --}}
-                  <div class="reply-input">
-                    <form action="/courses/{{../courseId}}/post/{{this.id}}/reply" method="POST"
-                      style="display: contents;">
-                      <textarea name="message" placeholder="Your reply here"></textarea>
-                      <button type="submit">Reply</button>
-                    </form>
+
+                  <div id="collapse-list{{@key}}" class="collapse">
+                    {{#each this.DiscussReplies}}
+                    {{!-- 該問題的Reply Start --}}
+                    <div class="reply">
+                      <div class="reply-user">{{this.User.username}} at {{moment this.createdAt}}</div>
+                      <div class="reply-centent card-body">
+                        {{this.message}}
+                      </div>
+                    </div>
+                    {{!-- 該問題的Reply End --}}
+                    {{/each}}
+
+                    {{!-- 留言給該問題 Start --}}
+                    <div class="reply-input">
+                      <form action="/courses/{{../courseId}}/post/{{this.id}}/reply" method="POST">
+                        <textarea name="message" placeholder="Your reply here"></textarea>
+                        <button type="submit">Reply</button>
+                      </form>
+                    </div>
+                    {{!-- 留言給該問題 End --}}
                   </div>
-                  {{!-- 留言給該問題 End --}}
-                </div>
 
+                </div>
               </div>
+
               {{/each}}
               {{!-- 提問問題 End --}}
 
