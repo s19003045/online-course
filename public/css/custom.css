@@ -12,6 +12,10 @@
 	background-color: #e60012;
 }
 
+.header__absolute{
+	position: relative;
+}
+
 .header__area .logo .logo-txt{
 	display: inline-block;
 	width: 150px;
