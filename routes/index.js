@@ -7,6 +7,8 @@ const orderController = require("../controllers/orderController");
 const cartController = require("../controllers/cartController");
 const instructController = require("../controllers/instructController");
 const createCourseController = require("../controllers/createCourseController");
+const rewardController = require("../controllers/rewardController");
+
 
 const multer = require("multer");
 const upload = multer({ dest: "temp/" });
