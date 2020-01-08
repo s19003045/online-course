@@ -1,19 +1,193 @@
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    background: #f6f6f6;
+    color: #444;
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+    line-height: 1;
+  }
+
+  .container {
+    max-width: 1100px;
+    padding: 0 20px;
+    margin: 0 auto;
+  }
+
+  .panel {
+    margin: 20px auto 40px;
+    max-width: 500px;
+    text-align: center;
+  }
+
+  .button_outer {
+    background: #83ccd3;
+    border-radius: 30px;
+    text-align: center;
+    height: 50px;
+    width: 200px;
+    display: inline-block;
+    transition: .2s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .btn_upload {
+    padding: 17px 30px 12px;
+    color: #fff;
+    text-align: center;
+    position: relative;
+    display: inline-block;
+    overflow: hidden;
+    z-index: 3;
+    white-space: nowrap;
+  }
+
+  .btn_upload input {
+    position: absolute;
+    width: 100%;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 105%;
+    cursor: pointer;
+    opacity: 0;
+  }
+
+  .file_uploading {
+    width: 100%;
+    height: 10px;
+    margin-top: 20px;
+    background: #ccc;
+  }
+
+  .file_uploading .btn_upload {
+    display: none;
+  }
+
+  .processing_bar {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 0;
+    height: 100%;
+    border-radius: 30px;
+    background: #83ccd3;
+    transition: 3s;
+  }
+
+  .file_uploading .processing_bar {
+    width: 100%;
+  }
+
+  .success_box {
+    display: none;
+    width: 50px;
+    height: 50px;
+    position: relative;
+  }
+
+  .success_box:before {
+    content: '';
+    display: block;
+    width: 15px;
+    height: 18px;
+    border-bottom: 6px solid #fff;
+    border-right: 6px solid #fff;
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+    position: absolute;
+    left: 17px;
+    top: 12px;
+  }
+
+  .file_uploaded .success_box {
+    display: inline-block;
+  }
+
+  .file_uploaded {
+    margin-top: 0;
+    width: 50px;
+    background: #83ccd3;
+    height: 50px;
+  }
+
+  .uploaded_file_view {
+    max-width: 300px;
+    margin: 40px auto;
+    text-align: center;
+    position: relative;
+    transition: .2s;
+    opacity: 0;
+    border: 2px solid #ddd;
+    padding: 15px;
+  }
+
+  .file_remove {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: block;
+    position: absolute;
+    background: #aaa;
+    line-height: 30px;
+    color: #fff;
+    font-size: 12px;
+    cursor: pointer;
+    right: -15px;
+    top: -15px;
+  }
+
+  .file_remove:hover {
+    background: #222;
+    transition: .2s;
+  }
+
+  .uploaded_file_view img {
+    max-width: 100%;
+  }
+
+  .uploaded_file_view.show {
+    opacity: 1;
+  }
+
+  .error_msg {
+    text-align: center;
+    color: #f00
+  }
+</style>
+
 <div class="row">
-  <div class="col col-md-8 mx-auto">
-    <h2>Step 1</h2>
-    <form action="/courses/create/{{course.id}}/step1?_method=PUT" method="POST">
+  <div class="col col-md-8 mx-auto mb-5">
+    <h3 class="my-3">Step 1：課程基本資訊</h3>
+    <form action="/courses/create/{{course.id}}/step1" method="POST" enctype="multipart/form-data" class="my-5">
       <div class="form-group">
         <label for="name">課程名稱</label>
         <input type="text" class="form-control" name="name" id="name" placeholder="為你的課程取個名字吧！" value="{{course.name}}">
       </div>
       <div class="form-group">
-        <label for="description">課程簡介</label>
-        <input type="text" class="form-control" name="description" id="description" placeholder="簡述一下課程"
-          value="{{course.description}}">
+        <label for="description" class="mr-5">課程簡介 (250 字為限)</label>
+        <small class="ml-5 text-muted">剩餘字數</small>
+        <small class="ml-1 text-muted" id="descrip-small"></small>
+        <textarea class="form-control" maxlength="250" rows="6" name="description" id="description"
+          placeholder="簡述一下課程">{{course.description}}</textarea>
+      </div>
+
+      <div class="form-group">
+        <label for="introVideo">課程簡介影片</label>
+        <input type="text" class="form-control" name="introVideo" id="introVideo" placeholder="輸入影片連結"
+          value="{{course.introVideo}}">
       </div>
       <div class="form-group">
-        <label for="description">課程類別(<span>主類別/次類別</span>)</label>
-        <select class="custom-select custom-select-lg mb-3 ml-3" name="CourseSubCategoryId">
+        <label for="CourseSubCategoryId">課程類別(<span>主類別/次類別</span>)</label>
+        <select class="form-control" name="CourseSubCategoryId">
           {{#each courseSubCategories}}
           <option value="{{this.id}}" {{#ifCond this.id ../course.CourseSubCategoryId}}selected{{/ifCond}}>
             {{this.CourseCategory.name}}/{{this.name}}</option>
@@ -21,19 +195,112 @@
         </select>
       </div>
       <div class="form-group">
-        <label for="teacherDescrip">講師姓名</label>
+        <label for="teacherName">講師姓名</label>
         <input type="text" class="form-control" name="teacherName" id="teacherName" placeholder="取個響亮的名字吧~"
           value="{{course.teacherName}}">
       </div>
       <div class="form-group">
-        <label for="teacherDescrip">講師介紹</label>
-        <input type="text" class="form-control" name="teacherDescrip" id="teacherDescrip" placeholder="介紹講師你自己..."
-          value="{{course.teacherDescrip}}">
+        <label for="teacherDescrip" class="mr-5">教師簡介 (250 字為限)</label>
+        <small class="ml-5 text-muted">剩餘字數</small>
+        <small class="ml-1 text-muted" id="teacherDescrip-small"></small>
+        <textarea class="form-control" maxlength="250" rows="6" name="teacherDescrip" id="teacherDescrip"
+          placeholder="介紹講師你自己...">{{course.teacherDescrip}}</textarea>
       </div>
+      <div class="form-group mb-0 mt-5 text-center">
+        <label for="teacherName">上傳課程圖片</label>
+
+      </div>
+
+
+      <main class="main_full">
+        <div class="container">
+          <div class="panel">
+            <div class="button_outer">
+              <div class="btn_upload">
+                <input type="file" id="upload_file" name="image" accept="image/gif, image/jpeg, image/png">
+                Upload Image
+              </div>
+              <div class="processing_bar"></div>
+              <div class="success_box"></div>
+            </div>
+          </div>
+          <div class="error_msg"></div>
+          <div class="uploaded_file_view {{#if course.image}}show{{/if}}" id="uploaded_view">
+            <span class="file_remove">X</span>
+            {{#if course.image}}
+            <img src="{{course.image}}">
+            {{/if}}
+          </div>
+        </div>
+      </main>
+
       <button type="submit" class="btn btn-primary mr-5">Save</button>
     </form>
-    <a href="/courses/create/{{course.id}}/step2" class="btn btn-link my-3">下一步
-    </a>
-
+    <div class="d-flex justify-content-start mt-3">
+      <a href="/courses/create/{{course.id}}/step2" class="btn btn-outline-info my-3">下一步
+      </a>
+    </div>
   </div>
 </div>
+
+<script>
+  var loadFile = function (event) {
+    var reader = new FileReader();
+    reader.onload = function () {
+      var output = document.getElementById('step1-img-output');
+      var imgOut = $('#step1-img-outter')
+      console.log('reader:', reader)
+      output.src = reader.result;
+      imgOut.toggleClass('d-none')
+    };
+    reader.readAsDataURL(event.target.files[0]);
+  };
+</script>
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script>
+  const btnUpload = $("#upload_file"),
+    btnOuter = $(".button_outer");
+  btnUpload.on("change", function (e) {
+    const ext = btnUpload.val().split('.').pop().toLowerCase();
+    if ($.inArray(ext, ['gif', 'png', 'jpg', 'jpeg']) == -1) {
+      $(".error_msg").text("Not an Image...");
+    } else {
+      $(".error_msg").text("");
+      btnOuter.addClass("file_uploading");
+      setTimeout(function () {
+        btnOuter.addClass("file_uploaded");
+      }, 3000);
+      const uploadedFile = URL.createObjectURL(e.target.files[0]);
+      setTimeout(function () {
+        $("#uploaded_view").append('<img src="' + uploadedFile + '" />').addClass("show");
+      }, 3500);
+    }
+  });
+  $(".file_remove").on("click", function (e) {
+    $("#uploaded_view").removeClass("show");
+    $("#uploaded_view").find("img").remove();
+    btnOuter.removeClass("file_uploading");
+    btnOuter.removeClass("file_uploaded");
+  });
+  //課程簡介輸入區-剩餘字數判斷
+  const descripSmall = $('#descrip-small')
+  const descripInput = $('#description')
+  let descripLetterLeft = 250 - descripInput.val().length
+  descripSmall.text(descripLetterLeft)
+  $('#description').keyup(function () {
+    console.log(descripInput.val().length)
+    descripLetterLeft = 250 - descripInput.val().length
+    descripSmall.text(descripLetterLeft)
+  })
+  //教師簡介輸入區-剩餘字數判斷
+  const teaDescripSmall = $('#teacherDescrip-small')
+  const teaDescripInput = $('#teacherDescrip')
+  let teachDesLetterLeft = 250 - teaDescripInput.val().length
+  teaDescripSmall.text(teachDesLetterLeft)
+  $('#teacherDescrip').keyup(function () {
+    console.log(teaDescripInput.val().length)
+    teachDesLetterLeft = 250 - teaDescripInput.val().length
+    teaDescripSmall.text(teachDesLetterLeft)
+  })
+</script>

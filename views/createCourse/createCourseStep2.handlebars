@@ -1,9 +1,10 @@
 <div class="row">
-  <div class="col-8 mx-auto">
-    <h2 class="my-3">課程名稱：{{course.name}}</h2>
+  <div class="col-md-8 mx-auto">
+    <h3 class="my-3">
+      課程名稱：{{#if course.name}}{{course.name}}{{else}}尚未建立{{/if}}</h3>
 
     <h3 class="my-3">Step 2</h3>
-    <h4 class="my-3">已建立的章節</h4 class="my-3">
+    <h4 class="my-3">已建立的章節：{{#if lessons}}{{else}}尚未建立{{/if}}</h4 class="my-3">
 
     {{!-- 建立可拖曳的 ul > li --}}
     <div class="row">
@@ -30,6 +31,7 @@
           {{/each}}
         </ul>
         <button class="btn btn-outline-primary btn-add-lesson" type="submit">Add lesson</button>
+        <small class="ml-2 text-muted">建立章節名稱</small>
       </div>
     </div>
 
@@ -65,16 +67,16 @@
         <input type="number" class="form-control" name="totalTime" id="totalTime" placeholder=""
           value="{{lesson.totalTime}}">
       </div>
-      <div class="form-group">
+      <div class="form-group mb-0">
         <label for="totalTime">是否提供未購買者預覽</label>
       </div>
-      <div class="form-check">
+      <div class="form-check ml-4">
         <input class="form-check-input" type="radio" name="isPreview" id="isPreview1" value="false" checked>
         <label class="form-check-label" for="isPreview1">
           不提供給未購買者預覽
         </label>
       </div>
-      <div class="form-group mt-3">
+      <div class="form-group ml-4">
         <div class="form-check">
           <input class="form-check-input" type="radio" name="isPreview" id="isPreview2" value="true">
           <label class="form-check-label" for="isPreview2">
@@ -98,7 +100,7 @@
         <textarea name="contents" class="form-control" style="display:none" id="hiddenArea"></textarea>
 
       </div>
-      <button type="submit" class="btn btn-primary mr-5 text-white">暫存草稿</button>
+      <button type="submit" class="btn btn-primary mr-5 text-white">Save</button>
     </form>
 
     {{else}}
@@ -114,24 +116,27 @@
         <input type="text" class="form-control" name="title" id="title" placeholder="" value="{{lesson.title}}">
       </div>
       <div class="form-group">
-        <label for="intro">章節簡介</label>
-        <input type="text" class="form-control" name="intro" id="intro" placeholder="" value="{{lesson.intro}}">
+        <label for="intro" class="mr-5">章節簡介 (50 字為限)</label>
+        <small class="ml-5 text-muted">剩餘字數</small>
+        <small class="ml-1 text-muted" id="intro-small"></small>
+        <textarea class="form-control" maxlength="50" rows="2" name="intro" id="intro"
+          placeholder="簡單介紹課程內容...">{{lesson.intro}}</textarea>
       </div>
       <div class="form-group">
         <label for="totalTime">章節上課時數 ( 分鐘 )</label>
         <input type="number" class="form-control" name="totalTime" id="totalTime" placeholder=""
           value="{{lesson.totalTime}}">
       </div>
-      <div class="form-group">
+      <div class="form-group mb-0">
         <label for="totalTime">是否提供未購買者預覽</label>
       </div>
-      <div class="form-check">
+      <div class="form-check ml-4">
         <input class="form-check-input" type="radio" name="isPreview" id="isPreview1" value="false" checked>
         <label class="form-check-label" for="isPreview1">
           不提供給未購買者預覽
         </label>
       </div>
-      <div class="form-group mt-3">
+      <div class="form-group ml-4">
         <div class="form-check">
           <input class="form-check-input" type="radio" name="isPreview" id="isPreview2" value="true">
           <label class="form-check-label" for="isPreview2">
@@ -149,6 +154,7 @@
         {{!-- rich text editor --}}
         <!-- Create toolbar container -->
         <div id="toolbar"></div>
+        <progress id='progressbar' style='display: none' value="0"></progress>
         <div id="editor" style="height: 300px;">
           {{{lesson.contents}}}
         </div>
@@ -156,11 +162,11 @@
         <textarea name="contents" class="form-control" style="display:none" id="hiddenArea"></textarea>
 
       </div>
-      <button type="submit" class="btn btn-secondary mr-5 text-white">暫存草稿</button>
+      <button type="submit" class="btn btn-primary mr-5 text-white">Save</button>
     </form>
     {{/if}}
 
-    <div class="d-flex justify-content-start mt-3">
+    <div class="d-flex justify-content-start mt-3 mb-5">
       <a href="/courses/create/{{course.id}}/step1" class="btn btn-outline-info my-3 mr-5">上一步
       </a>
 
@@ -169,3 +175,18 @@
     </div>
   </div>
 </div>
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script>
+  //課程簡介輸入區-剩餘字數判斷
+  const introSmall = $('#intro-small')
+  const introInput = $('#intro')
+  let introLetterLeft = 50 - introInput.val().length
+  introSmall.text(introLetterLeft)
+  $('#intro').keyup(function () {
+    console.log(introInput.val().length)
+    introLetterLeft = 50 - introInput.val().length
+    introSmall.text(introLetterLeft)
+  })
+
+</script>
