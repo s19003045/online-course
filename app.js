@@ -17,8 +17,21 @@ const flash = require("connect-flash");
 const passport = require("./config/passport");
 const methodOverride = require("method-override");
 
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
+// app.use(bodyParser.urlencoded({ extended: true }));
+// app.use(bodyParser.json());
+
+app.use(
+  bodyParser.urlencoded({
+    limit: "5mb",
+    extended: true
+  })
+);
+
+app.use(
+  bodyParser.json({
+    limit: "5mb"
+  })
+);
 
 app.engine(
   "handlebars",
