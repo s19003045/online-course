@@ -17,78 +17,85 @@
         <div class="blog-details content">
           <div class="comment_respond">
             <h3 class="reply_title">Add New Question</h3>
-            <form class="comment__form" action="/courses/{{courseId}}/post" method="POST" style="display: contents;">
-              <div class="input__wrapper clearfix">
-                <div class="input__box name one--third">
+
+            <div class="post-question">
+              <form class="comment__form" action="/courses/{{courseId}}/post" method="POST" style="display: contents;">
+
+                <div class="input__box">
                   <input type="text" placeholder="Title" name="subject">
                 </div>
-              </div>
-              <div class="input__box">
-                <textarea placeholder="Your question here" name="message"></textarea>
-              </div>
-              <div class="submite__btn">
-                <a href="javascript:;" onclick="parentNode.parentNode.submit();">Post</a>
-                <div class="clear-fix"></div>
-              </div>
-            </form>
+
+                <div class="input__box">
+                  <textarea placeholder="Your question here" name="message"></textarea>
+                </div>
+
+                <div class="submite__btn">
+                  <button type="submit">Post</button>
+                </div>
+
+              </form>
+            </div>
           </div>
+
           <div class="comments_area">
-
             <h3 class="comment__title">Question ({{postsLength}}) </h3>
-            {{!-- 提問問題 Start --}}
-            {{#each posts}}
-            {{!-- 問題內容 Start --}}
-            <ul class="comment__list">
-              <li class="post_question">
-                <div class="wn__comment">
-                  <div class="thumb">
-                    <img src="https://fakeimg.pl/500x500/" alt="comment images">
-                  </div>
-                  <div class="content">
-                    <div class="comnt__author d-block d-sm-flex">
-                      <span class="post-title">{{this.subject}}</span>
+
+            <div id="accordion" class="wn_accordion" role="tablist">
+
+              {{!-- 提問問題 Start --}}
+              {{#each posts}}
+              <div class="card">
+                {{!-- 問題內容 Start --}}
+                <div class="acc-header" role="tab" id="post-heading">
+                  <div class="title">
+                    <div class="post-user-pic">
                     </div>
-                    <span>{{this.User.username}}</span>
-                    <span>{{moment this.createdAt}}</span>
-                    <p>{{this.message}}</p>
+                    <div class="post-user-txt">
+                      <h5>
+                        <a class="collapsed" data-toggle="collapse" href="#collapse-list{{@key}}" role="button"
+                          aria-expanded="false" aria-controls="collapse-list">
+                          {{this.subject}}</a>
+                      </h5>
+                      <span>{{this.User.username}}</span>
+                      <span>{{moment this.createdAt}}</span>
+                    </div>
                   </div>
-              </li>
-              {{!-- 問題內容 End --}}
-              {{#each this.DiscussReplies}}
-              {{!-- 該問題的Reply Start --}}
-              <li class="comment_reply">
-                <div class="wn__comment">
-                  <div class="thumb">
-                    <img src="https://fakeimg.pl/500x500/" alt="comment images">
-                  </div>
-                  <div class="content">
-                    <span>{{this.User.username}}</span>
-                    <span>{{moment this.createdAt}}</span>
-                    <p>{{this.message}}</p>
+
+                  <div class="card-body">{{this.message}}
                   </div>
                 </div>
-              </li>
-              {{!-- 該問題的Reply End --}}
+                {{!-- 問題內容 End --}}
+
+
+                <div id="collapse-list{{@key}}" class="collapse">
+                  {{#each this.DiscussReplies}}
+                  {{!-- 該問題的Reply Start --}}
+                  <div class="reply">
+                    <div class="reply-user">{{this.User.username}} at {{moment this.createdAt}}</div>
+                    <div class="reply-centent card-body">
+                      {{this.message}}
+                    </div>
+                  </div>
+                  {{!-- 該問題的Reply End --}}
+                  {{/each}}
+
+                  {{!-- 留言給該問題 Start --}}
+                  <div class="reply-input">
+                    <form action="/courses/{{../courseId}}/post/{{this.id}}/reply" method="POST"
+                      style="display: contents;">
+                      <textarea name="message" placeholder="Your reply here"></textarea>
+                      <button type="submit">Reply</button>
+                    </form>
+                  </div>
+                  {{!-- 留言給該問題 End --}}
+                </div>
+
+              </div>
               {{/each}}
+              {{!-- 提問問題 End --}}
 
-              {{!-- 留言給該問題 Start --}}
-              <li class="comment_reply">
-                <div class="wn__comment">
-                  <div class="thumb">
-                    <img src="https://fakeimg.pl/500x500/" alt="comment images">
-                  </div>
-                  <form action="/courses/{{../courseId}}/post/{{this.id}}/reply" method="POST"
-                    style="display: contents;">
-                    <textarea name="message" placeholder="Your reply here"></textarea>
-                    <button type="submit">Reply</button>
-                  </form>
-                </div>
-              </li>
-              {{!-- 留言給該問題 End --}}
+            </div>
 
-            </ul>
-            {{/each}}
-            {{!-- 提問問題 End --}}
           </div>
 
         </div>

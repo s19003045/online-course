@@ -153,9 +153,8 @@
         <label for="contents">編輯課程內容</label>
         {{!-- rich text editor --}}
         <!-- Create toolbar container -->
-        <div id="toolbar">
-
-        </div>
+        <div id="toolbar"></div>
+        <progress id='progressbar' style='display: none' value="0"></progress>
         <div id="editor" style="height: 300px;">
           {{{lesson.contents}}}
         </div>

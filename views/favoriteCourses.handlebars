@@ -17,23 +17,41 @@
       <div class="course-content">
         <h4 class="course-name">{{this.Course.name}}</h4>
         <div class="info">
-          <h4><i class="fas fa-star"></i>：{{this.Course.ratingAverage}}</h4>
-          <h4><i class="far fa-comment-dots"></i>：{{this.Course.ratingCount}}</h4>
-          <h4><i class="fas fa-users"></i>：{{this.Course.studentCount}}</h4>
-          <h4><i class="far fa-clock"></i>：{{tthis.Coursehis.totalTime}}</h4>
+          <div class="d-flex flex-column bd-highlight mb-3">
+            <div class="ratings mb-3">
+              <div class="empty_star">★★★★★</div>
+              <div class="full_star" style="width: {{star_to_percent this.Course.ratingAverage}}%;">★★★★★
+              </div>
+            </div>
+            <p class="mb-3" style="font-size: 16px; font-weight: bold;"><i class="far fa-clock"></i>
+              課程時數：{{minute_to_hour this.Course.totalTime}}
+            </p>
+            <p style="font-size: 20px; font-weight: bold; color: #D56A16 ;">NT$ {{this.Course.price}}</p>
+          </div>
         </div>
-        <h4 class="course-prize">NT$ {{this.Course.price}}</h4>
       </div>
 
       <div class="couse-btns">
         <div class="couse-btn buy">
+          {{#if this.enrolled}}
+          <div class='btn'>
+            已購買
+          </div>
+          {{else}}
           <form action="/order/{{this.Course.id}}" method="POST"><button type="submit"><i
                 class="fas fa-shopping-cart"></i>
               購買</button></form>
+          </form>
+          {{/if}}
         </div>
         <div class="couse-btn see-more">
+          {{#if this.enrolled}}
+          <a href="/courses/{{this.Course.id}}/lessons"><i class="fas fa-magic"></i>
+            繼續上課</a>
+          {{else}}
           <a href="/courses/{{this.Course.id}}/introduction"><i class="fas fa-search"></i>
-            查看</a>
+            課程介紹</a>
+          {{/if}}
         </div>
       </div>
 

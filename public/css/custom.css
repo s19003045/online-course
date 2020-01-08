@@ -216,14 +216,38 @@
 
 
 /* 單一課程頁面-問題討論區 */
-
-.blog-details .comment_respond .comment__form .input__box.one--third input {
+.blog-details .comment_respond .comment__form .input__box input {
+  background: #f7f7f7 none repeat scroll 0 0;
+	border: medium none;
+	color:#333;
+  height: 45px;
+	outline: medium none;
 	margin: 0 0 20px;
+  padding: 0 20px;
+  width: 100%;
 }
 
 .blog-details .comment_respond .comment__form .submite__btn {
 	margin-top: 0px;
 	text-align: right;
+}
+
+.blog-details .comment_respond .comment__form .submite__btn button {
+  background: #e59285 none repeat scroll 0 0;
+  color: #fff;
+  display: inline-block;
+  font-size: 14px;
+  font-weight: 700;
+	padding: 12px 28px;
+	border: none;
+  text-shadow: none;
+  text-transform: uppercase;
+  transition: all 0.4s ease 0s;
+}
+
+.blog-details .comment_respond .comment__form .submite__btn button:hover {
+  background: #000 none repeat scroll 0 0;
+  color: #fff;
 }
 
 .blog-details .comments_area .comment__title {
@@ -263,6 +287,60 @@
   font-size: 12px;
   font-weight: 700;
   padding: 8px 15px;
+}
+
+.wn_accordion .card {
+  border: none;
+}
+
+.wn_accordion .acc-header{
+	border: 1px solid #e1e1e1;
+}
+
+.wn_accordion .acc-header .title{
+  background-color: #eee;
+  color: #333;
+  padding: 18px 40px 18px 26px;
+}
+
+.acc-header h5 a {
+  padding: 0;
+ }
+ 
+.wn_accordion .collapse{
+	margin-top: 20px;
+	margin-left: 50px;
+	
+}
+
+.wn_accordion .collapse .reply{
+	margin-bottom: 20px;
+	border: 1px solid #e1e1e1;
+}
+
+.wn_accordion .collapse .reply-user{
+	background-color: #eee;
+  color: #333;
+  padding: 18px 40px 18px 26px;
+}
+
+.wn_accordion .card .reply-input form{
+	display: flex;
+	width: 100%;
+}
+
+.wn_accordion .card .reply-input form textarea{
+	width: 100%;
+}
+
+.wn_accordion .card .reply-input form button{
+  background: #e59285 none repeat scroll 0 0;
+  color: #fff;
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 700;
+	padding: 8px 15px;
+	border: none;
 }
 
 

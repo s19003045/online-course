@@ -126,8 +126,7 @@
           <div class="col-md-8 col-sm-8 col-5 col-lg-2">
             <ul class="header__sidebar__right d-flex justify-content-end align-items-center">
               <li class="shop_search"><a href="#"></a></li>
-              <li class="wishlist"><a href="#"></a></li>
-              <li class="shopcart"><a href="#"></a>
+              <li class="wishlist"><a href="/users/favoriteCourses"></a></li>
               </li>
               <li class="setting__bar__icon"><a class="setting__active" href="#"></a>
                 <div class="searchbar__content setting__block">
@@ -140,7 +139,6 @@
                             <span><a href="/users/boughtCourses">我買的課</a></span>
                             <span><a href="/instructor/dashboard">我開的課</a></span>
                             <span><a href="/users/favoriteCourses">My Wishlist</a></span>
-                            <span><a href="#">My Cart</a></span>
                             {{#if user}}
                             <span><a href="/logout">Log Out</a></span>
                             {{else}}
@@ -260,6 +258,7 @@
   <!-- Include the Quill library -->
   <script src="https://cdn.quilljs.com/1.0.0/quill.js"></script>
   <script src="/js/richTextEditor.js"></script>
+  <script src="/js/submit_checkbox.js"></script>
 </body>
 
 
