@@ -5,6 +5,8 @@ const UserEnrollment = db.UserEnrollment;
 const Lesson = db.Lesson;
 const Favorite = db.Favorite;
 const LessonUser = db.LessonUser;
+const Reward = db.Reward
+const Login = db.Login
 
 const userController = {
   // 登入/註冊/登出
@@ -45,8 +47,33 @@ const userController = {
   },
 
   signIn: (req, res) => {
+    const loginRewardPoint = 5
     req.flash("success_messages", "成功登入！");
-    res.redirect("/courses");
+    // 記錄登入時間
+    return Login.create({
+      loginDate: new Date(),
+      UserId: req.user.id
+    })
+      .then(login => {
+        // 登入後點數 + 5
+        return Reward.findOne({ where: { UserId: req.user.id } })
+          .then(reward => {
+            if (!reward) {
+              return Reward.create({
+                point: loginRewardPoint,
+                UserId: req.user.id
+              })
+                .then(reward => {
+                  return res.redirect("/courses");
+                })
+            } else {
+              return reward.increment('point', { by: loginRewardPoint })
+                .then(reward => {
+                  res.redirect("/courses");
+                })
+            }
+          })
+      })
   },
 
   logout: (req, res) => {
