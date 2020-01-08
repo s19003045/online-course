@@ -33,12 +33,25 @@
                 <div class="user-info-item">
                   <div class="user-info-data">{{user.description}}</div>
                 </div>
+
+                <div class="user-info-item">
+                  <div class="title">Points</div>
+                  <div class="user-info-data">{{reward.point}} 點</div>
+
+                </div>
+                <img src="/images/扭蛋機.png" alt="" class="ml-4 mt-3 mb-2" style="width:100px;">
+                <form action="/reward/{{user.id}}/lottery" method="post" class="mb-5">
+                  <button type="submit" class="ml-1 mt-3 btn btn-danger">
+                    <h5>玩扭蛋抽課程 Go</h5>
+                  </button>
+                  <small class="align-bottom ml-3 badge badge-outline-secondary text-wrap"
+                    style="font-size:16px;">玩一次需100點</small>
+                </form>
+
               </div>
             </div>
-
           </div>
         </div>
-
       </div>
     </div>
   </div>
