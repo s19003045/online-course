@@ -295,4 +295,8 @@ module.exports = (app, passport) => {
     authenticatedAdmin,
     adminController.leaveCourRevReply
   );
+
+  // 遊戲化：獎勵機制
+  app.get('/reward/:userId/lottery', authenticated, rewardController.getLottery)
+  app.post('/reward/:userId/lottery', authenticated, rewardController.postLottery)
 };
