@@ -1,0 +1,89 @@
+<div class="row pb-5">
+  <div class="col-8 mx-auto">
+    <h2 class="my-3">課程名稱：{{course.name}}</h2>
+
+    <h3 class="my-3">Step 4：預覽你已建立的課程</h3>
+
+    <form action="/courses/create/{{course.id}}/step4" method="POST" class="mt-3">
+      <button type="submit" class="btn btn-primary mr-2">送出申請</button>
+      <small class="text-muted">確定無誤即可送出</small>
+      <div class="d-flex justify-content-start mt-3">
+        <a href="/courses/create/{{course.id}}/step3" class="btn btn-outline-info my-3 mr-5">上一步
+        </a>
+      </div>
+
+    </form>
+  </div>
+  {{!-- 預覽課程 --}}
+  <div class="col-lg-10 mx-auto rounded border border-secondary">
+    <div class="page-blog-details pt--30 pb--55 bg--white">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12 col-12">
+
+            <h1 class="course-name">{{course.name}}</h1>
+
+            <div class="product__info__detailed">
+              <div class="pro_details_nav nav justify-content-start" role="tablist">
+                <a class="nav-item nav-link" href="/courses/create/{{course.id}}/step4/intro">課程介紹</a>
+                <a class="nav-item nav-link active" href="/courses/create/{{course.id}}/step4/lessons">課程內容</a>
+                <a class="nav-item nav-link" href="/courses/create/{{course.id}}/step4/post">問題與討論</a>
+              </div>
+            </div>
+
+
+            <div class="orderby__wrapper lessons-list">
+              <form action="/courses/create/{{course.id}}/step4/lessons" method="GET">
+                <span>選擇章節</span>
+                <select class="shot__byselect" onchange="this.form.submit()" type="text" name="lessonNumber">
+                  {{#each lessons}}
+                  <option value="{{this.lessonNumber}}" {{#ifCond ../lessonNumber this.lessonNumber
+                }}selected{{/ifCond}}>
+                    第{{this.lessonNumber}}單元-{{this.title}}</option>
+                  {{/each}}
+                </select>
+              </form>
+            </div>
+
+            <div class="blog-details content">
+              <article class="blog-post-details">
+                <div class="post-thumbnail">
+                  <iframe title="vimeo-player" src="{{lesson.videoURL}}" width="100%" height="520px" frameborder="0"
+                    allowfullscreen></iframe>
+                </div>
+                <div class="post_wrapper">
+                  <div class="post_header">
+                    <div class="d-flex justify-content-between">
+                      <h2>第{{lesson.lessonNumber}}單元-{{lesson.title}}</h2>
+
+                      <div class="checkbox">
+                        <label>
+                          <input type="checkbox" name="completed" class="completed-checkbok"
+                            onchange="this.form.submit()" checked>
+                          <span class="fake-checkbox"></span>
+                          Completed
+                        </label>
+                      </div>
+
+                    </div>
+                    <div class="blog-date-categori">
+                      <ul>
+                        <li><strong class="mr-3">Updated At </strong> {{moment lesson.updatedAt}}</li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="post_content">
+                    <h4>Introduction</h4>
+                    <p>{{lesson.intro}}</p>
+                    <h4>Content</h4>
+                    <p>{{lesson.contents}}</p>
+                  </div>
+                </div>
+              </article>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
