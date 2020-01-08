@@ -1,5 +1,14 @@
 $(document).ready(function () {
-
+  // step1：上傳圖片即時預覽
+  // const loadFile = function (event) {
+  //   const reader = new FileReader();
+  //   reader.onload = function () {
+  //     const output = document.getElementById('step1-img-output');
+  //     console.log('reader:', reader)
+  //     output.src = reader.result;
+  //   };
+  //   reader.readAsDataURL(event.target.files[0]);
+  // };
   // ==========text rich editor============
 
   hljs.configure({
@@ -19,13 +28,19 @@ $(document).ready(function () {
     [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
 
     [{ 'color': [] }, { 'background': [] }],  // 空陣列會有 36 種 colors
-    [{ 'font': ['Times New Roman'] }],
+    [{ 'font': [] }],
     [{ 'align': [] }],
 
     ['clean'],   // remove formatting button
     ['link', 'image'],
-    ['video']
+    // ['video']
   ];
+
+  // Add fonts to whitelist
+  // var Font = Quill.import('formats/font');
+  // // We do not add Sans Serif since it is the default
+  // Font.whitelist = ['inconsolata', 'roboto', 'mirza', 'arial'];
+  // Quill.register(Font, true);
 
   var options = {
     debug: 'info',
@@ -168,8 +183,10 @@ $(document).ready(function () {
     let courseId = $('.courses-tbody').data('courseid')
 
     let newNodeHtml = `
-            <li class="draggable-item mb-2 py-2 d-flex justify-content-start">
-              <span class="w-25 align-middle font-weight-bold">章節  ${trLength + 1}</span>
+            <li class="draggable-item mb-2 py-2 d-flex justify-content-start" style="
+    line-height: 50px;
+">
+              <span class="w-25 font-weight-bold">章節  ${trLength + 1}</span>
               <form action="/courses/create/${courseId}/step2/createLessonTitle" method="POST" class="d-flex justify-content-between my-2">
                 <input class="d-none input-blank" type="text" data-pk="" data-courseid="${courseId}"
                   name="lessonNumber" value="${trLength + 1}">
@@ -209,7 +226,7 @@ $(document).ready(function () {
 
   // 點擊 remove lesson 的 button 時，執行的的動作
   $(".courses-tbody").on('click', 'button.btn-remove-lesson', function () {
-    if (confirm('Some message')) {
+    if (confirm('確定要刪除該章節(連內容都一併刪除)?')) {
       let courseId = $('.courses-tbody').data('courseid')
       // 取得 li 的 input 之 data-pk 值
       let pk = $('.courses-tbody').children().find('button.btn-remove-lesson').data('id')

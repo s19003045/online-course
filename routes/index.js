@@ -6,6 +6,7 @@ const postController = require("../controllers/postController");
 const orderController = require("../controllers/orderController");
 const cartController = require("../controllers/cartController");
 const instructController = require("../controllers/instructController");
+const createCourseController = require("../controllers/createCourseController");
 
 const multer = require("multer");
 const upload = multer({ dest: "temp/" });
@@ -100,76 +101,86 @@ module.exports = (app, passport) => {
   app.get(
     "/courses/create/intro",
     authenticated,
-    courseController.createCourseIntro
+    createCourseController.createCourseIntro
   );
   app.get(
     "/courses/create/:courseId/step1",
     authenticated,
-    courseController.createCourseStep1
+    createCourseController.createCourseStep1
   );
   app.post(
     "/courses/create/:courseId/step1",
     authenticated, upload.single('image'),
-    courseController.postCourseStep1
+    createCourseController.postCourseStep1
   );
   app.get(
     "/courses/create/:courseId/step2",
     authenticated,
-    courseController.createCourseStep2
+    createCourseController.createCourseStep2
   );
   app.post(
     "/courses/create/:courseId/step2",
     authenticated,
-    courseController.postCourseStep2
+    createCourseController.postCourseStep2
   );
   app.post(
     "/courses/create/:courseId/step2/createLessonTitle",
     authenticated,
-    courseController.createLessonTitle
+    createCourseController.createLessonTitle
   );
   app.get(
     "/courses/create/:courseId/step2/:lessonId/edit",
     authenticated,
-    courseController.editCourseStep2
+    createCourseController.editCourseStep2
   );
   // 刪除該lesson(disable 該lesson)
   app.delete(
     "/courses/create/:courseId/step2/:lessonId",
     authenticated,
-    courseController.deleteCourseStep2
+    createCourseController.deleteCourseStep2
   );
   // 異動 lesson 的 lessonNumber
   app.put(
     "/courses/create/:courseId/step2/editLessonNumber",
     authenticated,
-    courseController.editLessonNumber
+    createCourseController.editLessonNumber
   );
   // 修改 lesson 內容
   app.put(
     "/courses/create/:courseId/step2/:lessonId",
     authenticated,
-    courseController.putCourseStep2
+    createCourseController.putCourseStep2
   );
 
   app.get(
     "/courses/create/:courseId/step3",
     authenticated,
-    courseController.createCourseStep3
+    createCourseController.createCourseStep3
   );
   app.put(
     "/courses/create/:courseId/step3",
     authenticated,
-    courseController.putCourseStep3
+    createCourseController.putCourseStep3
   );
   app.get(
-    "/courses/create/:courseId/step4",
+    "/courses/create/:courseId/step4/intro",
     authenticated,
-    courseController.createCourseStep4
+    createCourseController.createCourseStep4Intro
+  );
+  app.get(
+    "/courses/create/:courseId/step4/lessons",
+    authenticated,
+    createCourseController.createCourseStep4Lessons
+  );
+  app.get(
+    "/courses/create/:courseId/step4/post",
+    authenticated,
+    createCourseController.createCourseStep4Post
   );
   app.post(
     "/courses/create/:courseId/step4",
     authenticated,
-    courseController.postCourseStep4
+    createCourseController.postCourseStep4
   );
 
   //開課者dashboard
