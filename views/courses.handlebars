@@ -7,21 +7,21 @@
   </ol>
   <div class="carousel-inner">
     <div class="carousel-item active">
-      <img src="https://picsum.photos/1200/300?random=11" class="d-block w-100" alt="...">
+      <img src="https://picsum.photos/id/1/1200/400" class="d-block w-100" alt="...">
       <div class="carousel-caption d-none d-md-block">
         <h5>First slide label</h5>
         <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
       </div>
     </div>
     <div class="carousel-item">
-      <img src="https://picsum.photos/1200/300?random=12" class="d-block w-100" alt="...">
+      <img src="https://picsum.photos/id/1073/1200/400" class="d-block w-100" alt="...">
       <div class="carousel-caption d-none d-md-block">
         <h5>Second slide label</h5>
         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
       </div>
     </div>
     <div class="carousel-item">
-      <img src="https://picsum.photos/1200/300?random=13" class="d-block w-100" alt="...">
+      <img src="https://picsum.photos/id/180/1200/400" class="d-block w-100" alt="...">
       <div class="carousel-caption d-none d-md-block">
         <h5>Third slide label</h5>
         <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
@@ -110,7 +110,7 @@
             <!-- Start Single Product -->
             <div class="product product__style--3 col-lg-3 col-md-4 col-sm-6 col-12">
               <div class="product__thumb">
-                <img src="https://fakeimg.pl/270x340/" alt="product image">
+                <img src="https://picsum.photos/id/367/270/340" alt="product image">
                 <div class="favorite-btn">
                   <form action="/favorite/{{this.id}}" method="POST"><button type="submit" class="buy-now"><i
                         class="fas fa-heart"></i></button></form>
@@ -126,10 +126,10 @@
                       <div class="full_star" style="width: {{star_to_percent this.ratingAverage}}%;">★★★★★
                       </div>
                     </div>
-                    <p class="mb-3" style="font-size: 16px; font-weight: bold;"><i class="far fa-clock"></i>
+                    <p class="mb-3" style="font-size: 12px; font-weight: bold;"><i class="far fa-clock"></i>
                       課程時數：{{minute_to_hour this.totalTime}}
                     </p>
-                    <p style="font-size: 20px; font-weight: bold; color: #e60012 ;">NT$ {{this.price}}</p>
+                    <p style="font-size: 20px; font-weight: bold;">NT$ {{this.price}}</p>
                   </div>
                 </div>
               </div>

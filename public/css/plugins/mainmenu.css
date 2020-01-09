@@ -57,7 +57,7 @@ a.meanmenu-reveal {
 	width: 30px;
 }
 .oth-page .mean-container a.meanmenu-reveal {
-  color: #ddd;
+  color: #08585F;
 }
 .mean-container a.meanmenu-reveal.meanclose {
     top: 23px;
@@ -72,7 +72,7 @@ a.meanmenu-reveal {
 	width:  100%;
 }
 .oth-page .mean-container a.meanmenu-reveal span {
-	background: #ddd none repeat scroll 0 0;
+	background: #08585F none repeat scroll 0 0;
 }
 .mean-container a.meanmenu-reveal span:first-child{
 	margin-top: 0;

@@ -7,9 +7,23 @@
 
 **********************************************************************************/
 
+/* 變更 bootstrap樣式 */
+.btn-primary {
+	background-color: #08585F;
+	border-color: #08585F;
+}
+
+.btn-primary:hover {
+	background-color:  rgb(8, 69, 75);
+	border-color: rgb(8, 69, 75);
+}
+
+
+
+
 /* main.handlebars-導覽列 */
 #wn__header{
-	background-color: #e60012;
+	background-color: rgba(255, 222, 106, 1);
 }
 
 .header__absolute{
@@ -19,8 +33,8 @@
 .header__area .logo .logo-txt{
 	display: inline-block;
 	width: 150px;
-	color: #fff;
-	border:2px solid #fff;
+	color:#08585F;
+	border:2px solid #08585F;
 	border-radius:22px;
 	padding:5px 10px;
 	margin-top:10px;
@@ -31,6 +45,8 @@
 	font-weight: 500;
   line-height: 1;
 }
+
+
 
 /*--------------------------
   Sticky Header
@@ -85,6 +101,11 @@
 	position: relative;
 }
 
+.product.product__style--3:hover .product__thumb img{
+	transform: scale(1.2);  
+transition: all 1s ease 0s;
+}
+
 .product__thumb .favorite-btn{
 	position: absolute;
 	bottom: 5px;
@@ -96,7 +117,7 @@
 }
 
 .product.product__style--3 .course-content {
-	padding: 15px;
+	padding: 15px 5px 0;
 }
 
 .product .course-content .course-name{
@@ -104,11 +125,18 @@
 	font-size: 20px;
 	font-weight: 600;
 	margin-bottom: 10px;
+	height: 55px;
+
+	/* 超過2行顯示省略號 */
+	display: -webkit-box;
+	-webkit-line-clamp: 2;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	-webkit-box-orient: vertical;
 } 
 
 .product.product__style--3 .course-content .info{
 	text-align: left;
-	padding-left: 10px;
 	display: flex;
 	flex-wrap: wrap;
 }
@@ -135,7 +163,7 @@
 }
 
 .favorite-btn button:hover{
-	color: #e60012;
+	color: #FF5B43;
 }
 
 .couse-btns{
@@ -146,11 +174,17 @@
 	width: 50%;
 	display: flex;
 	justify-content: center;
-	background-color: #f5f5f5;
-	border:none;
+	background-color: #fff;
+	border:1px solid #808080;
 	padding: 0px 6px;
 	text-align: center;
 	transition: .3s ease-in;
+}
+
+.couse-btns .couse-btn a{
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 
 .couse-btns .couse-btn form{
@@ -159,19 +193,21 @@
 }
 
 .couse-btns .couse-btn button,
-.couse-btns .couse-btn a{
+.couse-btns .couse-btn a,
+.couse-btns .couse-btn{
 	display: inline-block;
 	background-color:transparent;
-	border: none;
-	color: #333;
-	font-size: 16px;
+	border:none;
+	color: #808080;
+	font-size: 14.5px;
 	font-weight: 400;
 	padding: 5px 6px;
 	text-align: center;
 }
 
 .couse-btns .couse-btn:hover{
-	background-color: #e60012;
+	border-color: #FF5B43;
+	background-color: #FF5B43;
 	color:#fff;
 }
 
@@ -241,19 +277,19 @@
 
 .blog-details .comment_respond .comment__form .submite__btn button {
   background: #fff none repeat scroll 0 0;
-  color: #e60012;
+  color: #FF5B43;
   display: inline-block;
   font-size: 14px;
   font-weight: 700;
 	padding: 12px 28px;
-	border: 1px solid #e60012;
+	border: 1px solid #FF5B43;
   text-shadow: none;
   text-transform: uppercase;
   transition: all 0.4s ease 0s;
 }
 
 .blog-details .comment_respond .comment__form .submite__btn button:hover {
-  background: #e60012 none repeat scroll 0 0;
+  background: #FF5B43 none repeat scroll 0 0;
   color: #fff;
 }
 
@@ -334,12 +370,12 @@
 
 .wn_accordion .card .reply-input form button{
   background: #fff none repeat scroll 0 0;
-  color: #e60012;
+  color: #FF5B43;
   display: inline-block;
   font-size: 12px;
   font-weight: 700;
 	padding: 8px 15px;
-	border: 1px solid #e60012;
+	border: 1px solid #FF5B43;
 	margin-left: 10px;
 }
 
@@ -370,7 +406,7 @@
 	width: 110px;
 	font-size: 16px;
 	font-weight: 400;
-	color: #e60012;
+	color: #FF5B43;
 }
 
 .user-info .user-info-item .user-info-data{
