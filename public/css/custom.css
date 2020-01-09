@@ -194,7 +194,7 @@ transition: all 1s ease 0s;
 
 .couse-btns .couse-btn button,
 .couse-btns .couse-btn a,
-.couse-btns .couse-btn{
+.couse-btns .couse-btn .btn{
 	display: inline-block;
 	background-color:transparent;
 	border:none;
