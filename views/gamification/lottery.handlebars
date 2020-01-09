@@ -52,6 +52,10 @@
   .zonj_zezc {
     top: 410px;
   }
+
+  .niu_danji .game_go:hover {
+    cursor: pointer;
+  }
 </style>
 
 {{!-- ========以下為扭蛋機畫面======= --}}
@@ -141,15 +145,15 @@
 
     // 啟動轉蛋
     $(".game_go").click(function (event) {
-      score -= 2;
-      if (userPoints < 2) {
+      score -= 100;
+      if (userPoints < 100) {
         for (i = 1; i <= 11; i++) {
           $(".qiu_" + i).removeClass("wieyi_" + i);
         }
         // 顯示積分不足看板
         $("#no_jifeng").show();
       } else {
-        userPoints -= 2
+        userPoints -= 100
         $('#userPoints').text(`${userPoints}`)
         $(".wdjifen").html(score);
         draw()
@@ -173,9 +177,14 @@
         //發送請求給後端，後端決定中獎情形
         axios.post(`/reward/${userId}/lottery`)
           .then(function (response) {
-            //將 response(message, course name, course price)輸出至欄位中
+            //將抽獎訊息輸出至至欄位
             $('#prizeMessage').text(response.data.message)
-            $('#courseNamePicked').text(response.data.course)
+            //若有中獎，則輸出畫面有「立即上課」按鈕，若否，則沒有
+            let courseHtml = response.data.course ? `${response.data.course} <br><a href = "/courses/${response.data.courseId}/lessons" class="btn btn-outline-primary ml-3 mt-3"> <i class="fas fa-magic"></i>
+            立即上課</a>`: response.data.course
+            //將課程名稱輸出至至欄位
+            $('#courseNamePicked').html(courseHtml)
+            //將課程價錢輸出至至欄位
             $('#coursePricePicked').text(response.data.price)
 
             //設定輸出到彈跳視窗的訊息
