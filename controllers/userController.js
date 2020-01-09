@@ -7,6 +7,7 @@ const Favorite = db.Favorite;
 const LessonUser = db.LessonUser;
 const Reward = db.Reward
 const Login = db.Login
+const momentDay = require('../config/handlebars-helpers').momentDay
 
 const userController = {
   // 登入/註冊/登出
@@ -47,32 +48,56 @@ const userController = {
   },
 
   signIn: (req, res) => {
-    const loginRewardPoint = 5
+    const loginRewardPoint = 2000
     req.flash("success_messages", "成功登入！");
+    let loginDate = new Date()
+    let loginDay = momentDay(loginDate)
     // 記錄登入時間
-    return Login.create({
-      loginDate: new Date(),
+    return Login.findOne({
+      day: loginDay,
       UserId: req.user.id
     })
       .then(login => {
-        // 登入後點數 + 5
-        return Reward.findOne({ where: { UserId: req.user.id } })
-          .then(reward => {
-            if (!reward) {
-              return Reward.create({
-                point: loginRewardPoint,
-                UserId: req.user.id
-              })
-                .then(reward => {
-                  return res.redirect("/courses");
-                })
-            } else {
-              return reward.increment('point', { by: loginRewardPoint })
-                .then(reward => {
-                  res.redirect("/courses");
-                })
-            }
+        console.log(login)
+        // 當天若已登入，則不加點數
+        if (login) {
+          //先記錄登入時間
+          Login.create({
+            loginDate: loginDate,
+            day: loginDay,
+            UserId: req.user.id
           })
+            .then(login => {
+              return res.redirect("/courses");
+            })
+        } else {
+          //當天未登入者，先記錄登入時間，再加點數
+          Login.create({
+            loginDate: loginDate,
+            day: loginDay,
+            UserId: req.user.id
+          })
+            .then(login => {
+              // 當天第一次登入，點數 + 5
+              return Reward.findOne({ where: { UserId: req.user.id } })
+                .then(reward => {
+                  if (!reward) {
+                    return Reward.create({
+                      point: loginRewardPoint,
+                      UserId: req.user.id
+                    })
+                      .then(reward => {
+                        return res.redirect("/courses");
+                      })
+                  } else {
+                    return reward.increment('point', { by: loginRewardPoint })
+                      .then(reward => {
+                        return res.redirect("/courses");
+                      })
+                  }
+                })
+            })
+        }
       })
   },
 
