@@ -1,0 +1,225 @@
+<div class="maincontent bg--white pt--80 pb--55">
+  <div class="container user-info-page">
+    <div class="row">
+      <div class="col-lg-12 col-12">
+        <div class="wn__single__product">
+          <div class="row">
+            <div class="col-lg-3 col-12">
+              <div class="user-image">
+                <img src="{{user.avatar}}" alt="user-avatar">
+              </div>
+            </div>
+            {{!-- 中獎訊息畫面 --}}
+            <div class="col-lg-9 col-12">
+              <div class="user-info" data-userid="{{user.id}}">
+                <h3>{{user.username}}</h3>
+                <div class="user-info-item">
+                  <div class="title">剩餘點數</div>
+                  <div id="userPoints" class="user-info-data">{{reward.point}} 點</div>
+                </div>
+                <div class="user-info-item">
+                  <div class="title">轉扭蛋結果：</div>
+                  <div id="prizeMessage" class="user-info-data"></div>
+                </div>
+                <div class="user-info-item">
+                  <div class="title">中獎課程：</div>
+                  <div id="courseNamePicked" class="user-info-data"></div>
+                </div>
+                <div class="user-info-item">
+                  <div class="title">課程價錢： $</div>
+                  <div id="coursePricePicked" class="user-info-data"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{{!-- 載入扭蛋機css及 jquery,axios(要在這邊要預先載入，後面的script才可以運作) --}}
+<link href="http://v.bootstrapmb.com/2019/3/pih1j3820/css/style.css" type="text/css" rel="stylesheet">
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.1/axios.js"></script>
+
+{{!-- 變更扭蛋機 css 樣式 --}}
+<style>
+  .niu_danji .game_go {
+    bottom: 270px;
+  }
+
+  .zonj_zezc {
+    top: 410px;
+  }
+
+  .niu_danji .game_go:hover {
+    cursor: pointer;
+  }
+</style>
+
+{{!-- ========以下為扭蛋機畫面======= --}}
+{{!-- 扭蛋機 --}}
+<div class="niu_danji">
+  <!--机器-->
+  <div class="game_qu">
+    <!--go-->
+    <div class="game_go">100/次</div>
+    <div class="wdjifen">10000</div>
+  </div>
+  <!--球-->
+  <div class="dan_gund">
+    <span class="qiu_1 diaol_1"></span>
+    <span class="qiu_2 diaol_2"> </span>
+    <span class="qiu_3 diaol_3"></span>
+    <span class="qiu_4 diaol_4"></span>
+    <span class="qiu_5 diaol_5"></span>
+    <span class="qiu_6 diaol_6"></span>>
+    <span class="qiu_7 diaol_7"></span>
+    <span class="qiu_8 diaol_8"></span>
+    <span class="qiu_9 diaol_9"></span>
+    <span class="qiu_10 diaol_10"></span>
+    <span class="qiu_11 diaol_11"></span>
+  </div>
+
+  <!--中奖掉落-->
+  <div class="medon"><img src="http://v.bootstrapmb.com/2019/3/pih1j3820/images/mendong.png"></div>
+  <!-- 中獎掉落區 -->
+  <div class="zjdl ">
+    <span></span>
+  </div>
+
+</div>
+
+<!--公佈結果：中奖或沒有中獎-->
+<div class="zonj_zezc none" id="jianpin_one">
+  <div class="jpzs aiqiyi tc_anima">
+    <em><img src="http://v.bootstrapmb.com/2019/3/pih1j3820/images/close.png"></em>
+    <h2>
+      <b></b>
+    </h2>
+  </div>
+</div>
+
+<!--積分不足看板-->
+<div class="zonj_zezc none" id="no_jifeng">
+  <div class="jpzs aiqiyi tc_anima">
+    <em><img src="http://v.bootstrapmb.com/2019/3/pih1j3820/images/close.png"></em>
+    <h2>
+      對不起，積分不足！
+    </h2>
+  </div>
+</div>
+
+<script>
+  //運算思維：
+  //新增 reward model：point、UserId、
+  //新增登入記錄統計 model：time(轉換成日期，不用時間)、UserId
+  //每次登入，userController.js之sign寫入登入記錄、rewardController.js之postPoint寫入使用者點數 + 5
+  //使用者個人頁面新增玩扭蛋按鈕、點數統計：view, controller
+  //新增 rewardController.js
+  //按下啟動鍵，執行 rewardController.js
+  //->基本設定：中獎機率50%(數字1~5)、玩一次轉蛋所需點數 5*20(登入20天即有100點)
+  //->後台,撈使用者的點數，判斷是否可以參加轉扭蛋
+  //->若可以轉扭蛋，則撈使用者的收藏清單，存進 course array 中，當抽中時，則亂數選一門課給使用者
+  //->若使用者沒有收藏清單，則從使用者常購買課程的主要類別中撈出相關課程。當抽中時，則亂數選一門課給使用者
+  //->若使用沒有收藏清單也沒購課，當抽中時，則從所有課程中亂數選一門課給使用者
+  //當挑了課程贈送給使用者後，同時在 orderController.js之orderCourse新增一筆 UserEnrollment
+
+  $(document).ready(function (e) {
+    //抽獎結果畫面關閉
+    $("#jianpin_one em img").click(function () {
+      $("#jianpin_one").hide();
+    }
+    );
+
+    // 初始分數
+    var score = parseInt($('#userPoints').text());
+    $(".wdjifen").html(score);
+
+    // 取得 li 的 input 之 data-pk 值
+    let userId = $(`.user-info`).data("userid");
+
+    //取得使用者的points
+    let userPoints = parseInt($('#userPoints').text())
+
+    // 啟動轉蛋
+    $(".game_go").click(function (event) {
+      score -= 100;
+      if (userPoints < 100) {
+        for (i = 1; i <= 11; i++) {
+          $(".qiu_" + i).removeClass("wieyi_" + i);
+        }
+        // 顯示積分不足看板
+        $("#no_jifeng").show();
+      } else {
+        userPoints -= 100
+        $('#userPoints').text(`${userPoints}`)
+        $(".wdjifen").html(score);
+        draw()
+      }
+    });
+
+    //球動態移動
+    function draw() {
+      for (i = 1; i <= 11; i++) {
+        // 移除靜態球樣式
+        $(".qiu_" + i).removeClass("diaol_" + i);
+        // 球開始移動
+        $(".qiu_" + i).addClass("wieyi_" + i);
+      };
+
+      // 設定球移動時間 1100ms
+      setTimeout(function () {
+        for (i = 1; i <= 11; i++) {
+          $(".qiu_" + i).removeClass("wieyi_" + i);
+        }
+        //發送請求給後端，後端決定中獎情形
+        axios.post(`/reward/${userId}/lottery`)
+          .then(function (response) {
+            //將抽獎訊息輸出至至欄位
+            $('#prizeMessage').text(response.data.message)
+            //若有中獎，則輸出畫面有「立即上課」按鈕，若否，則沒有
+            let courseHtml = response.data.course ? `${response.data.course} <br><a href = "/courses/${response.data.courseId}/lessons" class="btn btn-outline-primary ml-3 mt-3"> <i class="fas fa-magic"></i>
+            立即上課</a>`: response.data.course
+            //將課程名稱輸出至至欄位
+            $('#courseNamePicked').html(courseHtml)
+            //將課程價錢輸出至至欄位
+            $('#coursePricePicked').text(response.data.price)
+
+            //設定輸出到彈跳視窗的訊息
+            let outputText = response.data.message
+            if (response.data.course) {
+              outputText += `<br>你獲得價值 ${response.data.price} 元的課程：${response.data.course}`
+            }
+            //將結果輸出
+            $('#jianpin_one b').html(outputText)
+          })
+          .catch(function (error) {
+            console.log(error);
+          })
+          .finally(function () {
+            // always executed
+          });
+      }, 1100);
+
+      // 依據亂數 number 來顯示呈現的看板
+      setTimeout(function () {
+        $(".zjdl").children("span").addClass("diaL_one");
+        $(".zjdl").removeClass("none").addClass("dila_Y");
+        setTimeout(function () {
+          $("#jianpin_one").show();
+        }, 900)
+      }, 1100)
+
+      //取消動畫
+      setTimeout(function () {
+        $(".zjdl").addClass("none").removeClass("dila_Y");
+        $(".wdjifen").html(score);
+        $(".zjdl").children("span").removeAttr('class');
+      }, 2500)
+    } //draw 結束
+
+  });
+
+</script>

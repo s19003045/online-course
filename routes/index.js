@@ -7,6 +7,8 @@ const orderController = require("../controllers/orderController");
 const cartController = require("../controllers/cartController");
 const instructController = require("../controllers/instructController");
 const createCourseController = require("../controllers/createCourseController");
+const rewardController = require("../controllers/rewardController");
+
 
 const multer = require("multer");
 const upload = multer({ dest: "temp/" });
@@ -293,4 +295,8 @@ module.exports = (app, passport) => {
     authenticatedAdmin,
     adminController.leaveCourRevReply
   );
+
+  // 遊戲化：獎勵機制
+  app.get('/reward/:userId/lottery', authenticated, rewardController.getLottery)
+  app.post('/reward/:userId/lottery', authenticated, rewardController.postLottery)
 };
