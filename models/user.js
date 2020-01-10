@@ -23,7 +23,9 @@ module.exports = (sequelize, DataTypes) => {
     User.hasMany(models.AssignFeedback)
     User.hasMany(models.Order)
     User.hasMany(models.MessageToUser)
+    User.hasMany(models.Login) //登入時間記錄
     User.hasOne(models.UserAnalysis)
+    User.hasOne(models.Reward) //獎勵機制
     // 這個使用者有收藏哪些課程
     User.belongsToMany(models.Course, {
       through: models.Favorite,

@@ -63,6 +63,8 @@ const createCourseController = {
           console.log(err);
         } else {
           console.log('link:', img.data.link)
+
+          imgLink = img.data ? img.data.link : ''
           return Course.findByPk(req.params.courseId).then(course => {
             CourseSubCategory.findByPk(req.body.CourseSubCategoryId)
               .then(subCategory => {
@@ -76,7 +78,7 @@ const createCourseController = {
                     teacherName: req.body.teacherName || course.teacherName,
                     CourseCategoryId: subCategory.CourseCategoryId,
                     CourseSubCategoryId: parseInt(req.body.CourseSubCategoryId),
-                    image: img.data.link
+                    image: imgLink
                   })
                   .then(course => {
                     CourseSubCategory.findAll({
@@ -339,7 +341,6 @@ const createCourseController = {
       course.price = parseInt(req.body.price);
       course.save().then(course => {
         return res.redirect("back");
-        return res.render("createCourse/createCourseStep3", { course });
       });
     });
   },
@@ -349,9 +350,6 @@ const createCourseController = {
     });
   },
   createCourseStep4Lessons: (req, res) => {
-    // Course.findByPk(req.params.courseId, { include: Lesson }).then(course => {
-    //   return res.render("createCourse/createCourseStep4-lessons", { course });
-    // });
     let lessonNumber = 1;
     if (req.query.lessonNumber) {
       lessonNumber = Number(req.query.lessonNumber);
