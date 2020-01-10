@@ -36,7 +36,7 @@
             <div class="post_wrapper">
               <div class="post_header">
                 <div class="d-flex justify-content-between">
-                  <h2>第{{lesson.lessonNumber}}單元-{{lesson.title}}</h2>
+                  <h2>{{lesson.title}}</h2>
                   <form>
                     <label>
                       {{#if isfinished}}
@@ -51,6 +51,7 @@
                     </label>
                   </form>
                 </div>
+                <p>{{lesson.intro}}</p>
                 <div class="blog-date-categori">
                   <ul>
                     <li><strong>Updated At </strong> {{moment lesson.updatedAt}}</li>
@@ -58,9 +59,6 @@
                 </div>
               </div>
               <div class="post_content">
-                <h4>Introduction</h4>
-                <p>{{lesson.intro}}</p>
-                <h4>Content</h4>
                 {{{lesson.contents}}}
               </div>
             </div>
