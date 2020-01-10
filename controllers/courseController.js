@@ -11,7 +11,6 @@ const IMGUR_CLIENT_ID = process.env.IMGUR_CLIENT_ID;
 const helpers = require("../_helpers");
 const SortCourses = require("../public/js/sort_courses");
 
-
 const courseController = {
   // 看單一課程介紹
   getCourseIntro: (req, res) => {
@@ -93,6 +92,7 @@ const courseController = {
     Course.findAll({
       attributes: [
         "id",
+        "image",
         "name",
         "ratingAverage",
         "ratingCount",
@@ -143,6 +143,7 @@ const courseController = {
         Course.findAll({
           attributes: [
             "id",
+            "image",
             "name",
             "ratingAverage",
             "ratingCount",
@@ -213,6 +214,7 @@ const courseController = {
             Course.findAll({
               attributes: [
                 "id",
+                "image",
                 "name",
                 "ratingAverage",
                 "ratingCount",
@@ -251,8 +253,7 @@ const courseController = {
         });
       }
     });
-  },
-
+  }
 };
 
 module.exports = courseController;
