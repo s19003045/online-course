@@ -96,16 +96,6 @@
 
 
 
-
-/* main.handlebars-內容 */
-
-/* #wrapper .empty{
-	height: 100px;
-} */
-
-
-
-
 /* 全部課程頁面--課程資訊卡 */
 
 .shop-grid .product {
@@ -155,20 +145,6 @@
 	display: flex;
 	flex-wrap: wrap;
 }
-	
-.product.product__style--3 .course-content .info h4{
-	width: 50%;
-	font-size: 16px;
-	font-weight: 500;
-}
-
-.product .course-content .course-prize{
-	margin-top: 15px;
-	text-align: right; 
-	font-size: 28px;
-	font-weight: 600;
-	color:#ce7852;
-} 
 
 .favorite-btn button{
 	border:none;
@@ -196,6 +172,10 @@
 	transition: .3s ease-in;
 }
 
+.couse-btns .couse-btn.study-couse{
+		width: 100%;
+}
+
 .couse-btns .couse-btn a{
 	white-space: nowrap;
 	overflow: hidden;
@@ -208,8 +188,7 @@
 }
 
 .couse-btns .couse-btn button,
-.couse-btns .couse-btn a,
-.couse-btns .couse-btn .btn{
+.couse-btns .couse-btn a{
 	display: inline-block;
 	background-color:transparent;
 	border: none;

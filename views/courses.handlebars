@@ -133,26 +133,23 @@
               </div>
 
               <div class="couse-btns">
+                {{#if this.enrolled}}
+                <div class="couse-btn mx-auto study-couse">
+                  <a href="/courses/{{this.id}}/lessons"><i class="fas fa-magic"></i> 繼續學習</a>
+                </div>
+
+                {{else}}
                 <div class="couse-btn buy">
-                  {{#if this.enrolled}}
-                  <div class='btn'>
-                    已購買
-                  </div>
-                  {{else}}
                   <form action="/order/{{this.id}}" method="POST"><button type="submit"><i
                         class="fas fa-shopping-cart"></i> 購買</button>
                   </form>
-                  {{/if}}
                 </div>
                 <div class="couse-btn see-more">
-                  {{#if this.enrolled}}
-                  <a href="/courses/{{this.id}}/lessons"><i class="fas fa-magic"></i>
-                    繼續上課</a>
-                  {{else}}
                   <a href="/courses/{{this.id}}/introduction"><i class="fas fa-search"></i>
                     課程介紹</a>
-                  {{/if}}
                 </div>
+
+                {{/if}}
               </div>
 
             </div>
