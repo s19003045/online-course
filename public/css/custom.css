@@ -22,13 +22,21 @@
 
 
 /* 提醒訊息 */
+#wrapper{
+	position: relative;
+}
 .alert-message{
-	position: fixed;
+	position: absolute;
+	top: 90px;
 	left: 0;
 	right: 0;
 	margin: auto;
 	z-index: 9;
 }
+
+
+
+
 /* main.handlebars-導覽列 */
 #wn__header{
 	background-color: rgba(255, 222, 106, 1);
