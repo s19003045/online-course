@@ -21,6 +21,7 @@
 
 
 
+
 /* main.handlebars-導覽列 */
 #wn__header{
 	background-color: rgba(255, 222, 106, 1);
@@ -436,3 +437,8 @@
   padding: 0 15px;
 }
 
+
+/* 我購買的課程頁面 */
+.bought-course-card{
+	margin-bottom: 30px;
+}
