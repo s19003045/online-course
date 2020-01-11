@@ -121,6 +121,18 @@
 	font-size: 25px;
 }
 
+.favorite-btn button{
+	border:none;
+	color:#fff;
+	background-color:transparent;
+	transition: .7s;
+}
+
+.favorite-btn button:hover{
+	color: #FF5B43;
+}
+
+
 .product.product__style--3 .course-content {
 	padding: 15px 5px 0;
 }
@@ -146,16 +158,11 @@
 	flex-wrap: wrap;
 }
 
-.favorite-btn button{
-	border:none;
-	color:#fff;
-	background-color:transparent;
-	transition: .7s;
+.info .ratings .course-ratingCount{
+	color: #000000;
+	font-size: 20px;
 }
 
-.favorite-btn button:hover{
-	color: #FF5B43;
-}
 
 .couse-btns{
 	display: flex;

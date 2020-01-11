@@ -83,7 +83,6 @@
                       <select onchange="this.form.submit()" type="text" class="shot__byselect" name="order">
                         <option value="" {{#ifCond order ''}}selected{{/ifCond}}>選擇排序方式</option>
                         <option value="評價由高到低" {{#ifCond order '評價由高到低'}}selected{{/ifCond}}>評價由高到低</option>
-                        <option value="學生人數由多到少" {{#ifCond order '學生人數由多到少'}}selected{{/ifCond}}>學生人數由多到少</option>
                         <option value="評價人數由多到少" {{#ifCond order '評價人數由多到少'}}selected{{/ifCond}}>評價人數由多到少</option>
                         <option value="課程時數由多到少" {{#ifCond order '課程時數由多到少'}}selected{{/ifCond}}>課程時數由多到少</option>
                         <option value="課程時數由少到多" {{#ifCond order '課程時數由少到多'}}selected{{/ifCond}}>課程時數由少到多</option>
@@ -120,7 +119,8 @@
                 <div class="info">
                   <div class="d-flex flex-column bd-highlight mb-3">
                     <div class="ratings mb-3">
-                      <div class="empty_star">★★★★★</div>
+                      <div class="empty_star">★★★★★ <span class="course-ratingCount">({{this.ratingCount}})</span>
+                      </div>
                       <div class="full_star" style="width: {{star_to_percent this.ratingAverage}}%;">★★★★★
                       </div>
                     </div>
