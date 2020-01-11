@@ -197,7 +197,9 @@ const createCourseController = {
     Lesson.create({
       lessonNumber: parseInt(req.body.lessonNumber),
       title: req.body.title,
-      CourseId: parseInt(req.params.courseId)
+      CourseId: parseInt(req.params.courseId),
+      isPreview: false, //是否提供預覽
+      visible: true, //是否要顯示
     })
       .then(lesson => {
         return res.redirect(`/courses/create/${req.params.courseId}/step2`)
@@ -211,7 +213,8 @@ const createCourseController = {
       contents,
       videoURL,
       totalTime,
-      isPreview
+      isPreview,
+      visible
     } = req.body;
     // 檢查必填欄位是否已填寫(若有提供暫存草稿機制，則不用檢查欄位。直到送出申請前再檢查)
     if (
@@ -221,7 +224,8 @@ const createCourseController = {
       !contents ||
       !videoURL ||
       !totalTime ||
-      !isPreview
+      !isPreview ||
+      !visible
     ) {
       req.flash("error_messages", "有些欄位忘記填寫喔~");
       return res.redirect("back");
@@ -269,7 +273,8 @@ const createCourseController = {
       contents,
       videoURL,
       totalTime,
-      isPreview
+      isPreview,
+      visible
     } = req.body;
     // 檢查必填欄位是否已填寫(若有提供暫存草稿機制，則不用檢查欄位。直到送出申請前再檢查)
     if (
@@ -279,7 +284,8 @@ const createCourseController = {
       !contents ||
       !videoURL ||
       !totalTime ||
-      !isPreview
+      !isPreview ||
+      !visible
     ) {
       req.flash("error_messages", "有些欄位忘記填寫喔~");
       return res.redirect("back");
@@ -360,6 +366,7 @@ const createCourseController = {
           attributes: ["lessonNumber", "title"],
           where: [{ visible: true }, { CourseId: course.id }]
         }).then(lessons => {
+          console.log(lessons)
           Lesson.findOne({
             where: {
               lessonNumber: lessonNumber,
