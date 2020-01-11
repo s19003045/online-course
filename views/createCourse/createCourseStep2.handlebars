@@ -12,25 +12,25 @@
         <ul class="connected-sortable droppable-area1 courses-tbody w-100" data-courseid="{{course.id}}">
           {{#each lessons}}
           <li class="draggable-item mb-2 py-2 d-flex justify-content-between">
-            <span class="w-25">章節 {{this.lessonNumber}}</span>
-            <input class="d-none input-lessonnumber" type="text" data-pk="{{this.id}}" data-courseid="{{this.CourseId}}"
-              name="lessonNumber" value="{{this.lessonNumber}}">
+            <span class="w-25 py-1">章節 {{this.lessonNumber}}</span>
+            <input class="d-none input-lessonnumber py-1 mr-0" type="text" data-pk="{{this.id}}"
+              data-courseid="{{this.CourseId}}" name="lessonNumber" value="{{this.lessonNumber}}">
             {{this.title}}
-            <div class="list-btn-group">
-              {{!-- <form action="/courses/create/{{../course.id}}/step2/{{this.id}}_method=DELETE" method="post"> --}}
-              <a href="/courses/create/{{../course.id}}/step2/{{this.id}}/edit"
-                class="btn btn-link btn-sm my-0 text-primary mr-2">Edit
-              </a>
-              {{!-- 刪除鈕動作改以 jquery 執行 --}}
-              <button class="btn btn-link btn-sm my-0 text-danger btn-remove-lesson" role="" data-id="{{this.id}}"
+            {{!-- <div class="list-btn-group"> --}}
+            {{!-- <form action="/courses/create/{{../course.id}}/step2/{{this.id}}_method=DELETE" method="post"> --}}
+            <a href="/courses/create/{{../course.id}}/step2/{{this.id}}/edit"
+              class="btn btn-link btn-sm my-0 text-primary mr-2 py-1">Edit
+            </a>
+            {{!-- 避免使用者不小心刪除，等使用者檢視完課程內容才可以刪除 --}}
+            {{!-- <button class="btn btn-link btn-sm my-0 text-danger btn-remove-lesson" role="" data-id="{{this.id}}"
                 data-lessonnumber="{{this.lessonNumber}}">Remove
-              </button>
-              {{!-- </form> --}}
-            </div>
+              </button> --}}
+
+            {{!-- </div> --}}
           </li>
           {{/each}}
         </ul>
-        <button class="btn btn-outline-primary btn-add-lesson" type="submit">Add lesson</button>
+        <button class="btn-two cyan rounded small btn-add-lesson" type="submit">Add lesson</button>
         <small class="ml-2 text-muted">建立章節名稱</small>
       </div>
     </div>
@@ -38,7 +38,7 @@
 
     {{#if lesson}}
     <div class="d-flex justify-content-start mt-5">
-      <a href="/courses/create/{{course.id}}/step2" class="btn btn-primary my-3 mr-5 text-white">建立新的章節<i
+      <a href="/courses/create/{{course.id}}/step2" class="btn-two yellow rounded small my-3 mr-5 ">建立新的章節<i
           class="fas fa-plus ml-3"></i>
       </a>
     </div>
@@ -119,7 +119,13 @@
         <textarea name="contents" class="form-control" style="display:none" id="hiddenArea"></textarea>
 
       </div>
-      <button type="submit" class="btn btn-primary mr-5 text-white">Save</button>
+      {{!-- <button type="submit" class="btn-two cyan rounded small mr-5 ">Save</button> --}}
+      <button type="submit" class="btn-two green rounded small mr-5 ">Save</button>
+      {{!-- 刪除鈕動作改以 jquery 執行 --}}
+      <button class="btn-two red small rounded my-0  btn-remove-lesson" role="" data-id="{{lesson.id}}"
+        data-lessonnumber="{{lesson.lessonNumber}}">Delete
+      </button>
+      {{!-- </form> --}}
     </form>
 
     {{else}}
@@ -200,15 +206,17 @@
         <textarea name="contents" class="form-control" style="display:none" id="hiddenArea"></textarea>
 
       </div>
-      <button type="submit" class="btn btn-primary mr-5 text-white">Save</button>
+
+      <button type="submit" class="btn-two green rounded small mr-5 ">Save</button>
+      {{!-- <button type="submit" class="btn-two cyan rounded mr-5 ">Save</button>
+      <button type="submit" class="btn-two red rounded mr-5 ">Save</button>
+      <button type="submit" class="btn btn-outline-primary mr-5 ">Save</button> --}}
     </form>
     {{/if}}
 
     <div class="d-flex justify-content-start mt-3 mb-5">
-      <a href="/courses/create/{{course.id}}/step1" class="btn btn-outline-info my-3 mr-5">上一步
-      </a>
-
-      <a href="/courses/create/{{course.id}}/step3" class="btn btn-outline-info my-3">下一步
+      <a href="/courses/create/{{course.id}}/step1" class="btn-two yellow rounded mini my-3 mr-5">
+        < 上一步 </a> <a href="/courses/create/{{course.id}}/step3" class="btn-two yellow rounded mini my-3">下一步 >
       </a>
     </div>
   </div>
