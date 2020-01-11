@@ -7,16 +7,34 @@
 
 **********************************************************************************/
 
+/* 變更 bootstrap樣式 */
+.btn-primary {
+	background-color: #08585F;
+	border-color: #08585F;
+}
+
+.btn-primary:hover {
+	background-color:  rgb(8, 69, 75);
+	border-color: rgb(8, 69, 75);
+}
+
+
+
+
 /* main.handlebars-導覽列 */
 #wn__header{
-	background-color: #aaa;
+	background-color: rgba(255, 222, 106, 1);
+}
+
+.header__absolute{
+	position: relative;
 }
 
 .header__area .logo .logo-txt{
 	display: inline-block;
 	width: 150px;
-	color: #ce7852;
-	border:2px solid #ce7852;
+	color: #08585F;
+	border:2px solid #08585F;
 	border-radius:22px;
 	padding:5px 10px;
 	margin-top:10px;
@@ -27,6 +45,8 @@
 	font-weight: 500;
   line-height: 1;
 }
+
+
 
 /*--------------------------
   Sticky Header
@@ -63,9 +83,9 @@
 
 /* main.handlebars-內容 */
 
-#wrapper .empty{
+/* #wrapper .empty{
 	height: 100px;
-}
+} */
 
 
 
@@ -74,11 +94,15 @@
 
 .shop-grid .product {
 	padding: 0 20px;
-
 }
 
 .product__thumb{
 	position: relative;
+}
+
+.product.product__style--3:hover .product__thumb img{
+	transform: scale(1.2);  
+	transition: all 1s ease 0s;
 }
 
 .product__thumb .favorite-btn{
@@ -92,7 +116,7 @@
 }
 
 .product.product__style--3 .course-content {
-	padding: 15px;
+	padding: 15px 5px 0;
 }
 
 .product .course-content .course-name{
@@ -100,11 +124,18 @@
 	font-size: 20px;
 	font-weight: 600;
 	margin-bottom: 10px;
+	height: 55px;
+
+	/* 超過2行顯示省略號 */
+	display: -webkit-box;
+	-webkit-line-clamp: 2;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	-webkit-box-orient: vertical;
 } 
 
 .product.product__style--3 .course-content .info{
 	text-align: left;
-	padding-left: 10px;
 	display: flex;
 	flex-wrap: wrap;
 }
@@ -125,12 +156,13 @@
 
 .favorite-btn button{
 	border:none;
-	color:#333;
+	color:#fff;
 	background-color:transparent;
+	transition: .7s;
 }
 
 .favorite-btn button:hover{
-	color: #ce7852;
+	color: #FF5B43;
 }
 
 .couse-btns{
@@ -141,11 +173,17 @@
 	width: 50%;
 	display: flex;
 	justify-content: center;
-	background-color: #f5f5f5;
-	border:none;
+	background-color: #fff;
+	border:1px solid #808080;
 	padding: 0px 6px;
 	text-align: center;
 	transition: .3s ease-in;
+}
+
+.couse-btns .couse-btn a{
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 
 .couse-btns .couse-btn form{
@@ -154,19 +192,22 @@
 }
 
 .couse-btns .couse-btn button,
-.couse-btns .couse-btn a{
+.couse-btns .couse-btn a,
+.couse-btns .couse-btn .btn{
 	display: inline-block;
 	background-color:transparent;
 	border: none;
-	color: #333;
-	font-size: 16px;
+	color: #808080;
+	font-size: 14.5px;
 	font-weight: 400;
 	padding: 5px 6px;
 	text-align: center;
 }
 
 .couse-btns .couse-btn:hover{
-	background-color: #ce7852;
+	border-color: #FF5B43;
+	background-color: #FF5B43;
+	color:#fff;
 }
 
 .couse-btns .couse-btn:hover button{
@@ -208,6 +249,7 @@
 /* 單一課程頁面-課程內容 */
 
 .lessons-list{
+	text-align: center;
 	margin: 0 0 30px;
 	width: 100%;
 }
@@ -233,20 +275,20 @@
 }
 
 .blog-details .comment_respond .comment__form .submite__btn button {
-  background: #e59285 none repeat scroll 0 0;
-  color: #fff;
+  background: #fff none repeat scroll 0 0;
+  color: #FF5B43;
   display: inline-block;
   font-size: 14px;
   font-weight: 700;
 	padding: 12px 28px;
-	border: none;
+	border:1px solid #FF5B43;
   text-shadow: none;
   text-transform: uppercase;
   transition: all 0.4s ease 0s;
 }
 
 .blog-details .comment_respond .comment__form .submite__btn button:hover {
-  background: #000 none repeat scroll 0 0;
+  background: #FF5B43  none repeat scroll 0 0;
   color: #fff;
 }
 
@@ -256,41 +298,28 @@
 	border-bottom: 1px solid #e1e1e1;
 }
 
-.blog-details .comments_area .comment__list .post_question .wn__comment .content .comnt__author .post-title{
-	font-size: 20px;
-	font-weight: 900;
-}
-
-.blog-details .comments_area .comment__list .post_question .wn__comment .content p {
-	margin: 15px 0 0;
-}
-
-.blog-details .comments_area .comment__list li .wn__comment form{
-	margin-left: 10px;
-	width: 100%;
+#accordion .post-question{
 	display: flex;
 }
 
-.blog-details .comments_area .comment__list li .wn__comment form textarea{
-	border: 1px solid #ececec;
-	border-radius: 3px;
-	padding: 10px;
+#accordion .post-question .post-user-pic{
+	width: 60px;
+	height: 60px;
 	margin-right: 10px;
+	/* border-radius: 50%; */
+	overflow: hidden;
+}	
+
+#accordion .post-question .card{
 	width: 100%;
+}
+
+#accordion .post-question .post-user-pic img{
+	/* margin: 5px; */
+	display: block;
+	width: 50px;
 	height: 50px;
-}
-
-.blog-details .comments_area .comment__list li .wn__comment form button{
-  background: #e59285 none repeat scroll 0 0;
-  color: #fff;
-  display: inline-block;
-  font-size: 12px;
-  font-weight: 700;
-  padding: 8px 15px;
-}
-
-.wn_accordion .card {
-  border: none;
+	border-radius: 50%;
 }
 
 .wn_accordion .acc-header{
@@ -300,11 +329,12 @@
 .wn_accordion .acc-header .title{
   background-color: #eee;
   color: #333;
-  padding: 18px 40px 18px 26px;
+	padding: 15px 40px 15px 26px;
+	position: relative;
 }
 
 .acc-header h5 a {
-  padding: 0;
+  padding: 0 0 5px;
  }
  
 .wn_accordion .collapse{
@@ -321,7 +351,7 @@
 .wn_accordion .collapse .reply-user{
 	background-color: #eee;
   color: #333;
-  padding: 18px 40px 18px 26px;
+  padding: 10px 40px 10px 26px;
 }
 
 .wn_accordion .card .reply-input form{
@@ -334,13 +364,14 @@
 }
 
 .wn_accordion .card .reply-input form button{
-  background: #e59285 none repeat scroll 0 0;
-  color: #fff;
+  background: #fff none repeat scroll 0 0;
+  color: #FF5B43;
   display: inline-block;
   font-size: 12px;
   font-weight: 700;
 	padding: 8px 15px;
-	border: none;
+	border: 1px solid #FF5B43;
+	margin-left: 10px;
 }
 
 
@@ -370,7 +401,7 @@
 	width: 110px;
 	font-size: 16px;
 	font-weight: 400;
-	color: #ce7852;
+	color: #FF5B43;
 }
 
 .user-info .user-info-item .user-info-data{
@@ -403,6 +434,5 @@
   height: 40px;
   line-height: 40px;
   padding: 0 15px;
-
 }
 

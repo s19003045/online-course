@@ -711,7 +711,7 @@ ul {
 }
 
 a#scrollUp {
-  background: #e59285;
+  background: #08585F;
   color: #fff;
   bottom: 40px;
   right: 40px;
@@ -727,7 +727,7 @@ a#scrollUp {
 
 a#scrollUp:hover {
   background: #fff;
-  color: #e59285;
+  color: #08585F;
 }
 
 img {
@@ -735,7 +735,7 @@ img {
 }
 
 a:hover {
-  color: #e59285;
+  color: #000;
 }
 
 a {
@@ -2744,7 +2744,7 @@ Header Styles
 }
 
 .mainmenu__nav .meninmenu li a:hover {
-  color: #e59285;
+  color: #e60012;
 }
 
 .is-sticky .mainmenu__nav .meninmenu li a {
@@ -2772,19 +2772,19 @@ Header Styles
 }
 
 .oth-page .mainmenu__nav .meninmenu li a {
-  color: #fff;
+  color: rgba(8, 88, 95, 1);
 }
 
 .oth-page.header__area .header__sidebar__right>li.shop_search>a {
-  background: rgba(0, 0, 0, 0) url("images/icons/search_white.png") no-repeat scroll 0 center;
+  background: rgba(0, 0, 0, 0) url("images/icons/search.png") no-repeat scroll 0 center;
 }
 
 .oth-page.header__area .header__sidebar__right>li.wishlist>a {
-  background: rgba(0, 0, 0, 0) url("images/icons/button-wishlist_white.png") no-repeat scroll 0 center;
+  background: rgba(0, 0, 0, 0) url("images/icons/button-wishlist.png") no-repeat scroll 0 center;
 }
 
 .oth-page.header__area .header__sidebar__right>li.setting__bar__icon>a {
-  background: transparent url("images/icons/icon_setting_white.png") no-repeat scroll left center;
+  background: transparent url("images/icons/icon_setting.png") no-repeat scroll left center;
 }
 
 .oth-page.header__area .header__sidebar__right>li.shopcart>a {
@@ -2891,7 +2891,7 @@ Header Styles
 }
 
 .meninmenu li.drop .megamenu .item li a:hover {
-  color: #e59285;
+  color: rgb(255, 91, 67);
   padding-left: 5px;
 }
 
@@ -5885,9 +5885,9 @@ h3.widget-title-modal {
 }
 
 .product__info__main .box-tocart .addtocart__actions .tocart {
-  background: #e59285 none repeat scroll 0 0;
-  border: 0 none;
-  color: #fff;
+  background: #fff none repeat scroll 0 0;
+  border: 1px solid #FF5B43;
+  color: #FF5B43;
   font-size: 14px;
   font-weight: 600;
   height: 40px;
@@ -5930,8 +5930,9 @@ h3.widget-title-modal {
 }
 
 .product__info__main .box-tocart .addtocart__actions .tocart:hover {
-  background-color: #e59285;
-  border-color: #e59285;
+  background-color: #FF5B43;
+  border-color: #FF5B43;
+  color:#fff;
 }
 
 .product__info__main .product-addto-links a {
@@ -6021,7 +6022,7 @@ h3.widget-title-modal {
 }
 
 .product__info__detailed .pro_details_nav a.nav-item::after {
-  background: #2e2e2e none repeat scroll 0 0;
+  background: #FF5B43 none repeat scroll 0 0;
   bottom: -2px;
   content: "";
   height: 2px;
@@ -6038,7 +6039,7 @@ h3.widget-title-modal {
 
 .product__info__detailed .pro_details_nav a.nav-item.active,
 .product__info__detailed .pro_details_nav a.nav-item:hover {
-  color: #333;
+  color: #FF5B43;
 }
 
 .product__info__detailed .description__attribute p {
@@ -6401,7 +6402,7 @@ h3.widget-title-modal {
   font-weight: 700;
   line-height: 25px;
   margin-bottom: 5px;
-  color: #2e2e2e;
+  color: #08585F;
 }
 
 .blog-date-categori {
@@ -6665,14 +6666,14 @@ h3.widget-title-modal {
 }
 
 .wn__pagination li.active a {
-  border-color: #363636;
-  color: #363636;
+  border-color: #FF5B43;
+  color: #FF5B43;
 }
 
 .wn__pagination li a {
   background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
   border-bottom: 2px solid transparent;
-  color: #777;
+  color: #777777;
   display: inline-block;
   font-size: 14px;
   font-weight: 600;
@@ -6683,8 +6684,8 @@ h3.widget-title-modal {
 }
 
 .wn__pagination li a:hover {
-  border-color: #363636;
-  color: #363636;
+  border-color: #FF5B43;
+  color: #FF5B43;
 }
 
 @media only screen and (max-width: 767px) {
@@ -7272,7 +7273,7 @@ h3.widget-title-modal {
   font-size: 16px;
   font-weight: 600;
   padding: 18px 40px 18px 26px;
-  position: relative;
+  /* position: relative; */
 }
 
 .wn_accordion .card {
@@ -7294,7 +7295,7 @@ h3.widget-title-modal {
   height: 20px;
   padding: 0 10px;
   position: absolute;
-  right: 8px;
+  right: 20px;
   top: 50%;
   -webkit-transform: translateY(-50%);
   transform: translateY(-50%);
