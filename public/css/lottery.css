@@ -71,7 +71,7 @@ a {
 }
 
 .niu_danji .game_qu {
-	background: url(../images/game_ndj.png) no-repeat;
+	background: url(../images/lottery/game_ndj.png) no-repeat;
 	width: 553px;
 	height: 767px;
 	left: 47px;
@@ -86,7 +86,7 @@ a {
 	position: absolute;
 	left: 210px;
 	bottom: 225px;
-	background: url(../images/an_go.png) no-repeat;
+	background: url(../images/lottery/an_go.png) no-repeat;
 	font-size: 18px;
 	color: #fff;
 	line-height: 20px;
@@ -160,7 +160,7 @@ a {
 	-moz-border-radius: 10px;
 	border-radius: 10px;
 	background: #fff;
-	margin: 450px auto 0px auto;
+	margin: 300px auto 0px auto;
 	position: relative
 }
 
@@ -198,7 +198,7 @@ a {
 	width: 115px;
 	height: 115px;
 	display: block;
-	background: url(../images/canpin_4.png) no-repeat;
+	background: url(../images/lottery/canpin_4.png) no-repeat;
 	animation: zhuan 1s linear forwards;
 	-webkit-animation: zhuan 1s linear forwards;
 }
@@ -217,7 +217,7 @@ a {
 	width: 115px;
 	height: 115px;
 	display: block;
-	background: url(../images/canpin_3.png) no-repeat;
+	background: url(../images/lottery/canpin_3.png) no-repeat;
 	animation: zhuan 1s linear forwards;
 	-webkit-animation: zhuan 1s linear forwards;
 }
@@ -236,7 +236,7 @@ a {
 	width: 115px;
 	height: 115px;
 	display: block;
-	background: url(../images/canpin_1.png) no-repeat;
+	background: url(../images/lottery/canpin_1.png) no-repeat;
 	animation: zhuan 1s linear forwards;
 	-webkit-animation: zhuan 1s linear forwards;
 }
@@ -255,7 +255,7 @@ a {
 	width: 115px;
 	height: 115px;
 	display: block;
-	background: url(../images/canpin_2.png) no-repeat;
+	background: url(../images/lottery/canpin_2.png) no-repeat;
 	animation: zhuan 1s linear forwards;
 	-webkit-animation: zhuan 1s linear forwards;
 }
@@ -274,7 +274,7 @@ a {
 	width: 115px;
 	height: 115px;
 	display: block;
-	background: url(../images/canpin_4.png) no-repeat;
+	background: url(../images/lottery/canpin_4.png) no-repeat;
 	animation: zhuan 1s linear forwards;
 	-webkit-animation: zhuan 1s linear forwards;
 }
@@ -293,7 +293,7 @@ a {
 	width: 115px;
 	height: 115px;
 	display: block;
-	background: url(../images/canpin_3.png) no-repeat;
+	background: url(../images/lottery/canpin_3.png) no-repeat;
 	animation: zhuan 1s linear forwards;
 	-webkit-animation: zhuan 1s linear forwards;
 }
@@ -312,7 +312,7 @@ a {
 	width: 115px;
 	height: 115px;
 	display: block;
-	background: url(../images/canpin_1.png) no-repeat;
+	background: url(../images/lottery/canpin_1.png) no-repeat;
 	animation: zhuan 1s linear forwards;
 	-webkit-animation: zhuan 1s linear forwards;
 }
@@ -331,7 +331,7 @@ a {
 	width: 115px;
 	height: 115px;
 	display: block;
-	background: url(../images/canpin_2.png) no-repeat;
+	background: url(../images/lottery/canpin_2.png) no-repeat;
 	animation: zhuan 1s linear forwards;
 	-webkit-animation: zhuan 1s linear forwards;
 }
@@ -350,7 +350,7 @@ a {
 	width: 115px;
 	height: 115px;
 	display: block;
-	background: url(../images/canpin_3.png) no-repeat;
+	background: url(../images/lottery/canpin_3.png) no-repeat;
 	animation: zhuan 1s linear forwards;
 	-webkit-animation: zhuan 1s linear forwards;
 }
@@ -369,7 +369,7 @@ a {
 	width: 115px;
 	height: 115px;
 	display: block;
-	background: url(../images/canpin_1.png) no-repeat;
+	background: url(../images/lottery/canpin_1.png) no-repeat;
 	animation: zhuan 1s linear forwards;
 	-webkit-animation: zhuan 1s linear forwards;
 }
@@ -388,7 +388,7 @@ a {
 	width: 115px;
 	height: 115px;
 	display: block;
-	background: url(../images/canpin_4.png) no-repeat;
+	background: url(../images/lottery/canpin_4.png) no-repeat;
 	animation: zhuan 1s linear forwards;
 	-webkit-animation: zhuan 1s linear forwards;
 }
@@ -537,7 +537,7 @@ a {
 	width: 85px;
 	height: 85px;
 	display: block;
-	background: url(../images/zj_1.png) no-repeat;
+	background: url(../images/lottery/zj_1.png) no-repeat;
 	animation: fanda 0.7s ease-out forwards;
 	-webkit-animation: fanda 0.7s ease-out forwards;
 }
@@ -556,7 +556,7 @@ a {
 	width: 85px;
 	height: 85px;
 	display: block;
-	background: url(../images/zj_2.png) no-repeat;
+	background: url(../images/lottery/zj_2.png) no-repeat;
 	animation: fanda 0.7s ease-out forwards;
 	-webkit-animation: fanda 0.7s ease-out forwards;
 }
@@ -575,7 +575,7 @@ a {
 	width: 85px;
 	height: 85px;
 	display: block;
-	background: url(../images/zj_3.png) no-repeat;
+	background: url(../images/lottery/zj_3.png) no-repeat;
 	animation: fanda 0.7s ease-out forwards;
 	-webkit-animation: fanda 0.7s ease-out forwards;
 }
@@ -594,7 +594,7 @@ a {
 	width: 85px;
 	height: 85px;
 	display: block;
-	background: url(../images/zj_4.png) no-repeat;
+	background: url(../images/lottery/zj_4.png) no-repeat;
 	animation: fanda 0.7s ease-out forwards;
 	-webkit-animation: fanda 0.7s ease-out forwards;
 }
