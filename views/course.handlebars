@@ -14,7 +14,7 @@
         </div>
 
 
-        <div class="orderby__wrapper lessons-list">
+        <div class="lessons-list">
           <form action="/courses/{{courseId}}/lessons" method="GET">
             <span>選擇章節</span>
             <select class="shot__byselect" onchange="this.form.submit()" type="text" name="lessonNumber">
@@ -60,7 +60,7 @@
                 </div>
               </div>
               <div class="post_content">
-                {{{lesson.contents}}}
+                <div id="lesson-content">{{{lesson.contents}}}</div>
               </div>
             </div>
           </article>

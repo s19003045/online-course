@@ -235,7 +235,7 @@
 /* 單一課程頁面-課程內容 */
 
 .lessons-list {
-  text-align: center;
+  text-align: left;
   margin: 0 0 30px;
   width: 100%;
 }
@@ -430,4 +430,10 @@
   left: 0;
   width: 100%;
   height: 100%;
+}
+
+/* style for lesson content */
+#lesson-content > ul {
+  margin-left: 1.5%;
+  list-style-type: disc;
 }
