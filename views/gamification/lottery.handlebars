@@ -168,7 +168,7 @@
             //將抽獎訊息輸出至至欄位
             $('#prizeMessage').text(response.data.message)
             //若有中獎，則輸出畫面有「立即上課」按鈕，若否，則沒有
-            let courseHtml = response.data.course ? `${response.data.course} <br><a href = "/courses/${response.data.courseId}/lessons" class="btn btn-outline-primary ml-3 mt-3"> <i class="fas fa-magic"></i>
+            let courseHtml = response.data.course ? `${response.data.course} <br><a href = "/courses/${response.data.courseId}/lessons" class="btn-two green small ml-3 mt-3"> <i class="fas fa-magic"></i>
             立即上課</a>`: response.data.course
             //將課程名稱輸出至至欄位
             $('#courseNamePicked').html(courseHtml)
