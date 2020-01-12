@@ -18,14 +18,20 @@
             <span>Tools</span>
           </a>
         </h6>
-        <div class="collapse" id="tool-list">
+        <div class="collapse show" id="tool-list">
           <ul class="nav flex-column ml-3">
-            <li class=" nav-item">
+            <li class="nav-item">
+              <a class="nav-link" href="/courses/create/intro">
+                <i class="fas fa-chart-line fa-2x mr-1"></i>
+                開立課程
+              </a>
+            </li>
+            {{!-- <li class=" nav-item">
               <a class="nav-link" href="#">
                 <i class="fas fa-chart-line fa-2x mr-1"></i>
                 銷售分析
               </a>
-            </li>
+            </li> --}}
             <li class="nav-item">
               <a class="nav-link" href="/instructor/courses">
                 <i class="fas fa-chalkboard-teacher fa-2x mr-1"></i>
@@ -48,7 +54,7 @@
             <span>課程審核及編輯</span>
           </a>
         </h6>
-        <div class="collapse" id="course-list">
+        <div class="collapse show" id="course-list">
           <ul class="nav flex-column mb-2 ml-3">
             <li class="nav-item">
               <a class="nav-link" href="/instructor/course-review-discuss">
@@ -56,7 +62,7 @@
                 課程審核討論區
               </a>
             </li>
-            <li class="nav-item">
+            {{!-- <li class="nav-item">
               <a class="nav-link" href="/instructor/courses/review">
                 <i class="far fa-file-alt fa-2x mr-1"></i>
                 檢視課程
@@ -67,12 +73,12 @@
                 <i class="far fa-file-alt fa-2x mr-1"></i>
                 編輯課程
               </a>
-            </li>
+            </li> --}}
           </ul>
         </div>
 
         {{!-- 作業專區 --}}
-        <h6 class="sidebar-heading d-flex justify-content-start align-items-center px-3 mt-4 mb-1 text-muted">
+        {{!-- <h6 class="sidebar-heading d-flex justify-content-start align-items-center px-3 mt-4 mb-1 text-muted">
           <a href="#assign-list" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="course-list">
             <i class="fas fa-chevron-down fa-1x mr-1"></i>
             <span>作業</span>
@@ -93,11 +99,11 @@
               </a>
             </li>
           </ul>
-        </div>
+        </div> --}}
 
 
         {{!-- 討論專區 --}}
-        <h6 class="sidebar-heading d-flex justify-content-start align-items-center px-3 mt-4 mb-1 text-muted">
+        {{!-- <h6 class="sidebar-heading d-flex justify-content-start align-items-center px-3 mt-4 mb-1 text-muted">
           <a href="#discuss-list" data-toggle="collapse" role="button" aria-expanded="false"
             aria-controls="course-list">
             <i class="fas fa-chevron-down fa-1x mr-1"></i>
@@ -119,7 +125,7 @@
               </a>
             </li>
           </ul>
-        </div>
+        </div> --}}
 
       </div>
     </nav>
@@ -163,7 +169,7 @@
               <div class="input__wrapper">
               </div>
               <div class="submite__btn">
-                <button class="btn btn-outline-primary">Leave a Post</button>
+                <button class="btn-two green">Leave a Post</button>
               </div>
             </form>
           </li>
@@ -199,7 +205,7 @@
         {{/if}}
       </h6>
 
-      <a role="button" class="btn btn-link mb-2" data-toggle="collapse" href="#courseReviewPosts-list{{@key}}"
+      <a role="button" class="btn-two cyan small mb-2" data-toggle="collapse" href="#courseReviewPosts-list{{@key}}"
         role="button" aria-expanded="false" aria-controls="courseReviewPosts-list"
         style="display: flex;flex-direction: row;justify-content: space-between;">Read more...
       </a>
