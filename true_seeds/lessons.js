@@ -5,13 +5,13 @@ const lessons = [
     title: "Scratch平台",
     contents: `<h1><a href="https://cs50.harvard.edu/x/2020/notes/0/#lecture-0" target="_blank" style="color: rgb(33, 37, 41);">Lecture 0</a></h1><ul><li><a href="https://cs50.harvard.edu/x/2020/notes/0/#welcome" target="_blank" style="color: rgb(33, 37, 41);"><strong><u>Welcome</u></strong></a></li><li><a href="https://cs50.harvard.edu/x/2020/notes/0/#what-is-computer-science" target="_blank" style="color: rgb(33, 37, 41);"><strong><u>What is computer science?</u></strong></a></li><li><a href="https://cs50.harvard.edu/x/2020/notes/0/#binary" target="_blank" style="color: rgb(33, 37, 41);"><strong><u>Binary</u></strong></a></li><li><a href="https://cs50.harvard.edu/x/2020/notes/0/#representing-data" target="_blank" style="color: rgb(33, 37, 41);"><strong><u>Representing data</u></strong></a></li><li><a href="https://cs50.harvard.edu/x/2020/notes/0/#algorithms" target="_blank" style="color: rgb(33, 37, 41);"><strong><u>Algorithms</u></strong></a></li><li><a href="https://cs50.harvard.edu/x/2020/notes/0/#pseudocode" target="_blank" style="color: rgb(33, 37, 41);"><strong><u>Pseudocode</u></strong></a></li><li><a href="https://cs50.harvard.edu/x/2020/notes/0/#scratch" target="_blank" style="color: rgb(33, 37, 41);"><strong><u>Scratch</u></strong></a></li></ul><h2><a href="https://cs50.harvard.edu/x/2020/notes/0/#welcome" target="_blank" style="color: rgb(33, 37, 41);">Welcome</a></h2><ul><li><span style="color: rgb(33, 37, 41);">When David was a first year, he was too intimidated to take any computer science courses. By the time he was a sophomore, he found the courage to take the equivalent of CS50, but only pass/fail.</span></li><li><span style="color: rgb(33, 37, 41);">In fact, two-thirds of CS50 students have never taken a CS course before.</span></li></ul><blockquote class="ql-indent-1"><span style="color: rgb(33, 37, 41);">And importantly, too:what ultimately matters in this course is not so much where you end up relative to your classmates but where you end up relative to yourself when you began</span></blockquote><h2><a href="https://cs50.harvard.edu/x/2020/notes/0/#what-is-computer-science" target="_blank" style="color: rgb(33, 37, 41);">What is computer science?</a></h2><ul><li><span style="color: rgb(33, 37, 41);">Computer science is fundamentally problem-solving.</span></li><li><span style="color: rgb(33, 37, 41);">We can think of problem-solving as the process of taking some input (details about our problem) and generate some output (the solution to our problem). The “black box” in the middle is computer science.</span></li></ul><p class="ql-indent-1"><span style="color: rgb(33, 37, 41);"><img src="https://cs50.harvard.edu/x/2020/notes/0/input_output.png"></span></p><ul><li><span style="color: rgb(33, 37, 41);">We need a way to represent inputs, such that we can store and work with information in a standard way.</span></li></ul><p><br></p>`,
     videoURL: "https://www.youtube.com/embed/jjqgP9dpD1k",
-    image: "",
-    totalTime: 62,
-    isPreview: true,
-    visible: true,
-    CourseId: 1,
-    createdAt: new Date(),
-    updatedAt: new Date()
+    image: "", // 不用填
+    totalTime: 62, // 依照影片長度
+    isPreview: false, // 固定
+    visible: true, // 固定
+    CourseId: 1, // 從1開始
+    createdAt: new Date(), // 固定
+    updatedAt: new Date() // 固定
   },
   {
     lessonNumber: 2,
@@ -28,7 +28,7 @@ const lessons = [
     videoURL: "https://www.youtube.com/embed/e9Eds2Rc_x8",
     image: "",
     totalTime: 106,
-    isPreview: true,
+    isPreview: false,
     visible: true,
     CourseId: 1,
     createdAt: new Date(),
