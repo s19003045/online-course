@@ -107,7 +107,13 @@
             <!-- Start Single Product -->
             <div class="product product__style--3 col-lg-3 col-md-4 col-sm-6 col-12">
               <div class="product__thumb">
-                <img src="https://picsum.photos/id/367/2700/3400" alt="course image" class="img-fluid">
+                {{#if this.enrolled}}
+                <a href="/courses/{{this.id}}/lessons"><img src="{{this.image}}" alt="course image"
+                    class="img-fluid"></a>
+                {{else}}
+                <a href="/courses/{{this.id}}/introduction"><img src="{{this.image}}" alt="course image"
+                    class="img-fluid"></a>
+                {{/if}}
                 <div class="favorite-btn">
                   <form action="/favorite/{{this.id}}" method="POST"><button type="submit" class="buy-now"><i
                         class="fas fa-heart"></i></button></form>
@@ -118,10 +124,29 @@
                 <div class="info">
                   <div class="d-flex flex-column bd-highlight mb-3">
                     <div class="ratings mb-3">
-                      <div class="empty_star">★★★★★ <span class="course-ratingCount">({{this.ratingCount}})</span>
-                      </div>
-                      <div class="full_star" style="width: {{star_to_percent this.ratingAverage}}%;">★★★★★
-                      </div>
+                      {{#ifCond this.ratingAverage 5}}
+                      <div class="empty_star">★★★★★</div>
+                      <div class="full_star">★★★★★</div>
+                      {{/ifCond}}
+                      {{#ifCond this.ratingAverage 4}}
+                      <div class="empty_star">★★★★★</div>
+                      <div class="full_star">★★★★</div>
+                      {{/ifCond}}
+                      {{#ifCond this.ratingAverage 3}}
+                      <div class="empty_star">★★★★★</div>
+                      <div class="full_star">★★★</div>
+                      {{/ifCond}}
+                      {{#ifCond this.ratingAverage 2}}
+                      <div class="empty_star">★★★★★</div>
+                      <div class="full_star">★★</div>
+                      {{/ifCond}}
+                      {{#ifCond this.ratingAverage 1}}
+                      <div class="empty_star">★★★★★</div>
+                      <div class="full_star">★</div>
+                      {{/ifCond}}
+                      {{#ifCond this.ratingAverage 0}}
+                      <div class="empty_star">★★★★★</div>
+                      {{/ifCond}}
                     </div>
                     <p class="mb-3" style="font-size: 15px; font-weight: bold;"><i class="far fa-clock"></i>
                       課程時數：{{minute_to_hour this.totalTime}}
