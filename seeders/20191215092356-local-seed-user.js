@@ -9,10 +9,10 @@ module.exports = {
       "Users",
       [
         {
-          username: "root",
-          email: "root@example.com",
+          username: "demo",
+          email: "demo@course.com",
           password: bcrypt.hashSync("12345678", bcrypt.genSaltSync(10), null),
-          avatar: faker.image.imageUrl(),
+          avatar: "https://i.imgur.com/RbiR45N.png",
           description: faker.lorem.text().substring(0, 200),
           role: "admin",
           country: "Taiwan",
@@ -22,9 +22,9 @@ module.exports = {
         },
         {
           username: "user1",
-          email: "user1@example.com",
+          email: "user1@course.com",
           password: bcrypt.hashSync("12345678", bcrypt.genSaltSync(10), null),
-          avatar: faker.image.imageUrl(),
+          avatar: "https://i.imgur.com/H2NitEZ.png",
           description: faker.lorem.text().substring(0, 200),
           role: "user",
           country: "Taiwan",
@@ -34,9 +34,45 @@ module.exports = {
         },
         {
           username: "user2",
-          email: "user2@example.com",
+          email: "user2@course.com",
           password: bcrypt.hashSync("12345678", bcrypt.genSaltSync(10), null),
-          avatar: faker.image.imageUrl(),
+          avatar: "https://i.imgur.com/xpbd5t9.png",
+          description: faker.lorem.text().substring(0, 200),
+          role: "user",
+          country: "Taiwan",
+          timezone: "Asia/Taipei",
+          createdAt: new Date(),
+          updatedAt: new Date()
+        },
+        {
+          username: "user3",
+          email: "user3@course.com",
+          password: bcrypt.hashSync("12345678", bcrypt.genSaltSync(10), null),
+          avatar: "https://i.imgur.com/VAdXPCV.png",
+          description: faker.lorem.text().substring(0, 200),
+          role: "user",
+          country: "Taiwan",
+          timezone: "Asia/Taipei",
+          createdAt: new Date(),
+          updatedAt: new Date()
+        },
+        {
+          username: "user4",
+          email: "user4@course.com",
+          password: bcrypt.hashSync("12345678", bcrypt.genSaltSync(10), null),
+          avatar: "https://i.imgur.com/3nxRaKY.png",
+          description: faker.lorem.text().substring(0, 200),
+          role: "user",
+          country: "Taiwan",
+          timezone: "Asia/Taipei",
+          createdAt: new Date(),
+          updatedAt: new Date()
+        },
+        {
+          username: "user5",
+          email: "user5@course.com",
+          password: bcrypt.hashSync("12345678", bcrypt.genSaltSync(10), null),
+          avatar: "https://i.imgur.com/y7tv7B7.png",
           description: faker.lorem.text().substring(0, 200),
           role: "user",
           country: "Taiwan",
@@ -45,22 +81,6 @@ module.exports = {
           updatedAt: new Date()
         }
       ],
-      {}
-    );
-    return queryInterface.bulkInsert(
-      "Users",
-      Array.from({ length: 5 }).map(d => ({
-        username: faker.name.findName(),
-        email: faker.internet.email(),
-        password: bcrypt.hashSync("12345678", bcrypt.genSaltSync(10), null),
-        avatar: faker.image.imageUrl(),
-        description: faker.lorem.text().substring(0, 200),
-        role: "user",
-        country: "Taiwan",
-        timezone: "Asia/Taipei",
-        createdAt: new Date(),
-        updatedAt: new Date()
-      })),
       {}
     );
   },

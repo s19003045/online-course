@@ -9,429 +9,400 @@
 
 /* 變更 bootstrap樣式 */
 .btn-primary {
-	background-color: #08585F;
-	border-color: #08585F;
+  background-color: #08585f;
+  border-color: #08585f;
 }
 
 .btn-primary:hover {
-	background-color:  rgb(8, 69, 75);
-	border-color: rgb(8, 69, 75);
+  background-color: rgb(8, 69, 75);
+  border-color: rgb(8, 69, 75);
 }
 
-.img-fluid{
-	width: 100%;
+.img-fluid {
+  width: 100%;
 }
-
-
 
 /* 提醒訊息 */
-#wrapper{
-	position: relative;
+#wrapper {
+  position: relative;
 }
-.alert-message{
-	position: absolute;
-	top: 90px;
-	left: 0;
-	right: 0;
-	margin: auto;
-	z-index: 9;
+.alert-message {
+  position: absolute;
+  top: 90px;
+  left: 0;
+  right: 0;
+  margin: auto;
+  z-index: 9;
 }
-
-
-
 
 /* main.handlebars-導覽列 */
-#wn__header{
-	background-color: rgba(255, 222, 106, 1);
+#wn__header {
+  background-color: rgba(255, 222, 106, 1);
 }
 
-.header__absolute{
-	position: relative;
+.header__absolute {
+  position: relative;
 }
 
-.header__area .logo .logo-txt{
-	display: inline-block;
-	width: 150px;
-	color: #08585F;
-	border:2px solid #08585F;
-	border-radius:22px;
-	padding:5px 10px;
-	margin-top:10px;
+.header__area .logo .logo-txt {
+  display: inline-block;
+  width: 150px;
+  color: #08585f;
+  border: 2px solid #08585f;
+  border-radius: 22px;
+  padding: 5px 10px;
+  margin-top: 10px;
 }
 
-.header__area .logo .logo-txt h2{
-	font-size: 28px;
-	font-weight: 500;
+.header__area .logo .logo-txt h2 {
+  font-size: 28px;
+  font-weight: 500;
   line-height: 1;
 }
-
-
 
 /*--------------------------
   Sticky Header
 ----------------------------*/
-.header__area.sticky__header.is-sticky .logo .logo-txt{
-	width: 120px;
-	border-radius:15px;
-	padding:3px 10px;
-	margin-top:5px;
+.header__area.sticky__header.is-sticky .logo .logo-txt {
+  width: 120px;
+  border-radius: 15px;
+  padding: 3px 10px;
+  margin-top: 5px;
 }
 
-.header__area.sticky__header.is-sticky .logo .logo-txt h2{
-	font-size: 20px;
-	font-weight: 500;
-  line-height: .9;
+.header__area.sticky__header.is-sticky .logo .logo-txt h2 {
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 0.9;
 }
 
-.header__area .logo .logo-txt .logo-txt-top{
-	text-align: left;
+.header__area .logo .logo-txt .logo-txt-top {
+  text-align: left;
 }
 
-.header__area .logo .logo-txt .logo-txt-bottom{
-	text-align: right;
+.header__area .logo .logo-txt .logo-txt-bottom {
+  text-align: right;
 }
 
-.oth-page .mainmenu__nav .meninmenu li a i{
-	padding:0 5px;
-	font-size: 20px;
+.oth-page .mainmenu__nav .meninmenu li a i {
+  padding: 0 5px;
+  font-size: 20px;
 }
-
-
-
 
 /* 全部課程頁面--課程資訊卡 */
 
 .shop-grid .product {
-	padding: 0 20px;
+  padding: 0 20px;
 }
 
-.product__thumb{
-	position: relative;
+.product__thumb {
+  position: relative;
 }
 
-.product.product__style--3:hover .product__thumb img{
-	transform: scale(1.2);  
-	transition: all 1s ease 0s;
+.product.product__style--3:hover .product__thumb img {
+  transform: scale(1.2);
+  transition: all 1s ease 0s;
 }
 
-.product__thumb .favorite-btn{
-	position: absolute;
-	bottom: 5px;
-	right: 10px;
+.product__thumb .favorite-btn {
+  position: absolute;
+  bottom: 5px;
+  right: 10px;
 }
 
-.product__thumb .favorite-btn i{
-	font-size: 25px;
+.product__thumb .favorite-btn i {
+  font-size: 25px;
 }
 
-.favorite-btn button{
-	border:none;
-	color:#fff;
-	background-color:transparent;
-	transition: .7s;
+.favorite-btn button {
+  border: none;
+  color: #fff;
+  background-color: transparent;
+  transition: 0.7s;
 }
 
-.favorite-btn button:hover{
-	color: #FF5B43;
+.favorite-btn button:hover {
+  color: #ff5b43;
 }
-
 
 .product.product__style--3 .course-content {
-	padding: 15px 5px 0;
+  padding: 15px 5px 0;
 }
 
-.product .course-content .course-name{
-	text-align: left; 
-	font-size: 20px;
-	font-weight: 600;
-	margin-bottom: 10px;
-	height: 55px;
+.product .course-content .course-name {
+  text-align: left;
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 10px;
+  height: 55px;
 
-	/* 超過2行顯示省略號 */
-	display: -webkit-box;
-	-webkit-line-clamp: 2;
-	overflow: hidden;
-	text-overflow: ellipsis;
-	-webkit-box-orient: vertical;
-} 
-
-.product.product__style--3 .course-content .info{
-	text-align: left;
-	display: flex;
-	flex-wrap: wrap;
+  /* 超過2行顯示省略號 */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-box-orient: vertical;
 }
 
-.info .ratings .course-ratingCount{
-	color: #000000;
-	font-size: 20px;
+.product.product__style--3 .course-content .info {
+  text-align: left;
+  display: flex;
+  flex-wrap: wrap;
 }
 
-
-.couse-btns{
-	display: flex;
+.info .ratings .course-ratingCount {
+  color: #000000;
+  font-size: 20px;
 }
 
-.couse-btns .couse-btn{
-	width: 50%;
-	display: flex;
-	justify-content: center;
-	background-color: #fff;
-	border:1px solid #808080;
-	padding: 0px 6px;
-	text-align: center;
-	transition: .3s ease-in;
+.couse-btns {
+  display: flex;
 }
 
-.couse-btns .couse-btn.study-couse{
-		width: 100%;
+.couse-btns .couse-btn {
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  background-color: #fff;
+  border: 1px solid #808080;
+  padding: 0px 6px;
+  text-align: center;
+  transition: 0.3s ease-in;
 }
 
-.couse-btns .couse-btn a{
-	white-space: nowrap;
-	overflow: hidden;
-	text-overflow: ellipsis;
+.couse-btns .couse-btn.study-couse {
+  width: 100%;
 }
 
-.couse-btns .couse-btn form{
-	display: flex;
-	justify-content: center;
+.couse-btns .couse-btn a {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.couse-btns .couse-btn form {
+  display: flex;
+  justify-content: center;
 }
 
 .couse-btns .couse-btn button,
-.couse-btns .couse-btn a{
-	display: inline-block;
-	background-color:transparent;
-	border: none;
-	color: #808080;
-	font-size: 14.5px;
-	font-weight: 400;
-	padding: 5px 6px;
-	text-align: center;
+.couse-btns .couse-btn a {
+  display: inline-block;
+  background-color: transparent;
+  border: none;
+  color: #808080;
+  font-size: 14.5px;
+  font-weight: 400;
+  padding: 5px 6px;
+  text-align: center;
 }
 
-.couse-btns .couse-btn:hover{
-	border-color: #FF5B43;
-	background-color: #FF5B43;
-	color:#fff;
+.couse-btns .couse-btn:hover {
+  border-color: #ff5b43;
+  background-color: #ff5b43;
+  color: #fff;
 }
 
-.couse-btns .couse-btn:hover button{
-	color: #fff;
+.couse-btns .couse-btn:hover button {
+  color: #fff;
 }
 
-.couse-btns .couse-btn:hover a{
-	color: #fff;
+.couse-btns .couse-btn:hover a {
+  color: #fff;
 }
 
-.couse-btns .couse-btn.buy{
-	margin-right: 3px;
+.couse-btns .couse-btn.buy {
+  margin-right: 3px;
 }
 
-.couse-btns .couse-btn.see-more{
-	margin-left: 3px;
+.couse-btns .couse-btn.see-more {
+  margin-left: 3px;
 }
-
-
-
-
 
 /* 單一課程頁面-課程介紹 */
 
 .product__info__main h2 {
   font-size: 24px;
-	font-weight: 600;
-	line-height: 40px;
-	margin-bottom: 10px;
-}
-		
-.product__info__main .box-tocart .addtocart__actions{
-	margin-right: 10px;
+  font-weight: 600;
+  line-height: 40px;
+  margin-bottom: 10px;
 }
 
-
-
+.product__info__main .box-tocart .addtocart__actions {
+  margin-right: 10px;
+}
 
 /* 單一課程頁面-課程內容 */
 
-.lessons-list{
-	text-align: center;
-	margin: 0 0 30px;
-	width: 100%;
+.lessons-list {
+  text-align: left;
+  margin: 0 0 30px;
+  width: 100%;
 }
-
-
-
 
 /* 單一課程頁面-問題討論區 */
 .blog-details .comment_respond .comment__form .input__box input {
   background: #f7f7f7 none repeat scroll 0 0;
-	border: medium none;
-	color:#333;
+  border: medium none;
+  color: #333;
   height: 45px;
-	outline: medium none;
-	margin: 0 0 20px;
+  outline: medium none;
+  margin: 0 0 20px;
   padding: 0 20px;
   width: 100%;
 }
 
 .blog-details .comment_respond .comment__form .submite__btn {
-	margin-top: 0px;
-	text-align: right;
+  margin-top: 0px;
+  text-align: right;
 }
 
 .blog-details .comment_respond .comment__form .submite__btn button {
   background: #fff none repeat scroll 0 0;
-  color: #FF5B43;
+  color: #ff5b43;
   display: inline-block;
   font-size: 14px;
   font-weight: 700;
-	padding: 12px 28px;
-	border:1px solid #FF5B43;
+  padding: 12px 28px;
+  border: 1px solid #ff5b43;
   text-shadow: none;
   text-transform: uppercase;
   transition: all 0.4s ease 0s;
 }
 
 .blog-details .comment_respond .comment__form .submite__btn button:hover {
-  background: #FF5B43  none repeat scroll 0 0;
+  background: #ff5b43 none repeat scroll 0 0;
   color: #fff;
 }
 
 .blog-details .comments_area .comment__title {
-	margin: 30px 0;
-	padding: 10px 0;
-	border-bottom: 1px solid #e1e1e1;
+  margin: 30px 0;
+  padding: 10px 0;
+  border-bottom: 1px solid #e1e1e1;
 }
 
-#accordion .post-question{
-	display: flex;
+#accordion .post-question {
+  display: flex;
 }
 
-#accordion .post-question .post-user-pic{
-	width: 60px;
-	height: 60px;
-	margin-right: 10px;
-	/* border-radius: 50%; */
-	overflow: hidden;
-}	
-
-#accordion .post-question .card{
-	width: 100%;
+#accordion .post-question .post-user-pic {
+  width: 60px;
+  height: 60px;
+  margin-right: 10px;
+  /* border-radius: 50%; */
+  overflow: hidden;
 }
 
-#accordion .post-question .post-user-pic img{
-	/* margin: 5px; */
-	display: block;
-	width: 50px;
-	height: 50px;
-	border-radius: 50%;
+#accordion .post-question .card {
+  width: 100%;
 }
 
-.wn_accordion .acc-header{
-	border: 1px solid #e1e1e1;
+#accordion .post-question .post-user-pic img {
+  /* margin: 5px; */
+  display: block;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
 }
 
-.wn_accordion .acc-header .title{
+.wn_accordion .acc-header {
+  border: 1px solid #e1e1e1;
+}
+
+.wn_accordion .acc-header .title {
   background-color: #eee;
   color: #333;
-	padding: 15px 40px 15px 26px;
-	position: relative;
+  padding: 15px 40px 15px 26px;
+  position: relative;
 }
 
 .acc-header h5 a {
   padding: 0 0 5px;
- }
- 
-.wn_accordion .collapse{
-	margin-top: 20px;
-	margin-left: 50px;
-	
 }
 
-.wn_accordion .collapse .reply{
-	margin-bottom: 20px;
-	border: 1px solid #e1e1e1;
+.wn_accordion .collapse {
+  margin-top: 20px;
+  margin-left: 50px;
 }
 
-.wn_accordion .collapse .reply-user{
-	background-color: #eee;
+.wn_accordion .collapse .reply {
+  margin-bottom: 20px;
+  border: 1px solid #e1e1e1;
+}
+
+.wn_accordion .collapse .reply-user {
+  background-color: #eee;
   color: #333;
   padding: 10px 40px 10px 26px;
 }
 
-.wn_accordion .card .reply-input form{
-	display: flex;
-	width: 100%;
+.wn_accordion .card .reply-input form {
+  display: flex;
+  width: 100%;
 }
 
-.wn_accordion .card .reply-input form textarea{
-	width: 100%;
+.wn_accordion .card .reply-input form textarea {
+  width: 100%;
 }
 
-.wn_accordion .card .reply-input form button{
+.wn_accordion .card .reply-input form button {
   background: #fff none repeat scroll 0 0;
-  color: #FF5B43;
+  color: #ff5b43;
   display: inline-block;
   font-size: 12px;
   font-weight: 700;
-	padding: 8px 15px;
-	border: 1px solid #FF5B43;
-	margin-left: 10px;
+  padding: 8px 15px;
+  border: 1px solid #ff5b43;
+  margin-left: 10px;
 }
-
-
-
 
 /* 個人帳號資訊頁面 */
 
-.user-info-page{
-	max-width: 850px;
+.user-info-page {
+  max-width: 850px;
 }
 
-.user-image img{
-	border-radius: 15%;
+.user-image img {
+  border-radius: 15%;
 }
 
-.user-info h3{
-	font-size: 26px;
-	margin-bottom: 5px;
+.user-info h3 {
+  font-size: 26px;
+  margin-bottom: 5px;
 }
 
-.user-info .user-info-item{
-	display: flex;
-	padding: 5px 0;
+.user-info .user-info-item {
+  display: flex;
+  padding: 5px 0;
 }
 
-.user-info .title{
-	width: 110px;
-	font-size: 16px;
-	font-weight: 400;
-	color: #FF5B43;
+.user-info .title {
+  width: 110px;
+  font-size: 16px;
+  font-weight: 400;
+  color: #ff5b43;
 }
 
-.user-info .user-info-item .user-info-data{
-	font-size: 14px;
+.user-info .user-info-item .user-info-data {
+  font-size: 14px;
 }
-
-
-
 
 /* 個人收藏課程頁面 */
 .favorite-item th,
-.favorite-item td{
-	height: 40px;
+.favorite-item td {
+  height: 40px;
   line-height: 40px;
 }
 
-.favorite-item td .remove-favorite{
-	font-size: 14px;
-	font-weight: 600;
-	background-color:transparent;
-	border: none;
+.favorite-item td .remove-favorite {
+  font-size: 14px;
+  font-weight: 600;
+  background-color: transparent;
+  border: none;
 }
 
-.favorite-item td .buy-now{
-	background: #e59285;
+.favorite-item td .buy-now {
+  background: #e59285;
   border: 0 none;
   color: #fff;
   font-size: 14px;
@@ -441,8 +412,28 @@
   padding: 0 15px;
 }
 
-
 /* 我購買的課程頁面 */
-.course-card-mt{
-	margin-bottom: 30px;
+.course-card-mt {
+  margin-bottom: 30px;
+}
+
+/* youtube players style */
+#ytplayer_frame {
+  position: relative;
+  width: 100%;
+  height: 0;
+  padding-bottom: 56.25%;
+}
+#ytplayer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* style for lesson content */
+#lesson-content > ul {
+  margin-left: 1.5%;
+  list-style-type: disc;
 }

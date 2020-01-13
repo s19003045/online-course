@@ -48,8 +48,10 @@
             <div class="blog-details content">
               <article class="blog-post-details">
                 <div class="post-thumbnail">
-                  <iframe title="vimeo-player" src="{{lesson.videoURL}}" width="100%" height="520px" frameborder="0"
-                    allowfullscreen></iframe>
+                  <div id="ytplayer_frame">
+                    <iframe id="ytplayer" type="text/html" width="100%" src="{{lesson.videoURL}}"
+                      frameborder="0"></iframe>
+                  </div>
                 </div>
                 <div class="post_wrapper">
                   <div class="post_header">
@@ -64,10 +66,7 @@
                     </div>
                   </div>
                   <div class="post_content">
-                    <h4>Introduction</h4>
-                    <p>{{lesson.intro}}</p>
-                    <h4>Content</h4>
-                    <p>{{{lesson.contents}}}</p>
+                    <div id="lesson-content">{{{lesson.contents}}}</div>
                   </div>
                 </div>
               </article>
