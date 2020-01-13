@@ -108,12 +108,25 @@ const courseController = {
         ...c.dataValues,
         enrolled: userEnrolledId.includes(c.dataValues.id)
       }));
-      return res.render("courses", {
-        courses: data,
-        order: req.query.order,
-        route: "all",
-        reqUrl: req.url
-      });
+      if (!req.user) {
+        return res.render("courses", {
+          courses: data,
+          order: req.query.order,
+          route: "all",
+          reqUrl: req.url,
+        });
+      } else {
+        User.findByPk(req.user.id)
+          .then(user => {
+            return res.render("courses", {
+              courses: data,
+              order: req.query.order,
+              route: "all",
+              reqUrl: req.url,
+              user
+            });
+          })
+      }
     });
   },
   // 依主類別篩選課程

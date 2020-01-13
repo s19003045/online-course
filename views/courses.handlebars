@@ -9,8 +9,22 @@
     <div class="carousel-item active">
       <img src="/images/每日登入送點數.png" class="d-block w-100" alt="...">
       <div class="carousel-caption d-none d-md-block">
-        {{!-- <h5>First slide label</h5>
-        <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p> --}}
+        {{#if user}}
+        <h5 class="mb-2">
+          <a href="/users/account" class="mr-5 text-muted">查詢我的點數 <i class="far fa-hand-point-right"></i></a>
+        </h5>
+        <h5>
+          <a href="/reward/{{user.id}}/lottery" class="mr-5 text-muted">轉蛋去 <i class="far fa-hand-point-right"></i></a>
+        </h5>
+        {{else}}
+        <h5 class="mb-2">
+          <a href="/signup" class="mr-5 text-muted">立即註冊 <i class="far fa-hand-point-right"></i></a>
+        </h5>
+        <h5>
+          <a href="/signin" class="mr-5 text-muted">立即登入 <i class="far fa-hand-point-right"></i></a>
+        </h5>
+        {{/if}}
+        <p></p>
       </div>
     </div>
     <div class="carousel-item">
