@@ -17,9 +17,11 @@
         <div class="wn__single__product">
           <div class="row">
             <div class="col-lg-8 col-12">
-              <div class="course-vedio">
-                <iframe src="{{course.introVideo}}" width="100%" height="520px" frameborder="0"
-                  allowfullscreen></iframe>
+              <div id="ytplayer_frame">
+                <div class="course-vedio">
+                  <iframe id="ytplayer" type="text/html" width="640" height="360" src="{{course.introVideo}}"
+                    frameborder="0"></iframe>
+                </div>
               </div>
             </div>
 

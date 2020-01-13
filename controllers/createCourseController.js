@@ -23,7 +23,6 @@ const createCourseController = {
       }).then(course => {
         return res.render("createCourse/createCourseIntro", { course });
       });
-
     } else {
       return res.redirect("/signin");
     }
@@ -34,21 +33,29 @@ const createCourseController = {
     Course.findOne({
       where: {
         UserId: req.user.id,
-        id: req.params.courseId,
-        status: "editted"
+        id: req.params.courseId
       }
     }).then(course => {
       CourseSubCategory.findAll({
         include: [CourseCategory]
-      })
-        .then(courseSubCategories => {
-          return res.render("createCourse/createCourseStep1", { course, courseSubCategories });
-        })
+      }).then(courseSubCategories => {
+        return res.render("createCourse/createCourseStep1", {
+          course,
+          courseSubCategories
+        });
+      });
     });
   },
   // 送出建立課程 step 1 的資料
   postCourseStep1: (req, res) => {
-    if (!req.body.name || !req.body.description || !req.body.CourseSubCategoryId || !req.body.teacherDescrip || !req.body.teacherName || !req.body.introVideo) {
+    if (
+      !req.body.name ||
+      !req.body.description ||
+      !req.body.CourseSubCategoryId ||
+      !req.body.teacherDescrip ||
+      !req.body.teacherName ||
+      !req.body.introVideo
+    ) {
       req.flash("error_messages", "所有欄位都是必填");
       return res.redirect("back");
     }
@@ -62,19 +69,20 @@ const createCourseController = {
         if (err) {
           console.log(err);
         } else {
-          console.log('link:', img.data.link)
+          console.log("link:", img.data.link);
 
-          imgLink = img.data ? img.data.link : ''
+          imgLink = img.data ? img.data.link : "";
           return Course.findByPk(req.params.courseId).then(course => {
-            CourseSubCategory.findByPk(req.body.CourseSubCategoryId)
-              .then(subCategory => {
-                console.log(subCategory)
+            CourseSubCategory.findByPk(req.body.CourseSubCategoryId).then(
+              subCategory => {
+                console.log(subCategory);
                 course
                   .update({
                     name: req.body.name || course.name,
                     description: req.body.description || course.description,
                     introVideo: req.body.introVideo || course.introVideo,
-                    teacherDescrip: req.body.teacherDescrip || course.teacherDescrip,
+                    teacherDescrip:
+                      req.body.teacherDescrip || course.teacherDescrip,
                     teacherName: req.body.teacherName || course.teacherName,
                     CourseCategoryId: subCategory.CourseCategoryId,
                     CourseSubCategoryId: parseInt(req.body.CourseSubCategoryId),
@@ -83,26 +91,30 @@ const createCourseController = {
                   .then(course => {
                     CourseSubCategory.findAll({
                       include: [CourseCategory]
-                    })
-                      .then(courseSubCategories => {
-                        return res.render("createCourse/createCourseStep1", { course, courseSubCategories });
-                      })
+                    }).then(courseSubCategories => {
+                      return res.render("createCourse/createCourseStep1", {
+                        course,
+                        courseSubCategories
+                      });
+                    });
                   });
-              })
+              }
+            );
           });
         }
       });
     } else {
       return Course.findByPk(req.params.courseId).then(course => {
-        CourseSubCategory.findByPk(req.body.CourseSubCategoryId)
-          .then(subCategory => {
-            console.log(subCategory)
+        CourseSubCategory.findByPk(req.body.CourseSubCategoryId).then(
+          subCategory => {
+            console.log(subCategory);
             course
               .update({
                 name: req.body.name || course.name,
                 description: req.body.description || course.description,
                 introVideo: req.body.introVideo || course.introVideo,
-                teacherDescrip: req.body.teacherDescrip || course.teacherDescrip,
+                teacherDescrip:
+                  req.body.teacherDescrip || course.teacherDescrip,
                 teacherName: req.body.teacherName || course.teacherName,
                 CourseCategoryId: subCategory.CourseCategoryId,
                 CourseSubCategoryId: parseInt(req.body.CourseSubCategoryId)
@@ -110,12 +122,15 @@ const createCourseController = {
               .then(course => {
                 CourseSubCategory.findAll({
                   include: [CourseCategory]
-                })
-                  .then(courseSubCategories => {
-                    return res.render("createCourse/createCourseStep1", { course, courseSubCategories });
-                  })
+                }).then(courseSubCategories => {
+                  return res.render("createCourse/createCourseStep1", {
+                    course,
+                    courseSubCategories
+                  });
+                });
               });
-          })
+          }
+        );
       });
     }
   },
@@ -127,9 +142,7 @@ const createCourseController = {
       }
     }).then(lessons => {
       // 排序：依 lessonNumber，由小到大
-      lessons.sort((a, b) =>
-        a.lessonNumber - b.lessonNumber
-      );
+      lessons.sort((a, b) => a.lessonNumber - b.lessonNumber);
       Course.findByPk(req.params.courseId).then(course => {
         return res.render("createCourse/createCourseStep2", {
           course,
@@ -145,9 +158,7 @@ const createCourseController = {
       }
     }).then(lessons => {
       // 排序：依 lessonNumber，由小到大
-      lessons.sort((a, b) =>
-        a.lessonNumber - b.lessonNumber
-      );
+      lessons.sort((a, b) => a.lessonNumber - b.lessonNumber);
 
       Course.findByPk(req.params.courseId).then(course => {
         Lesson.findOne({
@@ -167,31 +178,29 @@ const createCourseController = {
   },
   editLessonNumber: (req, res) => {
     if (!req.body.lessonNumber) {
-      console.log('lessonNumber undefined')
+      console.log("lessonNumber undefined");
     } else {
       Lesson.findOne({
         where: {
-          id: parseInt(req.body.pk),
+          id: parseInt(req.body.pk)
         }
-      })
-        .then(lesson => {
-          lesson.update({
+      }).then(lesson => {
+        lesson
+          .update({
             lessonNumber: parseInt(req.body.lessonNumber)
           })
-            .then(lesson => {
-              console.log('change lesson id:', lesson.id)
-              return res.status(200).send('OK')
-            })
-        })
+          .then(lesson => {
+            console.log("change lesson id:", lesson.id);
+            return res.status(200).send("OK");
+          });
+      });
     }
-
   },
   deleteCourseStep2: (req, res) => {
-    Lesson.findOne({ where: { id: req.params.lessonId } })
-      .then(lesson => {
-        lesson.destroy()
-        return res.status(200)
-      })
+    Lesson.findOne({ where: { id: req.params.lessonId } }).then(lesson => {
+      lesson.destroy();
+      return res.status(200);
+    });
   },
   createLessonTitle: (req, res) => {
     Lesson.create({
@@ -373,7 +382,6 @@ const createCourseController = {
               CourseId: course.id
             }
           }).then(lesson => {
-
             res.render("createCourse/createCourseStep4-lessons", {
               course,
               lesson,
@@ -387,7 +395,6 @@ const createCourseController = {
         res.redirect("back");
       }
     });
-
   },
   createCourseStep4Post: (req, res) => {
     Course.findByPk(req.params.courseId).then(course => {
