@@ -170,10 +170,12 @@
     <form action="/courses/create/{{course.id}}/step1" method="POST" enctype="multipart/form-data" class="my-5">
       <div class="form-group">
         <label for="name">課程名稱</label>
+        <small class="ml-1 text-danger" style="font-size: 20px;">*</small>
         <input type="text" class="form-control" name="name" id="name" placeholder="為你的課程取個名字吧！" value="{{course.name}}">
       </div>
       <div class="form-group">
-        <label for="description" class="mr-5">課程簡介 (250 字為限)</label>
+        <label for="description" class="mr-1">課程簡介 (250 字為限)</label>
+        <small class="ml-1 text-danger" style="font-size: 20px;">*</small>
         <small class="ml-5 text-muted">剩餘字數</small>
         <small class="ml-1 text-muted" id="descrip-small"></small>
         <textarea class="form-control" maxlength="250" rows="6" name="description" id="description"
@@ -182,11 +184,13 @@
 
       <div class="form-group">
         <label for="introVideo">課程簡介影片</label>
+        <small class="ml-1 text-danger" style="font-size: 20px;">*</small>
         <input type="text" class="form-control" name="introVideo" id="introVideo" placeholder="輸入影片連結"
           value="{{course.introVideo}}">
       </div>
       <div class="form-group">
         <label for="CourseSubCategoryId">課程類別(<span>主類別/次類別</span>)</label>
+        <small class="ml-1 text-danger" style="font-size: 20px;">*</small>
         <select class="form-control" name="CourseSubCategoryId">
           {{#each courseSubCategories}}
           <option value="{{this.id}}" {{#ifCond this.id ../course.CourseSubCategoryId}}selected{{/ifCond}}>
@@ -196,11 +200,13 @@
       </div>
       <div class="form-group">
         <label for="teacherName">講師姓名</label>
+        <small class="ml-1 text-danger" style="font-size: 20px;">*</small>
         <input type="text" class="form-control" name="teacherName" id="teacherName" placeholder="取個響亮的名字吧~"
           value="{{course.teacherName}}">
       </div>
       <div class="form-group">
-        <label for="teacherDescrip" class="mr-5">教師簡介 (250 字為限)</label>
+        <label for="teacherDescrip" class="mr-1">教師簡介 (250 字為限)</label>
+        <small class="ml-1 text-danger" style="font-size: 20px;">*</small>
         <small class="ml-5 text-muted">剩餘字數</small>
         <small class="ml-1 text-muted" id="teacherDescrip-small"></small>
         <textarea class="form-control" maxlength="250" rows="6" name="teacherDescrip" id="teacherDescrip"
