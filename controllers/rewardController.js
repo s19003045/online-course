@@ -69,7 +69,7 @@ const rewardController = {
                       price: null,
                       point: reward.point
                     }
-                    return res.json()
+                    return res.json(prize)
                   } else {
                     // 有課程可以讓使用者抽，先扣點數
                     return Reward.decrement('point', {

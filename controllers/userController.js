@@ -87,11 +87,13 @@ const userController = {
                       UserId: req.user.id
                     })
                       .then(reward => {
+                        req.flash('success_messages', '今天第一次登入，獲得 5 點')
                         return res.redirect("/courses");
                       })
                   } else {
                     return reward.increment('point', { by: loginRewardPoint })
                       .then(reward => {
+                        req.flash('success_messages', '今天第一次登入，獲得 5 點')
                         return res.redirect("/courses");
                       })
                   }
