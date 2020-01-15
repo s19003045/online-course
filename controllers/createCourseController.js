@@ -69,8 +69,6 @@ const createCourseController = {
         if (err) {
           console.log(err);
         } else {
-          console.log("link:", img.data.link);
-
           imgLink = img.data ? img.data.link : "";
           return Course.findByPk(req.params.courseId).then(course => {
             CourseSubCategory.findByPk(req.body.CourseSubCategoryId).then(
@@ -473,7 +471,8 @@ const createCourseController = {
           course
             .update({
               status: "intoMarket",
-              submittedDate: new Date()
+              submittedDate: new Date(),
+              intoMarketDate: new Date()
             })
             .then(course => {
               return res.redirect(`/instructor/courses`);
