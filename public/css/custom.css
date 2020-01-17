@@ -38,7 +38,7 @@
 
 /* main.handlebars-導覽列 */
 #wn__header {
-  background-color: rgba(255, 222, 106, 1);
+  background-color:#FFDE6A;
 }
 
 .header__absolute {
@@ -443,7 +443,7 @@
 
 /* ======footer====== */
 .footer-bs {
-  background-color: #ffb74d;
+  background-color: #FFDE6A;
   padding: 20px 40px;
   color: rgba(255, 255, 255, 1.00);
   margin-bottom: 0px;
