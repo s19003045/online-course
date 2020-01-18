@@ -1,23 +1,290 @@
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    background: #f6f6f6;
+    color: #444;
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+    line-height: 1;
+  }
+
+  .container {
+    max-width: 1100px;
+    padding: 0 20px;
+    margin: 0 auto;
+  }
+
+  .container:before,
+  .container:after {
+    content: " ";
+    display: table;
+  }
+
+  .resume-page .resume-nav-bar ul.y-resume-edit-progressing-bar {
+    background-color: #fff;
+    font-size: 18px;
+    height: 58px;
+    margin: 10px 0 0;
+    padding: 20px 0 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .resume-page .resume-nav-bar ul.y-resume-edit-progressing-bar li {
+    display: inline-block;
+    margin-left: 20px;
+  }
+
+  .resume-page .resume-nav-bar ul.y-resume-edit-progressing-bar li a {
+    margin: 0 30px;
+    display: inline-block;
+    text-decoration: none;
+    outline: none;
+    color: #333;
+  }
+
+  .resume-page .resume-nav-bar ul.y-resume-edit-progressing-bar li a.active:after {
+    content: '';
+    display: block;
+    margin: 8px auto 0;
+    height: 5px;
+    width: 100%;
+    background: #0070c4;
+  }
+
+  a {
+    color: #337ab7;
+    text-decoration: none;
+  }
+
+  a {
+    background-color: transparent;
+  }
+
+  .resume-page .resume-nav-bar ul.y-resume-edit-progressing-bar li a:not(.active):after {
+    content: '';
+    display: block;
+    margin: 8px auto 0;
+    width: 0;
+    height: 5px;
+    background: transparent;
+    transition: width 0.5s ease;
+  }
+
+  .resume-page .resume-nav-bar ul.y-resume-edit-progressing-bar li.step-icon:after {
+    content: "\f054";
+    display: inline-block;
+    margin-left: 20px;
+    font-family: FontAwesome;
+    font-size: 18px;
+  }
+
+  .container:before,
+  .container:after {
+    content: " ";
+    display: table;
+  }
+
+  .container:after {
+    clear: both;
+  }
+
+  .resume-page .welcome-text {
+    margin: 10px 0;
+    background: #FFFFFF;
+    position: relative;
+  }
+
+  .resume-page .welcome-text p {
+    padding: 30px 0;
+    width: 60%;
+    margin: 0 auto;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+  }
+
+  .resume-page .resume-writing-hint {
+    color: #0070C4;
+    font-weight: 600;
+  }
+
+  .resume-page .welcome-text #resume-example {
+    position: absolute;
+    top: 40px;
+    right: 55px;
+  }
+
+  .resume-page .welcome-text .btn-green-lake {
+    background-color: #3ac3c0;
+    color: white;
+  }
+
+  .resume-page .resume-step2 a,
+  .resume-page .resume-step4 a {
+    display: inline-block;
+  }
+
+  .btn-sm,
+  .btn-group-sm>.btn {
+    padding: 5px 10px;
+    font-size: 12px;
+    line-height: 1.5;
+    border-radius: 3px;
+  }
+
+  img {
+    vertical-align: middle;
+  }
+
+  img {
+    border: 0;
+  }
+
+  .fadeIn {
+    -webkit-animation-name: fadeIn;
+    animation-name: fadeIn;
+  }
+
+  .animated {
+    -webkit-animation-duration: 1s;
+    animation-duration: 1s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+  }
+
+  .resume-page .step-form-block {
+    background: #FFFFFF;
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 10px 30px 30px;
+    min-height: 115px;
+  }
+
+  .resume-page h3,
+  .resume-page .add-link {
+    font-size: 18px;
+  }
+
+  [data-react-beautiful-dnd-droppable="58"] {
+    overflow-anchor: none;
+  }
+
+  .resume-page .add-link {
+    color: #0070C4;
+    cursor: pointer;
+  }
+
+  .resume-page h3,
+  .resume-page .add-link {
+    font-size: 18px;
+  }
+
+  .resume-page .add-link:before {
+    content: '+';
+    display: inline-block;
+    margin-right: 5px;
+  }
+
+  .ipad-mobile {
+    display: none;
+  }
+
+  @media (min-width: 1085px) {
+    .ipad-mobile {
+      display: none;
+    }
+  }
+
+  @media (max-width: 767px) {
+    .desktop {
+      display: none !important;
+    }
+  }
+
+  @media (max-width: 1084px) {
+    .desktop {
+      display: none !important;
+    }
+  }
+
+  @media (max-width: 1084px) {
+    .desktop {}
+  }
+
+  @media (max-width: 767px) {
+    .desktop {
+      display: none !important;
+    }
+  }
+
+  @media (max-width: 1084px) {
+    .desktop {
+      display: none !important;
+    }
+  }
+</style>
+
 <div class="row">
-  <div class="col-8 mx-auto">
-    <h3 class="my-3">
-      課程名稱：{{#if course.name}}{{course.name}}{{else}}尚未建立{{/if}}</h3>
+  <div class="col-10 mx-auto">
+    <div class="resume-page">
+      <div id="resume-page-app">
+        <div class="row-min-height-and-color">
+          <div id="resume-nav-bar">
+            <div class="container resume-nav-bar">
+              <div class="desktop">
+                <ul class="y-resume-edit-progressing-bar">
+                  <li class="step-icon"><a class="" href="/courses/create/{{course.id}}/step1" data-page="1">1.基本資訊</a>
+                  </li>
+                  <li class="step-icon"><a class="" href="/courses/create/{{course.id}}/step2" data-page="2">2.課程內容</a>
+                  </li>
+                  <li class="step-icon"><a class="active" href="#" data-page="3">3.定價</a></li class="step-icon">
+                  <li><a class="" href="/courses/create/{{course.id}}/step4/intro" data-page="3">4.預覽課程</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="container">
+            <div class="resume-step1">
+              <div class="welcome-text">
+                <p><span class="resume-writing-hint">本頁面所有的欄位都是必填。</span>若您在某些欄位卡關了，請先按「下一步」，之後還可以再做整體的修正。</p>
+              </div>
+              <div class="step-form-block">
+                <div class="col-md-12 col-md-offset-2 col-sm-12 col-sm-offset-3 animated fadeIn">
+                  <h2 class="my-4">
+                    課程名稱：{{#if course.name}}{{course.name}}{{else}}尚未建立{{/if}}</h2>
 
-    <h3 class="my-3">Step 3</h3>
-    <form action="/courses/create/{{course.id}}/step3?_method=PUT" method="POST">
-      <div class="form-group">
-        <label for="price">定價 $</label>
-        <small class="ml-1 text-danger" style="font-size: 20px;">*</small>
-        <input type="number" class="form-control" name="price" id="price" placeholder="" value="{{course.price}}">
+                  <h3 class="my-3"></h3>
+                  <form action="/courses/create/{{course.id}}/step3?_method=PUT" method="POST">
+                    <div class="form-group">
+                      <label for="price">定價 $</label>
+                      <small class="ml-1 text-danger" style="font-size: 20px;">*</small>
+                      <input type="number" class="form-control" name="price" id="price" placeholder=""
+                        value="{{course.price}}">
+                    </div>
+
+                    <button type="submit" class="btn-two green rounded small mr-5">Save</button>
+                  </form>
+                </div>
+              </div>
+
+              <div class="d-flex justify-content-start mt-3 mb-5">
+                <a href="/courses/create/{{course.id}}/step2" class="btn-two yellow rounded small my-3 mr-5">
+                  < 上一步 </a> <a href="/courses/create/{{course.id}}/step4/intro"
+                    class="btn-two yellow rounded small my-3">下一步 >
+                </a>
+              </div>
+
+            </div>
+          </div>
+        </div>
       </div>
-
-      <button type="submit" class="btn-two green rounded small mr-5">Save</button>
-    </form>
-
-    <div class="d-flex justify-content-start mt-3 mb-5">
-      <a href="/courses/create/{{course.id}}/step2" class="btn-two yellow rounded mini my-3 mr-5">
-        < 上一步 </a> <a href="/courses/create/{{course.id}}/step4/intro" class="btn-two yellow rounded mini my-3">下一步 >
-      </a>
     </div>
   </div>
 </div>
