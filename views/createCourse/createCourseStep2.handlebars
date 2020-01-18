@@ -1,238 +1,515 @@
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    background: #f6f6f6;
+    color: #444;
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+    line-height: 1;
+  }
+
+  .container {
+    max-width: 1100px;
+    padding: 0 20px;
+    margin: 0 auto;
+  }
+
+  .container:before,
+  .container:after {
+    content: " ";
+    display: table;
+  }
+
+  .resume-page .resume-nav-bar ul.y-resume-edit-progressing-bar {
+    background-color: #fff;
+    font-size: 18px;
+    height: 58px;
+    margin: 10px 0 0;
+    padding: 20px 0 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .resume-page .resume-nav-bar ul.y-resume-edit-progressing-bar li {
+    display: inline-block;
+    margin-left: 20px;
+  }
+
+  .resume-page .resume-nav-bar ul.y-resume-edit-progressing-bar li a {
+    margin: 0 30px;
+    display: inline-block;
+    text-decoration: none;
+    outline: none;
+    color: #333;
+  }
+
+  .resume-page .resume-nav-bar ul.y-resume-edit-progressing-bar li a.active:after {
+    content: '';
+    display: block;
+    margin: 8px auto 0;
+    height: 5px;
+    width: 100%;
+    background: #0070c4;
+  }
+
+  a {
+    color: #337ab7;
+    text-decoration: none;
+  }
+
+  a {
+    background-color: transparent;
+  }
+
+  .resume-page .resume-nav-bar ul.y-resume-edit-progressing-bar li a:not(.active):after {
+    content: '';
+    display: block;
+    margin: 8px auto 0;
+    width: 0;
+    height: 5px;
+    background: transparent;
+    transition: width 0.5s ease;
+  }
+
+  .resume-page .resume-nav-bar ul.y-resume-edit-progressing-bar li.step-icon:after {
+    content: "\f054";
+    display: inline-block;
+    margin-left: 20px;
+    font-family: FontAwesome;
+    font-size: 18px;
+  }
+
+  .container:before,
+  .container:after {
+    content: " ";
+    display: table;
+  }
+
+  .container:after {
+    clear: both;
+  }
+
+  .resume-page .welcome-text {
+    margin: 10px 0;
+    background: #FFFFFF;
+    position: relative;
+  }
+
+  .resume-page .welcome-text p {
+    padding: 30px 0;
+    width: 60%;
+    margin: 0 auto;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+  }
+
+  .resume-page .resume-writing-hint {
+    color: #0070C4;
+    font-weight: 600;
+  }
+
+  .resume-page .welcome-text #resume-example {
+    position: absolute;
+    top: 40px;
+    right: 55px;
+  }
+
+  .resume-page .welcome-text .btn-green-lake {
+    background-color: #3ac3c0;
+    color: white;
+  }
+
+  .resume-page .resume-step2 a,
+  .resume-page .resume-step4 a {
+    display: inline-block;
+  }
+
+  .btn-sm,
+  .btn-group-sm>.btn {
+    padding: 5px 10px;
+    font-size: 12px;
+    line-height: 1.5;
+    border-radius: 3px;
+  }
+
+  img {
+    vertical-align: middle;
+  }
+
+  img {
+    border: 0;
+  }
+
+  .fadeIn {
+    -webkit-animation-name: fadeIn;
+    animation-name: fadeIn;
+  }
+
+  .animated {
+    -webkit-animation-duration: 1s;
+    animation-duration: 1s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+  }
+
+  .resume-page .step-form-block {
+    background: #FFFFFF;
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 10px 30px 30px;
+    min-height: 115px;
+  }
+
+  .resume-page h3,
+  .resume-page .add-link {
+    font-size: 18px;
+  }
+
+  [data-react-beautiful-dnd-droppable="58"] {
+    overflow-anchor: none;
+  }
+
+  .resume-page .add-link {
+    color: #0070C4;
+    cursor: pointer;
+  }
+
+  .resume-page h3,
+  .resume-page .add-link {
+    font-size: 18px;
+  }
+
+  .resume-page .add-link:before {
+    content: '+';
+    display: inline-block;
+    margin-right: 5px;
+  }
+
+  .ipad-mobile {
+    display: none;
+  }
+
+  @media (min-width: 1085px) {
+    .ipad-mobile {
+      display: none;
+    }
+  }
+
+  @media (max-width: 767px) {
+    .desktop {
+      display: none !important;
+    }
+  }
+
+  @media (max-width: 1084px) {
+    .desktop {
+      display: none !important;
+    }
+  }
+
+  @media (max-width: 1084px) {
+    .desktop {}
+  }
+
+  @media (max-width: 767px) {
+    .desktop {
+      display: none !important;
+    }
+  }
+
+  @media (max-width: 1084px) {
+    .desktop {
+      display: none !important;
+    }
+  }
+</style>
+
 <div class="row">
-  <div class="col-md-8 mx-auto">
-    <h3 class="my-3">
-      課程名稱：{{#if course.name}}{{course.name}}{{else}}尚未建立{{/if}}</h3>
+  <div class="col-md-10 mx-auto">
+    <h3 class="my-3"></h3>
 
-    <h3 class="my-3">Step 2</h3>
-    <h4 class="my-3">已建立的章節：{{#if lessons}}{{else}}尚未建立{{/if}}</h4 class="my-3">
+    <div class="resume-page">
+      <div id="resume-page-app">
+        <div class="row-min-height-and-color">
+          <div id="resume-nav-bar">
+            <div class="container resume-nav-bar">
+              <div class="desktop">
+                <ul class="y-resume-edit-progressing-bar">
+                  <li class="step-icon"><a class="" href="/courses/create/{{course.id}}/step1" data-page="1">1.基本資訊</a>
+                  </li>
+                  <li class="step-icon"><a class="active" href="#" data-page="2">2.課程內容</a></li>
+                  <li class="step-icon"><a class="" href="/courses/create/{{course.id}}/step3" data-page="3">3.定價</a>
+                  </li class="step-icon">
+                  <li><a class="" href="/courses/create/{{course.id}}/step4/intro" data-page="3">4.預覽課程</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
 
-    {{!-- 建立可拖曳的 ul > li --}}
-    <div class="row">
-      <div class="col mx-auto">
-        <ul class="connected-sortable droppable-area1 courses-tbody w-100" data-courseid="{{course.id}}">
-          {{#each lessons}}
-          <li class="draggable-item mb-2 py-2 d-flex justify-content-between">
-            <span class="w-25 py-1">章節 {{this.lessonNumber}}</span>
-            <input class="d-none input-lessonnumber py-1 mr-0" type="text" data-pk="{{this.id}}"
-              data-courseid="{{this.CourseId}}" name="lessonNumber" value="{{this.lessonNumber}}">
-            {{this.title}}
-            {{!-- <div class="list-btn-group"> --}}
-            {{!-- <form action="/courses/create/{{../course.id}}/step2/{{this.id}}_method=DELETE" method="post"> --}}
-            <a href="/courses/create/{{../course.id}}/step2/{{this.id}}/edit"
-              class="btn btn-link btn-sm my-0 text-primary mr-2 py-1">Edit
-            </a>
-            {{!-- 避免使用者不小心刪除，等使用者檢視完課程內容才可以刪除 --}}
-            {{!-- <button class="btn btn-link btn-sm my-0 text-danger btn-remove-lesson" role="" data-id="{{this.id}}"
-                data-lessonnumber="{{this.lessonNumber}}">Remove
-              </button> --}}
+          <div class="container">
+            <div class="resume-step1">
+              <div class="welcome-text">
+                <p><span class="resume-writing-hint">本頁面所有的欄位都是必填。</span>若您在某些欄位卡關了，請先按「下一步」，之後還可以再做整體的修正。</p>
+              </div>
+              <div class="step-form-block">
+                <div class="col-md-12 col-md-offset-2 col-sm-12 col-sm-offset-3 animated fadeIn">
+                  <h2 class="my-4">
+                    課程名稱：{{#if course.name}}{{course.name}}{{else}}尚未建立{{/if}}
+                  </h2>
+                  <h4 class="my-3">已建立的章節：{{#if lessons}}{{else}}尚未建立{{/if}}</h4 class="my-3">
+                  {{!-- 建立可拖曳的 ul > li --}}
+                  <div class="row">
+                    <div class="col mx-auto">
+                      <ul class="connected-sortable droppable-area1 courses-tbody w-100" data-courseid="{{course.id}}">
+                        {{#each lessons}}
+                        <li class="draggable-item mb-2 py-2 d-flex justify-content-between">
+                          <span class="w-25 py-1">章節 {{this.lessonNumber}}</span>
+                          <input class="d-none input-lessonnumber py-1 mr-0" type="text" data-pk="{{this.id}}"
+                            data-courseid="{{this.CourseId}}" name="lessonNumber" value="{{this.lessonNumber}}">
+                          {{this.title}}
+                          {{!-- <div class="list-btn-group"> --}}
+                          {{!-- <form action="/courses/create/{{../course.id}}/step2/{{this.id}}_method=DELETE" method="post"> --}}
+                          <a href="/courses/create/{{../course.id}}/step2/{{this.id}}/edit"
+                            class="btn btn-link btn-sm my-0 text-primary mr-2 py-1">Edit
+                          </a>
+                          {{!-- 避免使用者不小心刪除，等使用者檢視完課程內容才可以刪除 --}}
+                          {{!-- <button class="btn btn-link btn-sm my-0 text-danger btn-remove-lesson" role="" data-id="{{this.id}}"
+                        data-lessonnumber="{{this.lessonNumber}}">Remove
+                      </button> --}}
 
-            {{!-- </div> --}}
-          </li>
-          {{/each}}
-        </ul>
-        <button class="btn-two cyan rounded small btn-add-lesson" type="submit">Add lesson</button>
-        <small class="ml-2 text-muted">建立章節名稱</small>
-      </div>
-    </div>
+                          {{!-- </div> --}}
+                        </li>
+                        {{/each}}
+                      </ul>
+                      <button class="btn-two cyan rounded small btn-add-lesson" type="submit">Add lesson</button>
+                      <small class="ml-2 text-muted">建立章節名稱</small>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+
+              <div class="step-form-block">
+                <div class="col-md-12 col-md-offset-2 col-sm-12 col-sm-offset-3 animated fadeIn">
+                  {{#if lesson}}
+                  <div class="d-flex justify-content-start mt-2">
+                    <a href="/courses/create/{{course.id}}/step2"
+                      class="btn-two yellow rounded small mb-5 mr-5 ">建立新的章節及內容<i class="fas fa-plus ml-3"></i>
+                    </a>
+                  </div>
+                  {{/if}}
+                  {{#if lesson}}
+                  <h3 class="mt-3">編輯章節內容</h3>
+                  <form action="/courses/create/{{course.id}}/step2/{{lesson.id}}?_method=PUT" method="POST"
+                    class="mt-4" id="identifier">
+                    <div class="form-group">
+                      <label for="name">課程章節</label>
+                      <small class="ml-1 text-danger" style="font-size: 20px;">*</small>
+                      <input type="number" class="form-control " name="lessonNumber" id="lessonNumber" placeholder=""
+                        value="{{lesson.lessonNumber}}" readonly>
+                    </div>
+                    <div class="form-group">
+                      <label for="title">章節名稱</label>
+                      <small class="ml-1 text-danger" style="font-size: 20px;">*</small>
+                      <input type="text" class="form-control" name="title" id="title" placeholder=""
+                        value="{{lesson.title}}">
+                    </div>
+                    <div class="form-group">
+                      <label for="intro">章節簡介 (250 字為限)</label>
+                      <small class="ml-1 text-danger" style="font-size: 20px;">*</small>
+                      <input type="text" class="form-control" name="intro" id="intro" placeholder=""
+                        value="{{lesson.intro}}">
+                    </div>
+                    <div class="form-group">
+                      <label for="totalTime">章節上課時數 ( 分鐘 )</label>
+                      <small class="ml-1 text-danger" style="font-size: 20px;">*</small>
+                      <input type="number" class="form-control" name="totalTime" id="totalTime" placeholder=""
+                        value="{{lesson.totalTime}}">
+                    </div>
+                    <div class="form-group mb-0">
+                      <label for="totalTime">是否提供未購買者預覽</label>
+                    </div>
+                    <div class="form-check ml-4">
+                      <input class="form-check-input" type="radio" name="isPreview" id="isPreview1" value="false"
+                        checked>
+                      <label class="form-check-label" for="isPreview1">
+                        不提供給未購買者預覽
+                      </label>
+                    </div>
+                    <div class="form-group ml-4">
+                      <div class="form-check">
+                        <input class="form-check-input" type="radio" name="isPreview" id="isPreview2" value="true">
+                        <label class="form-check-label" for="isPreview2">
+                          提供未購買者預覽
+                        </label>
+                      </div>
+                    </div>
+
+                    <div class="form-group mb-0">
+                      <label for="">是否要隱藏課程</label>
+                    </div>
+                    <div class="form-check ml-4">
+                      <input class="form-check-input" type="radio" name="visible" id="visible1" value="false">
+                      <label class="form-check-label" for="visible1">
+                        隱藏課程
+                      </label>
+                    </div>
+                    <div class="form-group ml-4">
+                      <div class="form-check">
+                        <input class="form-check-input" type="radio" name="visible" id="visible2" value="true" checked>
+                        <label class="form-check-label" for="visible2">
+                          不隱藏課程
+                        </label>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <label for="videoURL">影片連結</label>
+                      <small class="ml-1 text-danger" style="font-size: 20px;">*</small>
+                      <input type="text" class="form-control" name="videoURL" id="videoURL" placeholder=""
+                        value="{{lesson.videoURL}}">
+                    </div>
+                    <div class="form-group purple-border">
+                      <label for="contents">編輯課程內容</label>
+                      <small class="ml-1 text-danger" style="font-size: 20px;">*</small>
+                      {{!-- rich text editor --}}
+                      <!-- Create toolbar container -->
+                      <div id="toolbar"></div>
+                      <div id="editor" style="height: 300px;">{{{lesson.contents}}}</div>
+
+                      {{!-- 編輯在 #editor 中的內容，於送出 request 後會先把編輯內容存進 textarea，再 submit--}}
+                      <textarea name="contents" class="form-control" style="display:none" id="hiddenArea"></textarea>
+
+                    </div>
+                    {{!-- <button type="submit" class="btn-two cyan rounded small mr-5 ">Save</button> --}}
+                    <button type="submit" class="btn-two green rounded small mr-5 ">Save</button>
+                    {{!-- 刪除鈕動作改以 jquery 執行 --}}
+                    <button class="btn-two red small rounded my-0  btn-remove-lesson" role="" data-id="{{lesson.id}}"
+                      data-lessonnumber="{{lesson.lessonNumber}}">Delete
+                    </button>
+                    {{!-- </form> --}}
+                  </form>
+
+                  {{else}}
+                  <h3 class="mt-4">建立新的章節</h3>
+                  <form action="/courses/create/{{course.id}}/step2" method="POST" class="mt-4" id="identifier">
+                    <div class="form-group">
+                      <label for="name">課程章節</label>
+                      <small class="ml-1 text-danger" style="font-size: 20px;">*</small>
+                      <input type="number" class="form-control" name="lessonNumber" id="lessonNumber" placeholder=""
+                        value="{{lesson.lessonNumber}}">
+                    </div>
+                    <div class="form-group">
+                      <label for="title">章節名稱</label>
+                      <small class="ml-1 text-danger" style="font-size: 20px;">*</small>
+                      <input type="text" class="form-control" name="title" id="title" placeholder=""
+                        value="{{lesson.title}}">
+                    </div>
+                    <div class="form-group">
+                      <label for="intro" class="mr-1">章節簡介 (250 字為限)</label>
+                      <small class="ml-1 text-danger" style="font-size: 20px;">*</small>
+                      <small class="ml-5 text-muted">剩餘字數</small>
+                      <small class="ml-1 text-muted" id="intro-small"></small>
+                      <textarea class="form-control" maxlength="250" rows="2" name="intro" id="intro"
+                        placeholder="簡單介紹課程內容...">{{lesson.intro}}</textarea>
+                    </div>
+                    <div class="form-group">
+                      <label for="totalTime">章節上課時數 ( 分鐘 )</label>
+                      <small class="ml-1 text-danger" style="font-size: 20px;">*</small>
+                      <input type="number" class="form-control" name="totalTime" id="totalTime" placeholder=""
+                        value="{{lesson.totalTime}}">
+                    </div>
+                    <div class="form-group mb-0">
+                      <label for="">是否提供未購買者預覽</label>
+                    </div>
+                    <div class="form-check ml-4">
+                      <input class="form-check-input" type="radio" name="isPreview" id="isPreview1" value="false"
+                        checked>
+                      <label class="form-check-label" for="isPreview1">
+                        不提供給未購買者預覽
+                      </label>
+                    </div>
+                    <div class="form-group ml-4">
+                      <div class="form-check">
+                        <input class="form-check-input" type="radio" name="isPreview" id="isPreview2" value="true">
+                        <label class="form-check-label" for="isPreview2">
+                          提供未購買者預覽
+                        </label>
+                      </div>
+                    </div>
+
+                    <div class="form-group mb-0">
+                      <label for="">是否要隱藏課程</label>
+                    </div>
+                    <div class="form-check ml-4">
+                      <input class="form-check-input" type="radio" name="visible" id="visible1" value="false">
+                      <label class="form-check-label" for="visible1">
+                        隱藏課程
+                      </label>
+                    </div>
+                    <div class="form-group ml-4">
+                      <div class="form-check">
+                        <input class="form-check-input" type="radio" name="visible" id="visible2" value="true" checked>
+                        <label class="form-check-label" for="visible2">
+                          不隱藏課程
+                        </label>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <label for="videoURL">影片連結</label>
+                      <small class="ml-1 text-danger" style="font-size: 20px;">*</small>
+                      <input type="text" class="form-control" name="videoURL" id="videoURL" placeholder=""
+                        value="{{lesson.videoURL}}">
+                    </div>
+                    <div class="form-group purple-border">
+                      <label for="contents">編輯課程內容</label>
+                      <small class="ml-1 text-danger" style="font-size: 20px;">*</small>
+                      {{!-- rich text editor --}}
+                      <!-- Create toolbar container -->
+                      <div id="toolbar"></div>
+                      <progress id='progressbar' style='display: none' value="0"></progress>
+                      <div id="editor" style="height: 300px;">
+                        {{{lesson.contents}}}
+                      </div>
+
+                      <textarea name="contents" class="form-control" style="display:none" id="hiddenArea"></textarea>
+
+                    </div>
+
+                    <button type="submit" class="btn-two green rounded small mr-5 ">Save</button>
+                    {{!-- <button type="submit" class="btn-two cyan rounded mr-5 ">Save</button>
+        <button type="submit" class="btn-two red rounded mr-5 ">Save</button>
+        <button type="submit" class="btn btn-outline-primary mr-5 ">Save</button> --}}
+                  </form>
+                  {{/if}}
 
 
-    {{#if lesson}}
-    <div class="d-flex justify-content-start mt-5">
-      <a href="/courses/create/{{course.id}}/step2" class="btn-two yellow rounded small my-3 mr-5 ">建立新的章節<i
-          class="fas fa-plus ml-3"></i>
-      </a>
-    </div>
-    {{/if}}
 
+                </div>
+              </div>
 
-    {{#if lesson}}
-    <h3 class="mt-3">編輯章節內容</h3>
-    <form action="/courses/create/{{course.id}}/step2/{{lesson.id}}?_method=PUT" method="POST" class="mt-5"
-      id="identifier">
-      <div class="form-group">
-        <label for="name">課程章節</label>
-        <small class="ml-1 text-danger" style="font-size: 20px;">*</small>
-        <input type="number" class="form-control " name="lessonNumber" id="lessonNumber" placeholder=""
-          value="{{lesson.lessonNumber}}" readonly>
-      </div>
-      <div class="form-group">
-        <label for="title">章節名稱</label>
-        <small class="ml-1 text-danger" style="font-size: 20px;">*</small>
-        <input type="text" class="form-control" name="title" id="title" placeholder="" value="{{lesson.title}}">
-      </div>
-      <div class="form-group">
-        <label for="intro">章節簡介 (250 字為限)</label>
-        <small class="ml-1 text-danger" style="font-size: 20px;">*</small>
-        <input type="text" class="form-control" name="intro" id="intro" placeholder="" value="{{lesson.intro}}">
-      </div>
-      <div class="form-group">
-        <label for="totalTime">章節上課時數 ( 分鐘 )</label>
-        <small class="ml-1 text-danger" style="font-size: 20px;">*</small>
-        <input type="number" class="form-control" name="totalTime" id="totalTime" placeholder=""
-          value="{{lesson.totalTime}}">
-      </div>
-      <div class="form-group mb-0">
-        <label for="totalTime">是否提供未購買者預覽</label>
-      </div>
-      <div class="form-check ml-4">
-        <input class="form-check-input" type="radio" name="isPreview" id="isPreview1" value="false" checked>
-        <label class="form-check-label" for="isPreview1">
-          不提供給未購買者預覽
-        </label>
-      </div>
-      <div class="form-group ml-4">
-        <div class="form-check">
-          <input class="form-check-input" type="radio" name="isPreview" id="isPreview2" value="true">
-          <label class="form-check-label" for="isPreview2">
-            提供未購買者預覽
-          </label>
+            </div>
+
+            <div class="d-flex justify-content-start mt-3 mb-5">
+              <a href="/courses/create/{{course.id}}/step1" class="btn-two yellow rounded small my-3 mr-5">
+                < 上一步 </a> <a href="/courses/create/{{course.id}}/step3" class="btn-two yellow rounded small my-3">下一步 >
+              </a>
+            </div>
+          </div>
         </div>
       </div>
-
-      <div class="form-group mb-0">
-        <label for="">是否要隱藏課程</label>
-      </div>
-      <div class="form-check ml-4">
-        <input class="form-check-input" type="radio" name="visible" id="visible1" value="false">
-        <label class="form-check-label" for="visible1">
-          隱藏課程
-        </label>
-      </div>
-      <div class="form-group ml-4">
-        <div class="form-check">
-          <input class="form-check-input" type="radio" name="visible" id="visible2" value="true" checked>
-          <label class="form-check-label" for="visible2">
-            不隱藏課程
-          </label>
-        </div>
-      </div>
-
-      <div class="form-group">
-        <label for="videoURL">影片連結</label>
-        <small class="ml-1 text-danger" style="font-size: 20px;">*</small>
-        <input type="text" class="form-control" name="videoURL" id="videoURL" placeholder=""
-          value="{{lesson.videoURL}}">
-      </div>
-      <div class="form-group purple-border">
-        <label for="contents">編輯課程內容</label>
-        <small class="ml-1 text-danger" style="font-size: 20px;">*</small>
-        {{!-- rich text editor --}}
-        <!-- Create toolbar container -->
-        <div id="toolbar"></div>
-        <div id="editor" style="height: 300px;">{{{lesson.contents}}}</div>
-
-        {{!-- 編輯在 #editor 中的內容，於送出 request 後會先把編輯內容存進 textarea，再 submit--}}
-        <textarea name="contents" class="form-control" style="display:none" id="hiddenArea"></textarea>
-
-      </div>
-      {{!-- <button type="submit" class="btn-two cyan rounded small mr-5 ">Save</button> --}}
-      <button type="submit" class="btn-two green rounded small mr-5 ">Save</button>
-      {{!-- 刪除鈕動作改以 jquery 執行 --}}
-      <button class="btn-two red small rounded my-0  btn-remove-lesson" role="" data-id="{{lesson.id}}"
-        data-lessonnumber="{{lesson.lessonNumber}}">Delete
-      </button>
-      {{!-- </form> --}}
-    </form>
-
-    {{else}}
-    <h3 class="mt-5">建立新的章節</h3>
-    <form action="/courses/create/{{course.id}}/step2" method="POST" class="mt-4" id="identifier">
-      <div class="form-group">
-        <label for="name">課程章節</label>
-        <small class="ml-1 text-danger" style="font-size: 20px;">*</small>
-        <input type="number" class="form-control" name="lessonNumber" id="lessonNumber" placeholder=""
-          value="{{lesson.lessonNumber}}">
-      </div>
-      <div class="form-group">
-        <label for="title">章節名稱</label>
-        <small class="ml-1 text-danger" style="font-size: 20px;">*</small>
-        <input type="text" class="form-control" name="title" id="title" placeholder="" value="{{lesson.title}}">
-      </div>
-      <div class="form-group">
-        <label for="intro" class="mr-1">章節簡介 (250 字為限)</label>
-        <small class="ml-1 text-danger" style="font-size: 20px;">*</small>
-        <small class="ml-5 text-muted">剩餘字數</small>
-        <small class="ml-1 text-muted" id="intro-small"></small>
-        <textarea class="form-control" maxlength="250" rows="2" name="intro" id="intro"
-          placeholder="簡單介紹課程內容...">{{lesson.intro}}</textarea>
-      </div>
-      <div class="form-group">
-        <label for="totalTime">章節上課時數 ( 分鐘 )</label>
-        <small class="ml-1 text-danger" style="font-size: 20px;">*</small>
-        <input type="number" class="form-control" name="totalTime" id="totalTime" placeholder=""
-          value="{{lesson.totalTime}}">
-      </div>
-      <div class="form-group mb-0">
-        <label for="">是否提供未購買者預覽</label>
-      </div>
-      <div class="form-check ml-4">
-        <input class="form-check-input" type="radio" name="isPreview" id="isPreview1" value="false" checked>
-        <label class="form-check-label" for="isPreview1">
-          不提供給未購買者預覽
-        </label>
-      </div>
-      <div class="form-group ml-4">
-        <div class="form-check">
-          <input class="form-check-input" type="radio" name="isPreview" id="isPreview2" value="true">
-          <label class="form-check-label" for="isPreview2">
-            提供未購買者預覽
-          </label>
-        </div>
-      </div>
-
-      <div class="form-group mb-0">
-        <label for="">是否要隱藏課程</label>
-      </div>
-      <div class="form-check ml-4">
-        <input class="form-check-input" type="radio" name="visible" id="visible1" value="false">
-        <label class="form-check-label" for="visible1">
-          隱藏課程
-        </label>
-      </div>
-      <div class="form-group ml-4">
-        <div class="form-check">
-          <input class="form-check-input" type="radio" name="visible" id="visible2" value="true" checked>
-          <label class="form-check-label" for="visible2">
-            不隱藏課程
-          </label>
-        </div>
-      </div>
-
-      <div class="form-group">
-        <label for="videoURL">影片連結</label>
-        <small class="ml-1 text-danger" style="font-size: 20px;">*</small>
-        <input type="text" class="form-control" name="videoURL" id="videoURL" placeholder=""
-          value="{{lesson.videoURL}}">
-      </div>
-      <div class="form-group purple-border">
-        <label for="contents">編輯課程內容</label>
-        <small class="ml-1 text-danger" style="font-size: 20px;">*</small>
-        {{!-- rich text editor --}}
-        <!-- Create toolbar container -->
-        <div id="toolbar"></div>
-        <progress id='progressbar' style='display: none' value="0"></progress>
-        <div id="editor" style="height: 300px;">
-          {{{lesson.contents}}}
-        </div>
-
-        <textarea name="contents" class="form-control" style="display:none" id="hiddenArea"></textarea>
-
-      </div>
-
-      <button type="submit" class="btn-two green rounded small mr-5 ">Save</button>
-      {{!-- <button type="submit" class="btn-two cyan rounded mr-5 ">Save</button>
-      <button type="submit" class="btn-two red rounded mr-5 ">Save</button>
-      <button type="submit" class="btn btn-outline-primary mr-5 ">Save</button> --}}
-    </form>
-    {{/if}}
-
-    <div class="d-flex justify-content-start mt-3 mb-5">
-      <a href="/courses/create/{{course.id}}/step1" class="btn-two yellow rounded mini my-3 mr-5">
-        < 上一步 </a> <a href="/courses/create/{{course.id}}/step3" class="btn-two yellow rounded mini my-3">下一步 >
-      </a>
     </div>
   </div>
 </div>
+
 
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script>

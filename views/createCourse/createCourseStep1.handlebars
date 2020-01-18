@@ -162,92 +162,345 @@
     text-align: center;
     color: #f00
   }
+
+
+
+  .container:before,
+  .container:after {
+    content: " ";
+    display: table;
+  }
+
+  .resume-page .resume-nav-bar ul.y-resume-edit-progressing-bar {
+    background-color: #fff;
+    font-size: 18px;
+    height: 58px;
+    margin: 10px 0 0;
+    padding: 20px 0 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .resume-page .resume-nav-bar ul.y-resume-edit-progressing-bar li {
+    display: inline-block;
+    margin-left: 20px;
+  }
+
+  .resume-page .resume-nav-bar ul.y-resume-edit-progressing-bar li a {
+    margin: 0 30px;
+    display: inline-block;
+    text-decoration: none;
+    outline: none;
+    color: #333;
+  }
+
+  .resume-page .resume-nav-bar ul.y-resume-edit-progressing-bar li a.active:after {
+    content: '';
+    display: block;
+    margin: 8px auto 0;
+    height: 5px;
+    width: 100%;
+    background: #0070c4;
+  }
+
+  a {
+    color: #337ab7;
+    text-decoration: none;
+  }
+
+  a {
+    background-color: transparent;
+  }
+
+  .resume-page .resume-nav-bar ul.y-resume-edit-progressing-bar li a:not(.active):after {
+    content: '';
+    display: block;
+    margin: 8px auto 0;
+    width: 0;
+    height: 5px;
+    background: transparent;
+    transition: width 0.5s ease;
+  }
+
+  .resume-page .resume-nav-bar ul.y-resume-edit-progressing-bar li.step-icon:after {
+    content: "\f054";
+    display: inline-block;
+    margin-left: 20px;
+    font-family: FontAwesome;
+    font-size: 18px;
+  }
+
+  .container:before,
+  .container:after {
+    content: " ";
+    display: table;
+  }
+
+  .container:after {
+    clear: both;
+  }
+
+  .resume-page .welcome-text {
+    margin: 10px 0;
+    background: #FFFFFF;
+    position: relative;
+  }
+
+  .resume-page .welcome-text p {
+    padding: 30px 0;
+    width: 60%;
+    margin: 0 auto;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+  }
+
+  .resume-page .resume-writing-hint {
+    color: #0070C4;
+    font-weight: 600;
+  }
+
+  .resume-page .welcome-text #resume-example {
+    position: absolute;
+    top: 40px;
+    right: 55px;
+  }
+
+  .resume-page .welcome-text .btn-green-lake {
+    background-color: #3ac3c0;
+    color: white;
+  }
+
+  .resume-page .resume-step2 a,
+  .resume-page .resume-step4 a {
+    display: inline-block;
+  }
+
+  .btn-sm,
+  .btn-group-sm>.btn {
+    padding: 5px 10px;
+    font-size: 12px;
+    line-height: 1.5;
+    border-radius: 3px;
+  }
+
+  img {
+    vertical-align: middle;
+  }
+
+  img {
+    border: 0;
+  }
+
+  .fadeIn {
+    -webkit-animation-name: fadeIn;
+    animation-name: fadeIn;
+  }
+
+  .animated {
+    -webkit-animation-duration: 1s;
+    animation-duration: 1s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+  }
+
+  .resume-page .step-form-block {
+    background: #FFFFFF;
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 10px 30px 30px;
+    min-height: 115px;
+  }
+
+  .resume-page h3,
+  .resume-page .add-link {
+    font-size: 18px;
+  }
+
+  [data-react-beautiful-dnd-droppable="58"] {
+    overflow-anchor: none;
+  }
+
+  .resume-page .add-link {
+    color: #0070C4;
+    cursor: pointer;
+  }
+
+  .resume-page h3,
+  .resume-page .add-link {
+    font-size: 18px;
+  }
+
+  .resume-page .add-link:before {
+    content: '+';
+    display: inline-block;
+    margin-right: 5px;
+  }
+
+  .ipad-mobile {
+    display: none;
+  }
+
+  @media (min-width: 1085px) {
+    .ipad-mobile {
+      display: none;
+    }
+  }
+
+  @media (max-width: 767px) {
+    .desktop {
+      display: none !important;
+    }
+  }
+
+  @media (max-width: 1084px) {
+    .desktop {
+      display: none !important;
+    }
+  }
+
+  @media (max-width: 1084px) {
+    .desktop {}
+  }
+
+  @media (max-width: 767px) {
+    .desktop {
+      display: none !important;
+    }
+  }
+
+  @media (max-width: 1084px) {
+    .desktop {
+      display: none !important;
+    }
+  }
 </style>
 
 <div class="row">
-  <div class="col col-md-8 mx-auto mb-5">
-    <h3 class="my-3">Step 1：課程基本資訊</h3>
-    <form action="/courses/create/{{course.id}}/step1" method="POST" enctype="multipart/form-data" class="my-5">
-      <div class="form-group">
-        <label for="name">課程名稱</label>
-        <small class="ml-1 text-danger" style="font-size: 20px;">*</small>
-        <input type="text" class="form-control" name="name" id="name" placeholder="為你的課程取個名字吧！" value="{{course.name}}">
-      </div>
-      <div class="form-group">
-        <label for="description" class="mr-1">課程簡介 (250 字為限)</label>
-        <small class="ml-1 text-danger" style="font-size: 20px;">*</small>
-        <small class="ml-5 text-muted">剩餘字數</small>
-        <small class="ml-1 text-muted" id="descrip-small"></small>
-        <textarea class="form-control" maxlength="250" rows="6" name="description" id="description"
-          placeholder="簡述一下課程">{{course.description}}</textarea>
-      </div>
-
-      <div class="form-group">
-        <label for="introVideo">課程簡介影片</label>
-        <small class="ml-1 text-danger" style="font-size: 20px;">*</small>
-        <input type="text" class="form-control" name="introVideo" id="introVideo" placeholder="輸入影片連結"
-          value="{{course.introVideo}}">
-      </div>
-      <div class="form-group">
-        <label for="CourseSubCategoryId">課程類別(<span>主類別/次類別</span>)</label>
-        <small class="ml-1 text-danger" style="font-size: 20px;">*</small>
-        <select class="form-control" name="CourseSubCategoryId">
-          {{#each courseSubCategories}}
-          <option value="{{this.id}}" {{#ifCond this.id ../course.CourseSubCategoryId}}selected{{/ifCond}}>
-            {{this.CourseCategory.name}}/{{this.name}}</option>
-          {{/each}}
-        </select>
-      </div>
-      <div class="form-group">
-        <label for="teacherName">講師姓名</label>
-        <small class="ml-1 text-danger" style="font-size: 20px;">*</small>
-        <input type="text" class="form-control" name="teacherName" id="teacherName" placeholder="取個響亮的名字吧~"
-          value="{{course.teacherName}}">
-      </div>
-      <div class="form-group">
-        <label for="teacherDescrip" class="mr-1">教師簡介 (250 字為限)</label>
-        <small class="ml-1 text-danger" style="font-size: 20px;">*</small>
-        <small class="ml-5 text-muted">剩餘字數</small>
-        <small class="ml-1 text-muted" id="teacherDescrip-small"></small>
-        <textarea class="form-control" maxlength="250" rows="6" name="teacherDescrip" id="teacherDescrip"
-          placeholder="介紹講師你自己...">{{course.teacherDescrip}}</textarea>
-      </div>
-      <div class="form-group mb-0 mt-5 text-center">
-        <label for="teacherName">上傳課程圖片</label>
-
-      </div>
-
-
-      <main class="main_full">
-        <div class="container">
-          <div class="panel">
-            <div class="button_outer">
-              <div class="btn_upload">
-                <input type="file" id="upload_file" name="image" accept="image/gif, image/jpeg, image/png">
-                Upload Image
+  <div class="col col-md-10 mx-auto mb-5">
+    <div class="resume-page">
+      <div id="resume-page-app">
+        <div class="row-min-height-and-color">
+          <div id="resume-nav-bar">
+            <div class="container resume-nav-bar">
+              <div class="desktop">
+                <ul class="y-resume-edit-progressing-bar">
+                  <li class="step-icon"><a class="active" href="#" data-page="1">1.基本資訊</a></li>
+                  <li class="step-icon"><a class="" href="/courses/create/{{course.id}}/step2" data-page="2">2.課程內容</a>
+                  </li>
+                  <li class="step-icon"><a class="" href="/courses/create/{{course.id}}/step3" data-page="3">3.定價</a>
+                  </li class="step-icon">
+                  <li><a class="" href="/courses/create/{{course.id}}/step4/intro" data-page="3">4.預覽課程</a></li>
+                </ul>
               </div>
-              <div class="processing_bar"></div>
-              <div class="success_box"></div>
             </div>
           </div>
-          <div class="error_msg"></div>
-          <div class="uploaded_file_view {{#if course.image}}show{{/if}}" id="uploaded_view">
-            <span class="file_remove">X</span>
-            {{#if course.image}}
-            <img src="{{course.image}}">
-            {{/if}}
+
+          <div class="container">
+            <div class="resume-step1">
+              <div class="welcome-text">
+                <p><span class="resume-writing-hint">本頁面所有的欄位都是必填。</span>若您在某些欄位卡關了，請先按「下一步」，之後還可以再做整體的修正。</p>
+              </div>
+              <div class="step-form-block">
+                <div class="col-md-12 col-md-offset-2 col-sm-12 col-sm-offset-3 animated fadeIn">
+
+                  <h3 class="my-3">課程基本資訊</h3>
+                  <form action="/courses/create/{{course.id}}/step1" method="POST" enctype="multipart/form-data"
+                    class="my-5">
+                    <div class="form-group">
+                      <label for="name">課程名稱</label>
+                      <small class="ml-1 text-danger" style="font-size: 20px;">*</small>
+                      <input type="text" class="form-control" name="name" id="name" placeholder="為你的課程取個名字吧！"
+                        value="{{course.name}}">
+                    </div>
+                    <div class="form-group">
+                      <label for="description" class="mr-1">課程簡介 (250 字為限)</label>
+                      <small class="ml-1 text-danger" style="font-size: 20px;">*</small>
+                      <small class="ml-5 text-muted">剩餘字數</small>
+                      <small class="ml-1 text-muted" id="descrip-small"></small>
+                      <textarea class="form-control" maxlength="250" rows="6" name="description" id="description"
+                        placeholder="簡述一下課程">{{course.description}}</textarea>
+                    </div>
+
+                    <div class="form-group">
+                      <label for="introVideo">課程簡介影片</label>
+                      <small class="ml-1 text-danger" style="font-size: 20px;">*</small>
+                      <input type="text" class="form-control" name="introVideo" id="introVideo" placeholder="輸入影片連結"
+                        value="{{course.introVideo}}">
+                    </div>
+                    <div class="form-group">
+                      <label for="CourseSubCategoryId">課程類別(<span>主類別/次類別</span>)</label>
+                      <small class="ml-1 text-danger" style="font-size: 20px;">*</small>
+                      <select class="form-control" name="CourseSubCategoryId">
+                        {{#each courseSubCategories}}
+                        <option value="{{this.id}}"
+                          {{#ifCond this.id ../course.CourseSubCategoryId}}selected{{/ifCond}}>
+                          {{this.CourseCategory.name}}/{{this.name}}</option>
+                        {{/each}}
+                      </select>
+                    </div>
+                    <div class="form-group">
+                      <label for="teacherName">講師姓名</label>
+                      <small class="ml-1 text-danger" style="font-size: 20px;">*</small>
+                      <input type="text" class="form-control" name="teacherName" id="teacherName"
+                        placeholder="取個響亮的名字吧~" value="{{course.teacherName}}">
+                    </div>
+                    <div class="form-group">
+                      <label for="teacherDescrip" class="mr-1">教師簡介 (250 字為限)</label>
+                      <small class="ml-1 text-danger" style="font-size: 20px;">*</small>
+                      <small class="ml-5 text-muted">剩餘字數</small>
+                      <small class="ml-1 text-muted" id="teacherDescrip-small"></small>
+                      <textarea class="form-control" maxlength="250" rows="6" name="teacherDescrip" id="teacherDescrip"
+                        placeholder="介紹講師你自己...">{{course.teacherDescrip}}</textarea>
+                    </div>
+                    <div class="form-group mb-0 mt-5 text-center">
+                      <label for="teacherName">上傳課程圖片</label>
+
+                    </div>
+
+
+                    <main class="main_full">
+                      <div class="container">
+                        <div class="panel">
+                          <div class="button_outer">
+                            <div class="btn_upload">
+                              <input type="file" id="upload_file" name="image"
+                                accept="image/gif, image/jpeg, image/png">
+                              Upload Image
+                            </div>
+                            <div class="processing_bar"></div>
+                            <div class="success_box"></div>
+                          </div>
+                        </div>
+                        <div class="error_msg"></div>
+                        <div class="uploaded_file_view {{#if course.image}}show{{/if}}" id="uploaded_view">
+                          <span class="file_remove">X</span>
+                          {{#if course.image}}
+                          <img src="{{course.image}}">
+                          {{/if}}
+                        </div>
+                      </div>
+                    </main>
+
+                    <button type="submit" class="btn-two green rounded small mr-5">Save</button>
+                  </form>
+
+                </div>
+                <div class="clearfix"></div>
+              </div>
+              <div class="d-flex justify-content-start mt-3">
+                <a href="/courses/create/{{course.id}}/step2" class="btn-two yellow rounded small my-1">下一步 >
+                </a>
+              </div>
+            </div>
           </div>
         </div>
-      </main>
-
-      <button type="submit" class="btn-two green rounded small mr-5">Save</button>
-    </form>
-    <div class="d-flex justify-content-start mt-3">
-      <a href="/courses/create/{{course.id}}/step2" class="btn-two yellow rounded small my-1">下一步 >
-      </a>
+      </div>
     </div>
   </div>
 </div>
+
 
 <script>
   var loadFile = function (event) {
