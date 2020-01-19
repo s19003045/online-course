@@ -244,6 +244,12 @@ module.exports = (app, passport) => {
   );
   // 使用可以購買課程
   app.post("/order/:courses_id", authenticated, orderController.orderCourse);
+  // 使用者可以加課程加入購物車
+  app.get('/cart', cartController.getCart)
+  // 使用者可以加課程加入購物車
+  app.post('/cart', cartController.postCart)
+  app.delete('/cartItem/:id', cartController.deleteCartItem)
+
 
   // 用主類別篩選課程
   app.get("/courses/:mainCategoName", courseController.getMainCategoryCourse);
