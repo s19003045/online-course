@@ -67,7 +67,7 @@
       <div class="row">
         <div class="col-md-4">
           <form action="/order" method="POST">
-            <div class="form-group">
+            {{!-- <div class="form-group">
               <label for="name">Name</label>
               <input type="text" class="form-control" id="name" placeholder="Enter name" name="name">
             </div>
@@ -78,12 +78,12 @@
             <div class="form-group">
               <label for="address">Address</label>
               <input type="text" class="form-control" id="address" placeholder="Enter address" name="address">
-            </div>
+            </div> --}}
             <input type="hidden" name="cartId" value="{{cart.id}}">
             <input type="hidden" name="amount" value="{{totalPrice}}">
             <input type="hidden" name="shipping_status" value="0">
             <input type="hidden" name="payment_status" value="0">
-            <button type="submit" class="btn-two cyan small">Submit</button>
+            <button type="submit" class="btn-two cyan small">結帳</button>
           </form>
         </div>
       </div>
