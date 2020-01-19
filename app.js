@@ -13,12 +13,11 @@ const exphbs = require("express-handlebars");
 const port = process.env.PORT || 3000;
 const bodyParser = require("body-parser");
 const session = require("express-session");
+const cookieParser = require('cookie-parser');
 const flash = require("connect-flash");
 const passport = require("./config/passport");
 const methodOverride = require("method-override");
 
-// app.use(bodyParser.urlencoded({ extended: true }));
-// app.use(bodyParser.json());
 
 app.use(
   bodyParser.urlencoded({
@@ -42,9 +41,17 @@ app.engine(
 );
 app.set("view engine", "handlebars");
 
+app.use(cookieParser());
 app.use(
-  session({ secret: "DennyJohnAbby", resave: false, saveUninitialized: false })
+  session({
+    secret: "DennyJohnAbby",
+    name: 'Gamico',
+    cookie: { maxAge: 80000 },
+    resave: false,
+    saveUninitialized: false
+  })
 );
+
 app.use(flash());
 
 app.use(passport.initialize());
