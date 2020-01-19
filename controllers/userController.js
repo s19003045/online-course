@@ -5,9 +5,10 @@ const UserEnrollment = db.UserEnrollment;
 const Lesson = db.Lesson;
 const Favorite = db.Favorite;
 const LessonUser = db.LessonUser;
-const Reward = db.Reward
-const Login = db.Login
-const momentDay = require('../config/handlebars-helpers').momentDay
+const Reward = db.Reward;
+const Login = db.Login;
+const momentDay = require("../config/handlebars-helpers").momentDay;
+const bcrypt = require("bcrypt-nodejs");
 
 const userController = {
   // 登入/註冊/登出
@@ -48,59 +49,57 @@ const userController = {
   },
 
   signIn: (req, res) => {
-    const loginRewardPoint = 2000
+    const loginRewardPoint = 2000;
     req.flash("success_messages", "成功登入！");
-    let loginDate = new Date()
-    let loginDay = momentDay(loginDate)
+    let loginDate = new Date();
+    let loginDay = momentDay(loginDate);
     // 記錄登入時間
     return Login.findOne({
       day: loginDay,
       UserId: req.user.id
-    })
-      .then(login => {
-        console.log(login)
-        // 當天若已登入，則不加點數
-        if (login) {
-          //先記錄登入時間
-          Login.create({
-            loginDate: loginDate,
-            day: loginDay,
-            UserId: req.user.id
-          })
-            .then(login => {
-              return res.redirect("/courses");
-            })
-        } else {
-          //當天未登入者，先記錄登入時間，再加點數
-          Login.create({
-            loginDate: loginDate,
-            day: loginDay,
-            UserId: req.user.id
-          })
-            .then(login => {
-              // 當天第一次登入，點數 + 5
-              return Reward.findOne({ where: { UserId: req.user.id } })
-                .then(reward => {
-                  if (!reward) {
-                    return Reward.create({
-                      point: loginRewardPoint,
-                      UserId: req.user.id
-                    })
-                      .then(reward => {
-                        req.flash('success_messages', '今天第一次登入，獲得 5 點')
-                        return res.redirect("/courses");
-                      })
-                  } else {
-                    return reward.increment('point', { by: loginRewardPoint })
-                      .then(reward => {
-                        req.flash('success_messages', '今天第一次登入，獲得 5 點')
-                        return res.redirect("/courses");
-                      })
-                  }
-                })
-            })
-        }
-      })
+    }).then(login => {
+      console.log(login);
+      // 當天若已登入，則不加點數
+      if (login) {
+        //先記錄登入時間
+        Login.create({
+          loginDate: loginDate,
+          day: loginDay,
+          UserId: req.user.id
+        }).then(login => {
+          return res.redirect("/courses");
+        });
+      } else {
+        //當天未登入者，先記錄登入時間，再加點數
+        Login.create({
+          loginDate: loginDate,
+          day: loginDay,
+          UserId: req.user.id
+        }).then(login => {
+          // 當天第一次登入，點數 + 5
+          return Reward.findOne({ where: { UserId: req.user.id } }).then(
+            reward => {
+              if (!reward) {
+                return Reward.create({
+                  point: loginRewardPoint,
+                  UserId: req.user.id
+                }).then(reward => {
+                  req.flash("success_messages", "今天第一次登入，獲得 5 點");
+                  return res.redirect("/courses");
+                });
+              } else {
+                return reward
+                  .increment("point", { by: loginRewardPoint })
+                  .then(reward => {
+                    req.flash("success_messages", "今天第一次登入，獲得 5 點");
+                    return res.redirect("/courses");
+                  });
+              }
+            }
+          );
+        });
+      }
+    });
   },
 
   logout: (req, res) => {
@@ -112,10 +111,9 @@ const userController = {
   //使用者可以看個人帳號資訊
   getUser: (req, res) => {
     User.findByPk(req.user.id).then(user => {
-      return Reward.findOne({ where: { UserId: req.user.id } })
-        .then(reward => {
-          return res.render("user", { user, reward });
-        })
+      return Reward.findOne({ where: { UserId: req.user.id } }).then(reward => {
+        return res.render("user", { user, reward });
+      });
     });
   },
 
