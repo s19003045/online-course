@@ -250,6 +250,9 @@ module.exports = (app, passport) => {
   app.post('/cart', cartController.postCart)
   app.delete('/cartItem/:id', cartController.deleteCartItem)
 
+  app.get('/orders', orderController.getOrders)
+  app.post('/order', orderController.postOrder)
+  app.post('/order/:id/cancel', orderController.cancelOrder)
 
   // 用主類別篩選課程
   app.get("/courses/:mainCategoName", courseController.getMainCategoryCourse);

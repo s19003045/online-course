@@ -4,6 +4,11 @@ const UserEnrollment = db.UserEnrollment;
 const Lesson = db.Lesson;
 const LessonUser = db.LessonUser;
 
+const Order = db.Order
+const OrderItem = db.OrderItem
+const Cart = db.Cart
+
+
 const orderController = {
   orderCourse: (req, res) => {
     Course.findByPk(req.params.courses_id).then(course => {
@@ -57,7 +62,61 @@ const orderController = {
         res.redirect("back");
       }
     });
-  }
+  },
+  // 取得所有訂單
+  getOrders: (req, res) => {
+    Order.findAll({ include: 'items' }).then(orders => {
+      // return res.json(orders)
+      return res.render('shop/orders', {
+        orders
+      })
+    })
+  },
+  // 送出訂單
+  postOrder: (req, res) => {
+    return Cart.findByPk(req.body.cartId, { include: 'items' }).then(cart => {
+      return Order.create({
+        // name: req.body.name,
+        // address: req.body.address,
+        // phone: req.body.phone,
+        shipping_status: req.body.shipping_status,
+        payment_status: req.body.payment_status,
+        amount: req.body.amount,
+      }).then(order => {
+        console.log('cart:', cart)
+        console.log('order:', order)
+        var results = [];
+        for (var i = 0; i < cart.items.length; i++) {
+          console.log(order.id, cart.items[i].id)
+          results.push(
+            OrderItem.create({
+              OrderId: order.id,
+              CourseId: cart.items[i].id,
+              price: cart.items[i].price,
+              quantity: cart.items[i].CartItem.quantity,
+            })
+          );
+        }
+
+        return Promise.all(results).then(() =>
+          res.redirect('/orders')
+        );
+
+      })
+    })
+  },
+  // 取消訂單
+  cancelOrder: (req, res) => {
+    return Order.findByPk(req.params.id, {}).then(order => {
+      order.update({
+        ...req.body,
+        shipping_status: '-1',
+        payment_status: '-1',
+      }).then(order => {
+        return res.redirect('back')
+      })
+    })
+  },
 };
 
 module.exports = orderController;
