@@ -7,7 +7,15 @@ const LessonUser = db.LessonUser;
 const Order = db.Order
 const OrderItem = db.OrderItem
 const Cart = db.Cart
+const nodemailer = require('nodemailer');
 
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: process.env.GMAIL_ID,
+    pass: process.env.GMAIL_PWD,
+  },
+});
 
 const orderController = {
   orderCourse: (req, res) => {
@@ -74,6 +82,8 @@ const orderController = {
   },
   // 送出訂單
   postOrder: (req, res) => {
+    console.log(process.env.GMAIL_ID)
+    console.log(process.env.GMAIL_PWD)
     return Cart.findByPk(req.body.cartId, { include: 'items' }).then(cart => {
       return Order.create({
         // name: req.body.name,
@@ -83,11 +93,11 @@ const orderController = {
         payment_status: req.body.payment_status,
         amount: req.body.amount,
       }).then(order => {
-        console.log('cart:', cart)
-        console.log('order:', order)
+        // console.log('cart:', cart)
+        // console.log('order:', order)
         var results = [];
         for (var i = 0; i < cart.items.length; i++) {
-          console.log(order.id, cart.items[i].id)
+          // console.log(order.id, cart.items[i].id)
           results.push(
             OrderItem.create({
               OrderId: order.id,
@@ -97,6 +107,21 @@ const orderController = {
             })
           );
         }
+
+        var mailOptions = {
+          from: 's19003045@gmail.com',
+          to: 's19003045+gameco@gmail.com',
+          subject: `${order.id} 訂單成立`,
+          text: `${order.id} 訂單成立`,
+        };
+
+        transporter.sendMail(mailOptions, function (error, info) {
+          if (error) {
+            console.log(error);
+          } else {
+            console.log('Email sent: ' + info.response);
+          }
+        });
 
         return Promise.all(results).then(() =>
           res.redirect('/orders')
