@@ -254,6 +254,10 @@ module.exports = (app, passport) => {
   app.post('/order', orderController.postOrder)
   app.post('/order/:id/cancel', orderController.cancelOrder)
 
+  // 付款相關
+  app.get('/order/:id/payment', orderController.getPayment)
+  app.post('/newebpay/callback', orderController.newebpayCallback)
+
   // 用主類別篩選課程
   app.get("/courses/:mainCategoName", courseController.getMainCategoryCourse);
   // 用次類別篩選課程

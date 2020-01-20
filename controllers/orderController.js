@@ -82,8 +82,6 @@ const orderController = {
   },
   // 送出訂單
   postOrder: (req, res) => {
-    console.log(process.env.GMAIL_ID)
-    console.log(process.env.GMAIL_PWD)
     return Cart.findByPk(req.body.cartId, { include: 'items' }).then(cart => {
       return Order.create({
         // name: req.body.name,
@@ -109,7 +107,7 @@ const orderController = {
         }
 
         var mailOptions = {
-          from: 's19003045@gmail.com',
+          from: process.env.GMAIL_ID,
           to: 's19003045+gameco@gmail.com',
           subject: `${order.id} 訂單成立`,
           text: `${order.id} 訂單成立`,
@@ -142,6 +140,23 @@ const orderController = {
       })
     })
   },
+
+  getPayment: (req, res) => {
+    console.log('===== getPayment =====')
+    console.log(req.params.id)
+    console.log('==========')
+
+    return Order.findByPk(req.params.id, {}).then(order => {
+      return res.render('shop/payment', { order })
+    })
+  },
+  newebpayCallback: (req, res) => {
+    console.log('===== newebpayCallback =====')
+    console.log(req.body)
+    console.log('==========')
+
+    return res.redirect('back')
+  }
 };
 
 module.exports = orderController;
