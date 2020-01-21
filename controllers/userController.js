@@ -288,6 +288,11 @@ const userController = {
       }));
       return res.render("favoriteCourses", { favorites: data });
     });
+  },
+  // 獲取電子報
+  getNewsLetter: (req, res) => {
+    req.flash('success_messages', '感謝你註冊電子報，我們將陸續為你提供課程優惠資訊及相關活動')
+    return res.redirect('back')
   }
 };
 
