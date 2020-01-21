@@ -20,12 +20,12 @@ const transporter = nodemailer.createTransport({
 });
 
 const URL = 'https://90bf7c6d.ngrok.io'
-const MerchantID = 'MS39291411'
-const HashKey = 'CkiGcH7t4g93iiwsboPlr18cRByqjbpE'
-const HashIV = 'C5vPv6d9ucXcu6VP'
+const MerchantID = process.env.MerchantID
+const HashKey = process.env.HashKey
+const HashIV = process.env.HashIV
 const PayGateWay = "https://ccore.spgateway.com/MPG/mpg_gateway"
-const ReturnURL = URL + "/spgateway/callback?from=ReturnURL"
-const NotifyURL = URL + "/spgateway/callback?from=NotifyURL"
+const ReturnURL = URL + "/newebpay/callback?from=ReturnURL"
+const NotifyURL = URL + "/newebpay/callback?from=NotifyURL"
 const ClientBackURL = URL + "/orders"
 
 function genDataChain(TradeInfo) {
