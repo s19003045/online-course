@@ -46,7 +46,7 @@ app.use(
   session({
     secret: "DennyJohnAbby",
     name: 'Gamico',
-    cookie: { maxAge: 80000 },
+    cookie: { maxAge: 3600000 },
     resave: false,
     saveUninitialized: false
   })

@@ -1,0 +1,66 @@
+<div class="container-fluid  mt-5 mb-5 ml-5">
+  {{#each orders}}
+  <div class="row">
+
+    <div class="col col-md-5">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Product</th>
+            <th scope="col">quantity</th>
+            <th scope="col">Subtotal</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each this.items}}
+          <tr>
+            <td>
+              <div style="display: flow-root;">
+                <img src="{{this.image}}" class="card-img" alt="..." style="height: 100px;width: auto;">
+                <span class="ml-2">{{this.name}}</span>
+              </div>
+            </td>
+            <td>{{this.OrderItem.quantity}}</td>
+            <td>{{this.price}}</td>
+          </tr>
+          {{/each}}
+          <tr>
+            <td></td>
+            <td style="text-align: right;">
+              <h4>Total: </h4>
+            </td>
+            <td>
+              <h4>{{this.amount}}</h4>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="col ml-5 mt-5">
+      <ul>
+        <li>訂單 id:{{this.id}}</li>
+        {{!-- <li>姓名: {{this.name}}</li> --}}
+        {{!-- <li>地址: {{this.address}}</li>
+        <li>電話: {{this.phone}}</li> --}}
+        <li>付款狀態:
+          {{#ifCond this.payment_status '0'}}未付款{{/ifCond}}
+          {{#ifCond this.payment_status '1'}}已付款{{/ifCond}}
+          {{#ifCond this.payment_status '-1'}}已取消{{/ifCond}}
+        </li>
+        {{!-- <li>物流寄送狀態: {{this.shipping_status}}</li> --}}
+      </ul>
+
+      <div style="display: flex; justify-content: start;min-width: 300px;">
+        {{#ifCond this.payment_status '0'}}
+        <form action="/order/{{this.id}}/cancel" method="POST">
+          <button type="submit" class="btn-two small red mr-5">取消訂單</button>
+        </form>
+        <a href="/order/{{this.id}}/payment"><button class="btn-two small blue">立即付款</button></a>
+        {{/ifCond}}
+      </div>
+    </div>
+  </div>
+  <hr />
+  {{/each}}
+</div>
