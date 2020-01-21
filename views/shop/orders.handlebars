@@ -1,4 +1,4 @@
-<div class="container-fluid  mt-3 mb-5">
+<div class="container-fluid  mt-5 mb-5 ml-5">
   {{#each orders}}
   <div class="row">
 
@@ -14,7 +14,12 @@
         <tbody>
           {{#each this.items}}
           <tr>
-            <td>{{this.name}}</td>
+            <td>
+              <div style="display: flow-root;">
+                <img src="{{this.image}}" class="card-img" alt="..." style="height: 100px;width: auto;">
+                <span class="ml-2">{{this.name}}</span>
+              </div>
+            </td>
             <td>{{this.OrderItem.quantity}}</td>
             <td>{{this.price}}</td>
           </tr>
@@ -32,22 +37,27 @@
       </table>
     </div>
 
-    <div class="col">
+    <div class="col ml-5 mt-5">
       <ul>
-        <li>{{this.id}}</li>
-        <li>name: {{this.name}}</li>
-        <li>address: {{this.address}}</li>
-        <li>phone: {{this.phone}}</li>
-        <li>shipping_status: {{this.shipping_status}}</li>
-        <li>payment_status: {{this.payment_status}}</li>
+        <li>訂單 id:{{this.id}}</li>
+        {{!-- <li>姓名: {{this.name}}</li> --}}
+        {{!-- <li>地址: {{this.address}}</li>
+        <li>電話: {{this.phone}}</li> --}}
+        <li>付款狀態:
+          {{#ifCond this.payment_status '0'}}未付款{{/ifCond}}
+          {{#ifCond this.payment_status '1'}}已付款{{/ifCond}}
+          {{#ifCond this.payment_status '-1'}}已取消{{/ifCond}}
+        </li>
+        {{!-- <li>物流寄送狀態: {{this.shipping_status}}</li> --}}
       </ul>
 
-      <div style="display: flex; justify-content: space-around;min-width: 300px;">
+      <div style="display: flex; justify-content: start;min-width: 300px;">
+        {{#ifCond this.payment_status '0'}}
         <form action="/order/{{this.id}}/cancel" method="POST">
-          <button type="submit" class="btn-two small red">取消訂單</button>
+          <button type="submit" class="btn-two small red mr-5">取消訂單</button>
         </form>
-
         <a href="/order/{{this.id}}/payment"><button class="btn-two small blue">立即付款</button></a>
+        {{/ifCond}}
       </div>
     </div>
   </div>

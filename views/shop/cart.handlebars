@@ -1,7 +1,7 @@
 <div class="container-fluid">
   <div class="row mt-3 mb-5">
-    <div class="col col-md-10 mx-auto">
-      <h1>顯示購物車</h1>
+    <div class="col col-md-10 mx-auto py-3">
+      <h5>顯示購物車</h5>
 
       <div>
         <table class="table">
@@ -53,10 +53,10 @@
               <td></td>
               <td></td>
               <td style="text-align: right;">
-                <h2>Total: </h2>
+                <h4>Total: </h4>
               </td>
               <td>
-                <h2>{{totalPrice}}</h2>
+                <h4>{{totalPrice}}</h4>
               </td>
               <td></td>
             </tr>
@@ -69,15 +69,15 @@
           <form action="/order" method="POST">
             {{!-- <div class="form-group">
               <label for="name">Name</label>
-              <input type="text" class="form-control" id="name" placeholder="Enter name" name="name">
+              <input type="hidden" class="form-control" id="name" placeholder="Enter name" name="name">
             </div>
             <div class="form-group">
               <label for="phone">Phone</label>
-              <input type="text" class="form-control" id="phone" placeholder="Enter phone" name="phone">
+              <input type="hidden" class="form-control" id="phone" placeholder="Enter phone" name="phone">
             </div>
             <div class="form-group">
               <label for="address">Address</label>
-              <input type="text" class="form-control" id="address" placeholder="Enter address" name="address">
+              <input type="hidden" class="form-control" id="address" placeholder="Enter address" name="address">
             </div> --}}
             <input type="hidden" name="cartId" value="{{cart.id}}">
             <input type="hidden" name="amount" value="{{totalPrice}}">
