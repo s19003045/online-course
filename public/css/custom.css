@@ -233,6 +233,12 @@
   margin-right: 10px;
 }
 
+.product__info__detailed .review-fieldset {
+  border-top:none;
+  margin-top: 0;
+  padding-top: 0;
+}
+
 /* 單一課程頁面-課程內容 */
 
 .lessons-list {
