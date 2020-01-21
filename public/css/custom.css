@@ -38,7 +38,7 @@
 
 /* main.handlebars-導覽列 */
 #wn__header {
-  background-color:#FFDE6A;
+  background-color: #FFDE6A;
 }
 
 .header__absolute {
@@ -234,7 +234,7 @@
 }
 
 .product__info__detailed .review-fieldset {
-  border-top:none;
+  border-top: none;
   margin-top: 0;
   padding-top: 0;
 }
@@ -477,7 +477,7 @@
 
 .footer-bs .footer-brand p {
   font-size: 12px;
-  color: rgba(255, 255, 255, 0.70);
+  color: rgba(32, 31, 31, 0.8);
 }
 
 .footer-bs .footer-nav ul.pages {
@@ -490,13 +490,13 @@
 }
 
 .footer-bs .footer-nav ul.pages a {
-  color: rgba(255, 255, 255, 1.00);
+  color: rgba(32, 31, 31, 0.8);
   font-weight: bold;
   text-transform: uppercase;
 }
 
 .footer-bs .footer-nav ul.pages a:hover {
-  color: rgba(255, 255, 255, 0.80);
+  color: rgba(121, 118, 118, 0.6);
   text-decoration: none;
 }
 
@@ -517,11 +517,11 @@
 }
 
 .footer-bs .footer-nav ul.list a {
-  color: rgba(255, 255, 255, 0.80);
+  color: rgba(32, 31, 31, 0.8);
 }
 
 .footer-bs .footer-nav ul.list a:hover {
-  color: rgba(255, 255, 255, 0.60);
+  color: rgba(121, 118, 118, 0.6);
   text-decoration: none;
 }
 
@@ -541,11 +541,11 @@
 }
 
 .footer-bs .footer-social a {
-  color: rgba(255, 255, 255, 1.00);
+  color: rgba(32, 31, 31, 0.8);
 }
 
 .footer-bs .footer-social a:hover {
-  color: rgba(255, 255, 255, 0.80);
+  color: rgba(121, 118, 118, 0.6);
   text-decoration: none;
 }
 
@@ -558,7 +558,7 @@
 
 .footer-bs .footer-ns p {
   font-size: 12px;
-  color: rgba(255, 255, 255, 0.70);
+  color: rgba(32, 31, 31, 0.8);
 }
 
 @media (min-width: 768px) {

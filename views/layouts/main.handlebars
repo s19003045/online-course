@@ -140,11 +140,11 @@
                             <span><a href="/users/account">帳號資訊</a></span>
                             <span><a href="/users/boughtCourses">我買的課</a></span>
                             <span><a href="/instructor/dashboard">我開的課</a></span>
-                            <span><a href="/users/favoriteCourses">My Wishlist</a></span>
+                            <span><a href="/users/favoriteCourses">我的願望清單</a></span>
                             {{#if user}}
-                            <span><a href="/logout">Log Out</a></span>
+                            <span><a href="/logout">登出</a></span>
                             {{else}}
-                            <span><a href="/signin">Sign In</a></span>
+                            <span><a href="/signin">登入</a></span>
                             {{/if}}
                           </div>
                         </div>
@@ -258,12 +258,12 @@
           <div class="col-md-4 footer-nav animated fadeInUp">
             <h4>Menu —</h4>
             <div class="col-md-6">
-              <ul class="pages">
+              {{!-- <ul class="pages">
                 <li><a href="/users/account">帳號資訊</a></span></li>
                 <li><span><a href="/users/boughtCourses">我買的課</a></li>
                 <li><span><a href="/instructor/dashboard">我開的課</a></span></li>
-                <li><span><a href="/users/favoriteCourses">My Wishlist</a></span></li>
-              </ul>
+                <li><span><a href="/users/favoriteCourses">我的願望清單</a></span></li>
+              </ul> --}}
             </div>
             <div class="col-md-6">
               <ul class="list">
@@ -276,7 +276,7 @@
           <div class="col-md-2 footer-social animated fadeInDown">
             <h4>Follow Us</h4>
             <ul>
-              <li><a href="https://github.com/s19003045/online-course">Github</a></li>
+              <li><a href="https://github.com/s19003045/online-course" target="_blank">Github</a></li>
               {{!-- <li><a href="#">Twitter</a></li>
               <li><a href="#">Instagram</a></li>
               <li><a href="#">RSS</a></li> --}}
@@ -286,7 +286,7 @@
             <h4>Subscribe to Newsletter</h4>
             <p></p>
             <p>
-              <form action="#">
+              <form action="/subscribe/newsletter" method="POST">
                 <div class="input-group">
                   <input type="text" class="form-control" placeholder="Email" name="email">
                   <span class="input-group-btn ">
