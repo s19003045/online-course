@@ -9,6 +9,7 @@ const LessonUser = db.LessonUser;
 const Order = db.Order
 const OrderItem = db.OrderItem
 const Cart = db.Cart
+const User = db.User
 
 
 const transporter = nodemailer.createTransport({
@@ -19,7 +20,7 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-const URL = 'https://90bf7c6d.ngrok.io'
+const URL = process.env.URL
 const MerchantID = process.env.MerchantID
 const HashKey = process.env.HashKey
 const HashIV = process.env.HashIV
@@ -41,6 +42,16 @@ function create_mpg_aes_encrypt(TradeInfo) {
   let enc = encrypt.update(genDataChain(TradeInfo), "utf8", "hex");
   return enc + encrypt.final("hex");
 }
+
+function create_mpg_aes_decrypt(TradeInfo) {
+  let decrypt = crypto.createDecipheriv("aes256", HashKey, HashIV);
+  decrypt.setAutoPadding(false);
+  let text = decrypt.update(TradeInfo, "hex", "utf8");
+  let plainText = text + decrypt.final("utf8");
+  let result = plainText.replace(/[\x00-\x20]+/g, "");
+  return result;
+}
+
 
 function create_mpg_sha_encrypt(TradeInfo) {
 
@@ -155,8 +166,7 @@ const orderController = {
   },
   // 取得所有訂單
   getOrders: (req, res) => {
-    Order.findAll({ include: 'items' }).then(orders => {
-      // return res.json(orders)
+    Order.findAll({ where: { UserId: req.user.id }, include: 'items' }).then(orders => {
       return res.render('shop/orders', {
         orders
       })
@@ -172,6 +182,7 @@ const orderController = {
         shipping_status: req.body.shipping_status,
         payment_status: req.body.payment_status,
         amount: req.body.amount,
+        UserId: req.user.id,
       }).then(order => {
         // console.log('cart:', cart)
         // console.log('order:', order)
@@ -228,17 +239,53 @@ const orderController = {
     console.log(req.params.id)
     console.log('==========')
 
-    return Order.findByPk(req.params.id, {}).then(order => {
-      const tradeInfo = getTradeInfo(order.amount, '產品名稱', 's19003045@gmail.com')
-      return res.render('shop/payment', { order, tradeInfo })
+    return Order.findByPk(req.params.id, {
+      include: [
+        { model: Course, as: 'items' },
+        { model: User }
+      ]
+    }).then(order => {
+      // return res.json(order)
+      let courseString = ''
+      order.items.forEach(d => {
+        courseString += ' & ' + d.name
+      })
+      console.log('courseString:', courseString)
+
+      const tradeInfo = getTradeInfo(order.amount, courseString, order.User.email)
+      order.update({
+        ...req.body,
+        sn: tradeInfo.MerchantOrderNo,
+      }).then(order => {
+        res.render('shop/payment', { order, tradeInfo })
+      })
     })
   },
   newebpayCallback: (req, res) => {
     console.log('===== newebpayCallback =====')
+    console.log(req.method)
+    console.log(req.query)
     console.log(req.body)
     console.log('==========')
 
-    return res.redirect('back')
+    console.log('===== newebpayCallback: TradeInfo =====')
+    console.log(req.body.TradeInfo)
+
+
+    const data = JSON.parse(create_mpg_aes_decrypt(req.body.TradeInfo))
+
+    console.log('===== newebpayCallback: create_mpg_aes_decrypt、data =====')
+    console.log(data)
+
+    return Order.findAll({ where: { sn: data['Result']['MerchantOrderNo'] } }).then(orders => {
+      orders[0].update({
+        ...req.body,
+        payment_status: 1,
+      }).then(order => {
+        return res.redirect('/orders')
+      })
+    })
+
   }
 };
 

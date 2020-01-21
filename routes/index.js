@@ -250,13 +250,13 @@ module.exports = (app, passport) => {
   app.post('/cart', cartController.postCart)
   app.delete('/cartItem/:id', cartController.deleteCartItem)
 
-  app.get('/orders', orderController.getOrders)
-  app.post('/order', orderController.postOrder)
-  app.post('/order/:id/cancel', orderController.cancelOrder)
+  app.get('/orders', authenticated, orderController.getOrders)
+  app.post('/order', authenticated, orderController.postOrder)
+  app.post('/order/:id/cancel', authenticated, orderController.cancelOrder)
 
   // 付款相關
-  app.get('/order/:id/payment', orderController.getPayment)
-  app.post('/newebpay/callback', orderController.newebpayCallback)
+  app.get('/order/:id/payment', authenticated, orderController.getPayment)
+  app.post('/newebpay/callback', authenticated, orderController.newebpayCallback)
 
   // 用主類別篩選課程
   app.get("/courses/:mainCategoName", courseController.getMainCategoryCourse);
