@@ -241,15 +241,16 @@ const orderController = {
 
     return Order.findByPk(req.params.id, {
       include: [
-        { model: Course, as: 'items' },
-        { model: User }
+        { model: Course, as: 'items', attributes: ['id', 'name'] },
+        { model: User, attributes: ['email'] }
       ]
     }).then(order => {
       // return res.json(order)
       let courseString = ''
       order.items.forEach(d => {
-        courseString += ' & ' + d.name
+        courseString += d.name
       })
+      console.log('======================')
       console.log('courseString:', courseString)
 
       const tradeInfo = getTradeInfo(order.amount, courseString, order.User.email)
@@ -271,20 +272,27 @@ const orderController = {
     console.log('===== newebpayCallback: TradeInfo =====')
     console.log(req.body.TradeInfo)
 
-
     const data = JSON.parse(create_mpg_aes_decrypt(req.body.TradeInfo))
 
     console.log('===== newebpayCallback: create_mpg_aes_decrypt、data =====')
     console.log(data)
 
-    return Order.findAll({ where: { sn: data['Result']['MerchantOrderNo'] } }).then(orders => {
-      orders[0].update({
-        ...req.body,
-        payment_status: 1,
-      }).then(order => {
-        return res.redirect('/orders')
+    if (req.body.Status === 'SUCCESS') {
+      return Order.findAll({ where: { sn: data['Result']['MerchantOrderNo'] } }).then(orders => {
+        orders[0].update({
+          ...req.body,
+          payment_status: 1,
+        }).then(order => {
+          req.flash('success_messages', '信用卡交易授權成功，成功購入課程！')
+          return res.redirect('/orders')
+        })
       })
-    })
+    } else {
+      req.flash('error_messages', `Error(${req.body.Status})，${req.body.Message}，未成功購買課程！`)
+      return res.redirect('/orders')
+    }
+
+
 
   }
 };
