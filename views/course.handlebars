@@ -13,18 +13,23 @@
           </div>
         </div>
 
-
         <div class="lessons-list">
-          <form action="/courses/{{courseId}}/lessons" method="GET">
-            <span>選擇章節</span>
-            <select class="shot__byselect" onchange="this.form.submit()" type="text" name="lessonNumber">
-              {{#each lessons}}
-              <option value="{{this.lessonNumber}}" {{#ifCond ../lessonNumber this.lessonNumber
-                }}selected{{/ifCond}}>
-                第{{this.lessonNumber}}單元-{{this.title}}</option>
-              {{/each}}
-            </select>
-          </form>
+          <div class="buttonGroup d-flex flex-nowrap">
+            {{#each lessons}}
+            <form action="/courses/{{../courseId}}/lessons" method="GET">
+              <input type="hidden" name="lessonNumber" value="{{this.lessonNumber}}">
+              {{#ifCond ../lessonNumber this.lessonNumber}}
+              <button class="btnOptionPresent" type="submit" value="{{this.lessonNumber}}">
+                <div class="d-flex flex-column">第{{this.lessonNumber}}單元</div>{{this.title}}
+              </button>
+              {{else}}
+              <button class="btnOption" type="submit" value="{{this.lessonNumber}}">
+                <div class="d-flex flex-column">第{{this.lessonNumber}}單元</div>{{this.title}}
+              </button>
+              {{/ifCond}}
+            </form>
+            {{/each}}
+          </div>
         </div>
 
         <div class="blog-details content">
