@@ -9,7 +9,6 @@ const instructController = require("../controllers/instructController");
 const createCourseController = require("../controllers/createCourseController");
 const rewardController = require("../controllers/rewardController");
 
-
 const multer = require("multer");
 const upload = multer({ dest: "temp/" });
 
@@ -19,10 +18,16 @@ const helpers = require("../_helpers");
 module.exports = (app, passport) => {
   // 驗證使用者權限
   const authenticated = (req, res, next) => {
+    // 登入前請求的網址存進=> req.session 
+    req.session.returnTo = req.url
+    // 使用 passport 驗證使用者成功後，再把 req.session.returnTo 存至 cb(null,user) 的user中，便於 userController.signIn 使用
+    console.log('======req.session.returnTo==index.js  authenticated==')
+    console.log(req.session.returnTo)
+
     if (helpers.ensureAuthenticated(req)) {
       return next();
     }
-    res.redirect("/signin");
+    res.redirect('/signin');
   };
   const authenticatedAdmin = (req, res, next) => {
     if (helpers.ensureAuthenticated(req)) {

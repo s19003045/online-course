@@ -16,6 +16,10 @@ passport.use(
     },
     // authenticate user
     (req, username, password, cb) => {
+      console.log('======req.session.returnTo in passport.js====')
+      console.log(req.session.returnTo)
+      console.log('.........')
+
       User.findOne({ where: { email: username } }).then(user => {
         if (!user)
           return cb(
@@ -29,6 +33,8 @@ passport.use(
             false,
             req.flash("error_messages", "帳號或密碼輸入錯誤！")
           );
+        // 登入前請求的網址存進 user 中，便於 userController.signIn 使用
+        user.returnUrl = req.session.returnTo
         return cb(null, user);
       });
     }

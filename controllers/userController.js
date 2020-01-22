@@ -49,6 +49,11 @@ const userController = {
   },
 
   signIn: (req, res) => {
+    console.log('=======req.user.returnUrl in userController.signIn=======')
+    console.log(req.user.returnUrl)
+    // 取出 req.user.returnUrl (登入前請求的網址)，存成變數
+    let returnUrl = req.user.returnUrl
+
     const loginRewardPoint = 2000;
     req.flash("success_messages", "成功登入！");
     let loginDate = new Date();
@@ -58,7 +63,7 @@ const userController = {
       day: loginDay,
       UserId: req.user.id
     }).then(login => {
-      console.log(login);
+
       // 當天若已登入，則不加點數
       if (login) {
         //先記錄登入時間
@@ -67,7 +72,11 @@ const userController = {
           day: loginDay,
           UserId: req.user.id
         }).then(login => {
-          return res.redirect("/courses");
+          if (returnUrl) {
+            return res.redirect(returnUrl)
+          } else {
+            return res.redirect("/courses");
+          }
         });
       } else {
         //當天未登入者，先記錄登入時間，再加點數
@@ -85,14 +94,22 @@ const userController = {
                   UserId: req.user.id
                 }).then(reward => {
                   req.flash("success_messages", "今天第一次登入，獲得 5 點");
-                  return res.redirect("/courses");
+                  if (returnUrl) {
+                    return res.redirect(returnUrl)
+                  } else {
+                    return res.redirect("/courses");
+                  }
                 });
               } else {
                 return reward
                   .increment("point", { by: loginRewardPoint })
                   .then(reward => {
                     req.flash("success_messages", "今天第一次登入，獲得 5 點");
-                    return res.redirect("/courses");
+                    if (returnUrl) {
+                      return res.redirect(returnUrl)
+                    } else {
+                      return res.redirect("/courses");
+                    }
                   });
               }
             }
