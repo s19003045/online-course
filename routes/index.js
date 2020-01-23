@@ -9,7 +9,6 @@ const instructController = require("../controllers/instructController");
 const createCourseController = require("../controllers/createCourseController");
 const rewardController = require("../controllers/rewardController");
 
-
 const multer = require("multer");
 const upload = multer({ dest: "temp/" });
 
@@ -54,6 +53,8 @@ module.exports = (app, passport) => {
   });
   // 看全部課程
   app.get("/courses", courseController.getCourses);
+  // 使用者可以搜尋課程
+  app.get("/courses/search", courseController.getSearchCourses);
   // 看單一課程介紹
   app.get("/courses/:courses_id/introduction", courseController.getCourseIntro);
 
@@ -112,7 +113,8 @@ module.exports = (app, passport) => {
   );
   app.post(
     "/courses/create/:courseId/step1",
-    authenticated, upload.single('image'),
+    authenticated,
+    upload.single("image"),
     createCourseController.postCourseStep1
   );
   app.get(
@@ -245,18 +247,22 @@ module.exports = (app, passport) => {
   // 使用可以購買課程
   app.post("/order/:courses_id", authenticated, orderController.orderCourse);
   // 使用者可以加課程加入購物車
-  app.get('/cart', cartController.getCart)
+  app.get("/cart", cartController.getCart);
   // 使用者可以加課程加入購物車
-  app.post('/cart', cartController.postCart)
-  app.delete('/cartItem/:id', cartController.deleteCartItem)
+  app.post("/cart", cartController.postCart);
+  app.delete("/cartItem/:id", cartController.deleteCartItem);
 
-  app.get('/orders', authenticated, orderController.getOrders)
-  app.post('/order', authenticated, orderController.postOrder)
-  app.post('/order/:id/cancel', authenticated, orderController.cancelOrder)
+  app.get("/orders", authenticated, orderController.getOrders);
+  app.post("/order", authenticated, orderController.postOrder);
+  app.post("/order/:id/cancel", authenticated, orderController.cancelOrder);
 
   // 付款相關
-  app.get('/order/:id/payment', authenticated, orderController.getPayment)
-  app.post('/newebpay/callback', authenticated, orderController.newebpayCallback)
+  app.get("/order/:id/payment", authenticated, orderController.getPayment);
+  app.post(
+    "/newebpay/callback",
+    authenticated,
+    orderController.newebpayCallback
+  );
 
   // 用主類別篩選課程
   app.get("/courses/:mainCategoName", courseController.getMainCategoryCourse);
@@ -310,9 +316,17 @@ module.exports = (app, passport) => {
   );
 
   // 遊戲化：獎勵機制
-  app.get('/reward/:userId/lottery', authenticated, rewardController.getLottery)
-  app.post('/reward/:userId/lottery', authenticated, rewardController.postLottery)
+  app.get(
+    "/reward/:userId/lottery",
+    authenticated,
+    rewardController.getLottery
+  );
+  app.post(
+    "/reward/:userId/lottery",
+    authenticated,
+    rewardController.postLottery
+  );
 
   // 獲取電子報
-  app.post('/subscribe/newsletter', userController.getNewsLetter)
+  app.post("/subscribe/newsletter", userController.getNewsLetter);
 };

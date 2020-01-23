@@ -10,6 +10,8 @@ const imgur = require("imgur-node-api");
 const IMGUR_CLIENT_ID = process.env.IMGUR_CLIENT_ID;
 const helpers = require("../_helpers");
 const SortCourses = require("../public/js/sort_courses");
+const Sequelize = require("sequelize");
+const Op = Sequelize.Op;
 
 const courseController = {
   // 看單一課程介紹
@@ -264,6 +266,64 @@ const courseController = {
               }
             });
           }
+        });
+      }
+    });
+  },
+  getSearchCourses: (req, res) => {
+    // 登入使用者已購買的課程Id
+    let userEnrolledId = [];
+    if (req.user) {
+      req.user.UserEnrollments.forEach(enroll => {
+        userEnrolledId.push(enroll.CourseId);
+      });
+    }
+    // 取得sort功能要依據哪個變數排序所有課程
+    order = SortCourses(req.query.order);
+    Course.findAll({
+      attributes: [
+        "id",
+        "image",
+        "name",
+        "ratingAverage",
+        "ratingCount",
+        "studentCount",
+        "totalTime",
+        "price"
+      ],
+      where: [
+        { status: "intoMarket" },
+        {
+          name: {
+            [Op.like]: `%${req.query.keyword}%`
+          }
+        }
+      ],
+      order: [order]
+    }).then(courses => {
+      // 辨認課程是否被登入的使用者購買
+      const data = courses.map(c => ({
+        ...c.dataValues,
+        enrolled: userEnrolledId.includes(c.dataValues.id)
+      }));
+      if (!req.user) {
+        return res.render("courses", {
+          courses: data,
+          order: req.query.order,
+          route: "search",
+          reqUrl: req.url,
+          keyword: req.query.keyword
+        });
+      } else {
+        User.findByPk(req.user.id).then(user => {
+          return res.render("courses", {
+            courses: data,
+            order: req.query.order,
+            route: "search",
+            reqUrl: req.url,
+            keyword: req.query.keyword,
+            user
+          });
         });
       }
     });
