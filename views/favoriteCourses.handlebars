@@ -19,7 +19,13 @@
         <div class="info">
           <div class="d-flex flex-column bd-highlight mb-3">
             <div class="ratings mb-3">
-              <div class="empty_star">★★★★★ <span class="course-ratingCount">({{this.Course.ratingCount}})</span></div>
+              <div class="empty_star">★★★★★ <span class="course-ratingCount">
+                  {{#if this.Course.ratingCount}}
+                  ({{this.Course.ratingCount}})
+                  {{else}}
+                  (0)
+                  {{/if}}
+                </span></div>
               <div class="full_star" style="width: {{star_to_percent this.Course.ratingAverage}}%;">★★★★★
               </div>
             </div>
@@ -57,11 +63,11 @@
 
   </div>
 
-  <ul class="wn__pagination mt-5">
+  {{!-- <ul class="wn__pagination mt-5">
     <li class="active"><a href="#">1</a></li>
-    {{!-- <li><a href="#">2</a></li>
+    <li><a href="#">2</a></li>
     <li><a href="#">3</a></li>
-    <li><a href="#">4</a></li> --}}
+    <li><a href="#">4</a></li>
     <li><a href="#"><i class="zmdi zmdi-chevron-right"></i></a></li>
-  </ul>
+  </ul> --}}
 </div>
