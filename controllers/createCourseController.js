@@ -73,7 +73,6 @@ const createCourseController = {
           return Course.findByPk(req.params.courseId).then(course => {
             CourseSubCategory.findByPk(req.body.CourseSubCategoryId).then(
               subCategory => {
-                console.log(subCategory);
                 course
                   .update({
                     name: req.body.name || course.name,
@@ -105,7 +104,6 @@ const createCourseController = {
       return Course.findByPk(req.params.courseId).then(course => {
         CourseSubCategory.findByPk(req.body.CourseSubCategoryId).then(
           subCategory => {
-            console.log(subCategory);
             course
               .update({
                 name: req.body.name || course.name,
@@ -181,7 +179,8 @@ const createCourseController = {
       Lesson.findOne({
         where: {
           id: parseInt(req.body.pk)
-        }
+        },
+        attributes: ['id', 'lessonNumber']
       }).then(lesson => {
         lesson
           .update({
@@ -259,7 +258,8 @@ const createCourseController = {
       Lesson.findAll({
         where: {
           CourseId: req.params.courseId
-        }
+        },
+        attributes: ['id', 'totalTime']
       }).then(lessons => {
         Course.findByPk(req.params.courseId).then(course => {
           course.totalLessons = lessons.length;
@@ -347,7 +347,12 @@ const createCourseController = {
     });
   },
   createCourseStep3: (req, res) => {
-    Course.findByPk(req.params.courseId, { include: [Lesson] }).then(course => {
+    Course.findByPk(req.params.courseId, {
+      // include: [{
+      //   model: Lesson,
+      //   attributes: ['id']
+      // }]
+    }).then(course => {
       return res.render("createCourse/createCourseStep3", { course });
     });
   },
@@ -379,7 +384,6 @@ const createCourseController = {
           attributes: ["lessonNumber", "title"],
           where: [{ visible: true }, { CourseId: course.id }]
         }).then(lessons => {
-          console.log(lessons)
           Lesson.findOne({
             where: {
               lessonNumber: lessonNumber,
@@ -431,7 +435,10 @@ const createCourseController = {
   postCourseStep4: (req, res) => {
     // 先檢查所有 step 是否皆已完成，若未完成，則導向該 step
     Course.findByPk(req.params.courseId, {
-      include: [Lesson]
+      include: [{
+        model: Lesson,
+        attributes: ['id']
+      }]
     }).then(course => {
       const {
         name,
