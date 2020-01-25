@@ -41,8 +41,13 @@ passport.serializeUser((user, cb) => {
 });
 passport.deserializeUser((id, cb) => {
   User.findByPk(id, {
-    include: [UserEnrollment]
-  }).then(user => {
+    attributes: ['id', 'role'],
+    include: [{
+      model: UserEnrollment,
+      attributes: ["CourseId"]
+    }]
+  }
+  ).then(user => {
     return cb(null, user);
   });
 });
