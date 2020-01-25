@@ -195,9 +195,15 @@ const createCourseController = {
     }
   },
   deleteCourseStep2: (req, res) => {
-    Lesson.findOne({ where: { id: req.params.lessonId } }).then(lesson => {
-      lesson.destroy();
-      return res.status(200);
+    Lesson.findOne({
+      where: { id: req.params.lessonId }
+    }).then(lesson => {
+      console.log(lesson)
+      lesson.destroy()
+        .then((d) => {
+          console.log(d)
+          return res.redirect('back');
+        })
     });
   },
   createLessonTitle: (req, res) => {
