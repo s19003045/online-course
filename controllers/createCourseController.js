@@ -480,6 +480,8 @@ const createCourseController = {
           course
             .update({
               status: "intoMarket",
+              ratingCount: 0,
+              studentCount: 0,
               submittedDate: new Date(),
               intoMarketDate: new Date()
             })
