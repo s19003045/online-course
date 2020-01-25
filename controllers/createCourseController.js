@@ -423,10 +423,6 @@ const createCourseController = {
     });
   },
   postCourseStep4: (req, res) => {
-    //<<<<<<<測試階段，先建立假的 user(待建立登入路由後，即可移除下面程式碼)
-    req.user = { id: 1 };
-    //>>>>>>>>
-
     // 先檢查所有 step 是否皆已完成，若未完成，則導向該 step
     Course.findByPk(req.params.courseId, {
       include: [Lesson]
