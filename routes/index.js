@@ -312,4 +312,7 @@ module.exports = (app, passport) => {
   // 遊戲化：獎勵機制
   app.get('/reward/:userId/lottery', authenticated, rewardController.getLottery)
   app.post('/reward/:userId/lottery', authenticated, rewardController.postLottery)
+
+  // 獲取電子報
+  app.post('/subscribe/newsletter', userController.getNewsLetter)
 };
