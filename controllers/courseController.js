@@ -10,6 +10,8 @@ const imgur = require("imgur-node-api");
 const IMGUR_CLIENT_ID = process.env.IMGUR_CLIENT_ID;
 const helpers = require("../_helpers");
 const SortCourses = require("../public/js/sort_courses");
+const Sequelize = require("sequelize");
+const Op = Sequelize.Op;
 
 const courseController = {
   // 看單一課程介紹
@@ -113,19 +115,18 @@ const courseController = {
           courses: data,
           order: req.query.order,
           route: "all",
-          reqUrl: req.url,
+          reqUrl: req.url
         });
       } else {
-        User.findByPk(req.user.id)
-          .then(user => {
-            return res.render("courses", {
-              courses: data,
-              order: req.query.order,
-              route: "all",
-              reqUrl: req.url,
-              user
-            });
-          })
+        User.findByPk(req.user.id).then(user => {
+          return res.render("courses", {
+            courses: data,
+            order: req.query.order,
+            route: "all",
+            reqUrl: req.url,
+            user
+          });
+        });
       }
     });
   },
@@ -147,10 +148,7 @@ const courseController = {
     }).then(category => {
       // 找不到類別
       if (!category) {
-        req.flash(
-          "error_messages",
-          "目前還沒有該類別的課程，本站將陸續新增，不好意思！"
-        );
+        req.flash("error_messages", "目前尚未規劃該類別，本站將陸續新增！");
         res.redirect("/courses");
       } else {
         Course.findAll({
@@ -170,21 +168,25 @@ const courseController = {
         }).then(courses => {
           // 該類別沒有任何課程
           if (courses.length === 0) {
-            let no_courses = true;
-            return res.render("courses", { no_courses });
+            req.flash(
+              "error_messages",
+              "目前該類別還沒有任何課程，本站將陸續新增！"
+            );
+            res.redirect("/courses");
+          } else {
+            // 辨認課程是否被登入的使用者購買
+            const data = courses.map(c => ({
+              ...c.dataValues,
+              enrolled: userEnrolledId.includes(c.dataValues.id)
+            }));
+            return res.render("courses", {
+              courses: data,
+              order: req.query.order,
+              route: "mainCate",
+              mainCategoName: req.params.mainCategoName,
+              reqUrl: req.url
+            });
           }
-          // 辨認課程是否被登入的使用者購買
-          const data = courses.map(c => ({
-            ...c.dataValues,
-            enrolled: userEnrolledId.includes(c.dataValues.id)
-          }));
-          return res.render("courses", {
-            courses: data,
-            order: req.query.order,
-            route: "mainCate",
-            mainCategoName: req.params.mainCategoName,
-            reqUrl: req.url
-          });
         });
       }
     });
@@ -207,10 +209,7 @@ const courseController = {
     }).then(category => {
       // 找不到類別
       if (!category) {
-        req.flash(
-          "error_messages",
-          "目前還沒有該類別的課程，本站將陸續新增，不好意思！"
-        );
+        req.flash("error_messages", "目前尚未規劃該類別，本站將陸續新增！");
         res.redirect("/courses");
       } else {
         CourseSubCategory.findOne({
@@ -245,24 +244,86 @@ const courseController = {
             }).then(courses => {
               // 該類別沒有任何課程
               if (courses.length === 0) {
-                let no_courses = true;
-                return res.render("courses", { no_courses });
+                req.flash(
+                  "error_messages",
+                  "目前該類別還沒有任何課程，本站將陸續新增！"
+                );
+                res.redirect("/courses");
+              } else {
+                // 辨認課程是否被登入的使用者購買
+                const data = courses.map(c => ({
+                  ...c.dataValues,
+                  enrolled: userEnrolledId.includes(c.dataValues.id)
+                }));
+                return res.render("courses", {
+                  courses: data,
+                  order: req.query.order,
+                  route: "subCate",
+                  mainCategoName: req.params.mainCategoName,
+                  subCategoName: req.params.subCategoName,
+                  reqUrl: req.url
+                });
               }
-              // 辨認課程是否被登入的使用者購買
-              const data = courses.map(c => ({
-                ...c.dataValues,
-                enrolled: userEnrolledId.includes(c.dataValues.id)
-              }));
-              return res.render("courses", {
-                courses: data,
-                order: req.query.order,
-                route: "subCate",
-                mainCategoName: req.params.mainCategoName,
-                subCategoName: req.params.subCategoName,
-                reqUrl: req.url
-              });
             });
           }
+        });
+      }
+    });
+  },
+  getSearchCourses: (req, res) => {
+    // 登入使用者已購買的課程Id
+    let userEnrolledId = [];
+    if (req.user) {
+      req.user.UserEnrollments.forEach(enroll => {
+        userEnrolledId.push(enroll.CourseId);
+      });
+    }
+    // 取得sort功能要依據哪個變數排序所有課程
+    order = SortCourses(req.query.order);
+    Course.findAll({
+      attributes: [
+        "id",
+        "image",
+        "name",
+        "ratingAverage",
+        "ratingCount",
+        "studentCount",
+        "totalTime",
+        "price"
+      ],
+      where: [
+        { status: "intoMarket" },
+        {
+          name: {
+            [Op.like]: `%${req.query.keyword}%`
+          }
+        }
+      ],
+      order: [order]
+    }).then(courses => {
+      // 辨認課程是否被登入的使用者購買
+      const data = courses.map(c => ({
+        ...c.dataValues,
+        enrolled: userEnrolledId.includes(c.dataValues.id)
+      }));
+      if (!req.user) {
+        return res.render("courses", {
+          courses: data,
+          order: req.query.order,
+          route: "search",
+          reqUrl: req.url,
+          keyword: req.query.keyword
+        });
+      } else {
+        User.findByPk(req.user.id).then(user => {
+          return res.render("courses", {
+            courses: data,
+            order: req.query.order,
+            route: "search",
+            reqUrl: req.url,
+            keyword: req.query.keyword,
+            user
+          });
         });
       }
     });

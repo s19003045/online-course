@@ -105,7 +105,7 @@ const courses = [
     name: "CS50's Introduction to Game Development", // course_id = 5
     description:
       "This course picks up where Harvard College’s CS50 leaves off, focusing on the development of 2D interactive games. Students explore the design of such childhood games as Super Mario Bros., Legend of Zelda, and Pokémon ......",
-    image: "https://i.imgur.com/LeR53sp.png",
+    image: "https://i.imgur.com/100F8Gu.png",
     introVideo: "https://www.youtube.com/embed/GfwpRU0cT10",
     teacherName: "David J. Malan",
     teacherDescrip:
@@ -129,7 +129,7 @@ const courses = [
     name: "CS50's Mobile App Development with React Native", // course_id = 6
     description:
       "This course picks up where Harvard College’s CS50 leaves off, transitioning from web development to mobile app development with React Native, a popular open-source framework maintained by Facebook that enables cross-platform native apps using Javas..",
-    image: "https://i.imgur.com/7gvksse.png",
+    image: "https://i.imgur.com/jUkGpSu.png",
     introVideo: "https://www.youtube.com/embed/_P7wHN_kOv4",
     teacherName: "David J. Malan",
     teacherDescrip:

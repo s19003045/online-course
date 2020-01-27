@@ -123,11 +123,17 @@
                 <a href="/instructor/dashboard" class="btn-two yellow rounded mini"><span class="text-black"><i
                       class="fas fa-chalkboard-teacher fa-1x mr-1"></i>我要開課</span></a>
               </div>
+              <div class="search-bar">
+                <form action="/courses/search" action="GET">
+                  <input class="search_input" type="text" name="keyword" placeholder="搜尋課程：CS50.." value="{{keyword}}">
+                  <a href="javascript:;" onclick="parentNode.submit();" class="search_icon"><i
+                      class="fas fa-search"></i></a>
+                </form>
+              </div>
             </nav>
           </div>
           <div class="col-md-8 col-sm-8 col-5 col-lg-2">
             <ul class="header__sidebar__right d-flex justify-content-end align-items-center">
-              <li class="shop_search"><a href="#"></a></li>
               <li class="wishlist"><a href="/users/favoriteCourses"></a></li>
               <li class="shopcart"><a href="/cart"></a></li>
               <li class="setting__bar__icon"><a class="setting__active" href="#"></a>
