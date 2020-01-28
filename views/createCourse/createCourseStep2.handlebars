@@ -390,13 +390,14 @@
                     </div>
                     {{!-- <button type="submit" class="btn-two cyan rounded small mr-5 ">Save</button> --}}
                     <button type="submit" class="btn-two green rounded small mr-5 ">Save</button>
-                    {{!-- 刪除鈕動作改以 jquery 執行 --}}
-                    <button class="btn-two red small rounded my-0  btn-remove-lesson" role="" data-id="{{lesson.id}}"
-                      data-lessonnumber="{{lesson.lessonNumber}}">Delete
-                    </button>
                     {{!-- </form> --}}
                   </form>
-
+                  {{!-- 刪除鈕動作改以 jquery 執行 --}}
+                  <form action="/courses/create/{{course.id}}/step2/{{lesson.id}}?_method=DELETE" method="POST">
+                    <button class="mt-4 btn-two red small rounded my-0  btn-remove-lesson" role=""
+                      data-id="{{lesson.id}}" data-lessonnumber="{{lesson.lessonNumber}}">Delete
+                    </button>
+                  </form>
                   {{else}}
                   <h3 class="mt-4">建立新的章節</h3>
                   <form action="/courses/create/{{course.id}}/step2" method="POST" class="mt-4" id="identifier">

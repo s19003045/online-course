@@ -13,11 +13,13 @@ const Op = Sequelize.Op
 const instructController = {
   getDashboard: (req, res) => {
     if (req.user) {
-      Course.findAndCountAll()
+      Course.findAll({
+        where: { UserId: req.user.id },
+        attributes: ['id']
+      })
         .then(courses => {
-
           return res.render('instructor/dashboard', {
-            courseNumber: courses.count,
+            courseNumber: courses.length,
             courses: courses.rows
           })
         })

@@ -73,7 +73,6 @@ const createCourseController = {
           return Course.findByPk(req.params.courseId).then(course => {
             CourseSubCategory.findByPk(req.body.CourseSubCategoryId).then(
               subCategory => {
-                console.log(subCategory);
                 course
                   .update({
                     name: req.body.name || course.name,
@@ -105,7 +104,6 @@ const createCourseController = {
       return Course.findByPk(req.params.courseId).then(course => {
         CourseSubCategory.findByPk(req.body.CourseSubCategoryId).then(
           subCategory => {
-            console.log(subCategory);
             course
               .update({
                 name: req.body.name || course.name,
@@ -181,7 +179,8 @@ const createCourseController = {
       Lesson.findOne({
         where: {
           id: parseInt(req.body.pk)
-        }
+        },
+        attributes: ['id', 'lessonNumber']
       }).then(lesson => {
         lesson
           .update({
@@ -195,9 +194,15 @@ const createCourseController = {
     }
   },
   deleteCourseStep2: (req, res) => {
-    Lesson.findOne({ where: { id: req.params.lessonId } }).then(lesson => {
-      lesson.destroy();
-      return res.status(200);
+    Lesson.findOne({
+      where: { id: req.params.lessonId }
+    }).then(lesson => {
+      console.log(lesson)
+      lesson.destroy()
+        .then((d) => {
+          console.log(d)
+          return res.redirect('back');
+        })
     });
   },
   createLessonTitle: (req, res) => {
@@ -253,7 +258,8 @@ const createCourseController = {
       Lesson.findAll({
         where: {
           CourseId: req.params.courseId
-        }
+        },
+        attributes: ['id', 'totalTime']
       }).then(lessons => {
         Course.findByPk(req.params.courseId).then(course => {
           course.totalLessons = lessons.length;
@@ -341,7 +347,12 @@ const createCourseController = {
     });
   },
   createCourseStep3: (req, res) => {
-    Course.findByPk(req.params.courseId, { include: [Lesson] }).then(course => {
+    Course.findByPk(req.params.courseId, {
+      // include: [{
+      //   model: Lesson,
+      //   attributes: ['id']
+      // }]
+    }).then(course => {
       return res.render("createCourse/createCourseStep3", { course });
     });
   },
@@ -373,7 +384,6 @@ const createCourseController = {
           attributes: ["lessonNumber", "title"],
           where: [{ visible: true }, { CourseId: course.id }]
         }).then(lessons => {
-          console.log(lessons)
           Lesson.findOne({
             where: {
               lessonNumber: lessonNumber,
@@ -423,13 +433,12 @@ const createCourseController = {
     });
   },
   postCourseStep4: (req, res) => {
-    //<<<<<<<測試階段，先建立假的 user(待建立登入路由後，即可移除下面程式碼)
-    req.user = { id: 1 };
-    //>>>>>>>>
-
     // 先檢查所有 step 是否皆已完成，若未完成，則導向該 step
     Course.findByPk(req.params.courseId, {
-      include: [Lesson]
+      include: [{
+        model: Lesson,
+        attributes: ['id']
+      }]
     }).then(course => {
       const {
         name,
@@ -471,6 +480,8 @@ const createCourseController = {
           course
             .update({
               status: "intoMarket",
+              ratingCount: 0,
+              studentCount: 0,
               submittedDate: new Date(),
               intoMarketDate: new Date()
             })

@@ -1,4 +1,4 @@
-$(document).ready(function() {
+$(document).ready(function () {
   // ==========text rich editor============
 
   hljs.configure({
@@ -55,7 +55,7 @@ $(document).ready(function() {
   var Clipboard = Quill.import("modules/clipboard");
   var Delta = Quill.import("delta");
 
-  var showLinkUI = function(value) {
+  var showLinkUI = function (value) {
     if (value) {
       var href = prompt("Enter the URL");
       this.quill.format("link", href);
@@ -73,10 +73,10 @@ $(document).ready(function() {
     $form.onchange(
       "blur change keyup paste input",
       "[contenteditable]",
-      function() {
+      function () {
         if (noUpdateInProgress) {
           var $images = $("#editor img");
-          $images.each(function() {
+          $images.each(function () {
             var imageSrc = $(this).attr("src");
             if (imageSrc && imageSrc[0] === "d") {
               console.log("Starting image upload...");
@@ -102,9 +102,9 @@ $(document).ready(function() {
         Authorization: "Client-ID " + IMGUR_CLIENT_ID
       },
       dataType: "json",
-      xhr: function() {
+      xhr: function () {
         var xhr = $.ajaxSettings.xhr();
-        xhr.upload.onprogress = function(e) {
+        xhr.upload.onprogress = function (e) {
           console.log(e.loaded);
           if (e.lengthComputable) {
             $("#progressbar").attr({ value: e.loaded, max: e.total });
@@ -131,7 +131,7 @@ $(document).ready(function() {
 
   editor.on("editor-change", () => {
     var $images = $("#editor img");
-    $images.each(function() {
+    $images.each(function () {
       var imageSrc = $(this).attr("src");
       if (imageSrc && imageSrc[0] === "d") {
         uploadImageToImgurAndReplaceSrc($(this));
@@ -140,7 +140,7 @@ $(document).ready(function() {
   });
 
   // 將 editor 中編輯的內容放入 textarea 再 submit
-  $("#identifier").on("submit", function(event) {
+  $("#identifier").on("submit", function (event) {
     $("#hiddenArea").val(editor.root.innerHTML);
   });
 
@@ -148,7 +148,7 @@ $(document).ready(function() {
   $(".droppable-area1").sortable({
     connectWith: ".connected-sortable",
     stack: ".connected-sortable ul",
-    stop: function(event, ui) {
+    stop: function (event, ui) {
       // 取得 courses-tbody 的子代長度
       trLength = $(".courses-tbody").children().length;
 
@@ -218,7 +218,7 @@ $(document).ready(function() {
   // ==========table 列的新增或刪除==========
 
   // 修改列的 index
-  const modifyRowNumber = async function(trLength) {
+  const modifyRowNumber = async function (trLength) {
     const axiosReq = [];
 
     for (let x = 1; x <= trLength; x++) {
@@ -281,7 +281,7 @@ $(document).ready(function() {
   };
 
   // 新增一列
-  const addNewTr = function(trLength) {
+  const addNewTr = function (trLength) {
     let courseId = $(".courses-tbody").data("courseid");
 
     let newNodeHtml = `
@@ -314,7 +314,7 @@ $(document).ready(function() {
   modifyRowNumber(trLength);
 
   // 點擊 Add lesson 的 button 時，執行的動作
-  $(".btn-add-lesson").click(function() {
+  $(".btn-add-lesson").click(function () {
     // 取得 tbody 的子代長度
     let trLength = $(".courses-tbody").children().length;
 
@@ -327,42 +327,79 @@ $(document).ready(function() {
   });
 
   // 點擊 remove lesson 的 button 時，執行的的動作
-  $(".courses-tbody").on('click', 'button.btn-remove-lesson', function () {
-    if (confirm('確定要刪除該章節(連內容都一併刪除)?')) {
-      let courseId = $('.courses-tbody').data('courseid')
-      // 取得 li 的 input 之 data-pk 值
-      let pk = $(".courses-tbody")
-        .children()
-        .find("button.btn-remove-lesson")
-        .data("id");
-      // 取得 li 的 input value
-      let lessonNumber = $(".courses-tbody")
-        .children()
-        .find("button.btn-remove-lesson")
-        .data("lessonnumber");
+  // $('button.btn-remove-lesson').on('click', function (event) {
+  //   // event.preventDefault();
+  //   if (confirm('確定要刪除該章節(連內容都一併刪除)?')) {
+  //     let courseId = $('.courses-tbody').data('courseid')
+  //     // 取得 li 的 input 之 data-pk 值
+  //     let pk = $("button.btn-remove-lesson").data("id");
 
-      let trLength;
-      $(this)
-        .parents("li.draggable-item")
-        .remove();
+  //     // 取得 li 的 input value
+  //     let lessonNumber = $("button.btn-remove-lesson").data("lessonNumber");
 
-      // 取得 courses-tbody 的子代長度
-      trLength = $(".courses-tbody").children().length;
-      ("/courses/create/:courseId/step2/editLessonNumber");
-      modifyRowNumber(trLength);
+  //     // let trLength;
+  //     // $(this)
+  //     //   .parents("li.draggable-item")
+  //     //   .remove();
 
-      // axios request
-      axios
-        .post(`/courses/create/${courseId}/step2/${pk}?_method=DELETE`, {
-          lessonId: pk,
-          lessonNumber: lessonNumber
-        })
-        .then(res => {
-          console.log(res.data);
-        })
-        .catch(err => {
-          console.log(err);
-        });
-    }
-  });
+  //     // // 取得 courses-tbody 的子代長度
+  //     // trLength = $(".courses-tbody").children().length;
+  //     // ("/courses/create/:courseId/step2/editLessonNumber");
+
+
+  //     // axios request
+  //     axios
+  //       .post(`/courses/create/${courseId}/step2/${pk}?_method=DELETE`, {
+  //         lessonId: pk,
+  //         lessonNumber: lessonNumber
+  //       })
+  //       .then(res => {
+  //         console.log(res.data);
+  //       })
+  //       .catch(err => {
+  //         console.log(err);
+  //       });
+  //   }
+  // })
+  // $(".courses-tbody").on('click', 'button.btn-remove-lesson', function (event) {
+  //   console.log(event)
+  //   console.log(event.target)
+  //   event.preventDefault();
+  //   if (confirm('確定要刪除該章節(連內容都一併刪除)?')) {
+  //     let courseId = $('.courses-tbody').data('courseid')
+  //     // 取得 li 的 input 之 data-pk 值
+  //     let pk = $(".courses-tbody")
+  //       .children()
+  //       .find("button.btn-remove-lesson")
+  //       .data("id");
+  //     // 取得 li 的 input value
+  //     let lessonNumber = $(".courses-tbody")
+  //       .children()
+  //       .find("button.btn-remove-lesson")
+  //       .data("lessonnumber");
+
+  //     let trLength;
+  //     $(this)
+  //       .parents("li.draggable-item")
+  //       .remove();
+
+  //     // 取得 courses-tbody 的子代長度
+  //     trLength = $(".courses-tbody").children().length;
+  //     ("/courses/create/:courseId/step2/editLessonNumber");
+
+
+  //     // axios request
+  //     axios
+  //       .post(`/courses/create/${courseId}/step2/${pk}?_method=DELETE`, {
+  //         lessonId: pk,
+  //         lessonNumber: lessonNumber
+  //       })
+  //       .then(res => {
+  //         console.log(res.data);
+  //       })
+  //       .catch(err => {
+  //         console.log(err);
+  //       });
+  //   }
+  // });
 });
