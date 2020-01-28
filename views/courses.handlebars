@@ -158,8 +158,8 @@
                 <div class="course-content">
                   <h4 class="course-name">{{this.name}}</h4>
                   <div class="info">
-                    <div class="d-flex flex-column bd-highlight mb-3">
-                      <div class="ratings mb-3">
+                    <div class="d-flex flex-column">
+                      <div class="ratings mb-1">
                         <div class="empty_star">★★★★★ <span class="course-ratingCount">
                             {{#if this.ratingCount}}
                             ({{this.ratingCount}})
@@ -184,6 +184,11 @@
                         {{/ifCond}}
                       </div>
                     </div>
+                  </div>
+                  <div>
+                    <p class="mb-3" style="font-size: 15px; font-weight: bold;"><i class="far fa-clock"></i>
+                      課程時數：{{minute_to_hour this.totalTime}}
+                    </p>
                   </div>
 
                   <div class="couse-btns">
