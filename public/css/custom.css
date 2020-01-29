@@ -195,15 +195,27 @@
   width: 100%;
 }
 
-.couse-btns .couse-btn a {
+.couse-btns .couse-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center; 
+}
+
+.couse-btns .couse-btn .cart-btn{
+  flex:1;
+  overflow:hidden;
+}
+
+.couse-btns .couse-btn form button{
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-.couse-btns .couse-btn form {
-  display: flex;
-  justify-content: center;
+.couse-btns .couse-btn a {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .couse-btns .couse-btn button,
@@ -232,7 +244,7 @@
   color: #fff;
 }
 
-.couse-btns .couse-btn.buy {
+.couse-btns .couse-btn.cart {
   margin-right: 3px;
 }
 
