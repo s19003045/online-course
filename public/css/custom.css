@@ -49,6 +49,10 @@
   width: 100%;
 }
 
+.table tbody tr td{
+  vertical-align: middle;
+}
+
 /* 提醒訊息 */
 #wrapper {
   position: relative;
