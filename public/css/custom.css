@@ -493,7 +493,7 @@
 /* ======footer====== */
 .footer-bs {
   background-color: #ffde6a;
-  padding: 20px 40px;
+  padding: 20px 40px 80px;
   color: rgba(255, 255, 255, 1);
   margin-bottom: 0px;
   border-bottom-right-radius: 6px;
@@ -543,7 +543,7 @@
   text-decoration: none;
 }
 
-.footer-bs .footer-nav h4 {
+.footer-bs h4 {
   font-size: 11px;
   text-transform: uppercase;
   letter-spacing: 3px;
@@ -564,7 +564,7 @@
 }
 
 .footer-bs .footer-nav ul.list a:hover {
-  color: rgba(121, 118, 118, 0.6);
+  color: #08585f;
   text-decoration: none;
 }
 
@@ -588,7 +588,7 @@
 }
 
 .footer-bs .footer-social a:hover {
-  color: rgba(121, 118, 118, 0.6);
+  color: #08585f;
   text-decoration: none;
 }
 
