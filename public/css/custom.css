@@ -32,6 +32,18 @@
   height: 30%;
   color:#777777;
 }
+/* select option button */
+.btnOption {
+  margin: 2px;
+  padding: 10px;
+  background-color: #ffde6a;
+}
+
+.btnOptionPresent {
+  margin: 2px;
+  padding: 10px;
+  background-color: #ff5b43;
+}
 
 /* 變更 bootstrap樣式 */
 .btn-primary {
