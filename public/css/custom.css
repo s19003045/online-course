@@ -10,6 +10,7 @@
 .search-bar {
   width: 20%;
 }
+
 .search_input {
   color: black;
   border: 0;
@@ -506,7 +507,7 @@
 }
 
 /* style for lesson content */
-#lesson-content > ul {
+#lesson-content>ul {
   margin-left: 1.5%;
   list-style-type: disc;
 }
@@ -625,7 +626,12 @@
   color: rgba(32, 31, 31, 0.8);
 }
 
+#order-list .shadow {
+  box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15) !important;
+}
+
 @media (min-width: 768px) {
+
   .footer-bs .footer-nav,
   .footer-bs .footer-social,
   .footer-bs .footer-ns {

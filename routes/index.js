@@ -250,8 +250,7 @@ module.exports = (app, passport) => {
     authenticated,
     userController.addFavoriteCourse
   );
-  // 使用可以購買課程
-  app.post("/order/:courses_id", authenticated, orderController.orderCourse);
+
   // 使用者可以加課程加入購物車
   app.get("/cart", cartController.getCart);
   // 使用者可以加課程加入購物車
@@ -260,8 +259,18 @@ module.exports = (app, passport) => {
   // 購物車結帳
   app.get("/cart/checkout", authenticated, cartController.checkoutCart);
 
+  // ======訂單相關=====
+  // 取得訂單頁面
   app.get("/orders", authenticated, orderController.getOrders);
+  // 將購物車的商品成立訂單
   app.post("/order", authenticated, orderController.postOrder);
+  // 將訂單中的商品移至下次採買清單(放進購物車)
+  app.post("/order/itemNextBuy", authenticated, orderController.removeToNextBuy);
+  // 將訂單中的商品移除
+  app.post("/order/cancelOrderItem", authenticated, orderController.cancelOrderItem);
+  // 使用可以直接獲得課程(抽獎抽中)
+  app.post("/order/:courses_id", authenticated, orderController.orderCourse);
+  // 取消該筆訂單
   app.post("/order/:id/cancel", authenticated, orderController.cancelOrder);
 
   // 付款相關
