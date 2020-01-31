@@ -137,7 +137,7 @@ button,
 input,
 select,
 textarea {
-  font-family: "Source Sans Pro", Helvetica, sans-serif;
+  font-family: "Microsoft JhengHei","Source Sans Pro", Helvetica, sans-serif;
 }
 
 body {
@@ -6148,8 +6148,8 @@ h3.widget-title-modal {
 }
 
 .product__info__detailed .review-fieldset .review-field-ratings .review-field-rating span {
-  font-size: 12px;
-  font-weight: 700;
+  font-size: 14px;
+  font-weight: 500;
   line-height: 28px;
   padding-right: 10px;
 }

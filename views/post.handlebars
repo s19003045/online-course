@@ -16,7 +16,7 @@
 
         <div class="blog-details content">
           <div class="comment_respond">
-            <h3 class="reply_title">Add New Question</h3>
+            <h3 class="reply_title">新增提問</h3>
 
             <div class="post-question">
               <form class="comment__form" action="/courses/{{courseId}}/post" method="POST" style="display: contents;">
@@ -30,7 +30,7 @@
                 </div>
 
                 <div class="submite__btn">
-                  <button type="submit">Post</button>
+                  <button type="submit">送出</button>
                 </div>
 
               </form>
@@ -86,7 +86,7 @@
                     <div class="reply-input">
                       <form action="/courses/{{../courseId}}/post/{{this.id}}/reply" method="POST">
                         <textarea name="message" placeholder="Your reply here"></textarea>
-                        <button type="submit">Reply</button>
+                        <button type="submit" style=" white-space:nowrap">回覆</button>
                       </form>
                     </div>
                     {{!-- 留言給該問題 End --}}
