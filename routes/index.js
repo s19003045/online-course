@@ -257,6 +257,8 @@ module.exports = (app, passport) => {
   // 使用者可以加課程加入購物車
   app.post("/cart", cartController.postCart);
   app.delete("/cartItem/:id", cartController.deleteCartItem);
+  // 購物車結帳
+  app.get("/cart/checkout", authenticated, cartController.checkoutCart);
 
   app.get("/orders", authenticated, orderController.getOrders);
   app.post("/order", authenticated, orderController.postOrder);

@@ -27,6 +27,51 @@
   height: 30%;
 }
 
+/* 首頁 shopping cart */
+#shopcart .p1[data-count]:after {
+  position: absolute;
+  right: 40%;
+  top: 15%;
+  content: attr(data-count);
+  font-size: 0.5em;
+  padding: 0.2em;
+  width: 1.5em;
+  border-radius: 50%;
+  line-height: 1em;
+  color: white;
+  background: rgba(255, 0, 0, 0.85);
+  text-align: center;
+  min-width: 1em;
+  font-weight: bold;
+}
+
+.search-bar i {
+  color: #555;
+}
+
+#wishlist i {
+  color: #555;
+}
+
+#shopcart i {
+  color: #555;
+}
+
+#shopcart-countzero i {
+  color: #555;
+}
+
+#wishlist {
+  cursor: pointer;
+}
+
+#wishlist .fa-stack,
+#shopcart .fa-stack,
+#shopcart-countzero .fa-stack,
+#setting__bar__icon .fa-stack {
+  width: 60px;
+}
+
 /* 變更 bootstrap樣式 */
 .btn-primary {
   background-color: #08585f;
