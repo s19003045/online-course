@@ -25,7 +25,21 @@
 }
 
 .search_icon {
+  color: #777;
   height: 30%;
+}
+
+.search-bar i {
+  text-decoration: none;
+  outline: 0;
+}
+
+/* .header__area .header__sidebar__right>li>a.setting__active {
+  color: #777;
+} */
+
+.setting__active {
+  color: #777;
 }
 
 /* 首頁 shopping cart */
@@ -46,32 +60,58 @@
   font-weight: bold;
 }
 
-.search-bar i {
-  color: #555;
+#shopcart-countzero .p1[data-count]:after {
+  position: absolute;
+  right: 40%;
+  top: 15%;
+  content: attr(data-count);
+  font-size: 0.5em;
+  padding: 0.2em;
+  width: 1.5em;
+  border-radius: 50%;
+  line-height: 1em;
+  color: white;
+  background: rgba(255, 0, 0, 0.85);
+  text-align: center;
+  min-width: 1em;
+  font-weight: bold;
+  min-height: 1em;
 }
 
-#wishlist i {
-  color: #555;
+.shopcart {
+  color: #777;
 }
 
-#shopcart i {
-  color: #555;
+.shopcart-countzero {
+  color: #777;
 }
 
-#shopcart-countzero i {
-  color: #555;
-}
-
-#wishlist {
+.wishlist {
+  color: #777;
   cursor: pointer;
 }
 
-#wishlist .fa-stack,
-#shopcart .fa-stack,
-#shopcart-countzero .fa-stack,
-#setting__bar__icon .fa-stack {
+.wishlist .fa-stack,
+.shopcart .fa-stack,
+.shopcart-countzero .fa-stack,
+.setting__bar__icon .fa-stack {
   width: 60px;
 }
+
+.shopcart,
+.wishlist,
+.setting__bar__icon {
+  position: relative;
+  transition: top 1s linear;
+}
+
+.shopcart:hover,
+.wishlist:hover,
+.setting__active:hover {
+  bottom: 0.5px;
+  left: 0.5px;
+}
+
 
 /* 變更 bootstrap樣式 */
 .btn-primary {

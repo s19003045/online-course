@@ -147,12 +147,12 @@ body {
 }
 
 a {
-  color: #333;
+  color: #777;
   text-decoration: none;
 }
 
 a:visited {
-  color: #333;
+  color: #555;
 }
 
 a:focus {
@@ -2643,10 +2643,6 @@ Header Styles
   display: block;
 }
 
-.header__area .header__sidebar__right>li>a i {
-  color: #555;
-  font-size: 20px;
-}
 
 /* .header__area .header__sidebar__right>li.shop_search {
   padding-left: 15px;
@@ -2693,14 +2689,7 @@ Header Styles
   position: relative;
 }
 
-.header__area .header__sidebar__right>li.setting__bar__icon>a {
-  background: transparent url("images/icons/icon_setting.png") no-repeat scroll left center;
-  cursor: pointer;
-  font-size: 0;
-  height: 35px;
-  position: relative;
-  width: 30px;
-}
+
 
 .header__area .header__sidebar__right>li.click__menu {
   padding-right: 26px;
@@ -2767,9 +2756,7 @@ Header Styles
   background: rgba(0, 0, 0, 0) url("images/icons/cart.png") no-repeat scroll 0 center;
 }
 
-.is-sticky.header__area .header__sidebar__right>li.setting__bar__icon>a {
-  background: transparent url("images/icons/icon_setting_white.png") no-repeat scroll left center;
-}
+
 
 .mainmenu__nav .meninmenu li:first-child a {
   padding-left: 0;
@@ -2787,9 +2774,7 @@ Header Styles
   background: rgba(0, 0, 0, 0) url("images/icons/button-wishlist.png") no-repeat scroll 0 center;
 }
 
-.oth-page.header__area .header__sidebar__right>li.setting__bar__icon>a {
-  background: transparent url("images/icons/icon_setting.png") no-repeat scroll left center;
-}
+
 
 .oth-page.header__area .header__sidebar__right>li.shopcart>a {
   background: rgba(0, 0, 0, 0) url("images/icons/cart.png") no-repeat scroll 0 center;
@@ -5936,7 +5921,7 @@ h3.widget-title-modal {
 .product__info__main .box-tocart .addtocart__actions .tocart:hover {
   background-color: #FF5B43;
   border-color: #FF5B43;
-  color:#fff;
+  color: #fff;
 }
 
 .product__info__main .product-addto-links a {
