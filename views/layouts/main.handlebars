@@ -57,8 +57,6 @@
               <a href="/">
                 <div class="logo-txt py-0 my-0 border-0">
                   <img src="/images/GamiCo-logo.png" class="my-0" alt="">
-                  {{!-- <h2 class="logo-txt-top">Online</h2>
-                  <h2 class="logo-txt-bottom">Course</h2> --}}
                 </div>
               </a>
             </div>
@@ -66,7 +64,7 @@
           <div class="col-lg-8 d-none d-lg-block">
             <nav class="mainmenu__nav d-flex justify-content-between">
               <ul class="meninmenu d-flex justify-content-start">
-                <li class="drop"><a href="#"><i class="fa fa-th"></i>Category</a>
+                <li class="drop"><a href="#"><i class="fa fa-th"></i>課程分類</a>
                   <div class="megamenu dropdown">
                     <ul class="item item01">
                       <li class="label2"><a href="/courses/程式">程式</a>
@@ -287,55 +285,43 @@
     <div class="container1">
       <footer class="footer-bs" style="color: #393a3a;">
         <div class="row">
-          <div class="col-md-3 footer-brand animated fadeInLeft">
-            <div class="logo">
+          <div class="col-md-3 col-12 footer-brand animated fadeInLeft align-items-center d-flex flex-column">
+            <div class="logo mb-2">
               <a href="/">
                 <div class="logo-txt py-0 my-0 border-0">
                   <img src="/images/GamiCo-logo.png" class="my-0" alt="">
                 </div>
               </a>
             </div>
-            <p></p>
-            <p>© 2020 GamiCo, All rights reserved</p>
+            <p>© 2020 GamiCo</p>
+            <p>All rights reserved</p>
           </div>
-          <div class="col-md-4 footer-nav animated fadeInUp">
-            <h4>Menu —</h4>
-            <div class="col-md-6">
-              {{!-- <ul class="pages">
-                <li><a href="/users/account">帳號資訊</a></span></li>
-                <li><span><a href="/users/boughtCourses">我買的課</a></li>
-                <li><span><a href="/instructor/dashboard">我開的課</a></span></li>
-                <li><span><a href="/users/favoriteCourses">我的願望清單</a></span></li>
-              </ul> --}}
-            </div>
-            <div class="col-md-6">
-              <ul class="list">
-                <li><a href="#">About Us</a></li>
-                <li><a href="mailto:s19003045@gmail.com">Contacts</a></li>
 
-              </ul>
-            </div>
-          </div>
-          <div class="col-md-2 footer-social animated fadeInDown">
-            <h4>Follow Us</h4>
-            <ul>
-              <li><a href="https://github.com/s19003045/online-course" target="_blank">Github</a></li>
-              {{!-- <li><a href="#">Twitter</a></li>
-              <li><a href="#">Instagram</a></li>
-              <li><a href="#">RSS</a></li> --}}
+          <div class="col-md-3 col-12 footer-nav animated fadeInUp">
+            <h4>關於 —</h4>
+            <ul class="list">
+              <li><a href="#">關於GamiCo</a></li>
+              <li><a href="#">網站地圖</a></li>
+              <li><a href="mailto:s19003045@gmail.com">聯絡我們</a></li>
             </ul>
           </div>
-          <div class="col-md-3 footer-ns animated fadeInRight">
-            <h4>Subscribe to Newsletter</h4>
-            <p></p>
+
+          <div class="col-md-3 col-12 footer-social animated fadeInDown">
+            <h4>追蹤動態 —</h4>
+            <ul>
+              <li><a href="https://github.com/s19003045/online-course" target="_blank">Github</a></li>
+              <li><a href="#">Blog</a></li>
+            </ul>
+          </div>
+          <div class="col-md-3 col-12 footer-ns animated fadeInRight">
+            <h4>訂閱電子報 —</h4>
             <p>
               <form action="/subscribe/newsletter" method="POST">
                 <div class="input-group">
                   <input type="text" class="form-control" placeholder="Email" name="email">
                   <span class="input-group-btn ">
                     <button class="btn btn-primary" type="submit"><span
-                        class="glyphicon glyphicon-envelope text-white">I
-                        want
+                        class="glyphicon glyphicon-envelope text-white">訂閱
                       </span></button>
                   </span>
                 </div><!-- /input-group -->

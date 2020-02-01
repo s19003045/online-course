@@ -2,7 +2,7 @@
   <div class="row mt-3 mb-5">
     <div class="col col-md-10 mx-auto py-3">
 
-      <h4 class="my-4 shopping-detail-msg"><i class="fa fa-shopping-cart fa-2x mr-3"></i> 購物車明細 {{message}}</h4>
+      <h4 class="my-4 shopping-detail-msg"><i class="fa fa-shopping-cart fa-2x mr-3"></i> 我的購物車 {{message}}</h4>
       {{#if isProductInCart}}
       <div>
         <table class="table table-bordered shopping-cart-items">
@@ -25,7 +25,7 @@
                 </div>
               </td>
               <td>
-                <p>$ {{this.price}}</p>
+                <p>NT$ {{this.price}}</p>
               </td>
               <td>
                 <form action="/cartItem/{{this.CartItem.id}}?_method=DELETE" method="POST" class="remove-item-from-Cart"
@@ -101,5 +101,4 @@
       {{/if}}
     </div>
   </div>
-</div>
 </div>
