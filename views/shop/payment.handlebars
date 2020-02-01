@@ -1,10 +1,19 @@
+<div id="wave">
+  <div class="my-3 py-2"></div>
+  <h3 class="mb-5">頁面跳轉中</h3>
+  <span class="dot"></span>
+  <span class="dot"></span>
+  <span class="dot"></span>
+  <h3 class="mt-4">準備為訂單編號： {{order.id}} 付款 </h3>
+  <h4>總價 {{order.amount}} 元</h4>
+</div>
 <div class="row my-5">
+
   <div class="col ml-5">
 
-    <div class="row">
+    <div class="row mx-auto">
       <div class="col col-8 mx-auto">
-        <h3>準備為訂單編號： {{order.id}} 付款 </h3>
-        <h4>總價 {{order.amount}} </h4>
+
         <form name='Spgateway' class="" action='{{tradeInfo.PayGateWay}}' method="POST">
 
           <div class="form-group">
@@ -29,9 +38,63 @@
           </div>
           <button type="submit" class="btn-two blue small">Payment</button>
         </form>
+
       </div>
     </div>
 
-
   </div>
 </div>
+
+<style>
+  div#wave {
+    position: relative;
+    margin-top: 3vh;
+    text-align: center;
+    width: 80%;
+    height: 300px;
+    margin-left: auto;
+    margin-right: auto;
+    border: 1px solid #333;
+    border-radius: 5px;
+    z-index: 100;
+    box-shadow: 4px 4px 3px rgba(20%, 20%, 40%, 0.5);
+  }
+
+  .dot {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    margin-right: 3px;
+    background: #303131;
+    animation: wave 1.3s linear infinite;
+  }
+
+  .dot:nth-child(2) {
+    animation-delay: -1.1s;
+  }
+
+  .dot:nth-child(3) {
+    animation-delay: -0.9s;
+  }
+
+
+  @keyframes wave {
+
+    0%,
+    60%,
+    100% {
+      transform: initial;
+    }
+
+    30% {
+      transform: translateY(-15px);
+    }
+  }
+</style>
+
+<script>
+  window.onload = function () {
+    $('form[name="Spgateway"]').submit()
+  }
+</script>
