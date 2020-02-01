@@ -2,10 +2,10 @@
   <div class="row mt-3 mb-5">
     <div class="col col-md-10 mx-auto py-3">
 
-      <h4 class="my-4">購物車明細 {{message}}</h4>
+      <h4 class="my-4 shopping-detail-msg"><i class="fa fa-shopping-cart fa-2x mr-3"></i> 購物車明細 {{message}}</h4>
       {{#if isProductInCart}}
       <div>
-        <table class="table table-bordered">
+        <table class="table table-bordered shopping-cart-items">
           <thead>
             <tr>
               <th scope="col">課程名稱</th>
@@ -28,8 +28,11 @@
                 <p>$ {{this.price}}</p>
               </td>
               <td>
-                <form action="/cartItem/{{this.CartItem.id}}?_method=DELETE" method="POST">
-                  <button type="submit" class="btn-two red small">
+                <form action="/cartItem/{{this.CartItem.id}}?_method=DELETE" method="POST" class="remove-item-from-Cart"
+                  data-cartitemid="{{this.CartItem.id}}" data-cartid="{{../cart.id}}">
+                  <button type="submit" class="btn-two yellow small">
+                    <input type="hidden" name="cartitemid" value="{{this.CartItem.id}}">
+                    <input type="hidden" name="cartid" value="{{../cart.id}}">
                     <i class="fas fa-trash"></i> 從購物車中移除
                   </button>
                 </form>
@@ -42,7 +45,7 @@
                 <h4>總價: </h4>
               </td>
               <td>
-                <h4>{{totalPrice}} 元</h4>
+                <h4 id="totalPrice">{{totalPrice}} 元</h4>
               </td>
               <td></td>
             </tr>

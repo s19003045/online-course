@@ -199,9 +199,9 @@
 
                   {{else}}
                   <div class="couse-btn buy">
-                    <form action="/cart" method="POST">
-                      <input type="hidden" name="courseId" value="{{this.id}}">
-                      <button type="submit"><i class="fas fa-shopping-cart"></i> Add to cart</button>
+                    <form action="/cart" method="POST" data-courseid="{{this.id}}" class="course-item">
+                      <input type="hidden" name="courseId" class="" value="{{this.id}}">
+                      <button type="submit"><i class="fas fa-shopping-cart"></i> 加入購物車</button>
                     </form>
                   </div>
                   <div class="couse-btn see-more">

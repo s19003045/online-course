@@ -40,6 +40,7 @@ const cartController = {
                   totalPrice,
                   isProductInCart,
                   itemCount,
+                  cartItemCount: itemCount,
                   message,
                   user: req.user
                 })
@@ -107,11 +108,10 @@ const cartController = {
       return Cart.findOrCreate({
         where: {
           UserId: req.user.id || 0
-        }
+        },
+        include: 'items'
       })
         .spread(function (cart, created) {
-          console.log('######cart:', cart)
-          console.log('#####created:', created)
 
           CartItem.findOrCreate({
             where: {
@@ -126,26 +126,35 @@ const cartController = {
             }
           })
             .spread(function (cartItem, created) {
-              console.log('cartItem:', cartItem)
               cartItem.update({
                 quantity: 1,
               })
                 .then(cartItem => {
-                  return res.redirect('back')
+                  Cart.findOne({
+                    where: { id: cart.id },
+                    include: 'items'
+                  })
+                    .then(cart => {
+                      const shopcart = {
+                        status: 'success',
+                        message: '已加入購物車',
+                        itemCount: cart.items.length,
+                        items: cart.items
+                      }
+                      return res.json(shopcart)
+                    })
+
                 })
             })
         })
     } else {
-      console.log(req.session)
       return Cart.findOrCreate({
         where: {
           id: req.session.cartId || 0
-        }
+        },
+        include: 'items'
       })
         .spread(function (cart, created) {
-          console.log('######cart:', cart)
-          console.log('#####created:', created)
-          console.log('session after postCart:', req.session)
           CartItem.findOrCreate({
             where: {
               status: 'inCart',
@@ -159,17 +168,27 @@ const cartController = {
             }
           })
             .spread(function (cartItem, created) {
-              console.log('cartItem:', cartItem)
               cartItem.update({
                 quantity: 1,
               })
                 .then(cartItem => {
-                  console.log(cartItem)
-                  req.session.cartId = cart.id
-                  return req.session.save(() => {
-                    console.log(req.session)
-                    return res.redirect('back')
+                  Cart.findOne({
+                    where: { id: cart.id },
+                    include: 'items'
                   })
+                    .then(cart => {
+                      req.session.cartId = cart.id
+                      return req.session.save(() => {
+                        const shopcart = {
+                          status: 'success',
+                          message: '已加入購物車',
+                          itemCount: cart.items ? cart.items.length : 0,
+                          items: cart.items
+                        }
+                        return res.json(shopcart)
+                      })
+                    })
+
                 })
             })
         })
@@ -181,7 +200,22 @@ const cartController = {
       .then(cartItem => {
         cartItem.destroy()
           .then((cartItem) => {
-            return res.redirect('back')
+            Cart.findOne({
+              where: {
+                id: req.body.cartid
+              },
+              include: 'items'
+            })
+              .then(cart => {
+                const shopcart = {
+                  status: 'success',
+                  message: '已將該商品從購物車中移除',
+                  itemCount: cart.items.length,
+                  items: cart.items
+                }
+                return res.json(shopcart)
+                return res.redirect('back')
+              })
           })
       })
   },
