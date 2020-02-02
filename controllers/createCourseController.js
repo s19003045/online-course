@@ -197,10 +197,8 @@ const createCourseController = {
     Lesson.findOne({
       where: { id: req.params.lessonId }
     }).then(lesson => {
-      console.log(lesson)
       lesson.destroy()
         .then((d) => {
-          console.log(d)
           return res.redirect('back');
         })
     });

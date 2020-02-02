@@ -1,23 +1,22 @@
-<div class="section-padding--lg">
-  <div class="container">
-    <div class="row">
-      <div class="col-12 my-5">
-        <h3 class="h3">我的購物車</h3>
-      </div>
+<div class="container-fluid">
+  <div class="row mt-3 mb-5">
+    <div class="col col-md-10 mx-auto py-3">
 
-      <div class="col-12">
-        <table class="table">
+      <h4 class="my-4 shopping-detail-msg"><i class="fa fa-shopping-cart fa-2x mr-3"></i> 我的購物車 {{message}}</h4>
+      {{#if isProductInCart}}
+      <div>
+        <table class="table table-bordered shopping-cart-items">
           <thead>
             <tr>
               <th scope="col">課程名稱</th>
-              <th scope="col">價格</th>
-              <th scope="col">數量</th>
-              <th scope="col">總計</th>
-              <th scope="col">#</th>
+              <th scope="col">價錢</th>
+              <th scope="col"></th>
             </tr>
           </thead>
           <tbody>
+
             {{#each cart.items}}
+            {{#ifCond this.CartItem.status 'inCart'}}
             <tr>
               <td>
                 <div style="display: flow-root;">
@@ -29,36 +28,24 @@
                 <p>NT$ {{this.price}}</p>
               </td>
               <td>
-                <div style="display: flex;">
-                  {{!-- <form action="/cartItem/{{this.CartItem.id}}/add" method="POST">
-                          <button type="submit" class="btn btn-sm btn-outline-secondary">+</button>
-                        </form> --}}
-                  <span style="margin: 0 20px;">
-                    {{this.CartItem.quantity}}
-                  </span>
-                  {{!-- <form action="/cartItem/{{this.CartItem.id}}/sub" method="POST">
-                          <button type="submit" class="btn btn-sm btn-outline-secondary">-</button>
-                        </form> --}}
-                </div>
-              </td>
-              <td>{{this.price}} * {{this.CartItem.quantity}}</td>
-              <td>
-                <form action="/cartItem/{{this.CartItem.id}}?_method=DELETE" method="POST">
-                  <button type="submit" class="btn-two red small">
-                    <i class="fas fa-trash"></i>
+                <form action="/cartItem/{{this.CartItem.id}}?_method=DELETE" method="POST" class="remove-item-from-Cart"
+                  data-cartitemid="{{this.CartItem.id}}" data-cartid="{{../cart.id}}">
+                  <button type="submit" class="btn-two yellow small">
+                    <input type="hidden" name="cartitemid" value="{{this.CartItem.id}}">
+                    <input type="hidden" name="cartid" value="{{../cart.id}}">
+                    <i class="fas fa-trash"></i> 從購物車中移除
                   </button>
                 </form>
               </td>
             </tr>
+            {{/ifCond}}
             {{/each}}
             <tr>
-              <td></td>
-              <td></td>
               <td style="text-align: right;">
-                <h4>Total: </h4>
+                <h4>總價: </h4>
               </td>
               <td>
-                <h4>{{totalPrice}}</h4>
+                <h4 id="totalPrice">{{totalPrice}} 元</h4>
               </td>
               <td></td>
             </tr>
@@ -66,27 +53,52 @@
         </table>
       </div>
 
-      <div class="col-12">
-        <form action="/order" method="POST">
-          {{!-- <div class="form-group">
-                      <label for="name">Name</label>
-                      <input type="hidden" class="form-control" id="name" placeholder="Enter name" name="name">
-                    </div>
-                    <div class="form-group">
-                      <label for="phone">Phone</label>
-                      <input type="hidden" class="form-control" id="phone" placeholder="Enter phone" name="phone">
-                    </div>
-                    <div class="form-group">
-                      <label for="address">Address</label>
-                      <input type="hidden" class="form-control" id="address" placeholder="Enter address" name="address">
-                    </div> --}}
-          <input type="hidden" name="cartId" value="{{cart.id}}">
-          <input type="hidden" name="amount" value="{{totalPrice}}">
-          <input type="hidden" name="shipping_status" value="0">
-          <input type="hidden" name="payment_status" value="0">
-          <button type="submit" class="btn-two cyan small">結帳</button>
-        </form>
+      <div class="row">
+        <div class="col-md-4">
+          {{#if user}}
+          {{#if isProductInCart}}
+          <form action="/order" method="POST">
+            <input type="hidden" name="cartId" value="{{cart.id}}">
+            <input type="hidden" name="amount" value="{{totalPrice}}">
+            <input type="hidden" name="shipping_status" value="0">
+            <input type="hidden" name="payment_status" value="0">
+            <button type="submit" class="btn-two cyan small">結帳</button>
+          </form>
+          {{else}}
+          <a href="/">
+            <button type="" class="btn-two cyan small">去選課！</button>
+          </a>
+          {{/if}}
+          {{else}}
+          <a href="/cart/checkout?cartid={{cart.id}}">
+            <button type="submit" class="btn-two cyan small">登入後確認購物車明細</button>
+          </a>
+          {{/if}}
+        </div>
       </div>
+      {{else}}
+      <div class="row mx-auto border rounded shadow">
+        <div class="col col-md-4 mx-auto">
+          <?xml version='1.0' encoding='utf-8'?>
+          <!DOCTYPE svg PUBLIC '-//W3C//DTD SVG 1.1//EN' 'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd'>
+          <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"
+            xmlns:xlink="http://www.w3.org/1999/xlink" enable-background="new 0 0 512 512">
+            <g>
+              <g>
+                <path
+                  d="m464.5,301.1l36.5-178h-359.7l-12.5-59.2-108.4-52.9-9.4,18.7 99,47.8 50,238.8h289c0,0 28.5,17.9 17.5,40.5-4.9,7-12.5,15.6-26.1,15.6h-287.6v20.6h287.7c19.8,0 36.5-10.4 45.9-27 18.4-34.4-21.9-64.9-21.9-64.9zm-286.7-5.7l-32.3-151.6h330.5l-31.3,151.6h-266.9z" />
+                <path
+                  d="m212.2,422.1c-21.9,0-39.6,17.6-39.6,39.4s17.7,39.4 39.6,39.4 39.6-17.6 39.6-39.4-17.7-39.4-39.6-39.4zm0,58.1c-10.4,0-18.8-8.3-18.8-18.7s8.3-18.7 18.8-18.7 18.8,8.3 18.8,18.7-8.4,18.7-18.8,18.7z" />
+                <path
+                  d="m424.9,422.1c-21.9,0-39.6,17.6-39.6,39.4s17.7,39.5 39.6,39.5 40.7-17.6 39.6-39.4c0-21.8-17.7-39.5-39.6-39.5zm18.8,39.5c0,10.4-8.3,18.7-18.8,18.7s-18.8-8.3-18.8-18.7 8.3-18.7 18.8-18.7 19.8,8.3 18.8,18.7z" />
+              </g>
+            </g>
+          </svg>
+
+
+        </div>
+      </div>
+      {{/if}}
     </div>
   </div>
 </div>

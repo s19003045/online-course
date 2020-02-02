@@ -117,7 +117,6 @@ const instructController = {
   },
   // dashboard 的課程審核討論區
   courseReviwDiscuss: async (req, res) => {
-    console.log('courseId:', req.query.courseId)
     // filter_status 用於 handlebars
     req.query.courseId = req.query.courseId == undefined ? 'all' : req.query.courseId
 

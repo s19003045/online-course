@@ -10,7 +10,7 @@ const Order = db.Order
 const OrderItem = db.OrderItem
 const Cart = db.Cart
 const User = db.User
-
+const CartItem = db.CartItem
 
 const transporter = nodemailer.createTransport({
   service: 'gmail',
@@ -166,14 +166,53 @@ const orderController = {
   },
   // 取得所有訂單
   getOrders: (req, res) => {
-    Order.findAll({ where: { UserId: req.user.id }, include: 'items' }).then(orders => {
-      return res.render('shop/orders', {
-        orders
-      })
+    const whereOption = {}
+    let sort = req.query.sort || 'all'
+
+    if (sort == 'all') {
+      whereOption.UserId = req.user.id
+    } else if (sort == 'notpayed') {
+      whereOption.UserId = req.user.id
+      whereOption.payment_status = 0
+    } else if (sort == 'payed') {
+      whereOption.UserId = req.user.id
+      whereOption.payment_status = 1
+    } else {
+      whereOption.UserId = req.user.id
+    }
+    Order.findAll({
+      where: whereOption,
+      order: [['createdAt', 'DESC']],
+      include: 'items'
     })
+      .then(ordersFilter => {
+        if (!ordersFilter) {
+          req.flash('error_messages', '目前無任何訂單')
+          return res.redirect('/')
+        } else {
+          const orders = ordersFilter.map((c) => ({
+            ...c.dataValues,
+            totalPrice: c.items.length > 0 ? c.items.map(d => d.OrderItem.price * d.OrderItem.quantity).reduce((a, b) => a + b) : 0,
+            isDisplay: c.items.length === 0 ? false : true
+          }))
+          // 篩選後所有訂單中的商品數
+          let orderListItems = 0
+          orders.forEach(d => {
+            orderListItems += d.items.length
+          })
+          // 是否要顯示 orderList
+          let orderListDisplay = orderListItems === 0 ? false : true
+          return res.render('shop/orders', {
+            orders,
+            sort,
+            orderListDisplay
+          })
+        }
+      })
   },
   // 送出訂單
   postOrder: (req, res) => {
+
     return Cart.findByPk(req.body.cartId, { include: 'items' }).then(cart => {
       return Order.create({
         // name: req.body.name,
@@ -184,11 +223,9 @@ const orderController = {
         amount: req.body.amount,
         UserId: req.user.id,
       }).then(order => {
-        // console.log('cart:', cart)
-        // console.log('order:', order)
         var results = [];
         for (var i = 0; i < cart.items.length; i++) {
-          // console.log(order.id, cart.items[i].id)
+
           results.push(
             OrderItem.create({
               OrderId: order.id,
@@ -214,9 +251,15 @@ const orderController = {
           }
         });
 
-        return Promise.all(results).then(() =>
-          res.redirect('/orders')
-        );
+        return Promise.all(results).then(() => {
+          // 刪除該購物車之所有 cartItem
+          return CartItem.destroy({
+            where: { CartId: cart.id }
+          })
+            .then(cartItems => {
+              return res.redirect('/orders?sort=notpayed')
+            })
+        });
 
       })
     })
@@ -233,12 +276,56 @@ const orderController = {
       })
     })
   },
-
+  // 將訂單中的商品移至下次採買清單
+  removeToNextBuy: (req, res) => {
+    return Cart.findOne({
+      where: { UserId: req.user.id }
+    })
+      .then(cart => {
+        CartItem.findOrCreate({
+          where: {
+            status: 'inCart',
+            CartId: cart.id,
+            CourseId: req.query.courseid
+          },
+          default: {
+            status: 'inCart',
+            CartId: cart.id,
+            CourseId: req.query.courseid
+          }
+        })
+          .spread(function (cartItem, spread) {
+            cartItem.update({
+              quantity: 1,
+            })
+              .then(cartItem => {
+                OrderItem.destroy({
+                  where: {
+                    OrderId: req.body.orderid,
+                    CourseId: req.query.courseid
+                  }
+                })
+                  .then(orderItem => {
+                    return res.redirect('back')
+                  })
+              })
+          })
+      })
+  },
+  // 將訂單中的商品清除
+  cancelOrderItem: (req, res) => {
+    return OrderItem.destroy({
+      where: {
+        OrderId: req.body.orderid,
+        CourseId: req.query.courseid
+      }
+    })
+      .then(ordetItem => {
+        return res.redirect('back')
+      })
+  },
+  // 取得付款頁面
   getPayment: (req, res) => {
-    console.log('===== getPayment =====')
-    console.log(req.params.id)
-    console.log('==========')
-
     return Order.findByPk(req.params.id, {
       include: [
         { model: Course, as: 'items', attributes: ['id', 'name'] },
@@ -250,9 +337,6 @@ const orderController = {
       order.items.forEach(d => {
         courseString += d.name
       })
-      console.log('======================')
-      console.log('courseString:', courseString)
-
       const tradeInfo = getTradeInfo(order.amount, courseString, order.User.email)
       order.update({
         ...req.body,
@@ -278,7 +362,17 @@ const orderController = {
     console.log(data)
 
     if (req.body.Status === 'SUCCESS') {
-      return Order.findAll({ where: { sn: data['Result']['MerchantOrderNo'] } }).then(orders => {
+      return Order.findAll({
+        where: {
+          sn: data['Result']['MerchantOrderNo']
+        },
+        include: 'items'
+      }).then(orders => {
+        // return res.json(orders)
+        let courses = []
+        // orders[0].items.forEach(item => {
+        //   item
+        // })
         orders[0].update({
           ...req.body,
           payment_status: 1,
@@ -291,8 +385,6 @@ const orderController = {
       req.flash('error_messages', `Error(${req.body.Status})，${req.body.Message}，未成功購買課程！`)
       return res.redirect('/orders')
     }
-
-
 
   }
 };

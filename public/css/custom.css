@@ -10,6 +10,7 @@
 .search-bar {
   width: 30%;
 }
+
 .search_input {
   color: black;
   border: 0;
@@ -29,9 +30,94 @@
 }
 
 .search_icon {
+  color: #777;
   height: 30%;
   color:#777777;
 }
+
+.search-bar i {
+  text-decoration: none;
+  outline: 0;
+}
+
+/* .header__area .header__sidebar__right>li>a.setting__active {
+  color: #777;
+} */
+
+.setting__active {
+  color: #777;
+}
+
+/* 首頁 shopping cart */
+#shopcart .p1[data-count]:after {
+  position: absolute;
+  right: 40%;
+  top: 15%;
+  content: attr(data-count);
+  font-size: 0.5em;
+  padding: 0.2em;
+  width: 1.5em;
+  border-radius: 50%;
+  line-height: 1em;
+  color: white;
+  background: rgba(255, 0, 0, 0.85);
+  text-align: center;
+  min-width: 1em;
+  font-weight: bold;
+}
+
+#shopcart-countzero .p1[data-count]:after {
+  position: absolute;
+  right: 40%;
+  top: 15%;
+  content: attr(data-count);
+  font-size: 0.5em;
+  padding: 0.2em;
+  width: 1.5em;
+  border-radius: 50%;
+  line-height: 1em;
+  color: white;
+  background: rgba(255, 0, 0, 0.85);
+  text-align: center;
+  min-width: 1em;
+  font-weight: bold;
+  min-height: 1em;
+}
+
+.shopcart {
+  color: #777;
+}
+
+.shopcart-countzero {
+  color: #777;
+}
+
+.wishlist {
+  color: #777;
+  cursor: pointer;
+}
+
+.wishlist .fa-stack,
+.shopcart .fa-stack,
+.shopcart-countzero .fa-stack,
+.setting__bar__icon .fa-stack {
+  width: 60px;
+}
+
+.shopcart,
+.wishlist,
+.setting__bar__icon {
+  position: relative;
+  transition: top 1s linear;
+}
+
+.shopcart:hover,
+.wishlist:hover,
+.setting__active:hover {
+  bottom: 0.5px;
+  left: 0.5px;
+}
+
 
 /* 變更 bootstrap樣式 */
 .btn-primary {
@@ -485,7 +571,7 @@
 }
 
 /* style for lesson content */
-#lesson-content > ul {
+#lesson-content>ul {
   margin-left: 1.5%;
   list-style-type: disc;
 }
@@ -604,7 +690,12 @@
   color: rgba(32, 31, 31, 0.8);
 }
 
+#order-list .shadow {
+  box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15) !important;
+}
+
 @media (min-width: 768px) {
+
   .footer-bs .footer-nav,
   .footer-bs .footer-social,
   .footer-bs .footer-ns {

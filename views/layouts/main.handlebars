@@ -37,12 +37,6 @@
   {{!-- jQuery CSS --}}
   {{!-- <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"> --}}
 
-  <!-- Include your favorite highlight.js stylesheet -->
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/styles/monokai-sublime.min.css"
-    rel="stylesheet">
-
-  {{!-- quill rich text editor --}}
-  <link href="https://cdn.quilljs.com/1.0.0/quill.snow.css" rel="stylesheet">
 </head>
 
 <body>
@@ -121,20 +115,42 @@
                 <a href="/instructor/dashboard" class="btn-two yellow rounded mini"><span class="text-black"><i
                       class="fas fa-chalkboard-teacher fa-1x mr-1"></i>我要開課</span></a>
               </div>
-              <div class="search-bar">
-                <form action="/courses/search" action="GET">
-                  <input class="search_input" type="text" name="keyword" placeholder="搜尋課程：CS50.." value="{{keyword}}">
-                  <a href="javascript:;" onclick="parentNode.submit();" class="search_icon"><i class="fas fa-search"
-                      style="font-size:16px;"></i></a>
+              <div class="search-bar mr-5" style="position:relative;left:-40px;">
+                <form class="form-inline" action="/courses/search" action="GET" style="flex-flow: row nowrap">
+                  <input class="form-control search_input mr-2" type="text" name="keyword" placeholder="搜尋課程：CS50.."
+                    value="{{keyword}}">
+                  <a href="javascript:;" onclick="parentNode.submit();" class="search_icon">
+                    <span class="fa-2x">
+                      <i class="fas fa-search fa-xs" style="position: relative;top:3px;"></i>
+                    </span>
+                  </a>
                 </form>
               </div>
             </nav>
           </div>
           <div class="col-md-8 col-sm-8 col-5 col-lg-2">
             <ul class="header__sidebar__right d-flex justify-content-end align-items-center">
-              <li class="wishlist"><a href="/users/favoriteCourses"></a></li>
-              <li class="shopcart"><a href="/cart"></a></li>
-              <li class="setting__bar__icon"><a class="setting__active" href="#"></a>
+              <div class="wishlist mr-1" id="wishlist">
+                <a href="/users/favoriteCourses" class="wishlist">
+                  <span class="p1 fa-stack fa-2x has-badge">
+                    <i class="fas fa-heart fa-xs"></i>
+                  </span>
+                </a>
+              </div>
+
+              <div id="shopcart" class="mr-1">
+                <a href="/cart" class="shopcart">
+                  <span class="p1 fa-2x fa-stack" data-count="{{cartItemCount}}">
+                    <i class="fa fa-shopping-cart fa-sm"></i>
+                  </span>
+                </a>
+              </div>
+
+              <li class="setting__bar__icon mr-0"><a class="setting__active" href="#">
+                  <span class="fa-2x fa-stack">
+                    <i class="fas fa-user fa-xs"></i>
+                  </span>
+                </a>
                 <div class="searchbar__content setting__block">
                   <div class="content-inner">
                     <div class="switcher-currency">
@@ -145,8 +161,9 @@
                             <span><a href="/users/boughtCourses">已購買課程</a></span>
                             <span><a href="/instructor/dashboard">開課管理</a></span>
                             <span><a href="/users/favoriteCourses">我的願望清單</a></span>
+                            <span><a href="/orders">訂單記錄</a></span>
                             {{#if user}}
-                            <span><a href="/logout">登出</a></span>
+                            <span><a href="/logout" id="logout">登出</a></span>
                             {{else}}
                             <span><a href="/signin">登入</a></span>
                             {{/if}}
@@ -222,6 +239,20 @@
       </div>
     </header>
     <!-- //Header -->
+
+    <!-- set up the modal to start hidden and fade in and out -->
+    <div id="myModal" class="modal fade">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <!-- dialog body -->
+          <div class="modal-body">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h5 class="shop-message text-center">Hello world</h5>
+          </div>
+          <!-- dialog buttons -->
+        </div>
+      </div>
+    </div>
 
     <div class="container alert-message">
       {{#if success_messages}}
@@ -308,13 +339,9 @@
 
   {{!-- include axios --}}
   <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.js"></script>
-  {{!-- include highlight.js for Quill code syntax --}}
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js"></script>
-  {{!-- rich text editor --}}
-  <!-- Include the Quill library -->
-  <script src="https://cdn.quilljs.com/1.0.0/quill.js"></script>
-  <script src="/js/richTextEditor.js"></script>
+
   <script src="/js/submit_checkbox.js"></script>
+  <script src="/js/courses.js"></script>
 </body>
 
 
