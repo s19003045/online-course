@@ -27,7 +27,8 @@ module.exports = (app, passport) => {
     if (helpers.ensureAuthenticated(req)) {
       return next();
     }
-    res.redirect('/signin');
+    req.flash('success_messages', '請先登入')
+    return res.redirect('/signin');
   };
   const authenticatedAdmin = (req, res, next) => {
     if (helpers.ensureAuthenticated(req)) {
@@ -279,7 +280,6 @@ module.exports = (app, passport) => {
   app.get("/order/:id/payment", authenticated, orderController.getPayment);
   app.post(
     "/newebpay/callback",
-    authenticated,
     orderController.newebpayCallback
   );
 
