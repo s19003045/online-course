@@ -18,17 +18,17 @@ const helpers = require("../_helpers");
 module.exports = (app, passport) => {
   // 驗證使用者權限
   const authenticated = (req, res, next) => {
-    // 登入前請求的網址存進=> req.session 
-    req.session.returnTo = req.url
+    // 登入前請求的網址存進=> req.session
+    req.session.returnTo = req.url;
     // 使用 passport 驗證使用者成功後，再把 req.session.returnTo 存至 cb(null,user) 的user中，便於 userController.signIn 使用
-    console.log('======req.session.returnTo==index.js  authenticated==')
-    console.log(req.session.returnTo)
+    console.log("======req.session.returnTo==index.js  authenticated==");
+    console.log(req.session.returnTo);
 
     if (helpers.ensureAuthenticated(req)) {
       return next();
     }
-    req.flash('success_messages', '請先登入')
-    return res.redirect('/signin');
+    req.flash("success_messages", "請先登入");
+    return res.redirect("/signin");
   };
   const authenticatedAdmin = (req, res, next) => {
     if (helpers.ensureAuthenticated(req)) {
@@ -268,9 +268,17 @@ module.exports = (app, passport) => {
   // 將購物車的商品成立訂單
   app.post("/order", authenticated, orderController.postOrder);
   // 將訂單中的商品移至下次採買清單(放進購物車)
-  app.post("/order/itemNextBuy", authenticated, orderController.removeToNextBuy);
+  app.post(
+    "/order/itemNextBuy",
+    authenticated,
+    orderController.removeToNextBuy
+  );
   // 將訂單中的商品移除
-  app.post("/order/cancelOrderItem", authenticated, orderController.cancelOrderItem);
+  app.post(
+    "/order/cancelOrderItem",
+    authenticated,
+    orderController.cancelOrderItem
+  );
   // 使用可以直接獲得課程(抽獎抽中)
   app.post("/order/:courses_id", authenticated, orderController.orderCourse);
   // 取消該筆訂單
@@ -279,7 +287,8 @@ module.exports = (app, passport) => {
   // 付款相關
   app.get("/order/:id/payment", authenticated, orderController.getPayment);
   app.post(
-    "/newebpay/callback", authenticated,
+    "/courses/newebpay/callback",
+    authenticated,
     orderController.newebpayCallback
   );
 
