@@ -22,11 +22,11 @@ li.draggable-item {
   -moz-transition: box-shadow .25s ease-in-out;
   -o-transition: box-shadow .25s ease-in-out;
   transition: box-shadow .25s ease-in-out;
+}
 
-  &:hover {
-    cursor: pointer;
-    background-color: #eaeaea;
-  }
+li.draggable-item:hover {
+  cursor: pointer;
+  background-color: #eaeaea;
 }
 
 /* styles during drag */

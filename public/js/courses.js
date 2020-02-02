@@ -68,9 +68,9 @@ $(document).ready(function() {
           // 放回 localstrorage
           localStorage.setItem("shopcart", JSON.stringify(data));
 
-          let message = res.data.message;
+          let message = `${res.data.message}，選購完成後可點選頁面上方<br>  <i class="fa fa-shopping-cart fa-2x mx-1"></i>  購物車圖示進行結帳`;
           // 跳出訊息視窗
-          $(".shop-message").text(message);
+          $(".shop-message").html(message);
 
           // 訊息視窗
           $("#myModal a.btn").on("click", function(e) {

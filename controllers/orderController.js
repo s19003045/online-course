@@ -368,17 +368,65 @@ const orderController = {
         },
         include: 'items'
       }).then(orders => {
-        // return res.json(orders)
-        let courses = []
-        // orders[0].items.forEach(item => {
-        //   item
-        // })
+        // 取得所有購買課程的 id
+        let coursesId = []
+        orders[0].items.forEach(item => {
+          coursesId.push(item.id)
+        })
         orders[0].update({
           ...req.body,
           payment_status: 1,
         }).then(order => {
-          req.flash('success_messages', '信用卡交易授權成功，成功購入課程！')
-          return res.redirect('/orders')
+          // 將使用者加入至還購的所有課程中
+          const addUserEnroll = []
+          for (i = 0; i < coursesId.length; i++) {
+            addUserEnroll.push(UserEnrollment.create({
+              timeStart: new Date(),
+              CourseId: coursesId[i],
+              UserId: req.user.id
+            }))
+          }
+          Promise.all(addUserEnroll)
+            .then(values => {
+              // 查詢所有選購課程的所有單元
+              const findLessons = []
+              for (i = 0; i < coursesId.length; i++) {
+                findLessons.push(Lesson.findAll({
+                  where: {
+                    CourseId: coursesId[i]
+                  },
+                  attributes: ["id"]
+                }))
+              }
+              return Promise.all(findLessons)
+                .then(values => {
+                  // return res.json(values)
+                  // 取出所有選購課程的所有單元 id 並放入陣列中
+                  const addLessonsId = []
+                  for (i = 0; i < values.length; i++) {
+                    for (j = 0; j < values[i].length; j++) {
+                      addLessonsId.push(values[i][j])
+                    }
+                  }
+                  const addLessonUser = []
+                  for (i = 0; i < addLessonsId.length; i++) {
+                    addLessonUser.push(LessonUser.create({
+                      isfinished: false,
+                      LessonId: addLessonsId[i].id,
+                      UserId: req.user.id
+                    }))
+                  }
+                  return Promise.all(addLessonUser)
+                    .then(values => {
+                      req.flash('success_messages', '信用卡交易授權成功，成功購入課程！')
+                      return res.redirect('/orders')
+                    })
+
+                })
+
+
+
+            })
         })
       })
     } else {

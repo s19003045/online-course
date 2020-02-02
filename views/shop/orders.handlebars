@@ -40,6 +40,13 @@
                     <td><span class="ml-2">{{this.name}}</span></td>
                     <td>{{this.price}} 元</td>
                     <td>
+                      {{#ifCond ../this.payment_status '-1'}}
+                      {{!-- 已取消，不用顯示 --}}
+                      {{/ifCond}}
+                      {{#ifCond ../this.payment_status '1'}}
+                      {{!-- 已取消，不用顯示 --}}
+                      {{/ifCond}}
+                      {{#ifCond ../this.payment_status '0'}}
                       <form action="/order/itemNextBuy?courseid={{this.id}}" method="POST">
                         <input type="hidden" name="orderid" value="{{../this.id}}">
                         <button type="submit" class="btn-two mini green">下次再買</button>
@@ -48,6 +55,7 @@
                         <input type="hidden" name="orderid" value="{{../this.id}}">
                         <button type="submit" class="btn-two mini red">移除此商品</button>
                       </form>
+                      {{/ifCond}}
                     </td>
                   </tr>
 
@@ -55,14 +63,16 @@
                   {{#ifCond this.payment_status '-1'}}
 
                   {{/ifCond}}
-                  {{#ifCond this.payment_status 0}}
+                  {{#ifCond this.payment_status '0'}}
                   <tr>
                     <td style="text-align: right;">
-                      <h4>共 </h4>
                     </td>
                     <td>
-                      <h4>{{this.totalPrice}} 元</h4>
                     </td>
+                    <td>
+                      <h4>共 {{this.totalPrice}} 元</h4>
+                    </td>
+                    <td></td>
                   </tr>
                   {{/ifCond}}
 
