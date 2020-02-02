@@ -6,6 +6,7 @@ const Lesson = db.Lesson;
 const LessonUser = db.LessonUser;
 const CourseCategory = db.CourseCategory;
 const CourseSubCategory = db.CourseSubCategory;
+const Cart = db.Cart;
 const imgur = require("imgur-node-api");
 const IMGUR_CLIENT_ID = process.env.IMGUR_CLIENT_ID;
 const helpers = require("../_helpers");
@@ -110,22 +111,75 @@ const courseController = {
         ...c.dataValues,
         enrolled: userEnrolledId.includes(c.dataValues.id)
       }));
+
       if (!req.user) {
-        return res.render("courses", {
-          courses: data,
-          order: req.query.order,
-          route: "all",
-          reqUrl: req.url
-        });
+        return Cart.findOne({
+          where: {
+            id: req.session.cartId
+          },
+          include: [{
+            model: Course,
+            as: 'items',
+            attributes: ['id']
+          }]
+        })
+          .then(cart => {
+            // 購物車中商品數量
+            let cartItemCount
+            let cartCountDisplay
+            if (cart) {
+              cartItemCount = cart.items === undefined ? 0 : cart.items.length
+            } else {
+              cartItemCount = 0
+            }
+            // 購物車的商品數是否要顯示
+            cartCountDisplay = cartItemCount === 0 ? false : true
+
+            return res.render("courses", {
+              courses: data,
+              order: req.query.order,
+              route: "all",
+              reqUrl: req.url,
+              cartItemCount,
+              cartCountDisplay
+            });
+          })
       } else {
         User.findByPk(req.user.id).then(user => {
-          return res.render("courses", {
-            courses: data,
-            order: req.query.order,
-            route: "all",
-            reqUrl: req.url,
-            user
-          });
+          return Cart.findOne({
+            where: {
+              UserId: req.user.id
+            },
+            include: [{
+              model: Course,
+              as: 'items',
+              attributes: ['id']
+            }]
+          })
+            .then(cart => {
+              // 購物車中商品數量
+              let cartItemCount
+              let cartCountDisplay
+              if (cart) {
+                cartItemCount = cart.items === undefined ? 0 : cart.items.length
+              } else {
+                cartItemCount = 0
+              }
+              // 購物車的商品數是否要顯示
+              cartCountDisplay = cartItemCount === 0 ? false : true
+              console.log('---------')
+              console.log(cartItemCount)
+              console.log('---------')
+              console.log(cartCountDisplay)
+              return res.render("courses", {
+                courses: data,
+                order: req.query.order,
+                route: "all",
+                reqUrl: req.url,
+                cartItemCount,
+                cartCountDisplay
+              });
+            })
         });
       }
     });

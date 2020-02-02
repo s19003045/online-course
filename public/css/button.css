@@ -1,3 +1,8 @@
+/*********************************************************************************
+
+功能：特製化 button
+
+**********************************************************************************/
 .color .red {
   background: #fa5a5a;
 }
@@ -249,7 +254,7 @@ button[class*="btn"] {
 
 /* Button two - I have no creativity for names */
 .btn-two {
-  color: white;
+  color: #333;
   padding: 15px 25px;
   display: inline-block;
   border: 1px solid rgba(0, 0, 0, 0.21);

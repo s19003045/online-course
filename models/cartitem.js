@@ -6,6 +6,7 @@ module.exports = (sequelize, DataTypes) => {
       autoIncrement: true,
       primaryKey: true,
     },
+    status: DataTypes.ENUM('offCart', 'inCart', 'toOrder'),
     quantity: DataTypes.INTEGER,
     CartId: DataTypes.INTEGER,
     CourseId: DataTypes.INTEGER

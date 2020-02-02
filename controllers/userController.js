@@ -122,6 +122,10 @@ const userController = {
   logout: (req, res) => {
     req.flash("success_messages", "登出成功！");
     req.logout();
+    // 清除 session：包含 cartId
+    req.session.destroy()
+    var redir = { redirect: "/signin" };
+    return res.json(redir);
     res.redirect("/signin");
   },
 
@@ -279,8 +283,8 @@ const userController = {
               include: [{ model: Lesson, attribute: ["id"] }]
             }).then(course => {
               console.log(course.Lessons);
+              return res.redirect("back");
             });
-            res.redirect("back");
           });
         }
       });

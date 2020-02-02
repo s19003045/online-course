@@ -164,7 +164,7 @@
         //發送請求給後端，後端決定中獎情形
         axios.post(`/reward/${userId}/lottery`)
           .then(function (response) {
-            console.log(response.data)
+
             //將抽獎訊息輸出至至欄位
             $('#prizeMessage').text(response.data.message)
             //若有中獎，則輸出畫面有「立即上課」按鈕，若否，則沒有
