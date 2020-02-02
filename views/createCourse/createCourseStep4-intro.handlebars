@@ -462,11 +462,11 @@
                     <h1>{{course.name}}</h1>
 
                     <div class="product__overview">
-                      <p><i class="fas fa-star mr-2"></i>{{course.ratingAverage}}</p>
-                      <p><i class="far fa-comment-dots mr-2"></i>{{course.ratingCount}} ratings</p>
-                      <p><i class="fas fa-users mr-1"></i>{{course.studentCount}} students enrolled</p>
-                      <p><i class="far fa-clock mr-2"></i>{{course.totalTime}} mins</p>
-                      <p class="mr-2">Created by <strong>{{course.User.username}}</strong></p>
+                      <p><i class="fas fa-star mr-2"></i>評分 {{course.ratingAverage}}</p>
+                      <p><i class="far fa-comment-dots mr-2"></i>{{course.ratingCount}} 則評論</p>
+                      <p><i class="fas fa-users mr-1"></i>{{course.studentCount}} 位學生已註冊</p>
+                      <p><i class="far fa-clock mr-2"></i>課程時數 {{minute_to_hour course.totalTime}}</p>
+                      <p class="mr-2">授課老師 <strong>{{course.User.username}}</strong></p>
                     </div>
 
                     <h2 class="course-prize">NT$ {{course.price}}</h2>
@@ -474,15 +474,13 @@
                     <div class="box-tocart d-flex">
                       <div class="addtocart__actions">
                         {{!-- <form action="/favorite/{{course.id}}" method="POST"> --}}
-                        <button type="submit" class="tocart">ADD TO
-                          WISHLIST</button>
+                        <button type="submit" class="tocart">加入願望清單</button>
                         {{!-- </form> --}}
                       </div>
 
                       <div class="addtocart__actions">
                         {{!-- <form action="/order/{{course.id}}" method="POST"> --}}
-                        <button type="submit" class="tocart">BUY
-                          NOW</button>
+                        <button type="submit" class="tocart">立即購買</button>
                         {{!-- </form> --}}
                       </div>
                     </div>
@@ -520,8 +518,8 @@
 
             <div class="product__info__detailed">
               <div class="pro_details_nav nav justify-content-start" role="tablist">
-                <a class="nav-item nav-link active" data-toggle="tab" href="#nav-details" role="tab">Description</a>
-                <a class="nav-item nav-link" data-toggle="tab" href="#nav-review" role="tab">Reviews</a>
+                <a class="nav-item nav-link active" data-toggle="tab" href="#nav-details" role="tab">簡 介</a>
+                <a class="nav-item nav-link" data-toggle="tab" href="#nav-review" role="tab">評 論</a>
               </div>
               <div class="tab__container">
                 <!-- Start Single Tab Content -->
@@ -534,51 +532,40 @@
 
                 <!-- Start Single Tab Content -->
                 <div class="pro__tab_label tab-pane fade" id="nav-review" role="tabpanel">
-                  <div class="review__attribute">
-                    <h1>Student Reviews</h1>
-                    <h2></h2>
-                    <div class="review__ratings__type d-flex">
-                      <div class="review-ratings">
-                        <div class="rating-summary d-flex">
-                          <span>Quality</span>
-                          <ul class="rating d-flex">
-                            <li><i class="zmdi zmdi-star"></i></li>
-                            <li><i class="zmdi zmdi-star"></i></li>
-                            <li><i class="zmdi zmdi-star"></i></li>
+                  <div class="review-fieldset">
+                    <h2 style="margin-bottom: 30px;">你的評論：</h2>
+                    <div class="review-field-ratings">
+                      <div class="product-review-table">
+                        <div class="review-field-rating d-flex">
+                          <span>評分</span>
+                          <ul class="rating d-flex align-items-center">
                             <li class="off"><i class="zmdi zmdi-star"></i></li>
                             <li class="off"><i class="zmdi zmdi-star"></i></li>
-                          </ul>
-                        </div>
-
-                        <div class="rating-summary d-flex">
-                          <span>Price</span>
-                          <ul class="rating d-flex">
-                            <li><i class="zmdi zmdi-star"></i></li>
-                            <li><i class="zmdi zmdi-star"></i></li>
-                            <li><i class="zmdi zmdi-star"></i></li>
                             <li class="off"><i class="zmdi zmdi-star"></i></li>
-                            <li class="off"><i class="zmdi zmdi-star"></i></li>
-                          </ul>
-                        </div>
-                        <div class="rating-summary d-flex">
-                          <span>value</span>
-                          <ul class="rating d-flex">
-                            <li><i class="zmdi zmdi-star"></i></li>
-                            <li><i class="zmdi zmdi-star"></i></li>
-                            <li><i class="zmdi zmdi-star"></i></li>
                             <li class="off"><i class="zmdi zmdi-star"></i></li>
                             <li class="off"><i class="zmdi zmdi-star"></i></li>
                           </ul>
                         </div>
                       </div>
-                      <div class="review-content">
-                        <p>...</p>
-                        <p>Review by ...</p>
-                        <p>Posted on ../../..</p>
+                    </div>
+                    <div class="review_form_field">
+                      <div class="input__box">
+                        <span>暱稱</span>
+                        <input id="nickname_field" type="text" name="nickname">
+                      </div>
+                      <div class="input__box">
+                        <span>摘要</span>
+                        <input id="summery_field" type="text" name="summery">
+                      </div>
+                      <div class="input__box">
+                        <span>內容</span>
+                        <textarea name="review"></textarea>
+                      </div>
+                      <div class="review-form-actions">
+                        <button>送出評論</button>
                       </div>
                     </div>
                   </div>
-
                 </div>
                 <!-- End Single Tab Content -->
               </div>
