@@ -6,6 +6,8 @@ const DiscussReply = db.DiscussReply;
 
 const postController = {
   getCoursePost: (req, res) => {
+    // 取得 courseId
+    let courseId = req.params.courses_id
     // 登入使用者已購買的課程Id
     let userEnrolledId = [];
     if (req.user) {
@@ -15,8 +17,8 @@ const postController = {
     }
     // 使用者未購買該課程
     if (userEnrolledId.indexOf(parseInt(req.params.courses_id)) === -1) {
-      req.flash("error_messages", "您尚未購買此課程");
-      res.redirect("back");
+      req.flash("error_messages", "您尚未購買此課程，無法觀看");
+      return res.redirect(`/courses/${courseId}/introduction`);
     } else {
       Course.findByPk(req.params.courses_id).then(course => {
         if (course) {
@@ -40,12 +42,14 @@ const postController = {
           });
         } else {
           req.flash("error_messages", "該課程不存在！");
-          res.redirect("back");
+          return res.redirect("back");
         }
       });
     }
   },
   postDiscussPost: (req, res) => {
+    // 取得 courseId
+    let courseId = req.params.courses_id
     // 登入使用者已購買的課程Id
     let userEnrolledId = [];
     if (req.user) {
@@ -55,8 +59,8 @@ const postController = {
     }
     // 使用者未購買該課程
     if (userEnrolledId.indexOf(parseInt(req.params.course_id)) === -1) {
-      req.flash("error_messages", "您尚未購買此課程");
-      res.redirect("back");
+      req.flash("error_messages", "您尚未購買此課程，無法使用討論區功能");
+      return res.redirect(`/courses/${courseId}/introduction`);
     } else {
       // 使用者已購買該課程
       if (req.body.subject === "" || req.body.message === "") {
@@ -96,6 +100,8 @@ const postController = {
     }
   },
   postDiscussReply: (req, res) => {
+    // 取得 courseId
+    let courseId = req.params.courses_id
     // 登入使用者已購買的課程Id
     let userEnrolledId = [];
     if (req.user) {
@@ -105,8 +111,8 @@ const postController = {
     }
     // 使用者未購買該課程
     if (userEnrolledId.indexOf(parseInt(req.params.course_id)) === -1) {
-      req.flash("error_messages", "您尚未購買此課程");
-      res.redirect("back");
+      req.flash("error_messages", "您尚未購買此課程，無法使用討論區功能");
+      return res.redirect(`/courses/${courseId}/introduction`);
     } else {
       // 使用者已購買該課程
       if (req.body.message === "") {
