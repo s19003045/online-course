@@ -45,7 +45,7 @@ $(document).ready(function () {
     })
 
   // 點擊〈放入購物車〉的動作
-  $('.shop-grid').click(function (event) {
+  $(".shop-grid .shopping-cart").click(function (event) {
     event.preventDefault()
     let buyBtnParent = $(event.target).parents("form.course-item")
     let courseId = buyBtnParent.children("input").val()
