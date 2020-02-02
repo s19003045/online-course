@@ -283,8 +283,8 @@ const userController = {
               include: [{ model: Lesson, attribute: ["id"] }]
             }).then(course => {
               console.log(course.Lessons);
+              return res.redirect("back");
             });
-            res.redirect("back");
           });
         }
       });

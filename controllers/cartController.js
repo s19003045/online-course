@@ -224,7 +224,7 @@ const cartController = {
   },
   // 登入後才會進入 checkoutCart
   checkoutCart: (req, res) => {
-    console.log('臨時購物車 cart id:', req.query.cartid)
+
     // 查看使用者有無之前使用的購物車
     Cart.findOne({
       where: {

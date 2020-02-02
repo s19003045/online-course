@@ -314,10 +314,6 @@ const orderController = {
   },
   // 將訂單中的商品清除
   cancelOrderItem: (req, res) => {
-    console.log('=========orderid======')
-    console.log(req.body.orderid)
-    console.log('=========courseid======')
-    console.log(req.query.courseid)
     return OrderItem.destroy({
       where: {
         OrderId: req.body.orderid,
@@ -330,10 +326,6 @@ const orderController = {
   },
   // 取得付款頁面
   getPayment: (req, res) => {
-    console.log('===== getPayment =====')
-    console.log(req.params.id)
-    console.log('==========')
-
     return Order.findByPk(req.params.id, {
       include: [
         { model: Course, as: 'items', attributes: ['id', 'name'] },
@@ -345,9 +337,6 @@ const orderController = {
       order.items.forEach(d => {
         courseString += d.name
       })
-      console.log('======================')
-      console.log('courseString:', courseString)
-
       const tradeInfo = getTradeInfo(order.amount, courseString, order.User.email)
       order.update({
         ...req.body,

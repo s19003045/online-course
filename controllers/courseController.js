@@ -134,10 +134,7 @@ const courseController = {
             }
             // 購物車的商品數是否要顯示
             cartCountDisplay = cartItemCount === 0 ? false : true
-            console.log('---------')
-            console.log(cartItemCount)
-            console.log('---------')
-            console.log(cartCountDisplay)
+
             return res.render("courses", {
               courses: data,
               order: req.query.order,
