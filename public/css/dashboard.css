@@ -1,33 +1,45 @@
+/*********************************************************************************
+
+適用範圍：開課管理頁面
+
+**********************************************************************************/
 /* 共用 style */
 ul:last-child {
     margin-bottom: 0;
 }
+
 .clearfix::after {
     clear: both;
 }
+
 /* style for course review discussion in  instructor dashboard*/
 
 .activity--items {
     display: block;
 }
-.activity--items > li + li {
+
+.activity--items>li+li {
     margin-top: 30px;
     display: block;
 }
-.activity--items > li {
+
+.activity--items>li {
     float: none;
 }
-.nav > li {
+
+.nav>li {
     float: left;
 }
+
 .nav>li {
     position: relative;
     display: block;
 }
 
-.activity--items > li + li .activity--avatar {
+.activity--items>li+li .activity--avatar {
     margin-top: 24px;
 }
+
 .activity--avatar {
     float: left;
     position: relative;
@@ -38,6 +50,7 @@ ul:last-child {
     overflow: hidden;
     z-index: 0;
 }
+
 .activity--avatar:before {
     content: " ";
     position: absolute;
@@ -49,14 +62,27 @@ ul:last-child {
     opacity: 0.3;
     z-index: -1;
 }
+
 .nav li a {
     color: inherit;
 }
 
-a, .btn-link, a:link, .btn-link:link, a:visited, .btn-link:visited, a:hover, .btn-link:hover, a:focus, .btn-link:focus, a:active, .btn-link:active {
+a,
+.btn-link,
+a:link,
+.btn-link:link,
+a:visited,
+.btn-link:visited,
+a:hover,
+.btn-link:hover,
+a:focus,
+.btn-link:focus,
+a:active,
+.btn-link:active {
     text-decoration: none;
     outline: 0;
 }
+
 .activity--avatar img {
     margin: 5px;
     display: block;
@@ -64,31 +90,40 @@ a, .btn-link, a:link, .btn-link:link, a:visited, .btn-link:visited, a:hover, .bt
     height: 50px;
     border-radius: 50%;
 }
-img, .nav > li > a > img {
+
+img,
+.nav>li>a>img {
     max-width: 100%;
     height: auto;
 }
+
 img {
     vertical-align: middle;
 }
+
 img {
     border: 0;
 }
-.fs-18{
-  font-size: 18px;
-  line-height: 28px;
+
+.fs-18 {
+    font-size: 18px;
+    line-height: 28px;
 }
-.activity--items > li + li .activity--info {
+
+.activity--items>li+li .activity--info {
     padding-top: 24px;
     border-top: 1px solid #e5e5e5;
 }
+
 .activity--info {
     overflow: hidden;
 }
+
 .fs--14 {
     font-size: 14px;
     line-height: 24px;
 }
+
 p:last-child {
     margin-bottom: 0;
 }
@@ -96,6 +131,7 @@ p:last-child {
 .activity--meta {
     margin-top: 1px;
 }
+
 .fs--12 {
     font-size: 12px;
     line-height: 22px;
@@ -108,6 +144,7 @@ p:last-child {
 .activity--action {
     margin-top: 6px;
 }
+
 .fw--700 {
     font-weight: 700;
 }
@@ -117,14 +154,16 @@ p:last-child {
     line-height: 22px;
 }
 
-.acomment--items > li {
+.acomment--items>li {
     float: none;
 }
+
 .acomment--item {
     margin-top: 10px;
     padding-top: 10px;
     border-top: 1px solid #e5e5e5;
 }
+
 .acomment--avatar {
     float: left;
     position: relative;
@@ -136,6 +175,7 @@ p:last-child {
     padding: 2px;
     z-index: 0;
 }
+
 .acomment--avatar::before {
     content: " ";
     position: absolute;
@@ -158,15 +198,19 @@ p:last-child {
 .acomment--info {
     overflow: hidden;
 }
+
 .acomment--meta {
     margin-top: 3px;
 }
+
 .acomment--meta .fa {
     margin-left: 1px;
 }
+
 .mr--8 {
     margin-right: 8px;
 }
+
 .acomment--content {
     margin-top: 8px;
 }

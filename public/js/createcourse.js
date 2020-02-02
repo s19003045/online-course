@@ -1,3 +1,12 @@
+/*********************************************************************************
+
+適用範圍：開立課程頁面
+功能：
+1.rich text editor
+2.上傳圖片至 imgur
+3.可拖曳章節，變更章節編號
+
+**********************************************************************************/
 $(document).ready(function () {
   // ==========text rich editor============
 
@@ -326,80 +335,4 @@ $(document).ready(function () {
     }
   });
 
-  // 點擊 remove lesson 的 button 時，執行的的動作
-  // $('button.btn-remove-lesson').on('click', function (event) {
-  //   // event.preventDefault();
-  //   if (confirm('確定要刪除該章節(連內容都一併刪除)?')) {
-  //     let courseId = $('.courses-tbody').data('courseid')
-  //     // 取得 li 的 input 之 data-pk 值
-  //     let pk = $("button.btn-remove-lesson").data("id");
-
-  //     // 取得 li 的 input value
-  //     let lessonNumber = $("button.btn-remove-lesson").data("lessonNumber");
-
-  //     // let trLength;
-  //     // $(this)
-  //     //   .parents("li.draggable-item")
-  //     //   .remove();
-
-  //     // // 取得 courses-tbody 的子代長度
-  //     // trLength = $(".courses-tbody").children().length;
-  //     // ("/courses/create/:courseId/step2/editLessonNumber");
-
-
-  //     // axios request
-  //     axios
-  //       .post(`/courses/create/${courseId}/step2/${pk}?_method=DELETE`, {
-  //         lessonId: pk,
-  //         lessonNumber: lessonNumber
-  //       })
-  //       .then(res => {
-  //         console.log(res.data);
-  //       })
-  //       .catch(err => {
-  //         console.log(err);
-  //       });
-  //   }
-  // })
-  // $(".courses-tbody").on('click', 'button.btn-remove-lesson', function (event) {
-  //   console.log(event)
-  //   console.log(event.target)
-  //   event.preventDefault();
-  //   if (confirm('確定要刪除該章節(連內容都一併刪除)?')) {
-  //     let courseId = $('.courses-tbody').data('courseid')
-  //     // 取得 li 的 input 之 data-pk 值
-  //     let pk = $(".courses-tbody")
-  //       .children()
-  //       .find("button.btn-remove-lesson")
-  //       .data("id");
-  //     // 取得 li 的 input value
-  //     let lessonNumber = $(".courses-tbody")
-  //       .children()
-  //       .find("button.btn-remove-lesson")
-  //       .data("lessonnumber");
-
-  //     let trLength;
-  //     $(this)
-  //       .parents("li.draggable-item")
-  //       .remove();
-
-  //     // 取得 courses-tbody 的子代長度
-  //     trLength = $(".courses-tbody").children().length;
-  //     ("/courses/create/:courseId/step2/editLessonNumber");
-
-
-  //     // axios request
-  //     axios
-  //       .post(`/courses/create/${courseId}/step2/${pk}?_method=DELETE`, {
-  //         lessonId: pk,
-  //         lessonNumber: lessonNumber
-  //       })
-  //       .then(res => {
-  //         console.log(res.data);
-  //       })
-  //       .catch(err => {
-  //         console.log(err);
-  //       });
-  //   }
-  // });
 });

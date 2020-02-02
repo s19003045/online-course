@@ -1,3 +1,10 @@
+<!-- Include your favorite highlight.js stylesheet -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/styles/monokai-sublime.min.css"
+  rel="stylesheet">
+
+{{!-- quill rich text editor --}}
+<link href="https://cdn.quilljs.com/1.0.0/quill.snow.css" rel="stylesheet">
+
 <style>
   * {
     margin: 0;
@@ -513,6 +520,12 @@
 
 
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+{{!-- include highlight.js for Quill code syntax --}}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/highlight.min.js"></script>
+{{!-- rich text editor --}}
+<!-- Include the Quill library -->
+<script src="https://cdn.quilljs.com/1.0.0/quill.js"></script>
+<script src="/js/createcourse.js"></script>
 <script>
   //課程簡介輸入區-剩餘字數判斷
   const introSmall = $('#intro-small')
