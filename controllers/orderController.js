@@ -370,9 +370,9 @@ const orderController = {
       }).then(orders => {
         // return res.json(orders)
         let courses = []
-        orders[0].items.forEach(item => {
-          item
-        })
+        // orders[0].items.forEach(item => {
+        //   item
+        // })
         orders[0].update({
           ...req.body,
           payment_status: 1,
