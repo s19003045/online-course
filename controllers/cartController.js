@@ -347,8 +347,8 @@ const cartController = {
         .then(cart => {
           const shopcart = {
             status: 'success',
-            message: `購物車中有 ${cart.items.length} 項商品`,
-            itemCount: cart.items.length,
+            message: cart.items == null ? `購物車中沒有商品` : `購物車中有 ${cart.items.length} 項商品`,
+            itemCount: cart.items == null ? 0 : cart.items.length,
             items: cart.items
           }
           return res.json(shopcart)
