@@ -30,6 +30,8 @@ const courseController = {
   },
   // 看單一課程內容
   getCourseLesson: (req, res) => {
+    // 取得 courseId
+    let courseId = req.params.courses_id
     // 登入使用者已購買的課程Id
     let userEnrolledId = [];
     if (req.user) {
@@ -39,8 +41,8 @@ const courseController = {
     }
     // 使用者未購買該課程
     if (userEnrolledId.indexOf(parseInt(req.params.courses_id)) === -1) {
-      req.flash("error_messages", "您尚未購買此課程");
-      res.redirect("back");
+      req.flash("error_messages", "您尚未購買此課程，無法觀看課程內容");
+      return res.redirect(`/courses/${courseId}/introduction`);
     } else {
       // 使用者已購買該課程
       let lessonNumber = 1;
@@ -76,7 +78,7 @@ const courseController = {
           });
         } else {
           req.flash("error_messages", "該課程不存在！");
-          res.redirect("back");
+          return res.redirect('back');
         }
       });
     }
