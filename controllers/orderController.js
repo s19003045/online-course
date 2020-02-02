@@ -368,7 +368,7 @@ const orderController = {
         },
         include: 'items'
       }).then(orders => {
-        return res.json(orders)
+        // return res.json(orders)
         let courses = []
         orders[0].items.forEach(item => {
           item
