@@ -135,13 +135,16 @@ const cartController = {
                     include: 'items'
                   })
                     .then(cart => {
-                      const shopcart = {
-                        status: 'success',
-                        message: '已加入購物車',
-                        itemCount: cart.items.length,
-                        items: cart.items
-                      }
-                      return res.json(shopcart)
+                      req.session.cartId = cart.id
+                      return req.session.save(() => {
+                        const shopcart = {
+                          status: 'success',
+                          message: '已加入購物車',
+                          itemCount: cart.items.length,
+                          items: cart.items
+                        }
+                        return res.json(shopcart)
+                      })
                     })
 
                 })
@@ -303,6 +306,56 @@ const cartController = {
         }
       })
   },
+  // 查詢購物車數量
+  checkCartItems: (req, res) => {
+    // 先判斷是否為使用者
+    if (!req.user) {
+      let cartId = req.session.cartId ? req.session.cartId : undefined
+
+      if (cartId === undefined) {
+        const shopcart = {
+          status: 'success',
+          message: '購物車中沒有商品',
+          itemCount: 0
+        }
+        return res.json(shopcart)
+      } else (
+        Cart.findOne({
+          where: {
+            id: req.session.cartId
+          },
+          include: 'items'
+        })
+          .then(cart => {
+            const shopcart = {
+              status: 'success',
+              message: '已將該商品從購物車中移除',
+              itemCount: cart.items.length,
+              items: cart.items
+            }
+            return res.json(shopcart)
+          })
+      )
+    } else {
+      // 使用已登入
+      Cart.findOne({
+        where: {
+          UserId: req.user.id
+        },
+        include: 'items'
+      })
+        .then(cart => {
+          const shopcart = {
+            status: 'success',
+            message: `購物車中有 ${cart.items.length} 項商品`,
+            itemCount: cart.items.length,
+            items: cart.items
+          }
+          return res.json(shopcart)
+        })
+    }
+  }
+
 }
 
 module.exports = cartController

@@ -258,6 +258,8 @@ module.exports = (app, passport) => {
   app.delete("/cartItem/:id", cartController.deleteCartItem);
   // 購物車結帳
   app.get("/cart/checkout", authenticated, cartController.checkoutCart);
+  // 查詢購物車中商品數量
+  app.get("/cart/checkcartitems", cartController.checkCartItems);
 
   // ======訂單相關=====
   // 取得訂單頁面
