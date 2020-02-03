@@ -345,11 +345,22 @@ const cartController = {
         include: 'items'
       })
         .then(cart => {
+          console.log('cart:', cart)
+          let hasCartItems
+          if (cart == null) {
+            hasCartItems = false
+          } else if (cart) {
+            if (cart.items == null) {
+              hasCartItems = false
+            } else {
+              hasCartItems = true
+            }
+          }
           const shopcart = {
             status: 'success',
-            message: cart.items == null ? `購物車中沒有商品` : `購物車中有 ${cart.items.length} 項商品`,
-            itemCount: cart.items == null ? 0 : cart.items.length,
-            items: cart.items
+            message: hasCartItems ? `購物車中有 ${cart.items.length} 項商品` : `購物車中沒有商品`,
+            itemCount: hasCartItems ? cart.items.length : 0,
+            items: hasCartItems ? cart.items : []
           }
           return res.json(shopcart)
         })

@@ -287,8 +287,12 @@ module.exports = (app, passport) => {
   // 付款相關
   app.get("/order/:id/payment", authenticated, orderController.getPayment);
   app.post(
+<<<<<<< HEAD
     "/courses/newebpay/callback",
     authenticated,
+=======
+    "/courses/newebpay/callback", authenticated,
+>>>>>>> d6b97b40c72bb1d21184203f985400abd0fc2670
     orderController.newebpayCallback
   );
 
