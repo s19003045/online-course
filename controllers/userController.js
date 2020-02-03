@@ -58,16 +58,18 @@ const userController = {
     req.flash("success_messages", "成功登入！");
     let loginDate = new Date();
     let loginDay = momentDay(loginDate);
+
     // 記錄登入時間
     return Login.findOne({
-      day: loginDay,
-      UserId: req.user.id
+      where: {
+        day: loginDay,
+        UserId: req.user.id
+      }
     }).then(login => {
-
       // 當天若已登入，則不加點數
       if (login) {
         //先記錄登入時間
-        Login.create({
+        return Login.create({
           loginDate: loginDate,
           day: loginDay,
           UserId: req.user.id
@@ -80,7 +82,7 @@ const userController = {
         });
       } else {
         //當天未登入者，先記錄登入時間，再加點數
-        Login.create({
+        return Login.create({
           loginDate: loginDate,
           day: loginDay,
           UserId: req.user.id
@@ -93,7 +95,7 @@ const userController = {
                   point: loginRewardPoint,
                   UserId: req.user.id
                 }).then(reward => {
-                  req.flash("success_messages", "今天第一次登入，獲得 5 點");
+                  req.flash("success_messages", "今天第一次登入，獲得 2000 點");
                   if (returnUrl) {
                     return res.redirect(returnUrl)
                   } else {
@@ -104,7 +106,7 @@ const userController = {
                 return reward
                   .increment("point", { by: loginRewardPoint })
                   .then(reward => {
-                    req.flash("success_messages", "今天第一次登入，獲得 5 點");
+                    req.flash("success_messages", "今天第一次登入，獲得 2000 點");
                     if (returnUrl) {
                       return res.redirect(returnUrl)
                     } else {
@@ -132,7 +134,11 @@ const userController = {
   //使用者可以看個人帳號資訊
   getUser: (req, res) => {
     User.findByPk(req.user.id).then(user => {
-      return Reward.findOne({ where: { UserId: req.user.id } }).then(reward => {
+      return Reward.findOne({
+        where: {
+          UserId: req.user.id
+        }
+      }).then(reward => {
         return res.render("user", { user, reward });
       });
     });
