@@ -182,7 +182,7 @@ const lessons = [
     totalTime: 138, // 依照youtube影片長度(分鐘計算，有秒數的話則無條件進位)
     isPreview: false, // 固定
     visible: true, // 固定
-    CourseId: 1 + auto_increment * 3, // 對照courses.js裡面的課程順序(最小是1)
+    CourseId: 1 + auto_increment * 2, // 對照courses.js裡面的課程順序(最小是1)
     createdAt: new Date(), // 固定
     updatedAt: new Date() // 固定
   },

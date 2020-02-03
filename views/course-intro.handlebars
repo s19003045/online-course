@@ -45,11 +45,15 @@
                     <form action="/favorite/{{course.id}}" method="POST"><button type="submit"
                         class="tocart">加入願望清單</button></form>
                   </div>
-
+                  {{#if bought}}
+                  {{else}}
                   <div class="addtocart__actions">
-                    <form action="/order/{{course.id}}" method="POST"><button type="submit" class="tocart">立即購買</button>
+                    <form action="/cart" method="POST" data-courseid="{{course.id}}" class="course-item">
+                      <input type="hidden" name="courseId" class="" value="{{course.id}}">
+                      <button type="button" class="tocart">加入購物車</button>
                     </form>
                   </div>
+                  {{/if}}
                 </div>
 
                 <div class="product-share">
