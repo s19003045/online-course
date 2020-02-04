@@ -460,17 +460,20 @@ const createCourseController = {
         CourseCategoryId == null ||
         CourseSubCategoryId == null
       ) {
+        req.flash('error_messages', '部分欄位沒有填寫喔！')
         return res.redirect(`/courses/create/${req.params.courseId}/step1`);
       } else if (
         // 若簡介影片、未編輯 lesson，則導回 step2
         introVideo == null ||
         course.Lessons.length == 0
       ) {
+        req.flash('error_messages', '部分欄位沒有填寫喔！')
         return res.redirect(`/courses/create/${req.params.courseId}/step2`);
       } else if (
         // 若未設定售價，則導回 step3
         price == null
       ) {
+        req.flash('error_messages', '請補填定價！')
         return res.redirect(`/courses/create/${req.params.courseId}/step3`);
       } else {
         // 若所有 step 皆已完成，則送出申請
