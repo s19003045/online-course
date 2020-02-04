@@ -49,8 +49,6 @@ const userController = {
   },
 
   signIn: (req, res) => {
-    console.log('=======req.user.returnUrl in userController.signIn=======')
-    console.log(req.user.returnUrl)
     // 取出 req.user.returnUrl (登入前請求的網址)，存成變數
     let returnUrl = req.user.returnUrl
 
