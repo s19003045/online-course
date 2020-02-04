@@ -7,12 +7,15 @@
 
       {{#each favorites}}
       <!-- Start Single Product -->
-      <div class="product product__style--3 col-lg-3 col-md-4 col-sm-6 col-12 course-card-mt">
+      <div class="product product__style--3 col-lg-3 col-md-4 col-sm-6 col-12 course-card-mt favorite-list">
         <div class="product__thumb">
           <img src="{{this.Course.image}}" alt="course image" class="img-fluid">
           <div class="favorite-btn">
-            <form action="/favorite/{{this.Course.id}}" method="POST"><button type="submit" class="buy-now"><i
-                  class="fas fa-heart-broken"></i></button></form>
+            <form action="/favorite/{{this.Course.id}}" data-courseid="{{this.Course.id}}" method="POST"
+              class="index-course-item">
+              <input type="hidden" value="{{this.Course.id}}">
+              <button type="submit" class="add-favorite remove-favorite"><i class="fas fa-heart"></i></button>
+            </form>
           </div>
         </div>
         <div class="course-content">

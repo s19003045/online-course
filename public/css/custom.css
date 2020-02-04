@@ -32,7 +32,7 @@
 .search_icon {
   color: #777;
   height: 30%;
-  color:#777777;
+  color: #777777;
 }
 
 .search-bar i {
@@ -126,7 +126,7 @@
 }
 
 .btn-primary:hover,
-.btn-primary:not([disabled]):not(.disabled):active{
+.btn-primary:not([disabled]):not(.disabled):active {
   background-color: rgb(8, 69, 75);
   border-color: rgb(8, 69, 75);
 }
@@ -135,7 +135,7 @@
   width: 100%;
 }
 
-.table tbody tr td{
+.table tbody tr td {
   vertical-align: middle;
 }
 
@@ -232,12 +232,20 @@
   font-size: 25px;
 }
 
-.favorite-btn button {
+.favorite-btn button.add-favorite {
   border: none;
   color: #fff;
   background-color: transparent;
   transition: 0.7s;
 }
+
+.favorite-btn button.remove-favorite {
+  border: none;
+  color: red;
+  background-color: transparent;
+  transition: 0.7s;
+}
+
 
 .favorite-btn button:hover {
   color: #ff5b43;
@@ -295,15 +303,15 @@
 .couse-btns .couse-btn {
   display: flex;
   justify-content: center;
-  align-items: center; 
+  align-items: center;
 }
 
-.couse-btns .couse-btn .cart-btn{
-  flex:1;
-  overflow:hidden;
+.couse-btns .couse-btn .cart-btn {
+  flex: 1;
+  overflow: hidden;
 }
 
-.couse-btns .couse-btn form button{
+.couse-btns .couse-btn form button {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;

@@ -4,6 +4,8 @@ const bcrypt = require("bcrypt-nodejs");
 const db = require("../models");
 const User = db.User;
 const UserEnrollment = db.UserEnrollment;
+const Favorite = db.Favorite
+const Course = db.Course
 
 // setup passport strategy
 passport.use(
@@ -48,10 +50,17 @@ passport.serializeUser((user, cb) => {
 passport.deserializeUser((id, cb) => {
   User.findByPk(id, {
     attributes: ['id', 'role'],
-    include: [{
-      model: UserEnrollment,
-      attributes: ["CourseId"]
-    }]
+    include: [
+      {
+        model: UserEnrollment,
+        attributes: ["CourseId"]
+      },
+      {
+        model: Course,
+        as: 'FavoriteCourses',
+        attributes: ["id"]
+      }
+    ]
   }
   ).then(user => {
     return cb(null, user);

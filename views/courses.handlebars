@@ -149,10 +149,19 @@
                   <a href="/courses/{{this.id}}/introduction"><img src="{{this.image}}" alt="course image"
                       class="img-fluid"></a>
                   {{/if}}
+                  {{#if ../isLogin}}
                   <div class="favorite-btn">
-                    <form action="/favorite/{{this.id}}" method="POST"><button type="submit" class="buy-now"><i
-                          class="fas fa-heart"></i></button></form>
+                    <form action="/favorite/{{this.id}}" data-courseid="{{this.id}}" method="POST"
+                      class="index-course-item">
+                      <input type="hidden" value="{{this.id}}">
+                      {{#if isFavorited}}
+                      <button type="submit" class="add-favorite remove-favorite"><i class="fas fa-heart"></i></button>
+                      {{else}}
+                      <button type="submit" class="add-favorite"><i class="fas fa-heart"></i></button>
+                      {{/if}}
+                    </form>
                   </div>
+                  {{/if}}
                 </div>
 
                 <div class="course-content">

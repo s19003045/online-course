@@ -41,13 +41,23 @@
                 <h2 class="course-prize">NT$ {{course.price}}</h2>
 
                 <div class="box-tocart d-flex">
-                  <div class="addtocart__actions">
-                    <form action="/favorite/{{course.id}}" method="POST"><button type="submit"
-                        class="tocart">加入願望清單</button></form>
+                  {{#if isLogin}}
+
+                  <div class="addtocart__actions" data-type="addfavorite">
+                    <form action="/favorite/{{course.id}}" data-courseid="{{course.id}}" class="course-item"
+                      method="POST">
+                      <input type="hidden" name="courseId" class="" value="{{course.id}}">
+                      {{#if isFavorited}}
+                      <button type="submit" class="tocart">從願望清單中移除</button>
+                      {{else}}
+                      <button type="submit" class="tocart">加入願望清單</button>
+                      {{/if}}
+                    </form>
                   </div>
+                  {{/if}}
                   {{#if bought}}
                   {{else}}
-                  <div class="addtocart__actions">
+                  <div class="addtocart__actions" data-type="addtocart">
                     <form action="/cart" method="POST" data-courseid="{{course.id}}" class="course-item">
                       <input type="hidden" name="courseId" class="" value="{{course.id}}">
                       <button type="button" class="tocart">加入購物車</button>

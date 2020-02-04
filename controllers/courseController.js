@@ -7,6 +7,7 @@ const LessonUser = db.LessonUser;
 const CourseCategory = db.CourseCategory;
 const CourseSubCategory = db.CourseSubCategory;
 const Cart = db.Cart;
+const Favorite = db.Favorite;
 const imgur = require("imgur-node-api");
 const IMGUR_CLIENT_ID = process.env.IMGUR_CLIENT_ID;
 const helpers = require("../_helpers");
@@ -19,6 +20,8 @@ const courseController = {
   getCourseIntro: (req, res) => {
     // 取得 courseId
     let courseId = req.params.courses_id;
+    // 判斷使用者是否已登入
+    let isLogin = req.user ? true : false
     // 登入使用者已購買的課程Id
     let userEnrolledId = [];
     if (req.user) {
@@ -35,7 +38,22 @@ const courseController = {
       include: User
     }).then(course => {
       if (course) {
-        res.render("course-intro", { course, bought });
+        // 判別使用者是否已收藏該課程
+        return Favorite.findOne({
+          where: {
+            CourseId: course.id,
+            UserId: req.user ? req.user.id : ''
+          },
+          include: [Course]
+        }).then(favorite => {
+          let isFavorited = favorite ? true : false
+          return res.render("course-intro", {
+            course,
+            bought,
+            isLogin,
+            isFavorited
+          });
+        })
       } else {
         req.flash("error_messages", "該課程不存在！");
         res.redirect("back");
@@ -98,7 +116,9 @@ const courseController = {
     }
   },
   // (首頁)看所有課程
-  getCourses: (req, res) => {
+  getCourses: async (req, res) => {
+    // 判斷使用者是否已登入
+    let isLogin = req.user ? true : false
     // 登入使用者已購買的課程Id
     let userEnrolledId = [];
     if (req.user) {
@@ -106,6 +126,14 @@ const courseController = {
         userEnrolledId.push(enroll.CourseId);
       });
     }
+    // 登入使用者的最愛課程 Id
+    let favoriteCourseId = []
+    if (req.user) {
+      req.user.FavoriteCourses.forEach(favorite => {
+        favoriteCourseId.push(favorite.id)
+      })
+    }
+
     // 取得sort功能要依據哪個變數排序所有課程
     order = SortCourses(req.query.order);
     Course.findAll({
@@ -125,7 +153,8 @@ const courseController = {
       // 辨認課程是否被登入的使用者購買
       const data = courses.map(c => ({
         ...c.dataValues,
-        enrolled: userEnrolledId.includes(c.dataValues.id)
+        enrolled: userEnrolledId.includes(c.dataValues.id),
+        isFavorited: favoriteCourseId.includes(c.dataValues.id)
       }));
 
       if (!req.user) {
@@ -158,7 +187,8 @@ const courseController = {
             route: "all",
             reqUrl: req.url,
             cartItemCount,
-            cartCountDisplay
+            cartCountDisplay,
+            isLogin
           });
         });
       } else {
@@ -185,17 +215,15 @@ const courseController = {
             }
             // 購物車的商品數是否要顯示
             cartCountDisplay = cartItemCount === 0 ? false : true;
-            console.log("---------");
-            console.log(cartItemCount);
-            console.log("---------");
-            console.log(cartCountDisplay);
+
             return res.render("courses", {
               courses: data,
               order: req.query.order,
               route: "all",
               reqUrl: req.url,
               cartItemCount,
-              cartCountDisplay
+              cartCountDisplay,
+              isLogin
             });
           });
         });

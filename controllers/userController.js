@@ -179,11 +179,12 @@ const userController = {
           if (favorite) {
             let course_deleted = favorite.Course.name;
             favorite.destroy().then(user => {
-              req.flash(
-                "success_messages",
-                `成功從收藏清單移除${course_deleted}課程`
-              );
-              res.redirect("back");
+              const favorite = {
+                status: 'success',
+                message: `成功從願望清單移除 〈${course_deleted}〉 課程`,
+                isFavorited: false
+              }
+              return res.json(favorite)
             });
           } else {
             // 新增資料至favorite model
@@ -191,14 +192,22 @@ const userController = {
               CourseId: course.id,
               UserId: req.user.id
             }).then(user => {
-              req.flash("success_messages", `成功新增${course.name}至收藏清單`);
-              res.redirect("back");
+              const favorite = {
+                status: 'success',
+                message: `成功新增 〈${course.name}〉至願望清單`,
+                isFavorited: true
+              }
+              return res.json(favorite)
             });
           }
         });
       } else {
-        req.flash("error_messages", "該課程不存在！");
-        res.redirect("back");
+        const favorite = {
+          status: 'failure',
+          message: `該課程不存在！`,
+          isFavorited: null
+        }
+        return res.json(favorite)
       }
     });
   },
@@ -302,6 +311,14 @@ const userController = {
         userEnrolledId.push(enroll.CourseId);
       });
     }
+    // 登入使用者的最愛課程 Id
+    let favoriteCourseId = []
+    if (req.user) {
+      req.user.FavoriteCourses.forEach(favorite => {
+        favoriteCourseId.push(favorite.id)
+      })
+    }
+
     Favorite.findAll({
       where: { UserId: req.user.id },
       include: [Course]
@@ -309,7 +326,8 @@ const userController = {
       // 辨認課程是否被登入的使用者購買
       const data = favorites.map(c => ({
         ...c.dataValues,
-        enrolled: userEnrolledId.includes(c.dataValues.CourseId)
+        enrolled: userEnrolledId.includes(c.dataValues.CourseId),
+        isFavorited: favoriteCourseId.includes(c.dataValues.id)
       }));
       return res.render("favoriteCourses", { favorites: data });
     });
