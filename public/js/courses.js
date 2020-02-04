@@ -218,7 +218,6 @@ $(document).ready(function () {
           $(event.target).parents('.favorite-list').remove()
 
           let message = res.data.message;
-          console.log(message)
 
           // 跳出訊息視窗
           $(".shop-message").text(message);
