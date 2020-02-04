@@ -134,7 +134,6 @@
     // 啟動轉蛋
     $(".game_go").click(function (event) {
       //積分少於100，跳出訊息
-      console.log('剩餘積分：', userPoints)
       if (userPoints < 100) {
         for (i = 1; i <= 11; i++) {
           $(".qiu_" + i).removeClass("wieyi_" + i);

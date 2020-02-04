@@ -508,7 +508,7 @@
     reader.onload = function () {
       var output = document.getElementById('step1-img-output');
       var imgOut = $('#step1-img-outter')
-      console.log('reader:', reader)
+
       output.src = reader.result;
       imgOut.toggleClass('d-none')
     };
@@ -548,7 +548,6 @@
   let descripLetterLeft = 250 - descripInput.val().length
   descripSmall.text(descripLetterLeft)
   $('#description').keyup(function () {
-    console.log(descripInput.val().length)
     descripLetterLeft = 250 - descripInput.val().length
     descripSmall.text(descripLetterLeft)
   })
@@ -558,7 +557,6 @@
   let teachDesLetterLeft = 250 - teaDescripInput.val().length
   teaDescripSmall.text(teachDesLetterLeft)
   $('#teacherDescrip').keyup(function () {
-    console.log(teaDescripInput.val().length)
     teachDesLetterLeft = 250 - teaDescripInput.val().length
     teaDescripSmall.text(teachDesLetterLeft)
   })

@@ -345,7 +345,6 @@ const cartController = {
         include: 'items'
       })
         .then(cart => {
-          console.log('cart:', cart)
           let hasCartItems
           if (cart == null) {
             hasCartItems = false

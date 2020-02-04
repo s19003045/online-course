@@ -533,7 +533,6 @@
   let introLetterLeft = 250 - introInput.val().length
   introSmall.text(introLetterLeft)
   $('#intro').keyup(function () {
-    console.log(introInput.val().length)
     introLetterLeft = 250 - introInput.val().length
     introSmall.text(introLetterLeft)
   })

@@ -88,7 +88,6 @@ $(document).ready(function () {
           $images.each(function () {
             var imageSrc = $(this).attr("src");
             if (imageSrc && imageSrc[0] === "d") {
-              console.log("Starting image upload...");
               noUpdateInProgress = false;
               disableSubmit($form);
               uploadImageToImgurAndReplaceSrc($(this), enableSubmit);
@@ -114,7 +113,6 @@ $(document).ready(function () {
       xhr: function () {
         var xhr = $.ajaxSettings.xhr();
         xhr.upload.onprogress = function (e) {
-          console.log(e.loaded);
           if (e.lengthComputable) {
             $("#progressbar").attr({ value: e.loaded, max: e.total });
             // Upload finished
@@ -207,14 +205,13 @@ $(document).ready(function () {
         );
       }
 
-      console.log(axiosReq);
       // 發送多個 axios request
       axios
         .all(axiosReq)
         .then(
           axios.spread((...res) => {
             res.forEach(r => {
-              console.log(r.data);
+              // console.log(r.data);
             });
           })
         )
@@ -280,7 +277,7 @@ $(document).ready(function () {
       .then(
         axios.spread((...res) => {
           res.forEach(r => {
-            console.log(r.data);
+            // console.log(r.data);
           });
         })
       )
