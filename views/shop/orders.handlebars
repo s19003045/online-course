@@ -44,7 +44,9 @@
                       {{!-- 已取消，不用顯示 --}}
                       {{/ifCond}}
                       {{#ifCond ../this.payment_status '1'}}
-                      {{!-- 已取消，不用顯示 --}}
+                      <a href="/courses/{{this.id}}/lessons" target="_blank">
+                        <button type="button" class="btn-two small cyan">上課去</button>
+                      </a>
                       {{/ifCond}}
                       {{#ifCond ../this.payment_status '0'}}
                       <form action="/order/itemNextBuy?courseid={{this.id}}" method="POST">
@@ -53,7 +55,7 @@
                       </form>
                       <form action="/order/cancelOrderItem?courseid={{this.id}}" method="POST">
                         <input type="hidden" name="orderid" value="{{../this.id}}">
-                        <button type="submit" class="btn-two mini red">移除此商品</button>
+                        <button type="submit" class="btn-two mini yellow">移除此商品</button>
                       </form>
                       {{/ifCond}}
                     </td>
