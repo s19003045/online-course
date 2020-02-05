@@ -103,6 +103,18 @@
 .setting__bar__icon .fa-stack {
   width: 60px;
 }
+/* select option button */
+.btnOption {
+  margin: 2px;
+  padding: 10px;
+  background-color: #ffde6a;
+}
+
+.btnOptionPresent {
+  margin: 2px;
+  padding: 10px;
+  background-color: #ff5b43;
+}
 
 .shopcart,
 .wishlist,
