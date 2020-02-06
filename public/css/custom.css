@@ -139,6 +139,11 @@
   vertical-align: middle;
 }
 
+button:focus {
+    outline: none;
+    outline: 0px auto -webkit-focus-ring-color;
+}
+
 /* 提醒訊息 */
 #wrapper {
   position: relative;
